@@ -1,0 +1,12 @@
+references:
+  H.sapiens:
+    hg19_gonl_masked:
+      reference_fasta: "{{ reference_dir }}/genome.fa"
+      annotation_gtf: "{{ reference_dir }}/Homo_sapiens.GRCh37.71.cut.sorted.gtf"
+      annotation_bed: "{{ reference_dir }}/meta-exons_v71_cut_sorted_22-05-14.bed"
+      annotation_refflat: "{{ reference_dir }}/ucsc_gencode.nochr.refFlat"
+      star:
+        genomeDir: "{{ reference_dir }}/STARindex"
+species: H.sapiens
+reference_name: hg19_gonl_masked
+igvtools_jar: "$EBROOTIGVTOOLS/igvtools.jar"
