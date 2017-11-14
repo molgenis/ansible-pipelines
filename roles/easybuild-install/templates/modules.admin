@@ -1,0 +1,15 @@
+#
+# The Lmod admin file consists of "key: value" pairs terminated with a blank line:
+#
+#    moduleName/version:  message
+#    <blank line>
+#
+# Or
+#
+#    Full/PATH/to/Modulefile: message
+#    <blank line>
+#
+# The message can be as many lines as you like and must be terminated with a blank line.
+#
+
+

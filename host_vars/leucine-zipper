@@ -1,0 +1,22 @@
+#
+# Site specific values to override defaults for variables.
+#
+# Conventions for global environment variables:
+#  A. User UPPERCASE underscore separated names like for shell env vars.
+#
+# file: host_vars/leucine-zipper
+#
+HPC_ENV_PREFIX: "/apps/"
+ROOT: "/"
+GROUP: "umcg-gd"
+#
+# Conventions for playbook variables:
+#  A. To prevent variable name collisions: Always prefix variables names with 'pb' for playbook 
+#     to separate them from variables defined in roles, which are prefixed with the role name.
+#  B. User lowercase underscore separated names.
+#
+pb_ngs_dna_version: "3.4.3"
+pb_ngs_automated_version: '2.0.2'
+pb_ebconfigs_version: '2.8.11'
+pb_ebconfigs_checksum: 'md5:4a799c809bf4b3f9ccd352b69ba25385'
+pb_tmp_lfs: "tmp06"

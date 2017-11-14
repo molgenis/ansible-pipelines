@@ -1,0 +1,9 @@
+---
+  #
+  # Handler to install Lua and Lmod and EasyBuild.
+  # To be triggered when any of these is either not installed or 
+  # when a different version is detected as opposed to the one we want.
+  #
+- name: Install_Lua_Lmod_EasyBuild_trio
+  listen: Install_Lua_Lmod_EasyBuild_trio
+  import_tasks: install_lua_lmod_easybuild.yml
