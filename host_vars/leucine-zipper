@@ -18,5 +18,5 @@ GROUP: "umcg-gd"
 pb_ngs_dna_version: "3.4.3"
 pb_ngs_automated_version: '2.0.2'
 pb_ebconfigs_version: '2.8.11'
-pb_ebconfigs_checksum: 'md5:4a799c809bf4b3f9ccd352b69ba25385'
+pb_ebconfigs_checksum: 'md5:b31b7220833af233eb4b3eaa417f5432'
 pb_tmp_lfs: "tmp06"
