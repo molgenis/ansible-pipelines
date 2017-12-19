@@ -9,6 +9,7 @@
         msg: 'You must update Ansible to at least 2.2.x to use this playbook.'
   roles:
   - role: easybuild-install
+
   tasks:
   - name: Create main folder structure for software and reference data
     file: dest="{{item}}" state='directory' mode="{{ MODE_2775_HARD }}"
@@ -38,90 +39,44 @@
       - "{{ pb_base }}/logs"
       - "{{ pb_base }}/tmp"
 
-  - name: synchronize apps/data
-    synchronize:
-      mode: pull
-      recursive: yes
-      src: scp://f114592@ssh.webhosting.rug.nl:/home/www/f114592/site/apps/data/1000G/phase1/
-      dest: /apps/data/1000G/phase1/
+  - name: Synchronize apps/data.
+    synchronize: src="{{ item.src }}" dest="{{ item.dest }}" archive='yes' mode='pull'
     delegate_to: "{{ inventory_hostname }}"
-
-  - name: synchronize apps/data
-    synchronize:
-      mode: pull
-      recursive: yes
-      src: rsync://f114592@ssh.webhosting.rug.nl:/home/www/f114592/site/apps/data/XHMM/
-      dest: apps/data/XHMM
-    delegate_to: "{{ inventory_hostname }}"
-
-
-  - name: Download reference data and sources for software packages, which cannot be downloaded automagically by EB for technical reasons only.
+    with_items:
+     - src: "{{ pb_remote_env_cache_dir }}/data/dbSNP"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/1000G"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/Agilent"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/CADD"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/Controls_Convading_XHMM"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/Ensembl"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/ExAC"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/GAVIN"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/GeneNetwork"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/HPO"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/UMCG"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/XHMM"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/gonl"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/inSilico"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"
+     - src: "{{ pb_remote_env_cache_dir }}/data/snpEff-4.3"
+       dest:         "{{ HPC_ENV_PREFIX }}/data/"       
+       
+name: Download reference data and sources for software packages, which cannot be downloaded automagically by EB for technical reasons only.
     get_url: url="{{ item.url }}" dest="{{ item.dest }}" checksum="{{ item.checksum }}" mode="{{ MODE_0664_HARD }}"
     with_items:
-      - url: "{{ pb_remote_env_cache_dir }}/Agilent/Agilent.tar.gz"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/Agilent/"
-        checksum: 'md5:0a76a2dde10ad1899cccc4f32f6ee804'
- 
-      - url: "{{ pb_remote_env_cache_dir }}/data/dbSNP/dbsnp_137.b37.vcf.idx"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/dbSNP/"
-        checksum: 'md5:80a7ce491b9ca192bfdab55d6b759e2e'
-      - url: "{{ pb_remote_env_cache_dir }}/data/dbSNP/dbsnp_137.b37.vcf"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/dbSNP/"
-        checksum: 'md5:956b9e21634f1315ef41a010faf291b8'
-      - url: "{{ pb_remote_env_cache_dir }}/data/1000G/phase1/human_g1k_v37_phiX.fasta"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/1000G/phase1/"
-        checksum: 'md5:a74fde3942bb0816f30b2f6cfe2c0ec5'
-      - url: "{{ pb_remote_env_cache_dir }}/data/1000G/phase1/human_g1k_v37_phiX.dict"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/1000G/phase1/"
-        checksum: 'md5:bbfeb6a82dede252a0fc6dde9485d2d2'
-      - url: "{{ pb_remote_env_cache_dir }}/data/1000G/phase1/human_g1k_v37_phiX.fasta.amb"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/1000G/phase1/"
-        checksum: 'md5:7558698df27f62bc0ed971664e8089a4'
-      - url: "{{ pb_remote_env_cache_dir }}/data/1000G/phase1/human_g1k_v37_phiX.fasta.ann"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/1000G/phase1/"
-        checksum: 'md5:e858be5e40ee30ba8c0f584395188c0e'
-      - url: "{{ pb_remote_env_cache_dir }}/data/1000G/phase1/human_g1k_v37_phiX.fasta.bwt"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/1000G/phase1/"
-        checksum: 'md5:c0570831ca6fff13ee6157eeb1813b88'
-      - url: "{{ pb_remote_env_cache_dir }}/data/1000G/phase1/human_g1k_v37_phiX.fasta.fai"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/1000G/phase1/"
-        checksum: 'md5:2bc786e8a1f6b71ba75c3368c2e50b19'
-      - url: "{{ pb_remote_env_cache_dir }}/data/1000G/phase1/human_g1k_v37_phiX.fasta.pac"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/1000G/phase1/"
-        checksum: 'md5:b42d311e535804ca80aa87f72a52c083'
-      - url: "{{ pb_remote_env_cache_dir }}/data/1000G/phase1/human_g1k_v37_phiX.fasta.sa"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/1000G/phase1/"
-        checksum: 'md5:20e20f4d6f884f5bf81d8beafe2eb098'
-      - url: "{{ pb_remote_env_cache_dir }}/data/snpEff/hg19.tar.gz"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/snpEff-4.3/"
-        checksum: 'md5:75db3b74aac7eaa3295d4278443dbb70'
-      - url: "{{ pb_remote_env_cache_dir }}/data/inSilico.tar.gz"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/inSilico/"
-        checksum: 'md5:9fb63ca4173390da0e65ba229bf0f464'
-      - url: "{{ pb_remote_env_cache_dir }}/data/Agilent.tar.gz"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/Agilent/"
-        checksum: 'md5:0a76a2dde10ad1899cccc4f32f6ee804'
-      - url: "{{ pb_remote_env_cache_dir }}/data/GAVIN.tar.gz"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/"
-        checksum: 'md5:ec2c8a4817e63f9fd2d03a425f89fa1c'
-      - url: "{{ pb_remote_env_cache_dir }}/data/GeneNetwork.tar.gz"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/"
-        checksum: 'md5:b2c0351403571d1fc88a20d35883d21e'
-      - url: "{{ pb_remote_env_cache_dir }}/data/Ensembl.tar.gz"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/"
-        checksum: 'md5: '
-      - url: "{{ pb_remote_env_cache_dir }}/data/HPO.tar.gz"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/"
-        checksum: 'md5:6f4cd0f1ab3b465d7afc2f02aad340f0'
-      - url: "{{ pb_remote_env_cache_dir }}/data/gonl.tar.gz"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/"
-        checksum: 'md5:c44103187ce6c920c55f94a569b34b5b'
-      - url: "{{ pb_remote_env_cache_dir }}/data/ExAC.tar.gz"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/"
-        checksum: 'md5:68ae245dc9ed296a7832616f63078a97'
-      - url: "{{ pb_remote_env_cache_dir }}/data/UMCG/Diagnostics.tar.gz"
-        dest:         "{{ HPC_ENV_PREFIX }}/data/UMCG/"
-        checksum: 'md5:0d65f9309d8cc96f85faf5769b3e7c4b'
       - url: "https://github.com/molgenis/easybuild-easyconfigs/releases/download/{{ pb_ebconfigs_version }}/easybuild-easyconfigs-{{ pb_ebconfigs_version }}.tar.gz"
         dest: "{{ easybuild_sources_dir }}/e/easyconfigs/"
         checksum: "{{ pb_ebconfigs_checksum }}"
@@ -143,27 +98,9 @@
   - name: Extract downloaded sources and reference data.
     unarchive: src="{{ item.src }}" dest="{{ item.dest }}" remote_src=yes mode="{{ MODE__775_SOFT }}"
     with_items:
-      - src:  "{{ HPC_ENV_PREFIX }}/data/snpEff-4.3/hg19.tar.gz"
-        dest: "{{ HPC_ENV_PREFIX }}/data/snpEff-4.3/"
-      - src:  "{{ HPC_ENV_PREFIX }}/data/GAVIN.tar.gz"
-        dest: "{{ HPC_ENV_PREFIX }}/data/"
-      - src:  "{{ HPC_ENV_PREFIX }}/data/HPO.tar.gz"
-        dest: "{{ HPC_ENV_PREFIX }}/data/"
-      - src:  "{{ HPC_ENV_PREFIX }}/data/gonl.tar.gz"
-        dest: "{{ HPC_ENV_PREFIX }}/data/"
-      - src:  "{{ HPC_ENV_PREFIX }}/data/ExAC.tar.gz"
-        dest: "{{ HPC_ENV_PREFIX }}/data/"
-      - src:  "{{ HPC_ENV_PREFIX }}/data/UMCG/Diagnostics.tar.gz"
-        dest: "{{ HPC_ENV_PREFIX }}/data/UMCG"
-      - src:  "{{ HPC_ENV_PREFIX }}/data/inSilico/inSilico.tar.gz"
-        dest: "{{ HPC_ENV_PREFIX }}/data/"
-      - src:  "{{ HPC_ENV_PREFIX }}/data/Agilent/Agilent.tar.gz"
-        dest: "{{ HPC_ENV_PREFIX }}/data/Agilent/"
-      - src:  "{{ HPC_ENV_PREFIX }}/data/GeneNetwork.tar.gz"
-        dest: "{{ HPC_ENV_PREFIX }}/data/GeneNetwork/"
-
       - src:  "{{ easybuild_sources_dir }}/e/easyconfigs/easybuild-easyconfigs-{{ pb_ebconfigs_version }}.tar.gz"
         dest: "{{ easybuild_software_dir }}/easyconfigs"
+
   - name: Copy sources for software packages, which cannot be downloaded automagically by EB for technical & legal reasons.
     # NOTE: This is more or less the same as the download above, but for legal reasons we cannot cache these on publicly accessible server.
     #       You will have to download these yourself to your local system, so the playbook can copy them to your target systems.
@@ -177,6 +114,7 @@
         dest:          "{{ easybuild_sources_dir }}/j/Java/"
       - src:  "{{ pb_local_env_cache_dir }}/sources/j/Java/jdk-7u80-linux-x64.tar.gz"
         dest:          "{{ easybuild_sources_dir }}/j/Java/"
+
   - name: Deploy NGS_Automated module with EasyBuild
     shell: |
            source {{ easybuild_modules_dir }}/modules.bashrc
