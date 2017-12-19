@@ -103,6 +103,9 @@ Some examples:
    ```
    ansible-playbook -i inventory.py -l lobby+boxy-dev playbook.yml
    ```
-
+ - To debug a playbook for host 'boxy-dev' accessed via proxy server 'lobby' starting somehere in the middle of the playbook as opposed to starting from scratch.
+   ```
+   ansible-playbook -i inventory.py -l lobby+boxy-dev playbook.yml --start-at-task 'Get EasyConfigs.'
+   ```
 
 
