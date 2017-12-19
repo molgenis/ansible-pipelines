@@ -1,9 +1,11 @@
-# dnaseq-pipeline-deployment
+# ansible-pipelines
 
-## Automagic deployment of a pipeline for analysis of Next Generation DNA Sequencing data
+## Automagic deployment of pipelines for analysis of Next Generation Sequencing data
 
-This repo contains an Ansible playbook for deploying the [NGS_DNA](https://github.com/molgenis/NGS_DNA) pipeline developed originally used for the BBMRI Genome of the Netherlands (GoNL) project.
-The pipeline was further developed @ UMCG where it used for regular production work.
+This repo contains an Ansible playbook for deploying various pipelines for analysis of Next Generation Sequencing data:
+ - [NGS_DNA](https://github.com/molgenis/NGS_DNA): pipeline developed originally used for the BBMRI Genome of the Netherlands (GoNL) project.
+   The NGS_DNA pipeline was further developed @ UMCG where it is used for regular production work.
+ - [NGS_Automated](https://github.com/molgenis/NGS_Automated): Automation for the above, but tailored to infra @ UMCG and RUG.
 
 The deployment consists of the following steps:
  - Use Ansible to:
