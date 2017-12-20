@@ -92,6 +92,8 @@
   args:
     executable: /bin/bash
     warn: no
+  environment:
+    SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   changed_when: false
   failed_when: false
   check_mode: no
@@ -110,5 +112,7 @@
          umask 0002
          module load EasyBuild
          eb --software="EasyBuild,{{ easybuild_eb_version }}"
+  environment:
+    SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   when: eb_install_from_source|default(false)
 

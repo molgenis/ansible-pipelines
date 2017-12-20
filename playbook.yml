@@ -9,7 +9,6 @@
         msg: 'You must update Ansible to at least 2.2.x to use this playbook.'
   roles:
   - role: easybuild-install
-
   tasks:
   - name: Create main folder structure for software and reference data
     file: dest="{{item}}" state='directory' mode="{{ MODE_2775_HARD }}"
@@ -38,83 +37,80 @@
       - "{{ pb_base }}/projects"
       - "{{ pb_base }}/logs"
       - "{{ pb_base }}/tmp"
-
   - name: Synchronize apps/data.
     synchronize: src="{{ item.src }}" dest="{{ item.dest }}" archive='yes' mode='pull'
     delegate_to: "{{ inventory_hostname }}"
     with_items:
-     - src: "{{ pb_remote_env_cache_dir }}/data/dbSNP"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/1000G"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/Agilent"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/CADD"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/Controls_Convading_XHMM"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/Ensembl"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/ExAC"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/GAVIN"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/GeneNetwork"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/HPO"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/UMCG"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/XHMM"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/gonl"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/inSilico"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"
-     - src: "{{ pb_remote_env_cache_dir }}/data/snpEff-4.3"
-       dest:         "{{ HPC_ENV_PREFIX }}/data/"       
-       
-name: Download reference data and sources for software packages, which cannot be downloaded automagically by EB for technical reasons only.
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/dbSNP"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/1000G"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/Agilent"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/CADD"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/Controls_Convading_XHMM"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/Ensembl"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/ExAC"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/GAVIN"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/GeneNetwork"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/HPO"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/UMCG"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/XHMM"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/gonl"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/inSilico"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/data/snpEff-4.3"
+        dest:                "{{ HPC_ENV_PREFIX }}/data/"
+  - name: Synchronize apps/sources for sources, which cannot be downloaded automagically by EB for technical reasons.
+    # NOTE: This is usually the case for downloads from FTP URLs, which may be blocked by firewalls due to the insecure nature of FTP.
+    synchronize: src="{{ item.src }}" dest="{{ item.dest }}" archive='yes' mode='pull'
+    delegate_to: "{{ inventory_hostname }}"
+    with_items:
+      - src: "{{ pb_remote_env_cache_dir_public }}/sources/n/numactl/numactl-2.0.10.tar.gz"
+        dest:                 "{{ easybuild_sources_dir }}/n/numactl/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/sources/g/GCC/gmp-6.0.0a.tar.bz2"
+        dest:                 "{{ easybuild_sources_dir }}/g/GCC/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/sources/g/GCC/mpc-1.0.2.tar.gz"
+        dest:                 "{{ easybuild_sources_dir }}/g/GCC/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/sources/g/GCC/gcc-4.9.3.tar.bz2"
+        dest:                 "{{ easybuild_sources_dir }}/g/GCC/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/sources/g/GCC/mpfr-3.1.2.tar.gz"
+        dest:                 "{{ easybuild_sources_dir }}/g/GCC/"
+  - name: Synchronize apps/sources for sources, which cannot be downloaded automagically by EB for legal reasons.
+    # NOTE: This is more or less the same as the download above, but for legal reasons we cannot cache these on a publicly accessible server.
+    #       You will have to download these yourself to a system under your control, so the playbook can copy them to your target systems.
+    synchronize: src="{{ item.src }}" dest="{{ item.dest }}" archive='yes' mode='pull'
+    delegate_to: "{{ inventory_hostname }}"
+    with_items:
+      - src:  "{{ pb_remote_env_cache_dir_private }}/sources/g/GATK/GenomeAnalysisTK-3.7.tar.bz2"
+        dest:                   "{{ easybuild_sources_dir }}/g/GATK/"
+      - src:  "{{ pb_remote_env_cache_dir_private }}/sources/j/Java/jdk-8u45-linux-x64.tar.gz"
+        dest:                   "{{ easybuild_sources_dir }}/j/Java/"
+      - src:  "{{ pb_remote_env_cache_dir_private }}/sources/j/Java/jdk-8u74-linux-x64.tar.gz"
+        dest:                   "{{ easybuild_sources_dir }}/j/Java/"
+      - src:  "{{ pb_remote_env_cache_dir_private }}/sources/j/Java/jdk-7u80-linux-x64.tar.gz"
+        dest:                   "{{ easybuild_sources_dir }}/j/Java/"
+  - name: Get EasyConfigs.
     get_url: url="{{ item.url }}" dest="{{ item.dest }}" checksum="{{ item.checksum }}" mode="{{ MODE_0664_HARD }}"
     with_items:
       - url: "https://github.com/molgenis/easybuild-easyconfigs/releases/download/{{ pb_ebconfigs_version }}/easybuild-easyconfigs-{{ pb_ebconfigs_version }}.tar.gz"
         dest: "{{ easybuild_sources_dir }}/e/easyconfigs/"
         checksum: "{{ pb_ebconfigs_checksum }}"
-      - url:  "{{ pb_remote_env_cache_dir }}/sources/g/GCC/gmp-6.0.0a.tar.bz2"
-        dest:           "{{ easybuild_sources_dir }}/g/GCC/"
-        checksum: 'md5:b7ff2d88cae7f8085bd5006096eed470'
-      - url:  "{{ pb_remote_env_cache_dir }}/sources/g/GCC/mpc-1.0.2.tar.gz"
-        dest:           "{{ easybuild_sources_dir }}/g/GCC/"
-        checksum: 'md5:68fadff3358fb3e7976c7a398a0af4c3'
-      - url:  "{{ pb_remote_env_cache_dir }}/sources/g/GCC/gcc-4.9.3.tar.bz2"
-        dest:           "{{ easybuild_sources_dir }}/g/GCC/"
-        checksum: 'md5:6f831b4d251872736e8e9cc09746f327'
-      - url:  "{{ pb_remote_env_cache_dir }}/sources/g/GCC/mpfr-3.1.2.tar.gz"
-        dest:           "{{ easybuild_sources_dir }}/g/GCC/"
-        checksum: 'md5:181aa7bb0e452c409f2788a4a7f38476'
-      - url: "{{ pb_remote_env_cache_dir }}/sources/n/numactl/numactl-2.0.10.tar.gz"
-        dest:          "{{ easybuild_sources_dir }}/n/numactl/"
-        checksum: 'md5:682c38305b2596967881f3d77bc3fc9c'
-  - name: Extract downloaded sources and reference data.
+  - name: Extract EasyConfigs.
     unarchive: src="{{ item.src }}" dest="{{ item.dest }}" remote_src=yes mode="{{ MODE__775_SOFT }}"
     with_items:
       - src:  "{{ easybuild_sources_dir }}/e/easyconfigs/easybuild-easyconfigs-{{ pb_ebconfigs_version }}.tar.gz"
         dest: "{{ easybuild_software_dir }}/easyconfigs"
-
-  - name: Copy sources for software packages, which cannot be downloaded automagically by EB for technical & legal reasons.
-    # NOTE: This is more or less the same as the download above, but for legal reasons we cannot cache these on publicly accessible server.
-    #       You will have to download these yourself to your local system, so the playbook can copy them to your target systems.
-    copy: src="{{ item.src }}" dest="{{ item.dest }}" mode="{{ MODE_0664_HARD }}"
-    with_items:
-      - src:  "{{ pb_local_env_cache_dir }}/sources/g/GATK/GenomeAnalysisTK-3.7.tar.bz2"
-        dest:          "{{ easybuild_sources_dir }}/g/GATK/"
-      - src:  "{{ pb_local_env_cache_dir }}/sources/j/Java/jdk-8u45-linux-x64.tar.gz"
-        dest:          "{{ easybuild_sources_dir }}/j/Java/"
-      - src:  "{{ pb_local_env_cache_dir }}/sources/j/Java/jdk-8u74-linux-x64.tar.gz"
-        dest:          "{{ easybuild_sources_dir }}/j/Java/"
-      - src:  "{{ pb_local_env_cache_dir }}/sources/j/Java/jdk-7u80-linux-x64.tar.gz"
-        dest:          "{{ easybuild_sources_dir }}/j/Java/"
-
   - name: Deploy NGS_Automated module with EasyBuild
     shell: |
            source {{ easybuild_modules_dir }}/modules.bashrc

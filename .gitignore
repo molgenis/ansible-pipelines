@@ -1,0 +1,14 @@
+*.DS_Store
+*.project
+*.pydevproject
+*.settings
+# Python stuff
+__pycache__/
+*.py[cod]
+*$py.class
+# ansible retry files
+*.retry
+# vim swap files
+*.swp
+# GFM view temp files
+*.md.html

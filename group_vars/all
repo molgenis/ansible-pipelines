@@ -28,6 +28,7 @@ pb_ebconfigs_checksum: 'md5:d3fae3886e47e0eee2871b1aeab94f00'
 pb_ebconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ pb_ebconfigs_version }}/easybuild/easyconfigs/"
 pb_tmp_lfs: 'tmp01'
 pb_base: "{{ HPC_GROUP_PREFIX }}/{{ pb_tmp_lfs }}"
-pb_local_env_cache_dir: '~/Downloads/apps/'
+#pb_local_env_cache_dir: '~/Downloads/apps/'
 #pb_remote_env_cache_dir: 'https://gcc-tijdelijk-webslag.webhosting.rug.nl/apps/data/'
-pb_remote_env_cache_dir: 'f114592@ssh.webhosting.rug.nl:site/apps/'
+pb_remote_env_cache_dir_public:  'f114592@ssh.webhosting.rug.nl:site/apps/'
+pb_remote_env_cache_dir_private: 'f114592@ssh.webhosting.rug.nl:rsync-only/apps/'
