@@ -38,7 +38,7 @@
       - "{{ pb_base }}/logs"
       - "{{ pb_base }}/tmp"
   - name: Synchronize apps/data.
-    synchronize: src="{{ item.src }}" dest="{{ item.dest }}" archive='yes' mode='pull'
+    synchronize: src="{{ item.src }}" dest="{{ item.dest }}" archive='yes' mode='pull' use_ssh_args='yes'
     delegate_to: "{{ inventory_hostname }}"
     with_items:
       - src: "{{ pb_remote_env_cache_dir_public }}/data/dbSNP"
@@ -73,11 +73,9 @@
         dest:                "{{ HPC_ENV_PREFIX }}/data/"
   - name: Synchronize apps/sources for sources, which cannot be downloaded automagically by EB for technical reasons.
     # NOTE: This is usually the case for downloads from FTP URLs, which may be blocked by firewalls due to the insecure nature of FTP.
-    synchronize: src="{{ item.src }}" dest="{{ item.dest }}" archive='yes' mode='pull'
+    synchronize: src="{{ item.src }}" dest="{{ item.dest }}" archive='yes' mode='pull' use_ssh_args='yes'
     delegate_to: "{{ inventory_hostname }}"
     with_items:
-      - src: "{{ pb_remote_env_cache_dir_public }}/sources/n/numactl/numactl-2.0.10.tar.gz"
-        dest:                 "{{ easybuild_sources_dir }}/n/numactl/"
       - src: "{{ pb_remote_env_cache_dir_public }}/sources/g/GCC/gmp-6.0.0a.tar.bz2"
         dest:                 "{{ easybuild_sources_dir }}/g/GCC/"
       - src: "{{ pb_remote_env_cache_dir_public }}/sources/g/GCC/mpc-1.0.2.tar.gz"
@@ -86,10 +84,12 @@
         dest:                 "{{ easybuild_sources_dir }}/g/GCC/"
       - src: "{{ pb_remote_env_cache_dir_public }}/sources/g/GCC/mpfr-3.1.2.tar.gz"
         dest:                 "{{ easybuild_sources_dir }}/g/GCC/"
+      - src: "{{ pb_remote_env_cache_dir_public }}/sources/n/numactl/numactl-2.0.10.tar.gz"
+        dest:                 "{{ easybuild_sources_dir }}/n/numactl/"
   - name: Synchronize apps/sources for sources, which cannot be downloaded automagically by EB for legal reasons.
     # NOTE: This is more or less the same as the download above, but for legal reasons we cannot cache these on a publicly accessible server.
     #       You will have to download these yourself to a system under your control, so the playbook can copy them to your target systems.
-    synchronize: src="{{ item.src }}" dest="{{ item.dest }}" archive='yes' mode='pull'
+    synchronize: src="{{ item.src }}" dest="{{ item.dest }}" archive='yes' mode='pull' use_ssh_args='yes'
     delegate_to: "{{ inventory_hostname }}"
     with_items:
       - src:  "{{ pb_remote_env_cache_dir_private }}/sources/g/GATK/GenomeAnalysisTK-3.7.tar.bz2"
