@@ -24,7 +24,7 @@ HPC_GROUP_PREFIX: "{{ ROOT }}/groups/{{ GROUP }}"
 pb_ngs_dna_version: '3.4.3'
 pb_ngs_automated_version: '2.0.2'
 pb_ebconfigs_version: '2.8.11'
-pb_ebconfigs_checksum: 'md5:d3fae3886e47e0eee2871b1aeab94f00'
+pb_ebconfigs_checksum: 'md5:66630705a6731ccac040a8ebaf2f9716'
 pb_ebconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ pb_ebconfigs_version }}/easybuild/easyconfigs/"
 pb_tmp_lfs: 'tmp01'
 pb_base: "{{ HPC_GROUP_PREFIX }}/{{ pb_tmp_lfs }}"
