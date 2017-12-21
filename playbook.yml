@@ -70,7 +70,7 @@
     delegate_to: "{{ inventory_hostname }}"
     with_items:
       - src:  'g/GATK/GenomeAnalysisTK-3.7.tar.bz2'
-        dest: '/g/GATK/'
+        dest: 'g/GATK/'
       - src:  'j/Java/jdk-8u45-linux-x64.tar.gz'
         dest: 'j/Java/'
       - src:  'j/Java/jdk-8u74-linux-x64.tar.gz'
