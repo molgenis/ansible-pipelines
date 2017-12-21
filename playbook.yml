@@ -94,9 +94,13 @@
            module load "EasyBuild/{{ easybuild_eb_version }}"
            eb --robot --robot-paths="{{ pb_ebconfigs_prefix }}/:" \
               {{ pb_ebconfigs_prefix }}/n/NGS_Automated/NGS_Automated-{{ pb_ngs_automated_version }}.eb
+    environment:
+      SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   - name: Deploy NGS_DNA module with EasyBuild
     shell: |
            source {{ easybuild_modules_dir }}/modules.bashrc
            module load "EasyBuild/{{ easybuild_eb_version }}"
            eb --robot --robot-paths="{{ pb_ebconfigs_prefix }}/:" \
               {{ pb_ebconfigs_prefix }}/n/NGS_DNA/NGS_DNA-{{ pb_ngs_dna_version }}.eb
+    environment:
+      SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
