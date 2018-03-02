@@ -65,6 +65,8 @@
         dest: 'g/GCC/'
       - src:  'n/numactl/numactl-2.0.10.tar.gz'
         dest: 'n/numactl/'
+      - src:  'z/zlib/zlib-1.2.8.tar.gz'
+        dest: 'z/zlib/'
   - name: Synchronize apps/sources for sources, which cannot be downloaded automagically by EB for legal reasons.
     # NOTE: This is more or less the same as the download above, but for legal reasons we cannot cache these on a publicly accessible server.
     #       You will have to download these yourself to a system under your control, so the playbook can copy them to your target systems.
