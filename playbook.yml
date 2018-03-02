@@ -53,6 +53,8 @@
     synchronize: src="{{ pb_remote_env_cache_dir_public }}/sources/{{ item.src }}" dest="{{ easybuild_sources_dir }}/{{ item.dest }}" archive='yes' mode='pull' use_ssh_args='yes'
     delegate_to: "{{ inventory_hostname }}"
     with_items:
+      - src:  'f/flex/flex-2.5.39.tar.gz'
+        dest: 'f/flex/'
       - src:  'g/GCC/gmp-6.0.0a.tar.bz2'
         dest: 'g/GCC/'
       - src:  'g/GCC/mpc-1.0.2.tar.gz'
