@@ -67,6 +67,20 @@
         dest: 'n/numactl/'
       - src:  'z/zlib/zlib-1.2.8.tar.gz'
         dest: 'z/zlib/'
+      - src:  's/snpEff/snpEff_v4_3_core.zip'
+        dest: 's/snpEff/'
+      - src:  'i/io_lib/io_lib-1.14.6.tar.gz'
+        dest: 'i/io_lib/'
+      - src:  'e/expat/expat-2.1.0.tar.gz'
+        dest: 'e/expat/'
+      - src:  'l/libpng/libpng-1.6.21.tar.gz'
+        dest: 'l/libpng/'
+      - src:  'c/CADD/'
+        dest: 'c/CADD/'
+      - src:  'g/Gavin-ToolPack/Gavin-ToolPack-1.0.tar.gz'
+        dest: 'g/Gavin-ToolPack/'
+      - src:  'w/wkhtmltox/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz'
+        dest: 'w/wkhtmltox/'
   - name: Synchronize apps/sources for sources, which cannot be downloaded automagically by EB for legal reasons.
     # NOTE: This is more or less the same as the download above, but for legal reasons we cannot cache these on a publicly accessible server.
     #       You will have to download these yourself to a system under your control, so the playbook can copy them to your target systems.
