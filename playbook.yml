@@ -108,3 +108,9 @@
               {{ pb_ebconfigs_prefix }}/n/NGS_DNA/NGS_DNA-{{ pb_ngs_dna_version }}.eb
     environment:
       SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
+  - name: correct snpEff config
+    synchronize: src="{{ pb_remote_env_cache_dir_public }}/sources/{{ item.src }}" dest="{{ HPC_ENV_PREFIX }}/software/snpEff/4.3-Java-1.7.0_80/{{ item.dest }}" archive='yes' mode='pull' use_ssh_args='yes'
+    delegate_to: "{{ inventory_hostname }}"
+    with_items:
+      - src:  's/snpEff/snpEff.config'
+        dest: 'snpEff.config'
