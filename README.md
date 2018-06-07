@@ -32,6 +32,32 @@ The deployment consists of the following steps:
  - A basic understanding of Ansible (See: http://docs.ansible.com/ansible/latest/intro_getting_started.html#)
  - A basic understanding of EasyBuild not required to deploy the pipeline ''as is'', but will come in handy when updating/modifying the pipeline and it's dependencies.
 
+#### Ansible & environment patches
+
+Various parts of the Ansible playbook use rsync to copy data to the target host.
+Unfortunately the Ansible rsync wrapper module contains a few bugs.
+These bugs must be patched on the control host:
+
+ - [Bugfix #33998 for bug #17492: Do not prepend PWD when path is in form user@server:path or server:path](https://github.com/ansible/ansible/pull/33998)
+ - [Bug #41262: Synchronize module is hard-coded to disable connection sharing resulting in network ban](https://github.com/ansible/ansible/issues/41262)
+
+In addition you must add to ```~/.ssh/config``` on the target host from the inventory and for the user running the playbook:
+```
+#
+# Generic stuff: prevent timeouts 
+#
+Host *
+	ServerAliveInterval 60
+	ServerAliveCountMax 5
+
+#
+# Generic stuff: share existing connections to reduce lag when logging into the same host in a second shell
+#
+ControlMaster auto
+ControlPath ~/.ssh/tmp/%h_%p_%r
+ControlPersist 5m
+```
+
 ## Prerequisites for running the pipeline
 
  - A basic understanding of how Linux clusters work.
