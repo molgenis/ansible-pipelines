@@ -1,7 +1,8 @@
 ---
 - hosts: all
   #remote_user: DO NOT specify a user here. Specify login name in your ~/.ssh/config instead.
-  become: no
+  become_method: su
+  become_user: umcg-envsync
   pre_tasks:
     - name: Verify Ansible version meets requirements.
       assert:
@@ -30,7 +31,8 @@
       - "{{ pb_base }}/logs"
       - "{{ pb_base }}/tmp"
   - name: Synchronize apps/data.
-    synchronize: src="{{ pb_remote_env_cache_dir_public }}/data/{{ item.src }}" dest="{{ HPC_ENV_PREFIX }}/data/" times='no' perms='no' mode='pull' use_ssh_args='yes'
+    synchronize: src="{{ pb_remote_env_cache_dir_public }}/data/{{ item.src }}" dest="{{ HPC_ENV_PREFIX }}/data/" mode='pull' use_ssh_args='yes'
+      rsync_opts="--omit-dir-times,--exclude=.git"
     delegate_to: "{{ inventory_hostname }}"
     with_items:
       - src: "dbSNP"
@@ -50,7 +52,8 @@
       - src: "snpEff-4.3"
   - name: Synchronize apps/sources for sources, which cannot be downloaded automagically by EB for technical reasons.
     # NOTE: This is usually the case for downloads from FTP URLs, which may be blocked by firewalls due to the insecure nature of FTP.
-    synchronize: src="{{ pb_remote_env_cache_dir_public }}/sources/{{ item.src }}" dest="{{ easybuild_sources_dir }}/{{ item.dest }}" times='no' perms='no'  mode='pull' use_ssh_args='yes'
+    synchronize: src="{{ pb_remote_env_cache_dir_public }}/sources/{{ item.src }}" dest="{{ easybuild_sources_dir }}/{{ item.dest }}" mode='pull' use_ssh_args='yes' 
+      rsync_opts="--omit-dir-times,--exclude=.git"
     delegate_to: "{{ inventory_hostname }}"
     with_items:
       - src:  'f/flex/flex-2.5.39.tar.gz'
@@ -84,7 +87,7 @@
   - name: Synchronize apps/sources for sources, which cannot be downloaded automagically by EB for legal reasons.
     # NOTE: This is more or less the same as the download above, but for legal reasons we cannot cache these on a publicly accessible server.
     #       You will have to download these yourself to a system under your control, so the playbook can copy them to your target systems.
-    synchronize: src="{{ pb_remote_env_cache_dir_private }}/sources/{{ item.src }}" dest="{{ easybuild_sources_dir }}/{{ item.dest }}" times='no' perms='no' mode='pull' use_ssh_args='yes'
+    synchronize: src="{{ pb_remote_env_cache_dir_private }}/sources/{{ item.src }}" dest="{{ easybuild_sources_dir }}/{{ item.dest }}" mode='pull' use_ssh_args='yes'
     delegate_to: "{{ inventory_hostname }}"
     with_items:
       - src:  'g/GATK/GenomeAnalysisTK-3.7.tar.bz2'
@@ -123,7 +126,7 @@
     environment:
       SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   - name: correct snpEff config
-    synchronize: src="{{ pb_remote_env_cache_dir_public }}/sources/{{ item.src }}" dest="{{ HPC_ENV_PREFIX }}/software/snpEff/4.3-Java-1.7.0_80/{{ item.dest }}" times='no' perms='no' mode='pull' use_ssh_args='yes'
+    synchronize: src="{{ pb_remote_env_cache_dir_public }}/sources/{{ item.src }}" dest="{{ HPC_ENV_PREFIX }}/software/snpEff/4.3-Java-1.7.0_80/{{ item.dest }}" mode='pull' use_ssh_args='yes'
     delegate_to: "{{ inventory_hostname }}"
     with_items:
       - src:  's/snpEff/snpEff.config'
