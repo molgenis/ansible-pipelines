@@ -1,13 +1,13 @@
 ---
 - hosts: all
   #remote_user: DO NOT specify a user here. Specify login name in your ~/.ssh/config instead.
-  become_method: su
-  become_user: umcg-envsync
+  #become_method: su
+  #become_user: umcg-envsync
   pre_tasks:
     - name: Verify Ansible version meets requirements.
       assert:
         that: "ansible_version.full | version_compare('2.4', '>=')"
-        msg: 'You must update Ansible to at least 2.2.x to use this playbook.'
+        msg: 'You must update Ansible to at least 2.4.x to use this playbook.'
   roles:
   - role: easybuild-install
   tasks:
@@ -16,10 +16,6 @@
     with_items:
       - "{{ easybuild_software_dir }}/easyconfigs"
       - "{{ easybuild_sources_dir }}/e/easyconfigs"
-      - "{{ easybuild_sources_dir }}/g/GATK"
-      - "{{ easybuild_sources_dir }}/g/GCC"
-      - "{{ easybuild_sources_dir }}/j/Java"
-      - "{{ easybuild_sources_dir }}/n/numactl"
       - "{{ pb_ebconfigs_prefix }}"
       - "{{ HPC_ENV_PREFIX }}/data"
   - name: Create main folder structure for data analysis group.
@@ -31,8 +27,23 @@
       - "{{ pb_base }}/logs"
       - "{{ pb_base }}/tmp"
   - name: Synchronize apps/data.
-    synchronize: src="{{ pb_remote_env_cache_dir_public }}/data/{{ item.src }}" dest="{{ HPC_ENV_PREFIX }}/data/" mode='pull' use_ssh_args='yes'
-      rsync_opts="--omit-dir-times,--exclude=.git"
+    synchronize:
+      src: "{{ pb_remote_env_cache_dir_public }}/data/{{ item.src }}"
+      dest: "{{ HPC_ENV_PREFIX }}/data/"
+      mode: 'pull'
+      use_ssh_args: 'yes'
+      rsync_opts:
+        # --omit-dir-times Is required to prevent "sync error: some files/attrs were not transferred"
+        #                  for file systems like NFS mounts that cannot handle setting dir times properly.
+        # --chmod          Is required to prevent errors when the perms on the source are not what is required/expected on the destination.
+        #                  Fixing perms on the source would be good, but that may be out of our control.
+        #                  In that case --chmod ensures we get what we want on the destination.
+        # --force          Is required when symlinks have changed into dirs/files or vice versa.
+        #                  In that case the wrong outdated stuff has to be deleted on the destination first before the new stuff can be created.
+        #                  Deleting the outdated stuff may fail without --force.
+        - "--omit-dir-times"
+        - "--chmod={{ MODE_D2775_F0664 }}"
+        - "--force"
     delegate_to: "{{ inventory_hostname }}"
     with_items:
       - src: "dbSNP"
@@ -50,10 +61,21 @@
       - src: "gonl"
       - src: "inSilico"
       - src: "snpEff-4.3"
-  - name: Synchronize apps/sources for sources, which cannot be downloaded automagically by EB for technical reasons.
-    # NOTE: This is usually the case for downloads from FTP URLs, which may be blocked by firewalls due to the insecure nature of FTP.
-    synchronize: src="{{ pb_remote_env_cache_dir_public }}/sources/{{ item.src }}" dest="{{ easybuild_sources_dir }}/{{ item.dest }}" mode='pull' use_ssh_args='yes' 
-      rsync_opts="--omit-dir-times,--exclude=.git"
+  - name: Synchronize publicly available sources, which cannot be downloaded automagically by EB for technical reasons.
+    # This is usually the case for downloads from FTP URLs, which may be blocked by firewalls due to the insecure nature of FTP.
+    synchronize:
+      src: "{{ pb_remote_env_cache_dir_public }}/sources/./{{ item.src }}"
+      dest: "{{ easybuild_sources_dir }}/"
+      mode: 'pull'
+      use_ssh_args: 'yes'
+      rsync_opts:
+        # --relative       In combination with a "source_server:some/path/not/created/on/destination/./path/created/on/destination/some_file" (dot dir)
+        #                  recreates a partial dir structure on the destination relative to the /./ dir, when it does not already exist.
+        #                  Without this combination of --relative and dot dir rsync will error when the path does not exist on the destination.
+        - '--relative'
+        - '--omit-dir-times'               # See comments above for why.
+        - "--chmod={{ MODE_D2775_F0664 }}" # See comments above for why.
+        - '--force'                        # See comments above for why.
     delegate_to: "{{ inventory_hostname }}"
     with_items:
       - src:  'f/flex/flex-2.5.39.tar.gz'
@@ -66,8 +88,14 @@
         dest: 'g/GCC/'
       - src:  'g/GCC/mpfr-3.1.2.tar.gz'
         dest: 'g/GCC/'
+      - src:  'h/hwloc/hwloc-1.11.0.tar.gz'
+        dest: 'h/hwloc/'
+      - src:  'n/NASM/nasm-2.11.08.tar.bz2'
+        dest: 'n/NASM/'
       - src:  'n/numactl/numactl-2.0.10.tar.gz'
         dest: 'n/numactl/'
+      - src:  'o/OpenMPI/openmpi-1.8.8.tar.gz'
+        dest: 'o/OpenMPI/'
       - src:  'z/zlib/zlib-1.2.8.tar.gz'
         dest: 'z/zlib/'
       - src:  's/snpEff/snpEff_v4_3_core.zip'
@@ -84,10 +112,19 @@
         dest: 'g/Gavin-ToolPack/'
       - src:  'w/wkhtmltox/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz'
         dest: 'w/wkhtmltox/'
-  - name: Synchronize apps/sources for sources, which cannot be downloaded automagically by EB for legal reasons.
+  - name: Synchronize sources, which cannot be downloaded automagically by EB for legal reasons.
     # NOTE: This is more or less the same as the download above, but for legal reasons we cannot cache these on a publicly accessible server.
     #       You will have to download these yourself to a system under your control, so the playbook can copy them to your target systems.
-    synchronize: src="{{ pb_remote_env_cache_dir_private }}/sources/{{ item.src }}" dest="{{ easybuild_sources_dir }}/{{ item.dest }}" mode='pull' use_ssh_args='yes'
+    synchronize:
+      src: "{{ pb_remote_env_cache_dir_private }}/sources/./{{ item.src }}"
+      dest: "{{ easybuild_sources_dir }}/"
+      mode: 'pull'
+      use_ssh_args: 'yes'
+      rsync_opts:
+        - '--relative'                     # See comments above for why.
+        - '--omit-dir-times'               # See comments above for why.
+        - "--chmod={{ MODE_D2775_F0664 }}" # See comments above for why.
+        - '--force'                        # See comments above for why.
     delegate_to: "{{ inventory_hostname }}"
     with_items:
       - src:  'g/GATK/GenomeAnalysisTK-3.7.tar.bz2'
