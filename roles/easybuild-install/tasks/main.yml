@@ -1,5 +1,4 @@
 ---
-
 - name: Create required directories.
   file: dest="{{item}}" state='directory' mode="{{ MODE_2775_HARD }}"
   with_items:
@@ -138,3 +137,4 @@
   notify: 'Install_Lua_Lmod_EasyBuild_trio'
 
 - meta: flush_handlers
+...
