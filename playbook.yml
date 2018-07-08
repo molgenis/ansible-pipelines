@@ -11,7 +11,7 @@
   roles:
   - role: easybuild-install
   tasks:
-  - name: Create main folder structure for software and reference data
+  - name: Create main folder structure for software and reference data.
     file: dest="{{item}}" state='directory' mode="{{ MODE_2775_HARD }}"
     with_items:
       - "{{ easybuild_software_dir }}/easyconfigs"
@@ -112,7 +112,7 @@
         dest: 'g/Gavin-ToolPack/'
       - src:  'w/wkhtmltox/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz'
         dest: 'w/wkhtmltox/'
-  - name: Synchronize sources, which cannot be downloaded automagically by EB for legal reasons.
+  - name: Synchronize sources, which cannot be downloaded automagically by EasyBuild for legal reasons.
     # NOTE: This is more or less the same as the download above, but for legal reasons we cannot cache these on a publicly accessible server.
     #       You will have to download these yourself to a system under your control, so the playbook can copy them to your target systems.
     synchronize:
@@ -146,7 +146,7 @@
     with_items:
       - src:  "{{ easybuild_sources_dir }}/e/easyconfigs/easybuild-easyconfigs-{{ pb_ebconfigs_version }}.tar.gz"
         dest: "{{ easybuild_software_dir }}/easyconfigs"
-  - name: Deploy NGS_Automated module with EasyBuild
+  - name: Deploy NGS_Automated module with EasyBuild.
     shell: |
            source {{ easybuild_modules_dir }}/modules.bashrc
            module load "EasyBuild/{{ easybuild_eb_version }}"
@@ -154,7 +154,7 @@
               {{ pb_ebconfigs_prefix }}/n/NGS_Automated/NGS_Automated-{{ pb_ngs_automated_version }}.eb
     environment:
       SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
-  - name: Deploy NGS_DNA module with EasyBuild
+  - name: Deploy NGS_DNA module with EasyBuild.
     shell: |
            source {{ easybuild_modules_dir }}/modules.bashrc
            module load "EasyBuild/{{ easybuild_eb_version }}"
@@ -162,7 +162,7 @@
               {{ pb_ebconfigs_prefix }}/n/NGS_DNA/NGS_DNA-{{ pb_ngs_dna_version }}.eb
     environment:
       SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
-  - name: correct snpEff config
+  - name: Patch snpEff config.
     synchronize: src="{{ pb_remote_env_cache_dir_public }}/sources/{{ item.src }}" dest="{{ HPC_ENV_PREFIX }}/software/snpEff/4.3-Java-1.7.0_80/{{ item.dest }}" mode='pull' use_ssh_args='yes'
     delegate_to: "{{ inventory_hostname }}"
     with_items:
