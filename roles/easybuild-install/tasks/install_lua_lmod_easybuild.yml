@@ -1,4 +1,3 @@
-
 ---
 #
 # Lua.
@@ -57,24 +56,24 @@
 - name: Download EasyBuild bootstrap script and deps for offline bootstrapping.
   get_url: url="{{ item.url }}" dest="{{ item.dest }}" checksum="{{ item.checksum }}" mode="{{ MODE_0664_HARD }}"
   with_items:
-    - url: 'https://raw.githubusercontent.com/easybuilders/easybuild-framework/ddfa7e0cdff778a1d270efd29a2af02830bcca2b/easybuild/scripts/bootstrap_eb.py'
+    - url: "https://raw.githubusercontent.com/easybuilders/easybuild-framework/{{ easybuild_bs_hash }}/easybuild/scripts/bootstrap_eb.py"
       dest: "{{ easybuild_sources_dir }}/e/EasyBuild/bootstrap_eb_{{ easybuild_bs_version }}.py"
-      checksum: 'md5:b970595c701de1ddda0cb8f83448f1f4'
-    - url: 'https://pypi.python.org/packages/82/ec/19d85d2bb91b562195d00db9ac82d7529904e7eabc0597720966bf74714f/vsc-install-0.10.26.tar.gz#md5=c4eb3146d1c56015e43193efb6f65c0f'
+      checksum: "{{ easybuild_bs_checksum }}"
+    - url: "{{ easybuild_vsc_install_url }}"
       dest: "{{ easybuild_sources_dir }}/e/EasyBuild/"
-      checksum: 'md5:c4eb3146d1c56015e43193efb6f65c0f'
-    - url: ' https://pypi.python.org/packages/f7/66/1ff7ecc4a93ba37e063f5bfbe395e95a547b1dec73b017c2724f4475a958/vsc-base-2.5.8.tar.gz#md5=57f3f49eab7aa15a96be76e6c89a72d8'
+      checksum: "{{ easybuild_vsc_install_checksum }}"
+    - url: "{{ easybuild_vsc_base_url }}"
       dest: "{{ easybuild_sources_dir }}/e/EasyBuild/"
-      checksum: 'md5:57f3f49eab7aa15a96be76e6c89a72d8'
-    - url: 'https://pypi.python.org/packages/f0/23/4edb6a97f8d7712687e851ee0c3fc0b471b6829a0c9b15bb2dd5533c9d05/easybuild-framework-3.4.1.tar.gz#md5=1f10ad23ecdc0098e0ec11322afb1c99'
+      checksum: "{{ easybuild_vsc_base_checksum }}"
+    - url: "{{ easybuild_framework_url }}"
       dest: "{{ easybuild_sources_dir }}/e/EasyBuild/"
-      checksum: 'md5:1f10ad23ecdc0098e0ec11322afb1c99'
-    - url: 'https://pypi.python.org/packages/f7/b0/61f52e6f99c71a289352d3e5071300d340306f4a96f0301bc64ee4f5d433/easybuild-easyblocks-3.4.1.tar.gz#md5=cadc9fb4f4a8ebfd541fefb79fafe732'
+      checksum: "{{ easybuild_framework_checksum }}"
+    - url: "{{ easybuild_easyblocks_url }}"
       dest: "{{ easybuild_sources_dir }}/e/EasyBuild/"
-      checksum: 'md5:cadc9fb4f4a8ebfd541fefb79fafe732'
-    - url: 'https://pypi.python.org/packages/7f/f7/bbfd15f8c2eab776538c5baa98ad616d519709d6b6b0f47002848069aa33/easybuild-easyconfigs-3.4.1.tar.gz#md5=8bbfaeddfc4c77d41c29730b68b5909b'
+      checksum: "{{ easybuild_easyblocks_checksum }}"
+    - url: "{{ easybuild_easyconfigs_url }}"
       dest: "{{ easybuild_sources_dir }}/e/EasyBuild/"
-      checksum: 'md5:8bbfaeddfc4c77d41c29730b68b5909b'
+      checksum: "{{ easybuild_easyconfigs_checksum }}"
 - name: Install latest EasyBuild version with bootstrap script.
   #
   # Ansible doesn't run task in a login shell, so we have to source the EasyBuild config manually.
@@ -115,4 +114,4 @@
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   when: eb_install_from_source|default(false)
-
+...

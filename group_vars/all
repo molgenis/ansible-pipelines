@@ -9,6 +9,7 @@ MODE_2770_HARD: 'u=rwx,g=rwxs,o='
 MODE_0775_HARD: 'u=rwx,g=rwx,o=rx'
 MODE__775_SOFT: 'u+rwX,g+rwX,o+rX,o-w'
 MODE_0664_HARD: 'u=rw,g=rw,o=r'
+MODE_D2775_F0664: "Du=rwx,Dg=rwxs,Do=rx,Fu=rw,Fg=rw,Fo=r"
 ROOT: "{{ ansible_env.HOME }}/BBMRI"
 GROUP: 'bbmri'
 #DEFAULT_USER: 'vagrant'
@@ -24,7 +25,7 @@ HPC_GROUP_PREFIX: "{{ ROOT }}/groups/{{ GROUP }}"
 pb_ngs_dna_version: '3.4.4'
 pb_ngs_automated_version: '2.0.5'
 pb_ebconfigs_version: '2.8.14'
-pb_ebconfigs_checksum: 'md5:20b6e42f6797280c646dce378ffc7d6b'
+pb_ebconfigs_checksum: 'md5:c330ce604204d1c2f8839fe71091b190'
 pb_ebconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ pb_ebconfigs_version }}/easybuild/easyconfigs/"
 pb_tmp_lfs: 'tmp01'
 pb_base: "{{ HPC_GROUP_PREFIX }}/{{ pb_tmp_lfs }}"

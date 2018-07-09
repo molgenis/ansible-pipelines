@@ -1,18 +1,1 @@
-#
-# Site specific values to override defaults for variables.
-#
-# Conventions for global environment variables:
-#  A. Use UPPERCASE underscore separated names like for shell env vars.
-#
-# file: host_vars/boxy-dev
-#
-HPC_ENV_PREFIX: "/groups/umcg-gcc/tmp03/ansible_test/apps/"
-ROOT: "/groups/umcg-gcc/tmp03/ansible_test"
-#
-# Conventions for playbook variables:
-#  A. To prevent variable name collisions: Always prefix variables names with 'pb' for playbook 
-#     to separate them from variables defined in roles, which are prefixed with the role name.
-#  B. Use lowercase underscore separated names.
-#
-pb_ngs_dna_version: "3.4.3"
-pb_tmp_lfs: "tmp01"
+boxy-dev
