@@ -57,22 +57,22 @@
   get_url: url="{{ item.url }}" dest="{{ item.dest }}" checksum="{{ item.checksum }}" mode="{{ MODE_0664_HARD }}"
   with_items:
     - url: "https://raw.githubusercontent.com/easybuilders/easybuild-framework/{{ easybuild_bs_hash }}/easybuild/scripts/bootstrap_eb.py"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/bootstrap_eb_{{ easybuild_bs_version }}.py"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/bootstrap_eb_{{ easybuild_bs_version }}.py"
       checksum: "{{ easybuild_bs_checksum }}"
     - url: "{{ easybuild_vsc_install_url }}"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
       checksum: "{{ easybuild_vsc_install_checksum }}"
     - url: "{{ easybuild_vsc_base_url }}"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
       checksum: "{{ easybuild_vsc_base_checksum }}"
     - url: "{{ easybuild_framework_url }}"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
       checksum: "{{ easybuild_framework_checksum }}"
     - url: "{{ easybuild_easyblocks_url }}"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
       checksum: "{{ easybuild_easyblocks_checksum }}"
     - url: "{{ easybuild_easyconfigs_url }}"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
       checksum: "{{ easybuild_easyconfigs_checksum }}"
 - name: Install latest EasyBuild version with bootstrap script.
   #
@@ -81,8 +81,8 @@
   shell: |
          source ~/.modulesrc
          umask 0002
-         export EASYBUILD_BOOTSTRAP_SOURCEPATH="{{ easybuild_sources_dir }}/e/EasyBuild/"
-         python {{ easybuild_sources_dir }}/e/EasyBuild/bootstrap_eb_{{ easybuild_bs_version }}.py {{ HPC_ENV_PREFIX }}
+         export EASYBUILD_BOOTSTRAP_SOURCEPATH="{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
+         python {{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/bootstrap_eb_{{ easybuild_bs_version }}.py {{ HPC_ENV_PREFIX }}
 - name: Check if the required EasyBuild version is installed.
   shell: |
          source ~/.modulesrc >/dev/null 2>&1
