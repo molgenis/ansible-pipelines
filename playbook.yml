@@ -33,15 +33,18 @@
       mode: 'pull'
       use_ssh_args: 'yes'
       rsync_opts:
-        # --omit-dir-times Is required to prevent "sync error: some files/attrs were not transferred"
-        #                  for file systems like NFS mounts that cannot handle setting dir times properly.
-        # --chmod          Is required to prevent errors when the perms on the source are not what is required/expected on the destination.
-        #                  Fixing perms on the source would be good, but that may be out of our control.
-        #                  In that case --chmod ensures we get what we want on the destination.
-        # --force          Is required when symlinks have changed into dirs/files or vice versa.
-        #                  In that case the wrong outdated stuff has to be deleted on the destination first before the new stuff can be created.
-        #                  Deleting the outdated stuff may fail without --force.
+        # --omit-dir-times  Is required to prevent "sync error: some files/attrs were not transferred"
+        #                   for file systems like NFS mounts that cannot handle setting dir times properly.
+        # --omit-link-times Is required to prevent "sync error: some files/attrs were not transferred"
+        #                   for file systems like NFS mounts that cannot handle setting dir times properly.
+        # --chmod           Is required to prevent errors when the perms on the source are not what is required/expected on the destination.
+        #                   Fixing perms on the source would be good, but that may be out of our control.
+        #                   In that case --chmod ensures we get what we want on the destination.
+        # --force           Is required when symlinks have changed into dirs/files or vice versa.
+        #                   In that case the wrong outdated stuff has to be deleted on the destination first before the new stuff can be created.
+        #                   Deleting the outdated stuff may fail without --force.
         - "--omit-dir-times"
+        #- "--omit-link-times" -> Does not work on rsync < 3.1.2, so we cannot use this on CentOS 6. Enable after upgrade to CentOS 7.
         - "--chmod={{ MODE_D2775_F0664 }}"
         - "--force"
     delegate_to: "{{ inventory_hostname }}"
@@ -69,11 +72,12 @@
       mode: 'pull'
       use_ssh_args: 'yes'
       rsync_opts:
-        # --relative       In combination with a "source_server:some/path/not/created/on/destination/./path/created/on/destination/some_file" (dot dir)
-        #                  recreates a partial dir structure on the destination relative to the /./ dir, when it does not already exist.
-        #                  Without this combination of --relative and dot dir rsync will error when the path does not exist on the destination.
+        # --relative        In combination with a "source_server:some/path/not/created/on/destination/./path/created/on/destination/some_file" (dot dir)
+        #                   recreates a partial dir structure on the destination relative to the /./ dir, when it does not already exist.
+        #                   Without this combination of --relative and dot dir rsync will error when the path does not exist on the destination.
         - '--relative'
         - '--omit-dir-times'               # See comments above for why.
+        #- "--omit-link-times" -> Does not work on rsync < 3.1.2, so we cannot use this on CentOS 6. Enable after upgrade to CentOS 7.
         - "--chmod={{ MODE_D2775_F0664 }}" # See comments above for why.
         - '--force'                        # See comments above for why.
     delegate_to: "{{ inventory_hostname }}"
@@ -123,6 +127,7 @@
       rsync_opts:
         - '--relative'                     # See comments above for why.
         - '--omit-dir-times'               # See comments above for why.
+        #- "--omit-link-times" -> Does not work on rsync < 3.1.2, so we cannot use this on CentOS 6. Enable after upgrade to CentOS 7.
         - "--chmod={{ MODE_D2775_F0664 }}" # See comments above for why.
         - '--force'                        # See comments above for why.
     delegate_to: "{{ inventory_hostname }}"
