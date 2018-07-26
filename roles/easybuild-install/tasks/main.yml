@@ -4,7 +4,7 @@
   with_items:
     - "{{ easybuild_sources_dir }}/l/Lmod"
     - "{{ easybuild_sources_dir }}/l/Lua"
-    - "{{ easybuild_sources_dir }}/e/EasyBuild"
+    - "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}"
     - "{{ easybuild_software_dir }}/Lua/{{ easybuild_lua_version }}"
     - "{{ easybuild_software_dir }}/EasyBuild/"
     - "{{ easybuild_modules_dir }}/all/EasyBuild"
