@@ -1,0 +1,26 @@
+---
+#
+# Lua.
+#
+- name: Download Lua.
+  get_url:
+    url: "http://sourceforge.net/projects/lmod/files/lua-{{ easybuild_lua_version }}.tar.bz2/download"
+    dest: "{{ easybuild_sources_dir }}/l/Lua/lua-{{ easybuild_lua_version }}.tar.bz2"
+    mode: "{{ MODE_0664_HARD }}"
+    checksum: 'md5:a8d0443fe79fc4e9aaded057d81304cd' # 5.1.4.9
+    timeout: 60
+    validate_certs: no # Sourceforge redirects to https and this fails when Python on the target host is version <= 2.6.6.
+- name: Decompress Lua.
+  unarchive:
+    src:  "{{ easybuild_sources_dir }}/l/Lua/lua-{{ easybuild_lua_version }}.tar.bz2"
+    dest: "{{ easybuild_sources_dir }}/l/Lua/"
+    copy: no
+    mode: "{{ MODE__775_SOFT }}"
+- name: Compile and install Lua
+  shell: |
+         cd {{ easybuild_sources_dir }}/l/Lua/lua-{{ easybuild_lua_version }}
+         umask 0002
+         ./configure --with-static=yes \
+                     --prefix={{ easybuild_software_dir }}/Lua/{{ easybuild_lua_version }} \
+             && make install
+...
