@@ -22,10 +22,10 @@ HPC_GROUP_PREFIX: "{{ ROOT }}/groups/{{ GROUP }}"
 #     to separate them from variables defined in roles, which are prefixed with the role name.
 #  B. User lowercase underscore separated names.
 #
-pb_ngs_dna_version: '3.4.4'
-pb_ngs_automated_version: '2.0.5'
-pb_ebconfigs_version: '2.8.14'
-pb_ebconfigs_checksum: 'md5:c330ce604204d1c2f8839fe71091b190'
+pb_ngs_dna_version: '3.5.1'
+pb_ngs_automated_version: '2.0.12'
+pb_ebconfigs_version: '2.8.16'
+pb_ebconfigs_checksum: 'md5:6ec1453b4deb184a492532b006edfabc'
 pb_ebconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ pb_ebconfigs_version }}/easybuild/easyconfigs/"
 pb_tmp_lfs: 'tmp01'
 pb_base: "{{ HPC_GROUP_PREFIX }}/{{ pb_tmp_lfs }}"
