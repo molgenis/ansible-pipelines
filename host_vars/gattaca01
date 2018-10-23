@@ -16,7 +16,7 @@ GROUP: "umcg-gd"
 #  B. User lowercase underscore separated names.
 #
 pb_base: "{{ HPC_GROUP_PREFIX }}/{{ pb_scr_lfs }}"
-pb_ngs_automated_version: '2.0.8-NGS_Demultiplexing-2.2.10'
-pb_ebconfigs_version: '2.8.15'
-pb_ebconfigs_checksum: 'md5:02e9b206e03f375db5a9c722e30b983e'
+pb_ngs_automated_version: '2.0.12-NGS_Demultiplexing-2.2.11'
+pb_ebconfigs_version: '2.8.16'
+pb_ebconfigs_checksum: 'sha256:59e8d6c93bda9756da3bbb26d598536e6435297af35ea75a655575aac4d03067'
 pb_scr_lfs: "scr01"
