@@ -23,9 +23,9 @@ HPC_GROUP_PREFIX: "{{ ROOT }}/groups/{{ GROUP }}"
 #  B. User lowercase underscore separated names.
 #
 pb_ngs_dna_version: '3.4.4'
-pb_ngs_automated_version: '2.0.5'
-pb_ebconfigs_version: '2.8.14'
-pb_ebconfigs_checksum: 'md5:c330ce604204d1c2f8839fe71091b190'
+pb_ngs_automated_version: '2.0.12-bare'
+pb_ebconfigs_version: '2.8.17'
+pb_ebconfigs_checksum: 'md5:424d0b45e3ad456f6499151ef8c952b2'
 pb_ebconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ pb_ebconfigs_version }}/easybuild/easyconfigs/"
 pb_tmp_lfs: 'tmp01'
 pb_base: "{{ HPC_GROUP_PREFIX }}/{{ pb_tmp_lfs }}"

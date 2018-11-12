@@ -6,7 +6,7 @@
   get_url:
     url: "https://github.com/TACC/Lmod/archive/{{ easybuild_lmod_version }}.tar.gz"
     dest: "{{ easybuild_sources_dir }}/l/Lmod/{{ easybuild_lmod_version }}.tar.gz"
-    checksum: 'md5:a2ea3c83f08d4175f08f84ac2a9bd508'
+    checksum: "{{ easybuild_lmod_checksum }}"
     mode: "{{ MODE_0664_HARD }}"
 - name: Decompress Lmod.
   unarchive:
