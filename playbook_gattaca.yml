@@ -1,5 +1,5 @@
 ---
-- hosts: SOLVERD
+- hosts: all
   #remote_user: DO NOT specify a user here. Specify login name in your ~/.ssh/config instead.
   #become_method: su
   #become_user: umcg-envsync
