@@ -11,17 +11,17 @@ DOCUMENTATION = '''
 '''
 
 from ansible.plugins.callback.default import CallbackModule as CallbackModule_default
-
 from ansible.plugins.callback import CallbackBase
+
 try:
-    # It's here in 2.3
+    # Ansible 2.3
     from ansible.vars import strip_internal_keys
 except ImportError:
     try:
-        # It's here in 2.4
+        # Anisble2.4
         from ansible.vars.manager import strip_internal_keys
     except ImportError:
-        # It's here in 2.5
+        # Ansible 2.5
         from ansible.vars.clean import strip_internal_keys
 
 try:
