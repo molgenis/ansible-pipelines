@@ -15,6 +15,6 @@ GROUP: "umcg-gd"
 #     to separate them from variables defined in roles, which are prefixed with the role name.
 #  B. User lowercase underscore separated names.
 #
-pb_ngs_automated_version: '2.0.12-bare'
-pb_ebconfigs_version: '2.8.16'
-pb_ebconfigs_checksum: 'sha256:59e8d6c93bda9756da3bbb26d598536e6435297af35ea75a655575aac4d03067'
+pb_ngs_automated_version: '2.0.17-bare'
+pb_ebconfigs_version: '2.8.21'
+pb_ebconfigs_checksum: 'sha256:a346be9e82fb30a36b94d6ba98f27a78939318a3413bde24affae3964248894a'
