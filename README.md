@@ -40,6 +40,9 @@ These bugs must be patched on the control host:
 
  - [Bugfix #33998 for bug #17492: Do not prepend PWD when path is in form user@server:path or server:path](https://github.com/ansible/ansible/pull/33998)
  - [Bugfix #41332 for bug #24365: Do not disable SSH connection sharing](https://github.com/ansible/ansible/pull/41332)
+possible location for the synchronize script is:
+/usr/local/Cellar/ansible/2.4.3.0/libexec/lib/python2.7/site-packages/ansible/modules/files/synchronize.py 
+
 
 In addition you must add to ```~/.ssh/config``` on the target host from the inventory and for the user running the playbook:
 ```

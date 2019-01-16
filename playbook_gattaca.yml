@@ -122,7 +122,7 @@
   - name: Get EasyConfigs.
     get_url: url="{{ item.url }}" dest="{{ item.dest }}" checksum="{{ item.checksum }}" mode="{{ MODE_0664_HARD }}"
     with_items:
-      - url: "https://github.com/molgenis/easybuild-easyconfigs/archive/{{ pb_ebconfigs_version }}/easybuild-easyconfigs-{{ pb_ebconfigs_version }}.tar.gz"
+      - url: "https://github.com/molgenis/easybuild-easyconfigs/archive/{{ pb_ebconfigs_version }}.tar.gz"
         dest: "{{ easybuild_sources_dir }}/e/easyconfigs/"
         checksum: "{{ pb_ebconfigs_checksum }}"
   - name: Extract EasyConfigs.
