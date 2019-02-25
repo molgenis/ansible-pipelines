@@ -1,5 +1,6 @@
 # ansible-pipelines
 
+
 ## Automagic deployment of pipelines for analysis of Next Generation Sequencing data
 
 This repo contains an Ansible playbook for deploying various pipelines for analysis of Next Generation Sequencing data:
