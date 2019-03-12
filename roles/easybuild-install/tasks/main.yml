@@ -85,6 +85,31 @@
 #
 # Lmod.
 #
+# Check if a system-wide Lmod is installed from an RPM and give up when we do find one.
+# A system-wide Lmod is usally installed in /usr/share/lmod/ and will clash with a custom one,
+# due to its symlinks/files in /etc/profile.d/ This will always get sourced when a new bash shell is started
+# resulting in re-overriding your custom LMOD_CMD env var setting it to:
+#     LMOD_CMD=/usr/share/lmod/lmod/libexec/lmod
+# This results in a different Lmod binary getting used when colling "module load ..." from within a bash script,
+# which may initially go unnoticed when differences between the two Lmod version are small,
+# but it will cause a fatal crash when one Lmod is for example a 6.x version and the other a 7.x,
+# because the Lmod cache file syntax has changed in 7.x.
+#
+- name: Check if a system-wide Lmod is installed from an RPM, which will clash with a custom Lmod.
+  find:
+    paths: '/etc/profile.d/'
+    patterns: '*lmod*'
+    recurse: yes
+    hidden: yes
+    follow: yes
+    file_type: any
+  register: lmod_profile_files
+- name: Report error when conflicting Lmod init files are found in /etc/profile.d/.
+  fail:
+    msg: "Error: found conflicting Lmod profile file in {{ item }}. Please remove the OS supplied Lmod version."
+  when: 'lmod_profile_files | success'
+  with_items: "{{ lmod_profile_files | json_query('files[].path') | list }}"
+
 - name: Check if Lmod is installed and if yes what version.
   #
   # Example output:
