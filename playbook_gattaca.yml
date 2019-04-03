@@ -135,7 +135,7 @@
            source {{ easybuild_modules_dir }}/modules.bashrc
            module load "EasyBuild/{{ easybuild_eb_version }}"
            eb --robot --robot-paths="{{ pb_ebconfigs_prefix }}/:" \
-              {{ pb_ebconfigs_prefix }}/n/NGS_Automated/NGS_Automated-{{ pb_ngs_automated_version }}.eb
+              {{ pb_ebconfigs_prefix }}/n/NGS_Automated/NGS_Automated-{{ pb_ngs_demultiplexing_version }}.eb
     environment:
       SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
 ...
