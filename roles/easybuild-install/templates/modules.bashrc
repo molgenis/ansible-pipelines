@@ -76,6 +76,7 @@ export LMOD_ADMIN_FILE="${HPC_ENV_PREFIX}/modules/modules.admin"
 export LMOD_CASE_INDEPENDENT_SORTING='True'
 export LMOD_REDIRECT='True'
 export LMOD_PAGER='none'
+unset MODULEPATH # Make sure Lmod starts with a clean MODULEPATH
 echo -n "Fetching available environment modules from ${HPC_ENV_PREFIX}/modules/... "
 declare module_dirs=''
 for module_class in $(ls -1 ${HPC_ENV_PREFIX}/modules/); do

@@ -15,22 +15,6 @@
 #
 # Update environment.
 #
-- name: Create ~/.modulesrc to make sure our global modules.bashrc with Lmod and EasyBuild environment config will be sourced.
-  blockinfile:
-    dest: "{{ ansible_env.HOME }}/.modulesrc"
-    block: |
-      export PATH={{ easybuild_software_dir }}/Lua/{{ easybuild_lua_version }}/bin:$PATH;
-      export PATH={{ easybuild_software_dir }}/lmod/lmod/libexec:$PATH
-      unset MODULEPATH # Make sure Lmod starts with a clean MODULEPATH
-      if [ -r {{ easybuild_software_dir }}/lmod/lmod/init/bash ]; then
-        source {{ easybuild_software_dir }}/lmod/lmod/init/bash
-      fi
-      if [ -r {{ easybuild_modules_dir }}/modules.bashrc ]; then
-        source {{ easybuild_modules_dir }}/modules.bashrc
-      fi
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - lua lmod modules in path"
-    insertafter: EOF
-    create: yes
 - name: Create global modules.bashrc with Lmod and EasyBuild environment config.
   template: src="{{ item.src }}" dest="{{ easybuild_modules_dir }}/{{ item.dest }}" mode="{{ MODE_0664_HARD }}"
   with_items:
@@ -38,15 +22,15 @@
       dest: '.lmod/lmodrc.lua'
     - src: 'modules.bashrc'
       dest: 'modules.bashrc'
-- name: Insert block into ~/.bashrc to append to make sure ~/.modulesrc will be sourced.
+- name: Insert/update block into ~/.bashrc to make sure modules.bashrc will be sourced.
   blockinfile:
     dest: "{{ ansible_env.HOME }}/.bashrc"
     block: |
-      # Setup environment for Lua and Lmod.
-      if [ -f "${HOME}/.modulesrc" ]; then
-        . "${HOME}/.modulesrc"
+      # Setup environment for Lua, Lmod & EasyBuild.
+      if [ -f "{{ easybuild_modules_dir }}/modules.bashrc" ]; then
+        source "{{ easybuild_modules_dir }}/modules.bashrc"
       fi
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - lua lmod in path"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - For Lua, Lmod & EasyBuild."
     insertafter: EOF
     create: yes
 
@@ -60,7 +44,7 @@
   #
   shell: |
          unset MODULEPATH
-         source ~/.modulesrc >/dev/null 2>&1
+         source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
          lua -v  2>&1 | grep -i Lua | sed 's|^.*Lua \([0-9\.]*\).*$|\1|'
   args:
     executable: /bin/bash
@@ -118,7 +102,7 @@
   #
   shell: |
          unset MODULEPATH
-         source ~/.modulesrc >/dev/null 2>&1
+         source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
          lmod -v 2>&1 | sed '/^$/d' | sed 's|^.*Version \([0-9\.]*\).*$|\1|' | head -1
   args:
     executable: /bin/bash
@@ -144,7 +128,7 @@
 #
 - name: Check if EasyBuild is installed and if yes what version.
   shell: |
-         source ~/.modulesrc >/dev/null 2>&1
+         source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
          module load EasyBuild/{{ easybuild_eb_version }}
          eb --version 2>&1 | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|'
   args:
