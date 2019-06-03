@@ -1,6 +1,9 @@
 ---
 - name: Create required directories.
-  file: dest="{{item}}" state='directory' mode="{{ MODE_2775_HARD }}"
+  file:
+    path:  "{{item}}"
+    state: 'directory'
+    mode: "{{ MODE_2775_HARD }}"
   with_items:
     - "{{ easybuild_sources_dir }}/l/Lmod"
     - "{{ easybuild_sources_dir }}/l/Lua"
