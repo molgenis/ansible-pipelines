@@ -104,10 +104,9 @@ class ProxiedInventory(object):
 
         # Get inventory file name from ENV VAR.
         self.inventory_file = os.getenv('AI_INVENTORY')
-        if self.inventory_file:
-            self.inventory_path = os.path.dirname(os.path.realpath(__file__)) + '/' + self.inventory_file
-        else:
-            self.inventory_path = os.path.dirname(os.path.realpath(__file__)) + '/inventory.ini'
+        if not self.inventory_file:
+            self.inventory_file = 'inventory.ini'
+        self.inventory_path = os.path.dirname(os.path.realpath(__file__)) + '/' + self.inventory_file
         if not (os.path.isfile(self.inventory_path) and os.access(self.inventory_path, os.R_OK)):
             print('FATAL: The static inventory file ' + self.inventory_path + "\n"
                   '       is either missing or not readable: Check path and permissions.\n' +
