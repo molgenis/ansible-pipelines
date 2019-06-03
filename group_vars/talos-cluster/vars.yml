@@ -34,10 +34,12 @@ group_subfolder_structure: [
   { group: 'umcg-atd',
     lfs: 'tmp08',
     mode: "{{ MODE_2770_HARD }}",
+    owner: '',
     subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'] },
   { group: 'umcg-atd',
     lfs: 'prm08',
     mode: "{{ MODE_2750_HARD }}",
+    owner: 'umcg-atd-dm',
     subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets'] },
 ]
 public_sources: [
