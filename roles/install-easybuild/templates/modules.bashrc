@@ -29,15 +29,6 @@ MY_DIR="$(cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 export HPC_ENV_PREFIX="$(dirname "${MY_DIR}")"
 
 #
-# Ansible env vars.
-#
-if [ -d "${HPC_ENV_PREFIX}/.tmp" ]; then
-    ANSIBLE_TMPDIR="${HPC_ENV_PREFIX}/.tmp/"
-else
-    ANSIBLE_TMPDIR='/tmp/'
-fi
-
-#
 # SLURM env vars: make sure jobs submitted with sbatch start with a clean environment.
 #
 export SBATCH_EXPORT='NONE'
