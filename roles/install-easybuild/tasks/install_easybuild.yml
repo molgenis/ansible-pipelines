@@ -23,6 +23,7 @@
     - url: "{{ easybuild_easyconfigs_url }}"
       dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
       checksum: "{{ easybuild_easyconfigs_checksum }}"
+
 - name: Install latest EasyBuild version with bootstrap script.
   #
   # Ansible doesn't run task in a login shell, so we have to source the EasyBuild config manually.
@@ -31,7 +32,12 @@
          source {{ easybuild_modules_dir }}/modules.bashrc
          umask 0002
          export EASYBUILD_BOOTSTRAP_SOURCEPATH="{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
-         python {{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/bootstrap_eb_{{ easybuild_bs_version }}.py {{ HPC_ENV_PREFIX }}
+         python {{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/bootstrap_eb_{{ easybuild_bs_version }}.py "{{ HPC_ENV_PREFIX }}"
+  args:
+    executable: /bin/bash
+  environment:
+    SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
+
 - name: Check if the required EasyBuild version is installed.
   shell: |
          source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
@@ -46,20 +52,25 @@
   failed_when: false
   check_mode: no
   register: eb_installed_version
+
 - name: Determine if the required EasyBuild version needs to be installed.
   set_fact:
     eb_install_from_source: true
-  when: 'eb_installed_version|failed or (eb_installed_version.stdout | version_compare(easybuild_eb_version, operator="!="))'
+  when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_eb_version'
+
 - name: Report EasyBuild status.
   debug:
     msg: 'Will install the required EasyBuild version with the latest EasyBuild version as the bootstrapped version is not the requested version. (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_eb_version }}.)'
   when: eb_install_from_source|default(false)
+
 - name: Install required EasyBuild version with EasyBuild.
   shell: |
          source {{ easybuild_modules_dir }}/modules.bashrc
          umask 0002
          module load EasyBuild
          eb --software="EasyBuild,{{ easybuild_eb_version }}"
+  args:
+    executable: /bin/bash
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   when: eb_install_from_source|default(false)

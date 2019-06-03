@@ -1,14 +1,14 @@
+---
 #
 # Conventions for global environment variables:
-#  A. User UPPERCASE underscore separated names like for shell env vars.
+#  A. Use UPPERCASE underscore separated names like for shell env vars.
 #
-HPC_ENV_PREFIX: "/apps/" # default when not overruled by a site specific file in the host_vars sub dir.
+HPC_ENV_PREFIX: "/apps/" # default when not overruled by a site specific file in the group_vars sub dir.
 #
-# Conventions:
+# Conventions for role variables:
 #  A. Always prefix variables names with the role name to prevent variable name collisions.
-#  B. User lowercase underscore separated names.
+#  B. Use lowercase underscore separated names.
 #
-
 easybuild_sources_dir: "{{ HPC_ENV_PREFIX }}/sources/"
 easybuild_modules_dir: "{{ HPC_ENV_PREFIX }}/modules/"
 easybuild_software_dir: "{{ HPC_ENV_PREFIX }}/software/"
@@ -52,4 +52,4 @@ easybuild_easyblocks_url: 'https://files.pythonhosted.org/packages/6a/9f/67a9255
 easybuild_easyblocks_checksum: 'sha256:9f592214a190894890bdca5eaa84a9a0f5d9155e610a75c901f46709a87cac1b'
 easybuild_easyconfigs_url: 'https://files.pythonhosted.org/packages/fd/b4/c6f4655ebd0178e4aa9181c0d772c4244d378b18b90905f972f21ebc3448/easybuild-easyconfigs-3.6.1.tar.gz'
 easybuild_easyconfigs_checksum: 'sha256:e296a0992f5177cd72549b07da4019446cba44a88e891ac8535d6d47d0ab72f1'
-
+...

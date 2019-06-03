@@ -26,11 +26,10 @@
   blockinfile:
     dest: "{{ ansible_env.HOME }}/.bashrc"
     block: |
-      # Setup environment for Lua, Lmod & EasyBuild.
       if [ -f "{{ easybuild_modules_dir }}/modules.bashrc" ]; then
         source "{{ easybuild_modules_dir }}/modules.bashrc"
       fi
-    marker: "# {mark} ANSIBLE MANAGED BLOCK - For Lua, Lmod & EasyBuild."
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - Setup environment for Lua, Lmod & EasyBuild."
     insertafter: EOF
     create: yes
 
@@ -59,12 +58,11 @@
   debug:
     #msg: 'Will install Lua from source as it is either missing or present in a different version. (Detected {{ lua_installed_version.stderr | regex_replace("^.*Lua ([0-9\.]+).*$", "\\1") }} and need {{ easybuild_lua_version }}.)'
     msg: 'Will install Lua from source as it is either missing or present in a different version. (Detected {{ lua_installed_version.stdout }} and need {{ easybuild_lua_version }}.)'
-  when:         'lua_installed_version|failed or (lua_installed_version.stdout | version_compare(easybuild_lua_version, operator="!="))'
-  changed_when: 'lua_installed_version|failed or (lua_installed_version.stdout | version_compare(easybuild_lua_version, operator="!="))'
+  when:         'lua_installed_version is failed or lua_installed_version.stdout != easybuild_lua_version'
+  changed_when: 'lua_installed_version is failed or lua_installed_version.stdout != easybuild_lua_version'
   notify: 'Install_Lua'
 - name: Flush handlers to trigger Lua installation.
   meta: flush_handlers
-  when: 'lua_installed_version|failed or (lua_installed_version.stdout | version_compare(easybuild_lua_version, operator="!="))'
 
 #
 # Lmod.
@@ -91,7 +89,7 @@
 - name: Report error when conflicting Lmod init files are found in /etc/profile.d/.
   fail:
     msg: "Error: found conflicting Lmod profile file in {{ item }}. Please remove the OS supplied Lmod version."
-  when: 'lmod_profile_files | success'
+  when: 'lmod_profile_files is success'
   with_items: "{{ lmod_profile_files | json_query('files[].path') | list }}"
 
 - name: Check if Lmod is installed and if yes what version.
@@ -113,15 +111,17 @@
   failed_when: false
   check_mode: no
   register: lmod_installed_version
+- name: "DEBUG: Report Lmod status."
+  debug:
+    msg: 'Detected {{ lmod_installed_version.stdout }} and need {{ easybuild_lmod_version }}.'
 - name: Report Lmod status.
   debug:
     msg: 'Will install Lmod from source as it is either missing or present in a different version. (Detected {{ lmod_installed_version.stdout }} and need {{ easybuild_lmod_version }}.)'
-  when:         'lmod_installed_version|failed or (lmod_installed_version.stdout | version_compare(easybuild_lmod_version, operator="!="))'
-  changed_when: 'lmod_installed_version|failed or (lmod_installed_version.stdout | version_compare(easybuild_lmod_version, operator="!="))'
+  when:         'lmod_installed_version is failed or lmod_installed_version.stdout != easybuild_lmod_version'
+  changed_when: 'lmod_installed_version is failed or lmod_installed_version.stdout != easybuild_lmod_version'
   notify: 'Install_Lmod'
 - name: Flush handlers to trigger Lmod installation.
   meta: flush_handlers
-  when: 'lmod_installed_version|failed or (lmod_installed_version.stdout | version_compare(easybuild_lmod_version, operator="!="))'
 
 #
 # EasyBuild.
@@ -147,10 +147,9 @@
 - name: Report EasyBuild status.
   debug:
     msg: 'Will bootstrap the latest EasyBuild version from source as it is either missing or present in a different version. (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_eb_version }}.)'
-  when:         'eb_installed_version|failed or (eb_installed_version.stdout | version_compare(easybuild_eb_version, operator="!="))'
-  changed_when: 'eb_installed_version|failed or (eb_installed_version.stdout | version_compare(easybuild_eb_version, operator="!="))'
+  when:         'eb_installed_version is failed or eb_installed_version.stdout != easybuild_eb_version'
+  changed_when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_eb_version'
   notify: 'Install_EasyBuild'
 - name: Flush handlers to trigger EasyBuild installation.
   meta: flush_handlers
-  when: 'eb_installed_version|failed or (eb_installed_version.stdout | version_compare(easybuild_eb_version, operator="!="))'
 ...
