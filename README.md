@@ -1,6 +1,5 @@
 # ansible-pipelines
 
-
 ## Automagic deployment of pipelines for analysis of Next Generation Sequencing data
 
 This repo contains an Ansible playbook for deploying various pipelines for analysis of Next Generation Sequencing data:
@@ -79,18 +78,22 @@ The default values for variables (like the version number of the pipeline to dep
 ```
 group_vars/all
 ```
-When you need to override any of the defaults, then create a file with the name of a host or group as listed in the inventory in:
+When you need to override any of the defaults, then create a file with the name of a group as listed in the inventory in:
 ```
-host_vars/[hostname|groupname]
+group_vars/[groupname]
 ```
-You don't need to list all variables in the file in ```host_vars/```, but only the ones for which you need a different value.
+You don't need to list all variables in the file in ```group_vars/```, but only the ones for which you need a different value.
+
+IMPORTANT: Do not use ```host_vars``` as that does not work well with the dynamic inventory (see below) when working with jumphosts to reach a target server.
+When a jumphost is used and its name is prefixed in front of the name of the target host, then the combined "hostname" will no longer match files or directories in ```host_vars```.
+Hence you should assign the destination host to a group instead and use ```group_vars``` even when the group contains only a single host.
 
 ## Dynamic vs. static inventory
 
  - ```inventory.ini```: is the static inventory file.
  - ```inventory.py```: is the dynamic inventory script.
 
-The dynamic inventory script one uses the environment variable ```AI_PROXY``` and when set prefixes the name of the specified proxy server in front of the hostnames listed in the static inventory.
+The dynamic inventory script one uses the environment variable ```AI_PROXY``` and when set prefixes the name of the specified proxy/jumphost server in front of the hostnames listed in the static inventory.
 The inventory files handle only (groups of) hostnames.
 Hence the inventory files do not list any other SSH connection settings / parameters like port numbers, usernames, expansion of aliases/hostnames to fully qualified domain names (FQDNs), etc.
 All SSH connection settings must be stored in your ```~/.ssh/config``` file. An example ```~/.ssh/config``` could look like this:
@@ -104,7 +107,7 @@ Host some_proxy other_proxy *some_target *another_target !*.my.domain
     HostName %h.my.domain
     User youraccount
 #
-# Proxy settings.
+# Proxy/jumphost settings.
 #
 Host some_proxy+*
     ProxyCommand ssh -X -q youraccount@some_proxy.my.domain -W $(echo %h | sed 's/^some_proxy[^+]*+//'):%p
