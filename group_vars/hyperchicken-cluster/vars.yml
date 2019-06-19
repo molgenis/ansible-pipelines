@@ -1,0 +1,73 @@
+---
+#
+# Site specific values to override defaults for variables.
+#
+# Conventions for global environment variables:
+# Use UPPERCASE underscore separated names like for shell env vars.
+#
+
+#
+# Conventions for playbook variables:
+# Use lowercase underscore separated names.
+#
+#
+# EasyBuild 3.7.1 offline bootstrap deps.
+#
+easybuild_eb_version: '3.7.1'
+easybuild_bs_version: '20180925.01'
+easybuild_bs_hash: 'fdb1fd987ac4ec48397fcf776b27f889d188da63'
+easybuild_bs_checksum: 'md5:4e568883f293f94ade46a14d25cb6b94'
+easybuild_vsc_install_url: 'https://files.pythonhosted.org/packages/18/59/3274a58af6af84a87f7655735b452c06c769586ee73954f5ee15d303aa29/vsc-install-0.11.3.tar.gz'
+easybuild_vsc_install_checksum: 'sha256:8b102ba585863769d974ad117764039ac3cea21372a3baa5cdb6b93166673ad6'
+easybuild_vsc_base_url: 'https://files.pythonhosted.org/packages/62/e5/589612e47255627e4752d99018ae7cff8f49ab0fa6b4ba7b2226a76a05d3/vsc-base-2.8.3.tar.gz'
+easybuild_vsc_base_checksum: 'sha256:9e102ca9d94ab97c2b974c63708dab7ea4dbaa3144787f06455e16445b92f204'
+easybuild_framework_url: 'https://files.pythonhosted.org/packages/d0/f1/a3c897ab19ad36a9a259adc0b31e383a8d322942eda1e59eb4fedee27d09/easybuild-framework-3.7.1.tar.gz'
+easybuild_framework_checksum: 'sha256:9fdf99c1fd51d7a040ce936e95fbd34990dba7e2f4fbe1f2382d5cd51d436d3a'
+easybuild_easyblocks_url: 'https://files.pythonhosted.org/packages/50/ea/3381a6e85f9a9beee311bed81a03c4900dd11c2a25c1e952b76e9a73486b/easybuild-easyblocks-3.7.1.tar.gz'
+easybuild_easyblocks_checksum: 'sha256:c002c98ed57a96c87295722f7bf4860baf62506b509083ad9b1b943e5aa1b286'
+easybuild_easyconfigs_url: 'https://files.pythonhosted.org/packages/73/63/b22ff96b8c3e09e04466951c0c3aa7b2230a522792dd3ae37c5fce4c68ea/easybuild-easyconfigs-3.7.1.tar.gz'
+easybuild_easyconfigs_checksum: 'sha256:0069c1a6dae9912f39faa2b38a3bfe351e903edad1fa3ffe5e96596fc4e5122d'
+extra_easyconfigs_version: '2.8.31'
+extra_easyconfigs_checksum: 'sha256:77f3ec2a5372b8452b30fef68efdf85331e84a26ddc4a06fdd820a4d413198f1'
+extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
+group_subfolder_structure: [
+  { group: 'umcg-atd',
+    lfs: 'tmp09',
+    mode: "{{ MODE_2770_HARD }}",
+    owner: '',
+    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'] },
+  { group: 'umcg-atd',
+    lfs: 'prm09',
+    mode: "{{ MODE_2750_HARD }}",
+    owner: 'umcg-atd-dm',
+    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets'] },
+]
+public_sources: [
+#  'f/flex/flex-2.5.39.tar.gz',
+#  'g/GCC/gmp-6.0.0a.tar.bz2',
+#  'g/GCC/mpc-1.0.2.tar.gz',
+#  'g/GCC/gcc-4.9.3.tar.bz2',
+#  'g/GCC/mpfr-3.1.2.tar.gz',
+#  'h/hwloc/hwloc-1.11.0.tar.gz',
+#  'n/NASM/nasm-2.11.08.tar.bz2',
+#  'n/numactl/numactl-2.0.10.tar.gz',
+#  'o/OpenMPI/openmpi-1.8.8.tar.gz',
+#  'z/zlib/zlib-1.2.8.tar.gz',
+#  's/snpEff/snpEff_v4_3_core.zip',
+#  'i/io_lib/io_lib-1.14.6.tar.gz',
+#  'e/expat/expat-2.1.0.tar.gz',
+#  'l/libpng/libpng-1.6.21.tar.gz',
+]
+private_sources: [
+#  'g/GATK/GenomeAnalysisTK-3.7.tar.bz2',
+  'j/Java/jdk-11.0.2-linux-x64_bin.tar.gz',
+]
+refdata: [
+#  'CGD',
+#  'ClinVar',
+]
+easyconfigs: [
+  'c/cluster-utils/cluster-utils-v18.08.1-foss-2018b.eb',
+  'd/depad-utils/depad-utils-v19.06.1.eb',
+]
+...
