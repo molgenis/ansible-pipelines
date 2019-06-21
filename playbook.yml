@@ -7,7 +7,6 @@
       assert:
         that: "ansible_version.full is version_compare('2.7', '>=')"
         msg: 'You must update Ansible to at least 2.7.x to use this playbook.'
-
 #
 # Pre-create {{ HPC_ENV_PREFIX }}/.tmp/, so we can also use it for Ansible
 # to prevent large data transfers from running out of disk space
@@ -29,6 +28,7 @@
     - install-modules-with-easybuild
   vars:
     ansible_remote_tmp: "{{ HPC_ENV_PREFIX }}/.tmp/ansible-${USER}"
+    extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 
 - hosts: UI
   roles:

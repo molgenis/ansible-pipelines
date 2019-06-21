@@ -5,24 +5,24 @@
 - name: Download EasyBuild bootstrap script and deps for offline bootstrapping.
   get_url: url="{{ item.url }}" dest="{{ item.dest }}" checksum="{{ item.checksum }}" mode="{{ MODE_0664_HARD }}"
   with_items:
-    - url: "https://raw.githubusercontent.com/easybuilders/easybuild-framework/{{ easybuild_bs_hash }}/easybuild/scripts/bootstrap_eb.py"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/bootstrap_eb_{{ easybuild_bs_version }}.py"
-      checksum: "{{ easybuild_bs_checksum }}"
-    - url: "{{ easybuild_vsc_install_url }}"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
-      checksum: "{{ easybuild_vsc_install_checksum }}"
-    - url: "{{ easybuild_vsc_base_url }}"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
-      checksum: "{{ easybuild_vsc_base_checksum }}"
-    - url: "{{ easybuild_framework_url }}"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
-      checksum: "{{ easybuild_framework_checksum }}"
-    - url: "{{ easybuild_easyblocks_url }}"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
-      checksum: "{{ easybuild_easyblocks_checksum }}"
-    - url: "{{ easybuild_easyconfigs_url }}"
-      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
-      checksum: "{{ easybuild_easyconfigs_checksum }}"
+    - url: "{{ easybuild_releases[easybuild_version]['bootstrap_url'] }}"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/bootstrap_eb_{{ easybuild_releases[easybuild_version]['bootstrap_version'] }}.py"
+      checksum: "{{ easybuild_releases[easybuild_version]['bootstrap_checksum'] }}"
+    - url: "{{ easybuild_releases[easybuild_version]['vsc_install_url'] }}"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/"
+      checksum: "{{ easybuild_releases[easybuild_version]['vsc_install_checksum'] }}"
+    - url: "{{ easybuild_releases[easybuild_version]['vsc_base_url'] }}"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/"
+      checksum: "{{ easybuild_releases[easybuild_version]['vsc_base_checksum'] }}"
+    - url: "{{ easybuild_releases[easybuild_version]['framework_url'] }}"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/"
+      checksum: "{{ easybuild_releases[easybuild_version]['framework_checksum'] }}"
+    - url: "{{ easybuild_releases[easybuild_version]['easyblocks_url'] }}"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/"
+      checksum: "{{ easybuild_releases[easybuild_version]['easyblocks_checksum'] }}"
+    - url: "{{ easybuild_releases[easybuild_version]['easyconfigs_url'] }}"
+      dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/"
+      checksum: "{{ easybuild_releases[easybuild_version]['easyconfigs_checksum'] }}"
 
 - name: Install latest EasyBuild version with bootstrap script.
   #
@@ -31,8 +31,8 @@
   shell: |
          source {{ easybuild_modules_dir }}/modules.bashrc
          umask 0002
-         export EASYBUILD_BOOTSTRAP_SOURCEPATH="{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/"
-         python {{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}/bootstrap_eb_{{ easybuild_bs_version }}.py "{{ HPC_ENV_PREFIX }}"
+         export EASYBUILD_BOOTSTRAP_SOURCEPATH="{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/"
+         python {{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/bootstrap_eb_{{ easybuild_releases[easybuild_version]['bootstrap_version'] }}.py "{{ HPC_ENV_PREFIX }}"
   args:
     executable: /bin/bash
   environment:
@@ -41,7 +41,7 @@
 - name: Check if the required EasyBuild version is installed.
   shell: |
          source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
-         module load EasyBuild/{{ easybuild_eb_version }}
+         module load EasyBuild/{{ easybuild_version }}
          eb --version 2>&1 | head -1 | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|'
   args:
     executable: /bin/bash
@@ -56,11 +56,11 @@
 - name: Determine if the required EasyBuild version needs to be installed.
   set_fact:
     eb_install_from_source: true
-  when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_eb_version'
+  when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_version'
 
 - name: Report EasyBuild status.
   debug:
-    msg: 'Will install the required EasyBuild version with the latest EasyBuild version as the bootstrapped version is not the requested version. (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_eb_version }}.)'
+    msg: 'Will install the required EasyBuild version with the latest EasyBuild version as the bootstrapped version is not the requested version. (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_version }}.)'
   when: eb_install_from_source|default(false)
 
 - name: Install required EasyBuild version with EasyBuild.
@@ -68,7 +68,7 @@
          source {{ easybuild_modules_dir }}/modules.bashrc
          umask 0002
          module load EasyBuild
-         eb --software="EasyBuild,{{ easybuild_eb_version }}"
+         eb --software="EasyBuild,{{ easybuild_version }}"
   args:
     executable: /bin/bash
   environment:

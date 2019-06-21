@@ -7,8 +7,8 @@
   with_items:
     - "{{ easybuild_sources_dir }}/l/Lmod"
     - "{{ easybuild_sources_dir }}/l/Lua"
-    - "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_eb_version }}"
-    - "{{ easybuild_software_dir }}/Lua/{{ easybuild_lua_version }}"
+    - "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}"
+    - "{{ easybuild_software_dir }}/Lua/{{ lua_version }}"
     - "{{ easybuild_software_dir }}/EasyBuild/"
     - "{{ easybuild_modules_dir }}/all/EasyBuild"
     - "{{ easybuild_modules_dir }}/tools/EasyBuild"
@@ -59,10 +59,9 @@
   register: lua_installed_version 
 - name: Report Lua status.
   debug:
-    #msg: 'Will install Lua from source as it is either missing or present in a different version. (Detected {{ lua_installed_version.stderr | regex_replace("^.*Lua ([0-9\.]+).*$", "\\1") }} and need {{ easybuild_lua_version }}.)'
-    msg: 'Will install Lua from source as it is either missing or present in a different version. (Detected {{ lua_installed_version.stdout }} and need {{ easybuild_lua_version }}.)'
-  when:         'lua_installed_version is failed or lua_installed_version.stdout != easybuild_lua_version'
-  changed_when: 'lua_installed_version is failed or lua_installed_version.stdout != easybuild_lua_version'
+    msg: 'Will install Lua from source as it is either missing or present in a different version. (Detected {{ lua_installed_version.stdout }} and need {{ lua_version }}.)'
+  when:         'lua_installed_version is failed or lua_installed_version.stdout != lua_version'
+  changed_when: 'lua_installed_version is failed or lua_installed_version.stdout != lua_version'
   notify: 'Install_Lua'
 - name: Flush handlers to trigger Lua installation.
   meta: flush_handlers
@@ -116,12 +115,12 @@
   register: lmod_installed_version
 - name: "DEBUG: Report Lmod status."
   debug:
-    msg: 'Detected {{ lmod_installed_version.stdout }} and need {{ easybuild_lmod_version }}.'
+    msg: 'Detected {{ lmod_installed_version.stdout }} and need {{ lmod_version }}.'
 - name: Report Lmod status.
   debug:
-    msg: 'Will install Lmod from source as it is either missing or present in a different version. (Detected {{ lmod_installed_version.stdout }} and need {{ easybuild_lmod_version }}.)'
-  when:         'lmod_installed_version is failed or lmod_installed_version.stdout != easybuild_lmod_version'
-  changed_when: 'lmod_installed_version is failed or lmod_installed_version.stdout != easybuild_lmod_version'
+    msg: 'Will install Lmod from source as it is either missing or present in a different version. (Detected {{ lmod_installed_version.stdout }} and need {{ lmod_version }}.)'
+  when:         'lmod_installed_version is failed or lmod_installed_version.stdout != lmod_version'
+  changed_when: 'lmod_installed_version is failed or lmod_installed_version.stdout != lmod_version'
   notify: 'Install_Lmod'
 - name: Flush handlers to trigger Lmod installation.
   meta: flush_handlers
@@ -132,7 +131,7 @@
 - name: Check if EasyBuild is installed and if yes what version.
   shell: |
          source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
-         module load EasyBuild/{{ easybuild_eb_version }}
+         module load EasyBuild/{{ easybuild_version }}
          eb --version 2>&1 | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|'
   args:
     executable: /bin/bash
@@ -145,13 +144,13 @@
   register: eb_installed_version
 #- name: DEBUG EasyBuild version number.
 #  debug:
-#    msg: 'Detected {{ eb_installed_version.stdout | version_compare(easybuild_eb_version, operator="!=") }}.'
+#    msg: 'Detected {{ eb_installed_version.stdout | version_compare(easybuild_version, operator="!=") }}.'
 #- debug: var=eb_installed_version
 - name: Report EasyBuild status.
   debug:
-    msg: 'Will bootstrap the latest EasyBuild version from source as it is either missing or present in a different version. (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_eb_version }}.)'
-  when:         'eb_installed_version is failed or eb_installed_version.stdout != easybuild_eb_version'
-  changed_when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_eb_version'
+    msg: 'Will bootstrap the latest EasyBuild version from source as it is either missing or present in a different version. (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_version }}.)'
+  when:         'eb_installed_version is failed or eb_installed_version.stdout != easybuild_version'
+  changed_when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_version'
   notify: 'Install_EasyBuild'
 - name: Flush handlers to trigger EasyBuild installation.
   meta: flush_handlers

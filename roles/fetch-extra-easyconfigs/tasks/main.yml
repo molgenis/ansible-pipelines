@@ -2,7 +2,6 @@
 - name: Create folder structure for extra EasyConfigs.
   file: dest="{{item}}" state='directory' mode="{{ MODE_2775_HARD }}"
   with_items:
-#    - "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
     - "{{ extra_easyconfigs_prefix }}"
     - "{{ easybuild_sources_dir }}/e/easyconfigs"
 
@@ -11,7 +10,7 @@
   with_items:
     - url: "https://github.com/molgenis/easybuild-easyconfigs/archive/{{ extra_easyconfigs_version }}.tar.gz"
       dest: "{{ easybuild_sources_dir }}/e/easyconfigs/"
-      checksum: "{{ extra_easyconfigs_checksum }}"
+      checksum: "{{ extra_easyconfigs_releases[extra_easyconfigs_version]['checksum'] }}"
 
 - name: Extract EasyConfigs.
   unarchive: src="{{ item.src }}" dest="{{ item.dest }}" remote_src=yes mode="{{ MODE__775_SOFT }}"
