@@ -1,0 +1,84 @@
+---
+- name: Check if rsync >= 3.1.2 is installed on the control host.
+  shell: |
+         rsync --version  2>&1 | head -n 1 | sed 's|^rsync *version *\([0-9\.]*\).*$|\1|' | tr -d '\n'
+  args:
+    warn: no
+  changed_when: false
+  failed_when: false
+  check_mode: no
+  register: rsync_version
+
+- name: Abort when modern rsync >= 3.1.2 is missing on control host.
+  debug:
+    msg: "FATAL: Need rsync >= 3.1.2 on {{ inventory_hostname }}, but detected {{ rsync_version.stdout }}."
+  when:         'rsync_version is failed or (rsync_version.stdout is version_compare("3.1.2", operator="<"))'
+  failed_when: 'rsync_version is failed or (rsync_version.stdout is version_compare("3.1.2", operator="<"))'
+  delegate_to: localhost
+
+- name: Create folder for reference data.
+  file: dest="{{item}}" state='directory' mode="{{ MODE_2775_HARD }}"
+  with_items:
+    - "{{ HPC_ENV_PREFIX }}/data"
+
+- name: Synchronize reference data.
+  synchronize:
+    src: "{{ remote_env_cache_dir_public }}/data/{{ item }}"
+    dest: "{{ HPC_ENV_PREFIX }}/data/"
+    mode: 'pull'
+    use_ssh_args: 'yes'
+    rsync_opts:
+      # --omit-dir-times  Is required to prevent "sync error: some files/attrs were not transferred"
+      #                   for file systems like NFS mounts that cannot handle setting dir times properly.
+      # --omit-link-times Is required to prevent "sync error: some files/attrs were not transferred"
+      #                   for file systems like NFS mounts that cannot handle setting dir times properly.
+      #                   Requires rsync >= 3.1.2 (default on Enterprise Linux >= 7.x).
+      # --chmod           Is required to prevent errors when the perms on the source are not what is required/expected on the destination.
+      #                   Fixing perms on the source would be good, but that may be out of our control.
+      #                   In that case --chmod ensures we get what we want on the destination.
+      # --force           Is required when symlinks have changed into dirs/files or vice versa.
+      #                   In that case the wrong outdated stuff has to be deleted on the destination first before the new stuff can be created.
+      #                   Deleting the outdated stuff may fail without --force.
+      - '--omit-dir-times'
+      - '--omit-link-times'
+      - "--chmod={{ MODE_D2775_F0664 }}"
+      - '--force'
+  delegate_to: "{{ inventory_hostname }}"
+  with_items: "{{ refdata }}"
+
+- name: Synchronize publicly available sources, which cannot be downloaded automagically by EB for technical reasons.
+  # This is usually the case for downloads from FTP URLs, which may be blocked by firewalls due to the insecure nature of FTP.
+  synchronize:
+    src: "{{ remote_env_cache_dir_public }}/sources/./{{ item }}"
+    dest: "{{ easybuild_sources_dir }}/"
+    mode: 'pull'
+    use_ssh_args: 'yes'
+    rsync_opts:
+      # --relative        In combination with a "source_server:some/path/not/created/on/destination/./path/created/on/destination/some_file" (dot dir)
+      #                   recreates a partial dir structure on the destination relative to the /./ dir, when it does not already exist.
+      #                   Without this combination of --relative and dot dir rsync will error when the path does not exist on the destination.
+      - '--relative'
+      - '--omit-dir-times'               # See comments above for why.
+      - '--omit-link-times'              # See comments above for why.
+      - "--chmod={{ MODE_D2775_F0664 }}" # See comments above for why.
+      - '--force'                        # See comments above for why.
+  delegate_to: "{{ inventory_hostname }}"
+  with_items: "{{ public_sources }}"
+
+- name: Synchronize sources, which cannot be downloaded automagically by EasyBuild for legal reasons.
+  # NOTE: This is more or less the same as the download above, but for legal reasons we cannot cache these on a publicly accessible server.
+  #       You will have to download these yourself to a system under your control, so the playbook can copy them to your target systems.
+  synchronize:
+    src: "{{ remote_env_cache_dir_private }}/sources/./{{ item }}"
+    dest: "{{ easybuild_sources_dir }}/"
+    mode: 'pull'
+    use_ssh_args: 'yes'
+    rsync_opts:
+      - '--relative'                     # See comments above for why.
+      - '--omit-dir-times'               # See comments above for why.
+      - '--omit-link-times'              # See comments above for why.
+      - "--chmod={{ MODE_D2775_F0664 }}" # See comments above for why.
+      - '--force'                        # See comments above for why.
+  delegate_to: "{{ inventory_hostname }}"
+  with_items: "{{ private_sources }}"
+...

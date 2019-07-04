@@ -1,18 +1,13 @@
-
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
-
-DOCUMENTATION = '''
-    callback: homsaplog
-    type: stdout
-    short_description: Homo sapiens friendly formatted output.
-    description:
-      - Use this callback to sort though extensive debug output
+'''
+callback: homsaplog
+type: stdout
+short_description: Homo sapiens friendly formatted output.
+description: Use this callback to sort though extensive debug output.
 '''
 
+from __future__ import (absolute_import, division, print_function)
 from ansible.plugins.callback.default import CallbackModule as CallbackModule_default
 from ansible.plugins.callback import CallbackBase
-
 try:
     # Ansible 2.3
     from ansible.vars import strip_internal_keys
@@ -23,13 +18,15 @@ except ImportError:
     except ImportError:
         # Ansible 2.5
         from ansible.vars.clean import strip_internal_keys
-
 try:
     import simplejson as json
 except ImportError:
     import json
 import sys
-reload(sys).setdefaultencoding('utf-8')
+if sys.version_info < (3,0,0):
+    reload(sys).setdefaultencoding('utf-8')
+
+__metaclass__ = type
 
 class CallbackModule(CallbackModule_default):  # pylint: disable=too-few-public-methods,no-init
     '''
@@ -46,9 +43,11 @@ class CallbackModule(CallbackModule_default):  # pylint: disable=too-few-public-
         '''Return the text to output for a result.'''
 
         if result.get('_ansible_no_log', False):
-            return json.dumps(dict(censored="The output has been hidden due to the fact that 'no_log: true' was specified for this result."))
+            return json.dumps(dict(censored=
+                "The output has been hidden due to the fact that 'no_log: true' was specified for this result."))
 
-        # All result keys starting with _ansible_ are for internal use only, so remove them from the result before we output anything.
+        # All result keys starting with _ansible_ are for internal use only,
+        # so remove them from the result before we output anything.
         reformatted_result = strip_internal_keys(result)
  
         # remove invocation unless specifically wanting it

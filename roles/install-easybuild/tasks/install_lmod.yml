@@ -1,0 +1,29 @@
+---
+#
+# Lmod.
+#
+- name: Download Lmod.
+  get_url:
+    url: "{{ lmod_releases[lmod_version]['url'] }}"
+    dest: "{{ easybuild_sources_dir }}/l/Lmod/{{ lmod_version }}.tar.gz"
+    checksum: "{{ lmod_releases[lmod_version]['checksum'] }}"
+    mode: "{{ MODE_0664_HARD }}"
+
+- name: Decompress Lmod.
+  unarchive:
+    src:  "{{ easybuild_sources_dir }}/l/Lmod/{{ lmod_version }}.tar.gz"
+    dest: "{{ easybuild_sources_dir }}/l/Lmod/"
+    copy: no
+    mode: "{{ MODE__775_SOFT }}"
+
+- name: Compile and install Lmod.
+  shell: |
+         export PATH={{ easybuild_software_dir }}/Lua/{{ lua_version }}/bin:$PATH
+         cd {{ easybuild_sources_dir }}/l/Lmod/Lmod-{{ lmod_version }}
+         umask 0002
+         ./configure --prefix={{ easybuild_software_dir }} \
+                     --with-lua-include={{ easybuild_software_dir }}/Lua/{{ lua_version }}/include \
+                     --with-mpathSearch=YES \
+                     --with-caseIndependentSorting=YES \
+             && make install
+...
