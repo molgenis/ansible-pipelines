@@ -8,16 +8,21 @@
   # "include tasks in handlers fails if there are more handlers #34505"
   # https://github.com/ansible/ansible/issues/34505
   #
+  # Need to disable "static: no" on Ansible >= 2.8.0 where it is no longer supported.
+  #
 - name: Install_Lua
   listen: Install_Lua
-  include_tasks: tasks/install_lua.yml
-  static: no
+  include_tasks:
+    file: tasks/install_lua.yml
+  #static: no
 - name: Install_Lmod
   listen: Install_Lmod
-  include_tasks: tasks/install_lmod.yml
-  static: no
+  include_tasks:
+    file: tasks/install_lmod.yml
+  #static: no
 - name: Install_EasyBuild
   listen: Install_EasyBuild
-  include_tasks: tasks/install_easybuild.yml
-  static: no
+  include_tasks:
+    file: tasks/install_easybuild.yml
+  #static: no
 ...
