@@ -46,5 +46,6 @@ refdata: [
 easyconfigs: [
   'c/cluster-utils/cluster-utils-v18.08.1-foss-2018b.eb',
   'd/depad-utils/depad-utils-v19.06.1.eb',
+  'n/NGS_DNA/NGS_DNA-3.5.2.eb',
 ]
 ...
