@@ -10,13 +10,13 @@
 # but in the first case there are no SLURM related environment variables defined.
 #
 # NOTE: when using the --get-user-env=L option for SLURM's sbatch command,
-#       the ${SLURM_JOBID} variable is not yet available when the environment is 
-#       configured and hence when this file is sourced. The only way to make 
-#       --get-user-env=L work reliably without causing problems with other 'dumb'
-#       shells is to make sure the SLURM slurmd daemon is started using a regular 
-#       (pseudo) terminal, so ${TERM} won't be 'dumb'.
+#       various SLURM_* environment variables are not yet available 
+#       when the environment is configured and hence when this file is sourced.
+#       The only way to make --get-user-env=L work reliably without causing problems with other 'dumb'
+#       shells is to check the BASH_EXECUTION_STRING variable which contains the slurm command 
+#       used to parse the environment variables from a simulated login.
 #
-if [ ${TERM} == 'dumb' ] && [ -z ${SLURM_JOBID} ] && [ -z ${SOURCE_HPC_ENV} ]; then
+if [[ "${TERM}" == 'dumb' ]] && [[ ! "${BASH_EXECUTION_STRING}" =~ 'slurm' ]] && [[ -z "${SOURCE_HPC_ENV}" ]]; then
     return
 fi
 
