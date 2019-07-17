@@ -15,8 +15,9 @@
 #       The only way to make --get-user-env=L work reliably without causing problems with other 'dumb'
 #       shells is to check the BASH_EXECUTION_STRING variable which contains the slurm command 
 #       used to parse the environment variables from a simulated login.
+#       We still also check SLURM_JOB_ID in case a user sources his environment explicitly in a job.
 #
-if [[ "${TERM}" == 'dumb' ]] && [[ ! "${BASH_EXECUTION_STRING}" =~ 'slurm' ]] && [[ -z "${SOURCE_HPC_ENV}" ]]; then
+if [[ "${TERM}" == 'dumb' ]] && [[ ! "${BASH_EXECUTION_STRING}" =~ 'slurm' ]] && [[ -z "${SLURM_JOB_ID}" ]] && [[ -z "${SOURCE_HPC_ENV}" ]]; then
     return
 fi
 
