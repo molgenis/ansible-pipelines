@@ -47,5 +47,6 @@ refdata: [
 easyconfigs: [
   'c/cluster-utils/cluster-utils-v18.08.1-foss-2018b.eb',
   'd/depad-utils/depad-utils-v19.06.1.eb',
+  'j/Java/Java-11.0.2.eb',
 ]
 ...
