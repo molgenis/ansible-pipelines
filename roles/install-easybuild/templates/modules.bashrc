@@ -50,10 +50,9 @@ export EASYBUILD_MODULE_SYNTAX='Lua'
 export EASYBUILD_VERIFY_EASYCONFIG_FILENAMES='True'
 #
 # Enforcing that the EasyConfigs installed for a tool/module in $EBROOT*/easybuild/*.eb
-# conform the PEP8 is nice, but it may be tricky to bootstrap an EasyBuild with the 
-# Python autopep8 module rsulting in:
+# conform to PEP8 is nice, but it may be tricky to bootstrap EasyBuild with the Python autopep8 module resulting in:
 #     ERROR: Failed to parse configuration options: "Python 'autopep8' module required to reformat dumped easyconfigs as requested"
-# CentOS repo's have a python-pep8 RPM, but pep8 != autopep8 and there is no RPM providing autopep8 out of the box.
+# CentOS repos have a python-pep8 RPM, but pep8 != autopep8 and there is no RPM providing autopep8 out of the box.
 #
 #export EASYBUILD_DUMP_AUTOPEP8='True'
 export EASYBUILD_ENFORCE_CHECKSUMS='True'
