@@ -100,4 +100,6 @@ easybuild_releases:
 extra_easyconfigs_releases:
   2.8.31:
     checksum: 'sha256:77f3ec2a5372b8452b30fef68efdf85331e84a26ddc4a06fdd820a4d413198f1'
+  2.8.33:
+    checksum: 'sha256:de43789888ee09e2aef7b82bce3b2bf98526ac0c8f59813d79fafa78044b87c9'
 ...
