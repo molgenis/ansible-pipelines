@@ -49,7 +49,7 @@
 - name: Determine if the required EasyBuild version needs to be installed.
   set_fact:
     eb_install_from_source: true
-  when: 'eb_installed_version|failed or (eb_installed_version.stdout | version_compare(easybuild_eb_version, operator="!="))'
+  when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_eb_version'
 - name: Report EasyBuild status.
   debug:
     msg: 'Will install the required EasyBuild version with the latest EasyBuild version as the bootstrapped version is not the requested version. (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_eb_version }}.)'
