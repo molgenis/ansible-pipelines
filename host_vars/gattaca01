@@ -18,6 +18,6 @@ GROUP: "umcg-gd"
 pb_base: "{{ HPC_GROUP_PREFIX }}/{{ pb_scr_lfs }}"
 pb_ngs_automated_version: '3.0.1-bare'
 pb_ngs_demultiplexing_version: '3.0.1-NGS_Demultiplexing-2.3.1'
-pb_ebconfigs_version: '2.8.32'
-pb_ebconfigs_checksum: 'sha256:06534a2145db8b8bcaafa151c55ea71dd115921ea493e1f0c30bc116dda87d0d'
+pb_ebconfigs_version: '2.8.37'
+pb_ebconfigs_checksum: 'sha256:efee893a0b3a6cd81016411b8264cf001dfc0aea32e69cd0203056b6987b0b13'
 pb_scr_lfs: "scr01"
