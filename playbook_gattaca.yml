@@ -6,8 +6,8 @@
   pre_tasks:
     - name: Verify Ansible version meets requirements.
       assert:
-        that: "ansible_version.full | version_compare('2.4', '>=')"
-        msg: 'You must update Ansible to at least 2.4.x to use this playbook.'
+        that: "ansible_version.full is version_compare('2.7', '>=')"
+        msg: 'You must update Ansible to at least 2.7.x to use this playbook.'
   roles:
   - role: easybuild-install
   tasks:
