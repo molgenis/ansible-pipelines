@@ -17,7 +17,7 @@
 lua_version: '5.1.4.9'
 lmod_version: '7.8.8'
 easybuild_version: '3.9.3'
-extra_easyconfigs_version: '2.8.33'
+extra_easyconfigs_version: '2.8.39'
 #
 # Group folder structures to construct on shared storage systems.
 #
@@ -46,7 +46,7 @@ refdata: [
 ]
 easyconfigs: [
   'c/cluster-utils/cluster-utils-v18.08.1-GCCcore-7.3.0.eb',
-  'd/depad-utils/depad-utils-v19.08.1.eb',
+  'd/depad-utils/depad-utils-v19.10.1.eb',
   'n/NGS_Suite/NGS_Suite-2019.08.1-foss-2018b.eb',
 ]
 ...
