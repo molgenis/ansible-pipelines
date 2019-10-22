@@ -32,6 +32,7 @@
          source {{ easybuild_modules_dir }}/modules.bashrc
          umask 0002
          export EASYBUILD_BOOTSTRAP_SOURCEPATH="{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/"
+         export EASYBUILD_ENFORCE_CHECKSUMS='False'
          python {{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/bootstrap_eb_{{ easybuild_releases[easybuild_version]['bootstrap_version'] }}.py "{{ HPC_ENV_PREFIX }}"
   args:
     executable: /bin/bash
