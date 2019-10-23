@@ -239,4 +239,3 @@ class ProxiedInventory(object):
 #
 if __name__ == "__main__":
     ProxiedInventory()
-
