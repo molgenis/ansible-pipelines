@@ -5,9 +5,10 @@
 External inventory script for Ansible
 =============================================================
 
-Generates Ansible inventory with hostnames from a static inventory file located
-in the same dir as this script. By default this script looks for an inventory named
+Generates Ansible inventory with hostnames from a static inventory file.
+By default this script looks for an inventory named
     inventory.ini
+located in the same dir as this script.
 or alternatively for an inventory file name as defined in
     export AI_INVENTORY='some_inventory.ini'
 
@@ -112,9 +113,8 @@ class ProxiedInventory(object):
                   '       is either missing or not readable: Check path and permissions.\n' +
                   '       If your static inventory file has a different name,\n' +
                   '       you need to export the AI_INVENTORY environment variable\n' +
-                  '       to point to a static inventory file in the same dir as where\n' +
-                  '           ' + os.path.realpath(__file__) + "\n" +
-                  '       is located.')
+                  '       to specify where your static inventory file is located relative to\n' +
+                  '           ' + os.path.realpath(__file__) + "\n")
             sys.exit(1)
 
         # Read settings and parse CLI arguments.
