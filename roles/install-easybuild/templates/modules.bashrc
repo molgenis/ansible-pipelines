@@ -77,7 +77,9 @@ export LMOD_CASE_INDEPENDENT_SORTING='True'
 export LMOD_REDIRECT='True'
 export LMOD_PAGER='none'
 unset MODULEPATH # Make sure Lmod starts with a clean MODULEPATH
-echo -n "Fetching available environment modules from ${HPC_ENV_PREFIX}/modules/... "
+if shopt -q login_shell; then
+    echo -n "Fetching available environment modules from ${HPC_ENV_PREFIX}/modules/... "
+fi
 declare module_dirs=''
 for module_class in $(ls -1 ${HPC_ENV_PREFIX}/modules/); do
     if [ "${module_class}" != 'all' ] && \
@@ -87,4 +89,6 @@ for module_class in $(ls -1 ${HPC_ENV_PREFIX}/modules/); do
     fi
 done
 module use ${module_dirs}
-echo ' done!'
+if shopt -q login_shell; then
+    echo ' done!'
+fi
