@@ -38,11 +38,20 @@ Various parts of the Ansible playbook use rsync to copy data to the target host.
 Unfortunately the Ansible rsync wrapper module contains a few bugs.
 These bugs must be patched on the control host:
 
- - [Bugfix #33998 for bug #17492: Do not prepend PWD when path is in form user@server:path or server:path](https://github.com/ansible/ansible/pull/33998)
- - [Bugfix #41332 for bug #24365: Do not disable SSH connection sharing](https://github.com/ansible/ansible/pull/41332)
-possible location for the synchronize script is:
-/usr/local/Cellar/ansible/2.4.3.0/libexec/lib/python2.7/site-packages/ansible/modules/files/synchronize.py 
-
+ - [Bugfix for bug #17492 "Do not prepend PWD when path is in form user@server:path or server:path"](https://github.com/ansible-collections/ansible.posix/pull/118)
+ - [Bugfix for bug #24365 "Added option to allow SSH connection multiplixing"](https://github.com/ansible-collections/ansible.posix/pull/120)
+ - Both bugs are in a file named ```synchronize.py```, but one is a _module_ and the other is an _action_ with the same name.
+ - On macOS with Ansible installed using HomeBrew you will find these files in:  
+   For Ansible <= 2.9.x:  
+   ```
+   /usr/local/Cellar/ansible/${ansible_version}/libexec/lib/python*/site-packages/ansible/modules/files/synchronize.py
+   /usr/local/Cellar/ansible/${ansible_version}/libexec/lib/python*/site-packages/ansible/modules/files/synchronize.py
+   ```
+   For Ansible >= 2.10.x:  
+   ```
+   /usr/local/Cellar/ansible/${ansible_version}/libexec/lib/python*/site-packages/ansible_collections/ansible/posix/plugins/action/synchronize.py
+   /usr/local/Cellar/ansible/${ansible_version}/libexec/lib/python*/site-packages/ansible_collections/ansible/posix/plugins/modules/synchronize.py
+   ```
 
 In addition you must add to ```~/.ssh/config``` on the target host from the inventory and for the user running the playbook:
 ```
