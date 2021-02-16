@@ -97,6 +97,20 @@ easybuild_releases:
     easyblocks_checksum: 'sha256:77c4ab717d472782bffe17b62a2a9b34032cc463bc9402a57e7732a3315d381c'
     easyconfigs_url: 'https://files.pythonhosted.org/packages/d6/00/cff0b4390dcc10a57b6420ab995ea41ceb27f6429efd1f162c64b7436af8/easybuild-easyconfigs-3.9.3.tar.gz'
     easyconfigs_checksum: 'sha256:4ffe31e459e14c3c429d4c55718da678f66fdee5691752d0ca5a1106086d42f5'
+  4.3.2:
+    bootstrap_version: '20200820.01'
+    bootstrap_url: 'https://raw.githubusercontent.com/easybuilders/easybuild-framework/easybuild-framework-v4.3.2/easybuild/scripts/bootstrap_eb.py'
+    bootstrap_checksum: 'sha256:d490d229a18bd5eaa717bb8d5684d754729143d5e995e35a40c84d03ffb1de50'
+    vsc_install_url: 'https://files.pythonhosted.org/packages/df/03/d9356d1c13a722e555e6a6a0adad047554a2942484b09e3127e96276bc48/vsc-install-0.17.1.tar.gz'
+    vsc_install_checksum: 'sha256:01431ec39054fdc95b4b4bff28fb988fc36f5504e54c37cccccf5f3a76d646a5'
+    vsc_base_url: 'https://files.pythonhosted.org/packages/18/9d/ac432ff8c5155b76dc67bb5abe7902a126fbde37c84b2967275d86338e58/vsc-base-3.1.4.tar.gz'
+    vsc_base_checksum: 'sha256:32d85982ff70a3f50a714f2166f8c24c64c7fdc603df7911ad0b7f3f50dd97b1'
+    framework_url: 'https://files.pythonhosted.org/packages/ed/bc/03713501b40d11bb55a117a399ac6494ccb13b011db52e75b969e0b40509/easybuild-framework-4.3.2.tar.gz'
+    framework_checksum: 'sha256:2dbae21c742a1ec57e461ad9689c0139b1bfc17d70838aeefbee7a964878c587'
+    easyblocks_url: 'https://files.pythonhosted.org/packages/8b/18/53fb75f1fa0688d25c648b9822623c2e8f43ab35fd1d2ba4ddcad7b0abb8/easybuild-easyblocks-4.3.2.tar.gz'
+    easyblocks_checksum: 'sha256:128e1fab51895483638cbf3f4c5d96a4d74428483565d0ef5e7dcf6175330eeb'
+    easyconfigs_url: 'https://files.pythonhosted.org/packages/be/2c/1268b6f7915e7541d930a711acba38f80f566895158d19210187d231f5da/easybuild-easyconfigs-4.3.2.tar.gz'
+    easyconfigs_checksum: 'sha256:efa9d9874d813946c729e217494599492ac4ed02873c9f5a8f793eb9b0bc9e41'
 extra_easyconfigs_releases:
   2.8.31:
     checksum: 'sha256:77f3ec2a5372b8452b30fef68efdf85331e84a26ddc4a06fdd820a4d413198f1'
