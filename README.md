@@ -32,27 +32,6 @@ The deployment consists of the following steps:
  - A basic understanding of Ansible (See: http://docs.ansible.com/ansible/latest/intro_getting_started.html#)
  - A basic understanding of EasyBuild not required to deploy the pipeline ''as is'', but will come in handy when updating/modifying the pipeline and it's dependencies.
 
-#### Ansible & environment patches
-
-Various parts of the Ansible playbook use rsync to copy data to the target host.
-Unfortunately the Ansible rsync wrapper module contains a few bugs.
-These bugs must be patched on the control host:
-
- - [Bugfix for bug #17492 "Do not prepend PWD when path is in form user@server:path or server:path"](https://github.com/ansible-collections/ansible.posix/pull/118)
- - [Bugfix for bug #24365 "Added option to allow SSH connection multiplixing"](https://github.com/ansible-collections/ansible.posix/pull/120)
- - Both bugs are in a file named ```synchronize.py```, but one is a _module_ and the other is an _action_ with the same name.
- - On macOS with Ansible installed using HomeBrew you will find these files in:  
-   For Ansible <= 2.9.x:  
-   ```
-   /usr/local/Cellar/ansible/${ansible_version}/libexec/lib/python*/site-packages/ansible/modules/files/synchronize.py
-   /usr/local/Cellar/ansible/${ansible_version}/libexec/lib/python*/site-packages/ansible/modules/files/synchronize.py
-   ```
-   For Ansible >= 2.10.x:  
-   ```
-   /usr/local/Cellar/ansible/${ansible_version}/libexec/lib/python*/site-packages/ansible_collections/ansible/posix/plugins/action/synchronize.py
-   /usr/local/Cellar/ansible/${ansible_version}/libexec/lib/python*/site-packages/ansible_collections/ansible/posix/plugins/modules/synchronize.py
-   ```
-
 In addition you must add to ```~/.ssh/config``` on the target host from the inventory and for the user running the playbook:
 ```
 #
@@ -80,7 +59,15 @@ ControlPersist 5m
  - Illumina data from human samples.
    - When you have data from a different sequencing platform you may need to tweak analysis steps.
    - When you have data from a different species you will need to modify the playbook to provision reference data for that species.
-   
+
+## Dependencies from Ansible Galaxy
+
+You can fetch dependencies from Ansible Galaxy on the control host with:
+
+```bash
+ansible-galaxy install -r galaxy-requirements.yml
+```
+
 ## Defaults and how to overrule them
 
 The default values for variables (like the version number of the pipeline to deploy) are stored in:
