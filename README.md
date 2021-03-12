@@ -65,7 +65,7 @@ ControlPersist 5m
 You can fetch dependencies from Ansible Galaxy on the control host with:
 
 ```bash
-ansible-galaxy install -r galaxy-requirements.yml
+ansible-galaxy install -r requirements.yml
 ```
 
 ## Defaults and how to overrule them
