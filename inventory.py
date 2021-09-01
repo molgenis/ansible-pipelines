@@ -16,7 +16,7 @@ The hostnames parsed from the static inventory file can be prefixed
 with the hostname of one of our proxy/jumphost servers.
 Note we only use hostnames and not FQDN nor IP addresses as those are managed
 together with usernames and other connection settings in
-our ~/.ssh/config files like this:
+our ~/.ssh/conf.d/ files like this:
 
 ########################################################################################################
 #
@@ -55,7 +55,6 @@ except ImportError:
 import os
 import re
 import sys
-from test.test_sax import start
 if sys.version_info >= (3,2,0):
     from configparser import ConfigParser
 elif sys.version_info >= (3,0,0):
