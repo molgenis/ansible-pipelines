@@ -37,7 +37,8 @@ group_subfolder_structure: [
 # Sources, software and reference data to install/fetch.
 #
 public_sources: [
-  'l/libtool/libtool-2.4.6.tar.gz'
+  'g/GCCcore/isl-0.19.tar.bz2',
+  'l/libtool/libtool-2.4.6.tar.gz',
 ]
 private_sources: []
 refdata: [
@@ -47,6 +48,6 @@ refdata: [
 easyconfigs: [
   'c/cluster-utils/cluster-utils-v21.05.1-GCCcore-7.3.0.eb',
   'd/depad-utils/depad-utils-v19.10.1.eb',
-  'n/NGS_Suite/NGS_Suite-2019.08.1-foss-2018b.eb',
+  #'n/NGS_Suite/NGS_Suite-2019.08.1-foss-2018b.eb',
 ]
 ...
