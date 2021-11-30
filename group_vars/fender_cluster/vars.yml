@@ -37,7 +37,8 @@ group_subfolder_structure: [
 # Sources, software and reference data to install/fetch.
 #
 public_sources: [
-  'l/libtool/libtool-2.4.6.tar.gz'
+  'g/GCCcore/isl-0.19.tar.bz2',
+  'l/libtool/libtool-2.4.6.tar.gz',
 ]
 private_sources: []
 refdata: []
