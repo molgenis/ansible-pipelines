@@ -9,4 +9,6 @@
   environment:
       SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   with_items: "{{ easyconfigs }}"
+  register: eb_status
+  changed_when: "'is already installed' not in eb_status.stdout"
 ...
