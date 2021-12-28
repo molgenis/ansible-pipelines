@@ -155,3 +155,4 @@
 - name: Flush handlers to trigger EasyBuild installation.
   meta: flush_handlers
 ...
+
