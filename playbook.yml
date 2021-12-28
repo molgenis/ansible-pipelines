@@ -1,36 +1,8 @@
 ---
-- name: Sanity checks before we start.
-  hosts: all
-  #remote_user: DO NOT specify a user here. Specify login name in your ~/.ssh/config instead.
-  pre_tasks:
-    - name: Verify Ansible version meets requirements.
-      assert:
-        that: "ansible_version.full is version_compare('2.7', '>=')"
-        msg: 'You must update Ansible to at least 2.7.x to use this playbook.'
-#
-# Pre-create {{ HPC_ENV_PREFIX }}/.tmp/, so we can also use it for Ansible
-# to prevent large data transfers from running out of disk space
-# in the default location for ansible_remote_tmp, which is in your ${HOME}.
-#
-- name: "Create remote tmp dir in {{ HPC_ENV_PREFIX }}/.tmp/"
-  hosts: DAI, helper
-  tasks:
-    - file:
-        path: "{{ HPC_ENV_PREFIX }}/.tmp/"
-        state: 'directory'
-        mode: "{{ MODE_2775_HARD }}"
-
-- hosts: DAI, helper
-  roles:
-    - install-easybuild
-    - fetch-extra-easyconfigs
-    - fetch-sources-and-refdata
-    - install-modules-with-easybuild
-  vars:
-    ansible_remote_tmp: "{{ HPC_ENV_PREFIX }}/.tmp/ansible-${USER}"
-    extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
-
-- hosts: UI
-  roles:
-    - create-group-subfolder-structure
+- import_playbook: single_role_playbooks/pre_deploy_checks.yml
+- import_playbook: single_role_playbooks/install-easybuild.yml
+- import_playbook: single_role_playbooks/fetch-extra-easyconfigs.yml
+- import_playbook: single_role_playbooks/fetch-sources-and-refdata.yml
+- import_playbook: single_role_playbooks/install-modules-with-easybuild.yml
+- import_playbook: single_role_playbooks/create-group-subfolder-structure.yml
 ...

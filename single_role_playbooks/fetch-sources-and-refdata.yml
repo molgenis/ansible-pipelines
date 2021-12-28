@@ -1,0 +1,14 @@
+---
+- hosts:
+    - DAI
+    - helper
+  roles:
+    - fetch-sources-and-refdata
+  vars:
+    #
+    # We use {{ HPC_ENV_PREFIX }}/.tmp/, so we can also use it for Ansible
+    # to prevent large data transfers from running out of disk space
+    # in the default location for ansible_remote_tmp, which is in your ${HOME}.
+    #
+    ansible_remote_tmp: "{{ HPC_ENV_PREFIX }}/.tmp/ansible-${USER}"
+...
