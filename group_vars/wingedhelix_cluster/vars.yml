@@ -15,8 +15,9 @@
 #       please make sure to add corresponding values in group_vars/all.yml
 #
 lua_version: '5.1.4.9'
-lmod_version: '7.8.8'
-easybuild_version: '4.3.2'
+lmod_version: '8.6.2'
+#easybuild_version: '4.3.2'
+easybuild_version: '4.5.1'
 extra_easyconfigs_version: '2.8.44'
 #
 # Group folder structures to construct on shared storage systems.
@@ -26,7 +27,7 @@ group_subfolder_structure: [
     lfs: 'tmp07',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-atd-ateambot',
-    subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp', ' trendanalysis'] },
+    subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp', 'trendanalysis'] },
   { group: 'umcg-gap',
     lfs: 'tmp07',
     mode: "{{ MODE_2770_HARD }}",
@@ -36,7 +37,7 @@ group_subfolder_structure: [
     lfs: 'tmp07',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-gd-ateambot',
-    subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp', ' trendanalysis'] },
+    subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp', 'trendanalysis'] },
   { group: 'umcg-genomescan',
     lfs: 'tmp07',
     mode: "{{ MODE_2770_HARD }}",

@@ -1,6 +1,6 @@
 ---
 #
-# Defaults for variables. Override with site specific values in host_vars subdir where necessary.
+# Defaults for group variables.
 #
 # Conventions for global environment variables:
 # Use UPPERCASE underscore separated names like for shell env vars.
@@ -18,6 +18,11 @@ HPC_GROUPS_PREFIX: '/groups'
 # Conventions for playbook variables:
 # Use lowercase underscore separated names.
 #
+easybuild_sources_dir: "{{ HPC_ENV_PREFIX }}/sources/"
+easybuild_modules_dir: "{{ HPC_ENV_PREFIX }}/modules/"
+easybuild_software_dir: "{{ HPC_ENV_PREFIX }}/software/"
+easybuild_modules_syntax: 'Lua'
+extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 remote_env_cache_dir_public:  'f114592@ssh.webhosting.rug.nl:site/apps/'
 remote_env_cache_dir_private: 'f114592@ssh.webhosting.rug.nl:rsync-only/apps/'
 #
@@ -35,8 +40,11 @@ lmod_releases:
     url: 'https://github.com/TACC/Lmod/archive/6.1.3.tar.gz'
     checksum: 'md5:a2ea3c83f08d4175f08f84ac2a9bd508'
   7.8.8:
-    url: "https://github.com/TACC/Lmod/archive/7.8.8.tar.gz"
+    url: 'https://github.com/TACC/Lmod/archive/7.8.8.tar.gz'
     checksum: 'md5:a0a7c808081e3d6ea021bc0c47fd373a'
+  8.6.2:
+    url: 'https://github.com/TACC/Lmod/archive/8.6.2.tar.gz'
+    checksum: 'sha256:2851a4bcbf1d853220f36fb76931f62a4422bf6c626297f6c17fc7c05393ea20'
 #
 # EasyBuild vars for subcomponents by version.
 #
