@@ -1,0 +1,35 @@
+---
+- name: 'Check if we have pip or pip3.'
+  ansible.builtin.shell: |
+         if which pip3 > /dev/null 2>&1; then
+             which pip3
+         elif which pip > /dev/null 2>&1; then
+             which pip
+         else
+             echo 'FATAL: Cannot find pip nor pip3.'
+         fi
+  args:
+    executable: /bin/bash
+  register: pip_path
+  failed_when: "'FATAL' in pip_path.stdout"
+  changed_when: false
+- name: 'Install required EasyBuild version with pip.'
+  ansible.builtin.pip:
+    name: easybuild
+    version: "{{ easybuild_version }}"
+    extra_args: "--prefix {{ easybuild_software_dir }}/EasyBuild/{{ easybuild_version }}/"
+    executable: "{{ pip_path.stdout }}"
+- name: 'Get install suffix from pip -V'
+  ansible.builtin.shell: "{{ pip_path.stdout }} -V | grep -o 'lib[^ ]*python[^ ]*' "
+  register: python_install_suffix
+- name: 'Deploy Lua module file for EasyBuild.'
+  ansible.builtin.template:
+    src: 'templates/EasyBuildModule.lua'
+    dest: "{{ easybuild_modules_dir }}/all/EasyBuild/{{ easybuild_version }}.lua"
+    mode: '0664'
+- name: 'Create symlink for EasyBuild in "tools" modules category.'
+  ansible.builtin.file:  # noqa risky-file-permissions
+    src: "{{ easybuild_modules_dir }}/all/EasyBuild/{{ easybuild_version }}.lua"
+    dest: "{{ easybuild_modules_dir }}/tools/EasyBuild/{{ easybuild_version }}.lua"
+    state: link
+...
