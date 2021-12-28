@@ -8,8 +8,8 @@ External inventory script for Ansible
 Generates Ansible inventory with hostnames from a static inventory file.
 By default this script looks for an inventory named
     inventory.ini
-located in the same dir as this script.
-or alternatively for an inventory file name as defined in
+located in the same dir as this script or
+alternatively for an inventory file name as defined in
     export AI_INVENTORY='some_inventory.ini'
 
 The hostnames parsed from the static inventory file can be prefixed
