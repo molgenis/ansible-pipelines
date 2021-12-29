@@ -1,0 +1,133 @@
+---
+#
+# Defaults for group variables.
+#
+# Conventions for global environment variables:
+# Use UPPERCASE underscore separated names like for shell env vars.
+#
+MODE_2775_HARD: 'u=rwx,g=rwxs,o=rx'
+MODE_2770_HARD: 'u=rwx,g=rwxs,o='
+MODE_2750_HARD: 'u=rwx,g=rxs,o='
+MODE_0775_HARD: 'u=rwx,g=rwx,o=rx'
+MODE__775_SOFT: 'u+rwX,g+rwX,o+rX,o-w'
+MODE_0664_HARD: 'u=rw,g=rw,o=r'
+MODE_D2775_F0664: 'Du=rwx,Dg=rwxs,Do=rx,Fu=rw,Fg=rw,Fo=r'
+HPC_ENV_PREFIX: '/apps'
+HPC_GROUPS_PREFIX: '/groups'
+#
+# Conventions for playbook variables:
+# Use lowercase underscore separated names.
+#
+easybuild_sources_dir: "{{ HPC_ENV_PREFIX }}/sources/"
+easybuild_modules_dir: "{{ HPC_ENV_PREFIX }}/modules/"
+easybuild_software_dir: "{{ HPC_ENV_PREFIX }}/software/"
+easybuild_modules_syntax: 'Lua'
+extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
+remote_env_cache_dir_public:  'f114592@ssh.webhosting.rug.nl:site/apps/'
+remote_env_cache_dir_private: 'f114592@ssh.webhosting.rug.nl:rsync-only/apps/'
+#
+# Lua vars by version.
+#
+lua_releases:
+  5.1.4.9:
+    url: 'http://sourceforge.net/projects/lmod/files/lua-5.1.4.9.tar.bz2/download'
+    checksum: 'md5:a8d0443fe79fc4e9aaded057d81304cd'
+#
+# Lmod vars by version.
+#
+lmod_releases:
+  6.1.3:
+    url: 'https://github.com/TACC/Lmod/archive/6.1.3.tar.gz'
+    checksum: 'md5:a2ea3c83f08d4175f08f84ac2a9bd508'
+  7.8.8:
+    url: 'https://github.com/TACC/Lmod/archive/7.8.8.tar.gz'
+    checksum: 'md5:a0a7c808081e3d6ea021bc0c47fd373a'
+  8.6.2:
+    url: 'https://github.com/TACC/Lmod/archive/8.6.2.tar.gz'
+    checksum: 'sha256:2851a4bcbf1d853220f36fb76931f62a4422bf6c626297f6c17fc7c05393ea20'
+#
+# EasyBuild vars for subcomponents by version.
+#
+easybuild_releases:
+  3.4.0:
+    bootstrap_version: '20170808.01'
+    bootstrap_url: 'https://raw.githubusercontent.com/easybuilders/easybuild-framework/ddfa7e0cdff778a1d270efd29a2af02830bcca2b/easybuild/scripts/bootstrap_eb.py'
+    bootstrap_checksum: 'md5:b970595c701de1ddda0cb8f83448f1f4'
+    vsc_install_url: 'https://pypi.python.org/packages/82/ec/19d85d2bb91b562195d00db9ac82d7529904e7eabc0597720966bf74714f/vsc-install-0.10.26.tar.gz#md5=c4eb3146d1c56015e43193efb6f65c0f'
+    vsc_install_checksum: 'md5:c4eb3146d1c56015e43193efb6f65c0f'
+    vsc_base_url: 'https://pypi.python.org/packages/f7/66/1ff7ecc4a93ba37e063f5bfbe395e95a547b1dec73b017c2724f4475a958/vsc-base-2.5.8.tar.gz#md5=57f3f49eab7aa15a96be76e6c89a72d8'
+    vsc_base_checksum: 'md5:57f3f49eab7aa15a96be76e6c89a72d8'
+    framework_url: 'https://pypi.python.org/packages/f0/23/4edb6a97f8d7712687e851ee0c3fc0b471b6829a0c9b15bb2dd5533c9d05/easybuild-framework-3.4.1.tar.gz#md5=1f10ad23ecdc0098e0ec11322afb1c99'
+    framework_checksum: 'md5:1f10ad23ecdc0098e0ec11322afb1c99'
+    easyblocks_url: 'https://pypi.python.org/packages/f7/b0/61f52e6f99c71a289352d3e5071300d340306f4a96f0301bc64ee4f5d433/easybuild-easyblocks-3.4.1.tar.gz#md5=cadc9fb4f4a8ebfd541fefb79fafe732'
+    easyblocks_checksum: 'md5:cadc9fb4f4a8ebfd541fefb79fafe732'
+    easyconfigs_url: 'https://pypi.python.org/packages/7f/f7/bbfd15f8c2eab776538c5baa98ad616d519709d6b6b0f47002848069aa33/easybuild-easyconfigs-3.4.1.tar.gz#md5=8bbfaeddfc4c77d41c29730b68b5909b'
+    easyconfigs_checksum: 'md5:8bbfaeddfc4c77d41c29730b68b5909b'
+  3.6.1:
+    bootstrap_version: '20180412.02'
+    bootstrap_url: 'https://raw.githubusercontent.com/easybuilders/easybuild-framework/e5b73b0b3ef8b9011a1344173c3e9eac3ea69f61/easybuild/scripts/bootstrap_eb.py'
+    bootstrap_checksum: 'md5:b409b6e8870d905613bd1150a43657fd'
+    vsc_install_url: 'https://files.pythonhosted.org/packages/b6/03/becd813f5c4e8890254c79db8d2558b658f5a3ab52157bc0c077c6c9beea/vsc-install-0.11.2.tar.gz'
+    vsc_install_checksum: 'sha256:c03ce30a54cc5be53acc55addb027d67be58386bebdd9d2274ed6429b1fc0512'
+    vsc_base_url: 'https://files.pythonhosted.org/packages/44/23/69f49e1cb79855572de0b53259c10bc2530cd9189698fc53ed0d5bebe86f/vsc-base-2.8.2.tar.gz'
+    vsc_base_checksum: 'sha256:5e1e6224509df3ff89a72652ac29f1b74d1904947090f7f08736ed8081f5af71'
+    framework_url: 'https://files.pythonhosted.org/packages/82/58/9377d0a5ed07dad637069b63706f9457644b526f0aa308d0692b6b34ff5b/easybuild-framework-3.6.1.tar.gz'
+    framework_checksum: 'sha256:edcbb02dcb1f2272199e2c10dbcc36a0003fe5d5941511e4e9f74ad742507b7a'
+    easyblocks_url: 'https://files.pythonhosted.org/packages/6a/9f/67a9255710227089bbce98753ef5c89c2afe69883d0339fb321b2148c056/easybuild-easyblocks-3.6.1.tar.gz'
+    easyblocks_checksum: 'sha256:9f592214a190894890bdca5eaa84a9a0f5d9155e610a75c901f46709a87cac1b'
+    easyconfigs_url: 'https://files.pythonhosted.org/packages/fd/b4/c6f4655ebd0178e4aa9181c0d772c4244d378b18b90905f972f21ebc3448/easybuild-easyconfigs-3.6.1.tar.gz'
+    easyconfigs_checksum: 'sha256:e296a0992f5177cd72549b07da4019446cba44a88e891ac8535d6d47d0ab72f1'
+  3.7.1:
+    bootstrap_version: '20180925.01'
+    bootstrap_url: 'https://raw.githubusercontent.com/easybuilders/easybuild-framework/fdb1fd987ac4ec48397fcf776b27f889d188da63/easybuild/scripts/bootstrap_eb.py'
+    bootstrap_checksum: 'md5:4e568883f293f94ade46a14d25cb6b94'
+    vsc_install_url: 'https://files.pythonhosted.org/packages/18/59/3274a58af6af84a87f7655735b452c06c769586ee73954f5ee15d303aa29/vsc-install-0.11.3.tar.gz'
+    vsc_install_checksum: 'sha256:8b102ba585863769d974ad117764039ac3cea21372a3baa5cdb6b93166673ad6'
+    vsc_base_url: 'https://files.pythonhosted.org/packages/62/e5/589612e47255627e4752d99018ae7cff8f49ab0fa6b4ba7b2226a76a05d3/vsc-base-2.8.3.tar.gz'
+    vsc_base_checksum: 'sha256:9e102ca9d94ab97c2b974c63708dab7ea4dbaa3144787f06455e16445b92f204'
+    framework_url: 'https://files.pythonhosted.org/packages/d0/f1/a3c897ab19ad36a9a259adc0b31e383a8d322942eda1e59eb4fedee27d09/easybuild-framework-3.7.1.tar.gz'
+    framework_checksum: 'sha256:9fdf99c1fd51d7a040ce936e95fbd34990dba7e2f4fbe1f2382d5cd51d436d3a'
+    easyblocks_url: 'https://files.pythonhosted.org/packages/50/ea/3381a6e85f9a9beee311bed81a03c4900dd11c2a25c1e952b76e9a73486b/easybuild-easyblocks-3.7.1.tar.gz'
+    easyblocks_checksum: 'sha256:c002c98ed57a96c87295722f7bf4860baf62506b509083ad9b1b943e5aa1b286'
+    easyconfigs_url: 'https://files.pythonhosted.org/packages/73/63/b22ff96b8c3e09e04466951c0c3aa7b2230a522792dd3ae37c5fce4c68ea/easybuild-easyconfigs-3.7.1.tar.gz'
+    easyconfigs_checksum: 'sha256:0069c1a6dae9912f39faa2b38a3bfe351e903edad1fa3ffe5e96596fc4e5122d'
+  3.9.3:
+    bootstrap_version: '20190523.01'
+    bootstrap_url: 'https://raw.githubusercontent.com/easybuilders/easybuild-framework/9c412ef3831d88d701734a52be906cff66da02b8/easybuild/scripts/bootstrap_eb.py'
+    bootstrap_checksum: 'md5:92196312d8e88843ffe83f21a51f0592'
+    vsc_install_url: 'https://files.pythonhosted.org/packages/43/82/26c2cdbe47d5ae1f2da6376a730921d3743a0eb1848bdf6cf4748b31f52a/vsc-install-0.12.7.tar.gz'
+    vsc_install_checksum: 'sha256:f1d0796aa6201c0d7e1c6bde591153be1b8bde2f04860494272432c1d30f18f5'
+    vsc_base_url: 'https://files.pythonhosted.org/packages/9f/e6/33df4cbd6cb049b3118baae0cb30f4c2d71d9776679721479960d63feb27/vsc-base-2.9.2.tar.gz'
+    vsc_base_checksum: 'sha256:55803ce00f29bc0eb8b4e37518b21368b4c0f4cdb37c3a168912fc815fd88f15'
+    framework_url: 'https://files.pythonhosted.org/packages/83/20/3cb2ec938727c1496f582e1b70b8fc4fe907b228cdb638e4a0a3233339a2/easybuild-framework-3.9.3.tar.gz'
+    framework_checksum: 'sha256:79a54c5e298833746a869ca3d82c0004bccc66fe4a58b2ef82e2b6288b0462f6'
+    easyblocks_url: 'https://files.pythonhosted.org/packages/41/f2/52297a8ebfb26c352e7382902d8d382af11f964c135718a52b3c1ac8d3a7/easybuild-easyblocks-3.9.3.tar.gz'
+    easyblocks_checksum: 'sha256:77c4ab717d472782bffe17b62a2a9b34032cc463bc9402a57e7732a3315d381c'
+    easyconfigs_url: 'https://files.pythonhosted.org/packages/d6/00/cff0b4390dcc10a57b6420ab995ea41ceb27f6429efd1f162c64b7436af8/easybuild-easyconfigs-3.9.3.tar.gz'
+    easyconfigs_checksum: 'sha256:4ffe31e459e14c3c429d4c55718da678f66fdee5691752d0ca5a1106086d42f5'
+  4.3.2:
+    bootstrap_version: '20200820.01'
+    bootstrap_url: 'https://raw.githubusercontent.com/easybuilders/easybuild-framework/easybuild-framework-v4.3.2/easybuild/scripts/bootstrap_eb.py'
+    bootstrap_checksum: 'sha256:d490d229a18bd5eaa717bb8d5684d754729143d5e995e35a40c84d03ffb1de50'
+    vsc_install_url: 'https://files.pythonhosted.org/packages/df/03/d9356d1c13a722e555e6a6a0adad047554a2942484b09e3127e96276bc48/vsc-install-0.17.1.tar.gz'
+    vsc_install_checksum: 'sha256:01431ec39054fdc95b4b4bff28fb988fc36f5504e54c37cccccf5f3a76d646a5'
+    vsc_base_url: 'https://files.pythonhosted.org/packages/18/9d/ac432ff8c5155b76dc67bb5abe7902a126fbde37c84b2967275d86338e58/vsc-base-3.1.4.tar.gz'
+    vsc_base_checksum: 'sha256:32d85982ff70a3f50a714f2166f8c24c64c7fdc603df7911ad0b7f3f50dd97b1'
+    framework_url: 'https://files.pythonhosted.org/packages/ed/bc/03713501b40d11bb55a117a399ac6494ccb13b011db52e75b969e0b40509/easybuild-framework-4.3.2.tar.gz'
+    framework_checksum: 'sha256:2dbae21c742a1ec57e461ad9689c0139b1bfc17d70838aeefbee7a964878c587'
+    easyblocks_url: 'https://files.pythonhosted.org/packages/8b/18/53fb75f1fa0688d25c648b9822623c2e8f43ab35fd1d2ba4ddcad7b0abb8/easybuild-easyblocks-4.3.2.tar.gz'
+    easyblocks_checksum: 'sha256:128e1fab51895483638cbf3f4c5d96a4d74428483565d0ef5e7dcf6175330eeb'
+    easyconfigs_url: 'https://files.pythonhosted.org/packages/be/2c/1268b6f7915e7541d930a711acba38f80f566895158d19210187d231f5da/easybuild-easyconfigs-4.3.2.tar.gz'
+    easyconfigs_checksum: 'sha256:efa9d9874d813946c729e217494599492ac4ed02873c9f5a8f793eb9b0bc9e41'
+extra_easyconfigs_releases:
+  2.8.31:
+    checksum: 'sha256:77f3ec2a5372b8452b30fef68efdf85331e84a26ddc4a06fdd820a4d413198f1'
+  2.8.33:
+    checksum: 'sha256:de43789888ee09e2aef7b82bce3b2bf98526ac0c8f59813d79fafa78044b87c9'
+  2.8.39:
+    checksum: 'sha256:e6b98e32ffce45690bac750a988ff855bfc3af1ff43268abe639ee9d9da3ab01'
+  2.8.43:
+    checksum: 'sha256:68b303dbf9f7c9322c6b329f1a04f75150c1d4564d21815979547b8663f1c523'
+  2.8.44:
+    checksum: 'sha256:15bb5870f597cffbba2fc1e36fe9c5e9645144f947b5d8f4dee4a76f16732a29'
+...

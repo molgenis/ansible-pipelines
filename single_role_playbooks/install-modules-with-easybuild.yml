@@ -1,0 +1,7 @@
+---
+- hosts:
+    - DAI
+    - helper
+  roles:
+    - install-modules-with-easybuild
+...

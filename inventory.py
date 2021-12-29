@@ -5,17 +5,18 @@
 External inventory script for Ansible
 =============================================================
 
-Generates Ansible inventory with hostnames from a static inventory file located
-in the same dir as this script. By default this script looks for an inventory named
+Generates Ansible inventory with hostnames from a static inventory file.
+By default this script looks for an inventory named
     inventory.ini
-or alternatively for an inventory file name as defined in
+located in the same dir as this script or
+alternatively for an inventory file name as defined in
     export AI_INVENTORY='some_inventory.ini'
 
 The hostnames parsed from the static inventory file can be prefixed
 with the hostname of one of our proxy/jumphost servers.
 Note we only use hostnames and not FQDN nor IP addresses as those are managed
 together with usernames and other connection settings in
-our ~/.ssh/config files like this:
+our ~/.ssh/conf.d/ files like this:
 
 ########################################################################################################
 #
@@ -54,7 +55,6 @@ except ImportError:
 import os
 import re
 import sys
-from test.test_sax import start
 if sys.version_info >= (3,2,0):
     from configparser import ConfigParser
 elif sys.version_info >= (3,0,0):
@@ -112,9 +112,8 @@ class ProxiedInventory(object):
                   '       is either missing or not readable: Check path and permissions.\n' +
                   '       If your static inventory file has a different name,\n' +
                   '       you need to export the AI_INVENTORY environment variable\n' +
-                  '       to point to a static inventory file in the same dir as where\n' +
-                  '           ' + os.path.realpath(__file__) + "\n" +
-                  '       is located.')
+                  '       to specify where your static inventory file is located relative to\n' +
+                  '           ' + os.path.realpath(__file__) + "\n")
             sys.exit(1)
 
         # Read settings and parse CLI arguments.

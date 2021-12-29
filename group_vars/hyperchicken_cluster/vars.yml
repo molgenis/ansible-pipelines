@@ -1,0 +1,71 @@
+---
+#
+# Site specific values to override defaults for variables.
+#
+# Conventions for global environment variables:
+# Use UPPERCASE underscore separated names like for shell env vars.
+#
+# Conventions for playbook variables:
+# Use lowercase underscore separated names.
+#
+
+#
+# Versions of components of our HPC environment, which is managed using Lua+Lmod+EasyBuild.
+# NOTE: when introducing a new version number here,
+#       please make sure to add corresponding values in group_vars/all.yml
+#
+lua_version: '5.1.4.9'
+lmod_version: '7.8.8'
+easybuild_version: '4.3.2'
+extra_easyconfigs_version: '2.8.44'
+#
+# Group folder structures to construct on shared storage systems.
+#
+group_subfolder_structure: [
+  { group: 'umcg-atd',
+    lfs: 'tmp09',
+    mode: "{{ MODE_2770_HARD }}",
+    owner: '',
+    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'] },
+  { group: 'umcg-atd',
+    lfs: 'prm09',
+    mode: "{{ MODE_2750_HARD }}",
+    owner: 'umcg-atd-dm',
+    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets'] },
+]
+#
+# Sources, software and reference data to install/fetch.
+#
+public_sources: [
+  'g/GCCcore/isl-0.19.tar.bz2',
+  'l/libtool/libtool-2.4.6.tar.gz',
+]
+private_sources: []
+refdata: [
+  #'dbSNP',
+  #'1000G',
+  #'Agilent',
+  #'CADD',
+  #'CGD',
+  #'ClinVar',
+  #'Controls_Convading_XHMM',
+  #'GSAarray',
+  #'Ensembl',
+  #'ExAC',
+  #'ManVarList',
+  #'gnomAD',
+  'GAVIN',
+  #'GeneNetwork',
+  #'HPO',
+  #'UMCG',
+  #'XHMM',
+  #'gonl',
+  #'inSilico',
+  #'snpEff-4.3',
+]
+easyconfigs: [
+  'c/cluster-utils/cluster-utils-v21.05.1-GCCcore-7.3.0.eb',
+  'd/depad-utils/depad-utils-v19.10.1.eb',
+  #'n/NGS_DNA/NGS_DNA-3.5.2.eb',
+]
+...
