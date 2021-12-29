@@ -19,7 +19,10 @@
 # Update environment.
 #
 - name: Create global modules.bashrc with Lmod and EasyBuild environment config.
-  ansible.builtin.template: src="{{ item.src }}" dest="{{ easybuild_modules_dir }}/{{ item.dest }}" mode="{{ MODE_0664_HARD }}"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ easybuild_modules_dir }}/{{ item.dest }}"
+    mode: "{{ MODE_0664_HARD }}"
   with_items:
     - src: 'lmodrc.lua'
       dest: '.lmod/lmodrc.lua'
@@ -34,7 +37,7 @@
       fi
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Setup environment for Lua, Lmod & EasyBuild."
     insertafter: EOF
-    create: yes
+    create: true
 
 #
 # Lua.
@@ -57,7 +60,7 @@
   changed_when: false
   failed_when: false
   check_mode: false
-  register: lua_installed_version 
+  register: lua_installed_version
 - name: Report Lua status.
   ansible.builtin.debug:
     msg: 'Will install Lua from source as it is either missing or present in a different version. (Detected {{ lua_installed_version.stdout }} and need {{ lua_version }}.)'
@@ -84,9 +87,9 @@
   ansible.builtin.find:
     paths: '/etc/profile.d/'
     patterns: '*lmod*'
-    recurse: yes
-    hidden: yes
-    follow: yes
+    recurse: true
+    hidden: true
+    follow: true
     file_type: any
   register: lmod_profile_files
 - name: Report error when conflicting Lmod init files are found in /etc/profile.d/.
@@ -115,9 +118,6 @@
   failed_when: false
   check_mode: false
   register: lmod_installed_version
-#- name: "DEBUG: Report Lmod status."
-#  ansible.builtin.debug:
-#    msg: 'Detected {{ lmod_installed_version.stdout }} and need {{ lmod_version }}.'
 - name: Report Lmod status.
   ansible.builtin.debug:
     msg: 'Will install Lmod from source as it is either missing or present in a different version. (Detected {{ lmod_installed_version.stdout }} and need {{ lmod_version }}.)'
@@ -145,10 +145,6 @@
   failed_when: false
   check_mode: false
   register: eb_installed_version
-#- name: DEBUG EasyBuild version number.
-#  ansible.builtin.debug:
-#    msg: 'Detected {{ eb_installed_version.stdout | version_compare(easybuild_version, operator="!=") }}.'
-#- debug: var=eb_installed_version
 - name: Report EasyBuild status.
   ansible.builtin.debug:
     msg: 'Will install EasyBuild as it is either missing or present in a different version. (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_version }}.)'

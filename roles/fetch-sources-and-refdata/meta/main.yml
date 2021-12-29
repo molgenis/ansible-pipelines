@@ -1,4 +1,4 @@
 ---
 dependencies:
-    - role: rsync_compatibility_check
+  - role: rsync_compatibility_check
 ...

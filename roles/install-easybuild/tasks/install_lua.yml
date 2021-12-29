@@ -15,7 +15,7 @@
   ansible.builtin.unarchive:
     src: "{{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}.tar.bz2"
     dest: "{{ easybuild_sources_dir }}/l/Lua/"
-    copy: no
+    copy: false
     mode: "{{ MODE__775_SOFT }}"
 
 - name: Compile and install Lua.
