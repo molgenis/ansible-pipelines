@@ -1,6 +1,7 @@
 ---
 - name: Deploy modules with EasyBuild.
-  shell: |
+  ansible.builtin.shell:
+    cmd: |
          source {{ easybuild_modules_dir }}/modules.bashrc
          module load "EasyBuild/{{ easybuild_version }}"
          eb --robot --robot-paths="{{ extra_easyconfigs_prefix }}/:" "{{ extra_easyconfigs_prefix }}/{{ item }}"

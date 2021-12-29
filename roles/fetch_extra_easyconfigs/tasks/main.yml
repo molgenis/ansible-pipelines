@@ -1,19 +1,30 @@
 ---
 - name: Create folder structure for extra EasyConfigs.
-  file: dest="{{ item }}" state='directory' mode="{{ MODE_2775_HARD }}"
+  ansible.builtin.file:
+    dest: "{{ item }}"
+    state: directory
+    mode: "{{ MODE_2775_HARD }}"
   with_items:
     - "{{ extra_easyconfigs_prefix }}"
     - "{{ easybuild_sources_dir }}/e/easyconfigs"
 
 - name: Get EasyConfigs.
-  get_url: url="{{ item.url }}" dest="{{ item.dest }}" checksum="{{ item.checksum }}" mode="{{ MODE_0664_HARD }}"
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    checksum: "{{ item.checksum }}"
+    mode: "{{ MODE_0664_HARD }}"
   with_items:
     - url: "https://github.com/molgenis/easybuild-easyconfigs/archive/{{ extra_easyconfigs_version }}.tar.gz"
       dest: "{{ easybuild_sources_dir }}/e/easyconfigs/"
       checksum: "{{ extra_easyconfigs_releases[extra_easyconfigs_version]['checksum'] }}"
 
 - name: Extract EasyConfigs.
-  unarchive: src="{{ item.src }}" dest="{{ item.dest }}" remote_src=yes mode="{{ MODE__775_SOFT }}"
+  ansible.builtin.unarchive:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    remote_src: true
+    mode: "{{ MODE__775_SOFT }}"
   with_items:
     - src: "{{ easybuild_sources_dir }}/e/easyconfigs/easybuild-easyconfigs-{{ extra_easyconfigs_version }}.tar.gz"
       dest: "{{ easybuild_software_dir }}/easyconfigs"

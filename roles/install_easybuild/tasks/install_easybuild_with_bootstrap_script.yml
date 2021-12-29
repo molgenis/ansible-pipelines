@@ -3,7 +3,7 @@
 # EasyBuild.
 #
 - name: Download EasyBuild bootstrap script and deps for offline bootstrapping.
-  get_url: url="{{ item.url }}" dest="{{ item.dest }}" checksum="{{ item.checksum }}" mode="{{ MODE_0664_HARD }}"
+  ansible.builtin.get_url: url="{{ item.url }}" dest="{{ item.dest }}" checksum="{{ item.checksum }}" mode="{{ MODE_0664_HARD }}"
   with_items:
     - url: "{{ easybuild_releases[easybuild_version]['bootstrap_url'] }}"
       dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/bootstrap_eb_{{ easybuild_releases[easybuild_version]['bootstrap_version'] }}.py"
@@ -28,7 +28,8 @@
   #
   # Ansible doesn't run task in a login shell, so we have to source the EasyBuild config manually.
   #
-  shell: |
+  ansible.builtin.shell:
+    cmd: |
          source {{ easybuild_modules_dir }}/modules.bashrc
          umask 0002
          export EASYBUILD_BOOTSTRAP_SOURCEPATH="{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/"
@@ -46,7 +47,9 @@
   changed_when: true
 
 - name: Check if the required EasyBuild version is installed.
-  shell: |
+  ansible.builtin.shell:
+    cmd: |
+         set -o pipefail
          source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
          module load EasyBuild/{{ easybuild_version }}
          eb --version 2>&1 | head -1 | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|'
@@ -61,19 +64,20 @@
   register: eb_installed_version
 
 - name: Determine if the required EasyBuild version needs to be installed.
-  set_fact:
+  ansible.builtin.set_fact:
     eb_install_from_source: true
   when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_version'
 
 - name: Report EasyBuild status.
-  debug:
+  ansible.builtin.debug:
     msg: "Will install the required EasyBuild version with the latest EasyBuild version \
           as the bootstrapped version is not the requested version. \
           (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_version }}.)"
   when: eb_install_from_source|default(false)
 
 - name: Install required EasyBuild version with EasyBuild.
-  shell: |
+  ansible.builtin.shell:
+    cmd: |
          source {{ easybuild_modules_dir }}/modules.bashrc
          umask 0002
          module load EasyBuild
