@@ -38,6 +38,7 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Setup environment for Lua, Lmod & EasyBuild."
     insertafter: EOF
     create: true
+    mode: '0600'
 
 #
 # Lua.
@@ -63,7 +64,8 @@
   register: lua_installed_version
 - name: Report Lua status.
   ansible.builtin.debug:
-    msg: 'Will install Lua from source as it is either missing or present in a different version. (Detected {{ lua_installed_version.stdout }} and need {{ lua_version }}.)'
+    msg: "Will install Lua from source as it is either missing or present in a different version. \
+         (Detected {{ lua_installed_version.stdout }} and need {{ lua_version }}.)"
   when: 'lua_installed_version is failed or lua_installed_version.stdout != lua_version'
   changed_when: 'lua_installed_version is failed or lua_installed_version.stdout != lua_version'
   notify: 'Install_Lua'
@@ -120,7 +122,8 @@
   register: lmod_installed_version
 - name: Report Lmod status.
   ansible.builtin.debug:
-    msg: 'Will install Lmod from source as it is either missing or present in a different version. (Detected {{ lmod_installed_version.stdout }} and need {{ lmod_version }}.)'
+    msg: "Will install Lmod from source as it is either missing or present in a different version. \
+         (Detected {{ lmod_installed_version.stdout }} and need {{ lmod_version }}.)"
   when: 'lmod_installed_version is failed or lmod_installed_version.stdout != lmod_version'
   changed_when: 'lmod_installed_version is failed or lmod_installed_version.stdout != lmod_version'
   notify: 'Install_Lmod'
@@ -147,7 +150,8 @@
   register: eb_installed_version
 - name: Report EasyBuild status.
   ansible.builtin.debug:
-    msg: 'Will install EasyBuild as it is either missing or present in a different version. (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_version }}.)'
+    msg: "Will install EasyBuild as it is either missing or present in a different version. \
+         (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_version }}.)"
   when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_version'
   changed_when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_version'
   notify: 'Install_EasyBuild'

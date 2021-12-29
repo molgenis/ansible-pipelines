@@ -22,8 +22,8 @@
       connection: local
     - name: 'Verify that the group_vars were parsed.'
       assert:
-        that: HPC_ENV_PREFIX is defined
-        msg: "FATAL: the HPC_ENV_PREFIX Ansible variable is undefined, which suggests that the group_vars were not parsed."
+        that: hpc_env_prefix is defined
+        msg: "FATAL: the hpc_env_prefix Ansible variable is undefined, which suggests that the group_vars were not parsed."
       run_once: true
       delegate_to: localhost
       connection: local
@@ -40,9 +40,9 @@
   any_errors_fatal: true
   become: false
   tasks:
-    - name: "Create remote tmp dir in {{ HPC_ENV_PREFIX }}/.tmp/"
+    - name: "Create remote tmp dir in {{ hpc_env_prefix }}/.tmp/"
       file:
-        path: "{{ HPC_ENV_PREFIX }}/.tmp/"
+        path: "{{ hpc_env_prefix }}/.tmp/"
         state: 'directory'
         mode: "{{ MODE_2775_HARD }}"
 ...
