@@ -2,5 +2,5 @@
 - hosts:
     - UI
   roles:
-    - create-group-subfolder-structure
+    - create_group_subfolder_structure
 ...
