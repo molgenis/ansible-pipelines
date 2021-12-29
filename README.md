@@ -1,5 +1,7 @@
 # ansible-pipelines
 
+[![CircleCI](https://circleci.com/gh/molgenis/ansible-pipelines/tree/master.svg?style=svg)](https://circleci.com/gh/molgenis/ansible-pipelines/tree/master)
+
 ## Automagic deployment of pipelines for analysis of Next Generation Sequencing data
 
 This repo contains an Ansible playbook for deploying various pipelines for analysis of Next Generation Sequencing data:
