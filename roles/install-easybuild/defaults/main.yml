@@ -1,16 +1,7 @@
 ---
-#
-# Conventions for global environment variables:
-#  A. Use UPPERCASE underscore separated names like for shell env vars.
-#
-HPC_ENV_PREFIX: "/apps/" # default when not overruled by a site specific file in the group_vars sub dir.
-#
-# Conventions for role variables:
-#  A. Always prefix variables names with the role name to prevent variable name collisions.
-#  B. Use lowercase underscore separated names.
-#
-easybuild_sources_dir: "{{ HPC_ENV_PREFIX }}/sources/"
-easybuild_modules_dir: "{{ HPC_ENV_PREFIX }}/modules/"
-easybuild_software_dir: "{{ HPC_ENV_PREFIX }}/software/"
+hpc_env_prefix: "/apps/"
+easybuild_sources_dir: "{{ hpc_env_prefix }}/sources/"
+easybuild_modules_dir: "{{ hpc_env_prefix }}/modules/"
+easybuild_software_dir: "{{ hpc_env_prefix }}/software/"
 easybuild_modules_syntax: 'Lua'
 ...

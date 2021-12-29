@@ -35,12 +35,13 @@
       connection: local
       changed_when: "'installed successfully' in resolved_dependencies.stdout"
       register: resolved_dependencies
-- name: "Create remote tmp dir in {{ HPC_ENV_PREFIX }}/.tmp/"
+- name: 'Create remote tmp dir on DAI and helper machines.'
   hosts: DAI, helper
   any_errors_fatal: true
   become: false
   tasks:
-    - file:
+    - name: "Create remote tmp dir in {{ HPC_ENV_PREFIX }}/.tmp/"
+      file:
         path: "{{ HPC_ENV_PREFIX }}/.tmp/"
         state: 'directory'
         mode: "{{ MODE_2775_HARD }}"

@@ -35,11 +35,15 @@
          export EASYBUILD_ENFORCE_CHECKSUMS='False'
          PYTHON=python3
          which "${PYTHON}" || PYTHON=python
-         ${PYTHON} {{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/bootstrap_eb_{{ easybuild_releases[easybuild_version]['bootstrap_version'] }}.py "{{ HPC_ENV_PREFIX }}"
+         ${PYTHON} "{{ bootstrap_script_path }}" "{{ hpc_env_prefix }}"
   args:
     executable: /bin/bash
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
+  vars:
+    bootstrap_script_path: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/\
+                            bootstrap_eb_{{ easybuild_releases[easybuild_version]['bootstrap_version'] }}.py"
+  changed_when: true
 
 - name: Check if the required EasyBuild version is installed.
   shell: |
@@ -48,12 +52,12 @@
          eb --version 2>&1 | head -1 | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|'
   args:
     executable: /bin/bash
-    warn: no
+    warn: false
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   changed_when: false
   failed_when: false
-  check_mode: no
+  check_mode: false
   register: eb_installed_version
 
 - name: Determine if the required EasyBuild version needs to be installed.
@@ -63,7 +67,9 @@
 
 - name: Report EasyBuild status.
   debug:
-    msg: 'Will install the required EasyBuild version with the latest EasyBuild version as the bootstrapped version is not the requested version. (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_version }}.)'
+    msg: "Will install the required EasyBuild version with the latest EasyBuild version \
+          as the bootstrapped version is not the requested version. \
+          (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_version }}.)"
   when: eb_install_from_source|default(false)
 
 - name: Install required EasyBuild version with EasyBuild.

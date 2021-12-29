@@ -11,9 +11,9 @@
 
 - name: Decompress Lmod.
   unarchive:
-    src:  "{{ easybuild_sources_dir }}/l/Lmod/{{ lmod_version }}.tar.gz"
+    src: "{{ easybuild_sources_dir }}/l/Lmod/{{ lmod_version }}.tar.gz"
     dest: "{{ easybuild_sources_dir }}/l/Lmod/"
-    copy: no
+    copy: false
     mode: "{{ MODE__775_SOFT }}"
 
 - name: Compile and install Lmod.
@@ -26,4 +26,5 @@
                      --with-mpathSearch=YES \
                      --with-caseIndependentSorting=YES \
              && make install
+  changed_shen: true
 ...
