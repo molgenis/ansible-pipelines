@@ -1,8 +1,8 @@
 ---
 - import_playbook: single_role_playbooks/pre_deploy_checks.yml
-- import_playbook: single_role_playbooks/install-easybuild.yml
-- import_playbook: single_role_playbooks/fetch-extra-easyconfigs.yml
-- import_playbook: single_role_playbooks/fetch-sources-and-refdata.yml
-- import_playbook: single_role_playbooks/install-modules-with-easybuild.yml
-- import_playbook: single_role_playbooks/create-group-subfolder-structure.yml
+- import_playbook: single_role_playbooks/install_easybuild.yml
+- import_playbook: single_role_playbooks/fetch_extra_easyconfigs.yml
+- import_playbook: single_role_playbooks/fetch_sources_and_refdata.yml
+- import_playbook: single_role_playbooks/install_modules_with_easybuild.yml
+- import_playbook: single_role_playbooks/create_group_subfolder_structure.yml
 ...

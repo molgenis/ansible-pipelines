@@ -1,7 +1,7 @@
 ---
 - name: Create required directories.
-  file:
-    path:  "{{item}}"
+  ansible.builtin.file:
+    path: "{{ item }}"
     state: 'directory'
     mode: "{{ MODE_2775_HARD }}"
   with_items:
@@ -13,20 +13,23 @@
     - "{{ easybuild_modules_dir }}/all/EasyBuild"
     - "{{ easybuild_modules_dir }}/tools/EasyBuild"
     - "{{ easybuild_modules_dir }}/.lmod"
-    - "{{ HPC_ENV_PREFIX }}/.tmp"
+    - "{{ hpc_env_prefix }}/.tmp"
 
 #
 # Update environment.
 #
 - name: Create global modules.bashrc with Lmod and EasyBuild environment config.
-  template: src="{{ item.src }}" dest="{{ easybuild_modules_dir }}/{{ item.dest }}" mode="{{ MODE_0664_HARD }}"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ easybuild_modules_dir }}/{{ item.dest }}"
+    mode: "{{ MODE_0664_HARD }}"
   with_items:
     - src: 'lmodrc.lua'
       dest: '.lmod/lmodrc.lua'
     - src: 'modules.bashrc'
       dest: 'modules.bashrc'
 - name: Insert/update block into ~/.bashrc to make sure modules.bashrc will be sourced.
-  blockinfile:
+  ansible.builtin.blockinfile:
     dest: "{{ ansible_env.HOME }}/.bashrc"
     block: |
       if [ -f "{{ easybuild_modules_dir }}/modules.bashrc" ]; then
@@ -34,7 +37,8 @@
       fi
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Setup environment for Lua, Lmod & EasyBuild."
     insertafter: EOF
-    create: yes
+    create: true
+    mode: '0600'
 
 #
 # Lua.
@@ -44,23 +48,25 @@
   # Example output:
   # Lua 5.1.4.7-rtm  Copyright (C) 1994-2008 Lua.org, PUC-Rio
   #
-  shell: |
+  ansible.builtin.shell:
+    cmd: |
          unset MODULEPATH
          source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
          lua -v  2>&1 | grep -i Lua | sed 's|^.*Lua \([0-9\.]*\).*$|\1|'
   args:
     executable: /bin/bash
-    warn: no
+    warn: false
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   changed_when: false
   failed_when: false
-  check_mode: no
-  register: lua_installed_version 
+  check_mode: false
+  register: lua_installed_version
 - name: Report Lua status.
-  debug:
-    msg: 'Will install Lua from source as it is either missing or present in a different version. (Detected {{ lua_installed_version.stdout }} and need {{ lua_version }}.)'
-  when:         'lua_installed_version is failed or lua_installed_version.stdout != lua_version'
+  ansible.builtin.debug:
+    msg: "Will install Lua from source as it is either missing or present in a different version. \
+         (Detected {{ lua_installed_version.stdout }} and need {{ lua_version }}.)"
+  when: 'lua_installed_version is failed or lua_installed_version.stdout != lua_version'
   changed_when: 'lua_installed_version is failed or lua_installed_version.stdout != lua_version'
   notify: 'Install_Lua'
 - name: Flush handlers to trigger Lua installation.
@@ -80,16 +86,16 @@
 # because the Lmod cache file syntax has changed in 7.x.
 #
 - name: Check if a system-wide Lmod is installed from an RPM, which will clash with a custom Lmod.
-  find:
+  ansible.builtin.find:
     paths: '/etc/profile.d/'
     patterns: '*lmod*'
-    recurse: yes
-    hidden: yes
-    follow: yes
+    recurse: true
+    hidden: true
+    follow: true
     file_type: any
   register: lmod_profile_files
 - name: Report error when conflicting Lmod init files are found in /etc/profile.d/.
-  fail:
+  ansible.builtin.fail:
     msg: "Error: found conflicting Lmod profile file in {{ item }}. Please remove the OS supplied Lmod version."
   when: 'lmod_profile_files is success'
   with_items: "{{ lmod_profile_files | json_query('files[].path') | list }}"
@@ -100,26 +106,25 @@
   # Modules based on Lua: Version 6.5.8  2016-09-03 13:41 -05:00 (CDT)
   #    by Robert McLay mclay@tacc.utexas.edu
   #
-  shell: |
+  ansible.builtin.shell:
+    cmd: |
          unset MODULEPATH
          source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
          lmod -v 2>&1 | sed '/^$/d' | sed 's|^.*Version \([0-9\.]*\).*$|\1|' | head -1
   args:
     executable: /bin/bash
-    warn: no
+    warn: false
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   changed_when: false
   failed_when: false
-  check_mode: no
+  check_mode: false
   register: lmod_installed_version
-#- name: "DEBUG: Report Lmod status."
-#  debug:
-#    msg: 'Detected {{ lmod_installed_version.stdout }} and need {{ lmod_version }}.'
 - name: Report Lmod status.
-  debug:
-    msg: 'Will install Lmod from source as it is either missing or present in a different version. (Detected {{ lmod_installed_version.stdout }} and need {{ lmod_version }}.)'
-  when:         'lmod_installed_version is failed or lmod_installed_version.stdout != lmod_version'
+  ansible.builtin.debug:
+    msg: "Will install Lmod from source as it is either missing or present in a different version. \
+         (Detected {{ lmod_installed_version.stdout }} and need {{ lmod_version }}.)"
+  when: 'lmod_installed_version is failed or lmod_installed_version.stdout != lmod_version'
   changed_when: 'lmod_installed_version is failed or lmod_installed_version.stdout != lmod_version'
   notify: 'Install_Lmod'
 - name: Flush handlers to trigger Lmod installation.
@@ -129,30 +134,27 @@
 # EasyBuild.
 #
 - name: Check if EasyBuild is installed and if yes what version.
-  shell: |
+  ansible.builtin.shell:
+    cmd: |
          source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
          module load EasyBuild/{{ easybuild_version }}
          eb --version 2>&1 | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|'
   args:
     executable: /bin/bash
-    warn: no
+    warn: false
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   changed_when: false
   failed_when: false
-  check_mode: no
+  check_mode: false
   register: eb_installed_version
-#- name: DEBUG EasyBuild version number.
-#  debug:
-#    msg: 'Detected {{ eb_installed_version.stdout | version_compare(easybuild_version, operator="!=") }}.'
-#- debug: var=eb_installed_version
 - name: Report EasyBuild status.
-  debug:
-    msg: 'Will install EasyBuild as it is either missing or present in a different version. (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_version }}.)'
-  when:         'eb_installed_version is failed or eb_installed_version.stdout != easybuild_version'
+  ansible.builtin.debug:
+    msg: "Will install EasyBuild as it is either missing or present in a different version. \
+         (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_version }}.)"
+  when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_version'
   changed_when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_version'
   notify: 'Install_EasyBuild'
 - name: Flush handlers to trigger EasyBuild installation.
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 ...
-

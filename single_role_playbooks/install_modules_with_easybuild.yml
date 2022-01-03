@@ -3,5 +3,5 @@
     - DAI
     - helper
   roles:
-    - install-modules-with-easybuild
+    - install_modules_with_easybuild
 ...

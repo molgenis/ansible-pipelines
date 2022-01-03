@@ -1,0 +1,7 @@
+---
+hpc_env_prefix: "/apps/"
+easybuild_sources_dir: "{{ hpc_env_prefix }}/sources/"
+easybuild_modules_dir: "{{ hpc_env_prefix }}/modules/"
+easybuild_software_dir: "{{ hpc_env_prefix }}/software/"
+easybuild_modules_syntax: 'Lua'
+...

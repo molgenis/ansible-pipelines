@@ -3,26 +3,28 @@
 # Lua.
 #
 - name: Download Lua.
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ lua_releases[lua_version]['url'] }}"
     dest: "{{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}.tar.bz2"
     mode: "{{ MODE_0664_HARD }}"
     checksum: "{{ lua_releases[lua_version]['checksum'] }}"
     timeout: 60
-    validate_certs: no # Sourceforge redirects to https and this fails when Python on the target host is version <= 2.6.6.
+    validate_certs: false  # Sourceforge redirects to https and this fails when Python on the target host is version <= 2.6.6.
 
 - name: Decompress Lua.
-  unarchive:
-    src:  "{{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}.tar.bz2"
+  ansible.builtin.unarchive:
+    src: "{{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}.tar.bz2"
     dest: "{{ easybuild_sources_dir }}/l/Lua/"
-    copy: no
+    copy: false
     mode: "{{ MODE__775_SOFT }}"
 
-- name: Compile and install Lua
-  shell: |
+- name: Compile and install Lua.
+  ansible.builtin.shell:
+    cmd: |
          cd {{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}
          umask 0002
          ./configure --with-static=yes \
                      --prefix={{ easybuild_software_dir }}/Lua/{{ lua_version }} \
              && make install
+  changed_when: true
 ...

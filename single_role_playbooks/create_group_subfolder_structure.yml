@@ -1,0 +1,6 @@
+---
+- hosts:
+    - UI
+  roles:
+    - create_group_subfolder_structure
+...

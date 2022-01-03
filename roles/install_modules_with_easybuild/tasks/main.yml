@@ -1,13 +1,14 @@
 ---
 - name: Deploy modules with EasyBuild.
-  shell: |
+  ansible.builtin.shell:
+    cmd: |
          source {{ easybuild_modules_dir }}/modules.bashrc
          module load "EasyBuild/{{ easybuild_version }}"
          eb --robot --robot-paths="{{ extra_easyconfigs_prefix }}/:" "{{ extra_easyconfigs_prefix }}/{{ item }}"
   args:
     executable: /bin/bash
   environment:
-      SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
+    SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   with_items: "{{ easyconfigs }}"
   register: eb_status
   changed_when: "'is already installed' not in eb_status.stdout"

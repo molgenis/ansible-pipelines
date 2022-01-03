@@ -1,9 +1,7 @@
 ---
 #
 # Defaults for group variables.
-#
-# Conventions for global environment variables:
-# Use UPPERCASE underscore separated names like for shell env vars.
+# Convention for variable names: lowercase and underscore separated.
 #
 MODE_2775_HARD: 'u=rwx,g=rwxs,o=rx'
 MODE_2770_HARD: 'u=rwx,g=rwxs,o='
@@ -12,15 +10,11 @@ MODE_0775_HARD: 'u=rwx,g=rwx,o=rx'
 MODE__775_SOFT: 'u+rwX,g+rwX,o+rX,o-w'
 MODE_0664_HARD: 'u=rw,g=rw,o=r'
 MODE_D2775_F0664: 'Du=rwx,Dg=rwxs,Do=rx,Fu=rw,Fg=rw,Fo=r'
-HPC_ENV_PREFIX: '/apps'
-HPC_GROUPS_PREFIX: '/groups'
-#
-# Conventions for playbook variables:
-# Use lowercase underscore separated names.
-#
-easybuild_sources_dir: "{{ HPC_ENV_PREFIX }}/sources/"
-easybuild_modules_dir: "{{ HPC_ENV_PREFIX }}/modules/"
-easybuild_software_dir: "{{ HPC_ENV_PREFIX }}/software/"
+hpc_env_prefix: '/apps'
+hpc_groups_prefix: '/groups'
+easybuild_sources_dir: "{{ hpc_env_prefix }}/sources/"
+easybuild_modules_dir: "{{ hpc_env_prefix }}/modules/"
+easybuild_software_dir: "{{ hpc_env_prefix }}/software/"
 easybuild_modules_syntax: 'Lua'
 extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 remote_env_cache_dir_public:  'f114592@ssh.webhosting.rug.nl:site/apps/'
