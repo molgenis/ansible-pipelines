@@ -1,0 +1,7 @@
+---
+- hosts:
+    - user_interface
+    - helper
+  roles:
+    - manage_cronjobs
+...
