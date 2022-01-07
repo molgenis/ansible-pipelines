@@ -1,6 +1,6 @@
 ---
 - hosts:
-    - DAI
+    - deploy_admin_interface
     - helper
   roles:
     - install_easybuild

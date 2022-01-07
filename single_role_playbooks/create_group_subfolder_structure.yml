@@ -1,6 +1,6 @@
 ---
 - hosts:
-    - UI
+    - user_interface
   roles:
     - create_group_subfolder_structure
 ...
