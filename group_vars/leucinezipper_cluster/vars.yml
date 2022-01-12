@@ -87,6 +87,7 @@ refdata: [
   'CGD',
   'ClinVar',
   'Controls_Convading_XHMM',
+  'GRC/Hg19toHumanG1kV37.chain',
   'GSAarray',
   'Ensembl',
   'ExAC',
