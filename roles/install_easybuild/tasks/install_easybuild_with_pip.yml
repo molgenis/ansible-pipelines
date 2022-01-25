@@ -23,7 +23,7 @@
   ansible.builtin.shell:
     cmd: |
          set -o pipefail
-         "{{ pip_path.stdout }} -V | grep -o 'lib[^ ]*python[^ ]*' "
+         {{ pip_path.stdout }} -V | grep -o 'lib[^ ]*python[^ ]*'
   register: python_install_suffix
   changed_when: true
 - name: 'Deploy Lua module file for EasyBuild.'
