@@ -21,10 +21,9 @@ extra_easyconfigs_version: '2.8.48'
 #
 # Group folder structures to construct on shared storage systems.
 #
-#### SC
-hpc_env_prefix: '/project/xomics/Share/'
+hpc_env_prefix: '/project/xomics/Software/'
 hpc_groups_prefix: '/project/xomics'
-#  group_subfolder_structure: [
+group_subfolder_structure: [
 #    { group: 'umcg-atd',
 #      lfs: 'tmp07',
 #      mode: "{{ MODE_2770_HARD }}",
@@ -35,28 +34,7 @@ hpc_groups_prefix: '/project/xomics'
 #      mode: "{{ MODE_2770_HARD }}",
 #      owner: 'umcg-gap-ateambot',
 #      subfolders: ['DiagnosticOutput', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'] },
-#    { group: 'umcg-gd',
-#      lfs: 'tmp07',
-#      mode: "{{ MODE_2770_HARD }}",
-#      owner: 'umcg-gd-ateambot',
-#      subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp', 'trendanalysis'] },
-#    { group: 'umcg-genomescan',
-#      lfs: 'tmp07',
-#      mode: "{{ MODE_2770_HARD }}",
-#      owner: 'umcg-genomescan-ateambot',
-#      subfolders: ['logs', 'rawdata', 'runs', 'Samplesheets'] },
-#    { group: 'umcg-gsad',
-#      lfs: 'tmp07',
-#      mode: "{{ MODE_2770_HARD }}",
-#      owner: 'umcg-gsad-ateambot',
-#      subfolders: ['concordance', 'DiagnosticOutput', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'] },
-#    { group: 'umcg-gst',
-#      lfs: 'tmp07',
-#      mode: "{{ MODE_2770_HARD }}",
-#      owner: 'umcg-gst-ateambot',
-#      subfolders: ['logs', 'rawdata', 'runs', 'Samplesheets'] },
-#  ]
-### /SC
+]
 
 # Sources, software and reference data to install/fetch.
 #
