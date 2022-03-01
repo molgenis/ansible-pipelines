@@ -5,4 +5,5 @@
 - import_playbook: single_role_playbooks/fetch_sources_and_refdata.yml
 - import_playbook: single_role_playbooks/install_modules_with_easybuild.yml
 - import_playbook: single_role_playbooks/create_group_subfolder_structure.yml
+- import_playbook: single_role_playbooks/manage_cronjobs.yml
 ...
