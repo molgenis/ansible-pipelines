@@ -12,3 +12,4 @@ __pycache__/
 *.swp
 # GFM view temp files
 *.md.html
+*.venv
