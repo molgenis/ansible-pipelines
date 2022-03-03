@@ -1,0 +1,16 @@
+---
+- name: 'Create crontab for functional accounts.'
+  ansible.builtin.cron:
+    name: "{{ item.name }}"
+    minute: "{{ item.minute | default('*') }}"
+    hour: "{{ item.hour | default('*') }}"
+    day: "{{ item.monthday | default('*') }}"
+    month: "{{ item.month | default('*') }}"
+    weekday: "{{ item.weekday | default('*') }}"
+    user: "{{ item.user }}"
+    job: "{{ item.job }}"
+  become: true
+  become_user: "{{ item.user }}"
+  when: inventory_hostname in item.machines
+  loop: "{{ crontabs | default([]) | flatten(levels=1) }}"
+...

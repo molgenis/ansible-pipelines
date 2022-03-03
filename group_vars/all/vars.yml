@@ -19,6 +19,7 @@ easybuild_modules_syntax: 'Lua'
 extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 remote_env_cache_dir_public:  'f114592@ssh.webhosting.rug.nl:site/apps/'
 remote_env_cache_dir_private: 'f114592@ssh.webhosting.rug.nl:rsync-only/apps/'
+configure_env_in_cronjob: 'export SOURCE_HPC_ENV="True"; . ~/.bashrc'
 #
 # Lua vars by version.
 #

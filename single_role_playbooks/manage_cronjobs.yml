@@ -1,6 +1,7 @@
 ---
 - hosts:
     - user_interface
+    - helper
   roles:
-    - create_group_subfolder_structure
+    - manage_cronjobs
 ...
