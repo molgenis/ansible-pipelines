@@ -17,7 +17,7 @@
 lua_version: '5.1.4.9'
 lmod_version: '8.6.2'
 easybuild_version: '4.5.1'
-extra_easyconfigs_version: '2.8.44'
+extra_easyconfigs_version: '2.8.49'
 #
 # Group folder structures to construct on shared storage systems.
 #
@@ -624,30 +624,27 @@ crontabs:
 public_sources: [
   'g/GCCcore/isl-0.19.tar.bz2',
   'l/libtool/libtool-2.4.6.tar.gz',
+  'l/LibTIFF/tiff-4.0.10.tar.gz',
 ]
 private_sources: []
 refdata: [
-  # ToDo: update for new pipelines.
-  #'dbSNP',
-  #'1000G',
-  #'Agilent',
-  #'CADD',
-  #'CGD',
-  #'ClinVar',
-  #'Controls_Convading_XHMM',
-  #'GSAarray',
-  #'Ensembl',
-  #'ExAC',
-  #'ManVarList',
-  #'gnomAD',
-  #'GAVIN',
-  #'GeneNetwork',
-  #'HPO',
-  #'UMCG',
-  #'XHMM',
-  #'gonl',
-  #'inSilico',
-  #'snpEff-4.3',
+  'GRC/Hg19toHumanG1kV37.chain',
+  'dbSNP',
+  '1000G',
+  'Agilent',
+  'CGD',
+  'ClinVar',
+  'Controls_Convading_XHMM',
+  'GSAarray',
+  'Ensembl',
+  'ExAC',
+  'ManVarList',
+  'gnomAD/release-170228',
+  'GAVIN',
+  'UMCG',
+  'gonl',
+  'inSilico',
+  'snpEff-4.3',
 ]
 easyconfigs: [
   'c/cluster-utils/cluster-utils-v21.05.1-GCCcore-7.3.0.eb',
@@ -657,5 +654,6 @@ easyconfigs: [
   #'n/NGS_Automated/NGS_Automated-3.6.2-bare.eb',
   #'n/NGS_Automated/NGS_Automated-3.6.2-GAP-2.3.1.eb',
   #'n/NGS_Automated/NGS_Automated-3.6.2-NGS_DNA-3.6.0.eb',
+  'n/NGS_DNA/NGS_DNA-4.0.5-foss-2018b.eb'
 ]
 ...
