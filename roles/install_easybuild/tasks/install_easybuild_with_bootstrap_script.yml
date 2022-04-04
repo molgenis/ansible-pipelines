@@ -3,7 +3,12 @@
 # EasyBuild.
 #
 - name: Download EasyBuild bootstrap script and deps for offline bootstrapping.
-  ansible.builtin.get_url: url="{{ item.url }}" dest="{{ item.dest }}" checksum="{{ item.checksum }}" mode="{{ MODE_0664_HARD }}"
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    checksum: "{{ item.checksum }}"
+    mode: "{{ MODE_0664_HARD }}"
+    validate_certs: false
   with_items:
     - url: "{{ easybuild_releases[easybuild_version]['bootstrap_url'] }}"
       dest: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/bootstrap_eb_{{ easybuild_releases[easybuild_version]['bootstrap_version'] }}.py"
