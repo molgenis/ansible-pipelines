@@ -1,6 +1,7 @@
 ---
 - hosts:
     - user_interface
+    - data_staging
     - helper
   roles:
     - manage_cronjobs
