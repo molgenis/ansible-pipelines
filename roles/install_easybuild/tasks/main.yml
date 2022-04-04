@@ -138,7 +138,7 @@
     cmd: |
          source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
          module load EasyBuild/{{ easybuild_version }}
-         if eb --version 2>/dev/null | grep '^This is EasyBuild'; then
+         if eb --version 2>/dev/null | grep '^This is EasyBuild' >/dev/null 2>&1; then
            version=$(eb --version 2>/dev/null | grep '^This is EasyBuild' | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|')
          else
            version=$(eb --version 2>&1)
