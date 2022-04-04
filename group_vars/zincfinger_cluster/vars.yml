@@ -474,7 +474,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
          notifications.sh -g umcg-gst -e"
-
   - name: NGS_Automated_pullRawDataFromDS  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
     machines: "{{ groups['data_staging'] | default([]) }}"
@@ -575,7 +574,7 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
-         copyBclDataToPrm.sh -g umcg-patho -s zinc-finger2.gcc.rug.nl"
+         copyBclDataToPrm.sh -g umcg-patho -s gattaca02.gcc.rug.nl"
     disabled: true
 #
 # Sources, software and reference data to install/fetch.
