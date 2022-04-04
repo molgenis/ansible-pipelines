@@ -95,7 +95,7 @@ crontabs:
     minute: 0
     hour: 6
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         ${HOME}/FileSystemCheck.sh"
+         ${HOME}/FileSystemCheckGD.sh"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['helper'] | default([]) + groups['user_interface'] | default([]) }}"
@@ -227,7 +227,7 @@ crontabs:
     minute: 0
     hour: 6
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         ${HOME}/FileSystemCheck.sh"
+         ${HOME}/FileSystemCheckGD.sh"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['helper'] | default([]) + groups['user_interface'] | default([]) }}"
@@ -329,14 +329,14 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
-         ConcordanceCheck.sh -g umcg-gd -e"
+         ConcordanceCheck.sh -g umcg-gd"
   - name: ConcordanceCheck_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
-         notifications.sh -g umcg-gd"
+         notifications.sh -g umcg-gd -e"
   - name: ConcordanceCheck_cleanup  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
