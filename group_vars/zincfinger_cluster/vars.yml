@@ -455,7 +455,7 @@ crontabs:
   ######################################################################################################################
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
-    machines: "{{ groups['helper'] | default([]) + groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['helper'] | default([]) + groups['user_interface'] | default([]) + groups['data_staging'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
@@ -463,7 +463,7 @@ crontabs:
 
   - name: NGS_Automated_pullRawDataFromDS  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['data_staging'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
@@ -487,14 +487,14 @@ crontabs:
   ######################################################################################################################
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-genomescan-ateambot
-    machines: "{{ groups['helper'] | default([]) + groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['helper'] | default([]) + groups['user_interface'] | default([]) + groups['data_staging'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
          notifications.sh -g umcg-genomescan -e"
   - name: NGS_Automated_pullRawDataFromDS  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-genomescan-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['data_staging'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
