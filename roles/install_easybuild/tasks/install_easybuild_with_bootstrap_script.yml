@@ -57,7 +57,12 @@
          set -o pipefail
          source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
          module load EasyBuild/{{ easybuild_version }}
-         eb --version 2>&1 | head -1 | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|'
+         if eb --version 2>/dev/null | grep '^This is EasyBuild'; then
+           version=$(eb --version 2>/dev/null | grep '^This is EasyBuild' | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|')
+         else
+           version=$(eb --version 2>&1)
+         fi
+         echo "${version}"
   args:
     executable: /bin/bash
     warn: false
