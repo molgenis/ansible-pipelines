@@ -62,7 +62,7 @@ group_module_versions:
     NGS_DNA: 3.6.0
     ConcordanceCheck: 2.1.0
   umcg-gd:
-    NGS_Automated: 3.6.2
+    NGS_Automated: 3.7.1
     NGS_DNA: 3.6.0
     ConcordanceCheck: 2.1.0
   umcg-gsad:
