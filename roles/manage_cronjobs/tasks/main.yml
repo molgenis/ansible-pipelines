@@ -9,6 +9,7 @@
     weekday: "{{ item.weekday | default('*') }}"
     user: "{{ item.user }}"
     job: "{{ item.job }}"
+    disabled: "{{ item.disabled | default('false') }}"
   become: true
   become_user: "{{ item.user }}"
   when: inventory_hostname in item.machines
