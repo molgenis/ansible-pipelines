@@ -70,7 +70,7 @@
   changed_when: 'lua_installed_version is failed or lua_installed_version.stdout != lua_version'
   notify: 'Install_Lua'
 - name: Flush handlers to trigger Lua installation.
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 #
 # Lmod.
@@ -128,7 +128,7 @@
   changed_when: 'lmod_installed_version is failed or lmod_installed_version.stdout != lmod_version'
   notify: 'Install_Lmod'
 - name: Flush handlers to trigger Lmod installation.
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 #
 # EasyBuild.

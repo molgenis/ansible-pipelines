@@ -12,7 +12,7 @@
     - ansible_python_interpreter: python
   pre_tasks:
     - name: 'Verify Ansible version meets requirements.'
-      assert:
+      ansible.builtin.assert:
         that: "ansible_version.full is version_compare(minimal_ansible_version, '>=')"
         msg: "You must update Ansible to at least {{ minimal_ansible_version }}.x to use this playbook."
       vars:
@@ -21,7 +21,7 @@
       delegate_to: localhost
       connection: local
     - name: 'Verify that the group_vars were parsed.'
-      assert:
+      ansible.builtin.assert:
         that: hpc_env_prefix is defined
         msg: "FATAL: the hpc_env_prefix Ansible variable is undefined, which suggests that the group_vars were not parsed."
       run_once: true
@@ -41,7 +41,7 @@
   become: false
   tasks:
     - name: "Create remote tmp dir in {{ hpc_env_prefix }}/.tmp/"
-      file:
+      ansible.builtin.file:
         path: "{{ hpc_env_prefix }}/.tmp/"
         state: 'directory'
         mode: "{{ MODE_2775_HARD }}"
