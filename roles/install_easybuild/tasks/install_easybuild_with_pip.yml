@@ -17,7 +17,7 @@
   ansible.builtin.pip:
     name: easybuild
     version: "{{ easybuild_version }}"
-    extra_args: "--prefix {{ easybuild_software_dir }}/EasyBuild/{{ easybuild_version }}/"
+    extra_args: '--install-option "--prefix={{ easybuild_software_dir }}/EasyBuild/{{ easybuild_version }}/"'
     executable: "{{ pip_path.stdout }}"
 - name: 'Get install suffix from pip -V'
   ansible.builtin.shell:

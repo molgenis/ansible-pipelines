@@ -70,7 +70,7 @@
   changed_when: 'lua_installed_version is failed or lua_installed_version.stdout != lua_version'
   notify: 'Install_Lua'
 - name: Flush handlers to trigger Lua installation.
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 #
 # Lmod.
@@ -128,7 +128,7 @@
   changed_when: 'lmod_installed_version is failed or lmod_installed_version.stdout != lmod_version'
   notify: 'Install_Lmod'
 - name: Flush handlers to trigger Lmod installation.
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 #
 # EasyBuild.
@@ -138,7 +138,12 @@
     cmd: |
          source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
          module load EasyBuild/{{ easybuild_version }}
-         eb --version 2>&1 | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|'
+         if eb --version 2>/dev/null | grep '^This is EasyBuild' >/dev/null 2>&1; then
+           version=$(eb --version 2>/dev/null | grep '^This is EasyBuild' | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|')
+         else
+           version=$(eb --version 2>&1)
+         fi
+         echo "${version}"
   args:
     executable: /bin/bash
     warn: false
