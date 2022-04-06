@@ -1,9 +1,24 @@
 ---
+- name: 'Check if we have python or python3.'
+  ansible.builtin.shell: |
+         if which python3 > /dev/null 2>&1; then
+             which python3
+         elif which python > /dev/null 2>&1; then
+             which python
+         else
+             echo 'FATAL: Cannot find python nor python3.'
+         fi
+  args:
+    executable: /bin/bash
+  register: python_path
+  failed_when: "'FATAL' in python_path.stdout"
+  changed_when: false
 - name: Deploy modules with EasyBuild.
   ansible.builtin.shell:
     cmd: |
          source {{ easybuild_modules_dir }}/modules.bashrc
          module load "EasyBuild/{{ easybuild_version }}"
+         export EB_PYTHON="{{ python_path.stdout }}"
          eb --robot --robot-paths="{{ extra_easyconfigs_prefix }}/:" "{{ extra_easyconfigs_prefix }}/{{ item }}"
   args:
     executable: /bin/bash
