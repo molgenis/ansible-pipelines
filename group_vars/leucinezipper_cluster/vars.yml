@@ -615,12 +615,28 @@ refdata: [
   'inSilico',
   'snpEff-4.3',
 ]
-#easyconfigs: [
-#  'c/cluster-utils/cluster-utils-v18.08.1.eb',
-#  'd/depad-utils/depad-utils-v19.02.1.eb',
-#  'c/ConcordanceCheck/ConcordanceCheck-2.1.0.eb',
-#  'n/NGS_Automated/NGS_Automated-3.6.2-bare.eb',
-#  'n/NGS_Automated/NGS_Automated-3.6.2-GAP-2.3.1.eb',
-#  'n/NGS_Automated/NGS_Automated-3.6.2-NGS_DNA-3.6.0.eb',
-#]
+dynamic_easyconfigs: >-
+  {%- set easyconfigs_for_group_modules = [] %}
+  {%- for group, modules in group_module_versions.items() %}
+    {%- for software, version in modules.items() %}
+      {%- if software == 'NGS_Automated' %}
+        {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
+              'n/NGS_Automated/NGS_Automated-' + version + '-bare.eb'
+            ) %}
+      {%- elif software == 'NGS_DNA' or software == 'GAP' %}
+        {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
+              'n/NGS_Automated/NGS_Automated-' + group_module_versions[group]['NGS_Automated'] + '-' + software + '-' + version + '.eb'
+            ) %}
+      {%- else %}
+        {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
+              software[0:1] | lower + '/' + software + '/' + software + '-' + version + '.eb'
+            ) %}
+      {%- endif %}
+    {%- endfor %}
+  {%- endfor %}
+  {{- easyconfigs_for_group_modules | default([]) -}}
+static_easyconfigs:
+  - c/cluster-utils/cluster-utils-v18.08.1.eb
+  - d/depad-utils/depad-utils-v19.02.1.eb
+easyconfigs: "{{ dynamic_easyconfigs | default([]) | union(static_easyconfigs | default([])) }}"
 ...
