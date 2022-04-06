@@ -131,7 +131,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
          pipelineTiming.sh -g umcg-atd -s gattaca02.gcc.rug.nl -r /groups/umcg-atd/scr01/"
-    disabled: true
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -146,7 +145,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
          copyRawDataToPrm.sh -g umcg-atd -s gattaca02.gcc.rug.nl"
-    disabled: true
   - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -162,7 +160,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
          copyRawDataToPrmTiming.sh -g umcg-atd -s gattaca02.gcc.rug.nl -r /groups/umcg-atd/scr01/"
-    disabled: true
   - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -270,7 +267,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          pipelineTiming.sh -g umcg-gd -s gattaca02.gcc.rug.nl -r /groups/umcg-gd/scr01/"
-    disabled: true
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -285,7 +281,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          copyRawDataToPrm.sh -g umcg-gd -s gattaca02.gcc.rug.nl"
-    disabled: true
   - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -301,7 +296,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          copyRawDataToPrmTiming.sh -g umcg-gd -s gattaca02.gcc.rug.nl -r /groups/umcg-gd/scr01/"
-    disabled: true
   - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -403,7 +397,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
          copyRawDataToPrm.sh -g umcg-gsad -s gattaca02.gcc.rug.nl"
-    disabled: true
   - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -456,7 +449,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
          copyRawDataToPrm.sh -g umcg-gap -s gattaca02.gcc.rug.nl"
-    disabled: true
   - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -550,7 +542,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
          copyRawDataToPrm.sh -g umcg-labgnkbh -s gattaca02.gcc.rug.nl"
-    disabled: true
   ######################################################################################################################
   # umcg-patho group
   ######################################################################################################################
@@ -575,7 +566,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
          copyBclDataToPrm.sh -g umcg-patho -s gattaca02.gcc.rug.nl"
-    disabled: true
 #
 # Sources, software and reference data to install/fetch.
 #
