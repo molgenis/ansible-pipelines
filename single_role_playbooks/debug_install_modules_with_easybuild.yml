@@ -1,0 +1,10 @@
+---
+- hosts:
+    - deploy_admin_interface
+    - helper
+  tasks:
+    - name: Debug
+      debug:
+        msg: "Found EasyConfig: {{ item }}"
+      with_items: "{{ easyconfigs }}"
+...
