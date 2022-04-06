@@ -87,7 +87,7 @@ easyconfigs: >-
     {%- for software, version in modules.items() %}
       {%- if software == 'NGS_Automated' %}
         {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append('n/NGS_Automated/NGS_Automated-' + version + '-bare.eb') %}
-      {%- elif software == 'NGS_DNA' %}
+      {%- elif software == 'NGS_DNA' or software == 'GAP' %}
         {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append('n/NGS_Automated/NGS_Automated-' + group_module_versions[group]['NGS_Automated'] + '-NGS_DNA-' + version + '.eb') %}
       {%- else %}
         {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(software[0:1] | lower + '/' + software + '/' + software + '-' + version + '.eb') %}
