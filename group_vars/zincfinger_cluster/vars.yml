@@ -83,9 +83,13 @@ group_module_versions:
 ################################################################################################################
 easyconfigs: >-
   {% set easyconfigs_for_group_modules = [] %}
-  {% for group in group_module_versions |default([]) %}
-    {% set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append("n/NGS_Automated/NGS_Automated-{{ group.NGS_Automated }}-bare.eb") %}
-  {% endfor %
+  {% for group, modules in group_module_versions.iteritems() %}
+    {% for software, version in modules %}
+      {% if software == 'NGS_Automated' %}
+        {% set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append("n/NGS_Automated/NGS_Automated-{{ version }}-bare.eb") %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
   {{ easyconfigs_for_group_modules }}
   #{{ easyconfigs | default([]) | union(['more', 'items']) }}
   #- c/cluster-utils/cluster-utils-v18.08.1.eb
@@ -642,12 +646,12 @@ refdata: [
   'inSilico',
   'snpEff-4.3',
 ]
-easyconfigs: [
-  'c/cluster-utils/cluster-utils-v18.08.1.eb',
-  'd/depad-utils/depad-utils-v19.02.1.eb',
-  'c/ConcordanceCheck/ConcordanceCheck-2.1.0.eb',
-  'n/NGS_Automated/NGS_Automated-3.6.2-bare.eb',
-  'n/NGS_Automated/NGS_Automated-3.6.2-GAP-2.3.1.eb',
-  'n/NGS_Automated/NGS_Automated-3.6.2-NGS_DNA-3.6.0.eb',
-]
+# easyconfigs: [
+#   'c/cluster-utils/cluster-utils-v18.08.1.eb',
+#   'd/depad-utils/depad-utils-v19.02.1.eb',
+#   'c/ConcordanceCheck/ConcordanceCheck-2.1.0.eb',
+#   'n/NGS_Automated/NGS_Automated-3.6.2-bare.eb',
+#   'n/NGS_Automated/NGS_Automated-3.6.2-GAP-2.3.1.eb',
+#   'n/NGS_Automated/NGS_Automated-3.6.2-NGS_DNA-3.6.0.eb',
+# ]
 ...
