@@ -94,14 +94,9 @@ easyconfigs: >-
       {%- endif %}
     {%- endfor %}
   {%- endfor %}
-  {{- easyconfigs_for_group_modules | default([]) | union(['c/cluster-utils/cluster-utils-v18.08.1.eb','d/depad-utils/depad-utils-v19.02.1.eb']) -}}
-#{{ easyconfigs | default([]) | union(['more', 'items']) }}
-#- c/cluster-utils/cluster-utils-v18.08.1.eb
-#- d/depad-utils/depad-utils-v19.02.1.eb
-#- c/ConcordanceCheck/ConcordanceCheck-2.1.0.eb
-#- n/NGS_Automated/NGS_Automated-3.6.2-bare.eb
-#- n/NGS_Automated/NGS_Automated-3.6.2-GAP-2.3.1.eb
-#- n/NGS_Automated/NGS_Automated-3.6.2-NGS_DNA-3.6.0.eb
+  {{- easyconfigs_for_group_modules | default([]) | union([
+    'c/cluster-utils/cluster-utils-v18.08.1.eb',
+    'd/depad-utils/depad-utils-v19.02.1.eb']) -}}
 ################################################################################################################
 
 crontabs:
