@@ -81,9 +81,6 @@ group_module_versions:
     NGS_Automated: 3.4.0
 
 ################################################################################################################
-easyconfigs:
-  - c/cluster-utils/cluster-utils-v18.08.1.eb
-  - d/depad-utils/depad-utils-v19.02.1.eb
 easyconfigs: >-
   {%- set easyconfigs_for_group_modules = [] %}
   {%- for group, modules in group_module_versions.items() %}
@@ -93,7 +90,7 @@ easyconfigs: >-
       {%- endif %}
     {%- endfor %}
   {%- endfor %}
-  {{- easyconfigs_for_group_modules | default([]) | intersect(easyconfigs) -}}
+  {{- easyconfigs_for_group_modules | default([]) | intersect(['c/cluster-utils/cluster-utils-v18.08.1.eb','d/depad-utils/depad-utils-v19.02.1.eb']) -}}
 #{{ easyconfigs | default([]) | union(['more', 'items']) }}
 #- c/cluster-utils/cluster-utils-v18.08.1.eb
 #- d/depad-utils/depad-utils-v19.02.1.eb
