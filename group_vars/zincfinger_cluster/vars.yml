@@ -86,7 +86,7 @@ easyconfigs: >-
   {%- for group, modules in group_module_versions.items() %}
     {%- for software, version in modules.items() %}
       {%- if software == 'NGS_Automated' %}
-        {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append('n/NGS_Automated/NGS_Automated-' + version '-bare.eb') %}
+        {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append('n/NGS_Automated/NGS_Automated-' + version + '-bare.eb') %}
       {%- endif %}
     {%- endfor %}
   {%- endfor %}
