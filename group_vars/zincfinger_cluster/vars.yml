@@ -82,15 +82,15 @@ group_module_versions:
 
 ################################################################################################################
 easyconfigs: >-
-  {% set easyconfigs_for_group_modules = [] %}
-  {% for group, modules in group_module_versions.iteritems() %}
-    {% for software, version in modules %}
-      {% if software == 'NGS_Automated' %}
-        {% set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append("n/NGS_Automated/NGS_Automated-{{ version }}-bare.eb") %}
-      {% endif %}
-    {% endfor %}
-  {% endfor %}
-  {{ easyconfigs_for_group_modules }}
+  {%- set easyconfigs_for_group_modules = [] %}
+  {%- for group, modules in group_module_versions.items() %}
+    {%- for software, version in modules.items() %}
+      {%- if software == 'NGS_Automated' %}
+        {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append('n/NGS_Automated/NGS_Automated-' + version '-bare.eb') %}
+      {%- endif %}
+    {%- endfor %}
+  {%- endfor %}
+  {{- easyconfigs_for_group_modules -}}
 #{{ easyconfigs | default([]) | union(['more', 'items']) }}
 #- c/cluster-utils/cluster-utils-v18.08.1.eb
 #- d/depad-utils/depad-utils-v19.02.1.eb
