@@ -1,4 +1,6 @@
 ---
+- import_playbook: single_role_playbooks/pre_deploy_checks.yml
+
 - hosts:
     - user_interface
   roles:
