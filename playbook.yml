@@ -1,5 +1,4 @@
 ---
-- import_playbook: single_role_playbooks/pre_deploy_checks.yml
 - import_playbook: single_role_playbooks/install_easybuild.yml
 - import_playbook: single_role_playbooks/fetch_extra_easyconfigs.yml
 - import_playbook: single_role_playbooks/fetch_sources_and_refdata.yml
