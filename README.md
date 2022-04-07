@@ -23,13 +23,14 @@ The deployment consists of the following steps:
      - Install
      - Run sanity check
      - Create module file for module system of your choice (Lmod in our case).
-   - Create the basic file system layout for processing a project with the NGS_DNA pipeline.
    - Configure the Bash environment for Lmod & EasyBuild
+   - Create the basic file system layout for processing a project with various pipelines for various groups.
+   - Create cronjobs for running piplines automatically for functional accounts of various groups.
 
 ## Prerequisites for pipeline deployment
 
  - On the managing computer Ansible 2.2.x or higher is required to run the playbook.
- - The playbook was tested on target servers running CentOS 6 and similar Linux distro from the ''RedHat'' family.
+ - The playbook was tested on target servers running CentOS >= 6 and similar Linux distro from the ''RedHat'' family.
    When deploying on other Linux distro's the playbook may need updates for differences in package naming.
  - A basic understanding of Ansible (See: http://docs.ansible.com/ansible/latest/intro_getting_started.html#)
  - A basic understanding of EasyBuild not required to deploy the pipeline ''as is'', but will come in handy when updating/modifying the pipeline and it's dependencies.
@@ -62,17 +63,9 @@ ControlPersist 5m
    - When you have data from a different sequencing platform you may need to tweak analysis steps.
    - When you have data from a different species you will need to modify the playbook to provision reference data for that species.
 
-## Dependencies from Ansible Galaxy
-
-You can fetch dependencies from Ansible Galaxy on the control host with:
-
-```bash
-ansible-galaxy install -r requirements.yml
-```
-
 ## Defaults and how to overrule them
 
-The default values for variables (like the version number of the pipeline to deploy) are stored in:
+The default values for variables (like the version numbers of tools to install, URLs for their sources and checksums) are stored in:
 ```
 group_vars/all
 ```
@@ -115,30 +108,193 @@ Host other_proxy+*
 ```
 
 When the environment variable ```AI_PROXY``` is set like this:
-```
+```bash
 export AI_PROXY='other_proxy'
 ```
 then the hostname ```some_target``` from inventory.ini will be prefixed with ```other_proxy``` and a '+'
 resulting in:
-```
+```bash
 other_proxy+some_target
 ```
 which will match the ```Host other_proxy+*``` rule from the example ```~/.ssh/config``` file.
 
 ## Deployment: running the playbook
 
-Some examples:
- - To list the hosts that will be targeted in a group; e.g. 'development'
+#### 0. Fork this repo.
+
+Firstly, fork the repo at GitHub. Consult the GitHub docs if necessary.
+
+#### 1. Clone forked repo to Ansible control host.
+
+Login to the machine you want to use as Ansible control host, clone your fork and add "blessed" remote:
+
+```bash
+mkdir -p ${HOME}/git/
+cd ${HOME}/git/
+git clone 'https://github.com/<your-github-account>/ansible-pipelines.git'
+cd ${HOME}/git/ansible-pipelines
+git remote add blessed 'https://github.com/molgenis/ansible-pipelines.git'
+```
+
+#### 2. Configure Python virtual environment.
+
+Login to the machine you want to use as Ansible control host and configure virtual Python environment in sub directory of your cloned repo:
+
+```bash
+cd ${HOME}/git/ansible-pipelines
+#
+# Create Python virtual environment (once)
+#
+python3 -m venv ansible.venv
+#
+# Activate virtual environment.
+#
+source ansible.venv/bin/activate
+#
+# Install Ansible and other python packages.
+#
+if command -v pip3 > /dev/null 2>&1; then
+    PIP=pip3
+elif command -v pip > /dev/null 2>&1; then
+    PIP=pip
+else
+    echo 'FATAL: Cannot find pip3 nor pip. Make sure pip(3) is installed.'
+fi
+${PIP} install --upgrade pip
+${PIP} install ansible
+${PIP} install jmespath
+${PIP} install ruamel.yaml
+```
+
+#### 3A. Run playbook on Ansible control host for Zinc-Finger or Leucine-Zipper
+
+Only for *Zinc-Finger* and *Leucine-Zipper*:
+ * Inventory: use static inventory (without jumphost).
+ * Ansible control hosts:
+    * For *Zinc-Finger*: use `zf-ds`
+    * For *Leucine-Zipper*: use `lz-ds`
+
+Login to the Ansible control host and:
+
+```bash
+cd ${HOME}/git/ansible-pipelines
+#
+# Make sure we are on the main branch and got all the latest updates.
+#
+git checkout master
+git pull blessed master
+#
+# Activate virtual environment.
+#
+source ansible.venv/bin/
+#
+# Run complete playbook: general syntax
+#
+ansible-playbook -i inventory.ini --limit INVENTORY_GROUP playbook.yml
+#
+# Run complete playbook: example for Zinc-Finger
+#
+ansible-playbook -i inventory.ini --limit zincfinger_cluster playbook.yml
+#
+# Run single role playbook: examples for Zinc-Finger
+#
+ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/install_easybuild.yml
+ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/fetch_extra_easyconfigs.yml
+ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/fetch_sources_and_refdata.yml
+ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/install_modules_with_easybuild.yml
+ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/create_group_subfolder_structure.yml
+ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/manage_cronjobs.yml
+```
+
+###### Changing cronjobs to fetch data on a GD cluster from another gattaca server
+
+In the default situation:
+ * Samplesheets from _Darwin_ on `dat05` share/mount:
+   * sequencer/scanner must store data on `gattaca02`
+   * downstream analysis on `Zinc-Finger`
+   * results are stored on `prm05` share/mount
+ * Samplesheets from _Darwin_ on `dat06` share/mount:
+   * sequencer/scanner must store data on `gattaca01`
+   * downstream analysis on `Leucine-Zipper`
+   * results are stored on `prm06` share/mount
+
+If a gattaca server and/or cluster is offline for (un)scheduled maintenance,
+the lab can use the other set of infra by simply saving the rawest data on the other `gattaca` server and asking Darwin to put the samplesheet on the other `dat` share.
+In this case there is no need to change any cronjob settings.
+
+If infra breaks down and we need to link a cluster to the other gattaca server, then we need to update the corresponding cronjobs:
+ * Look for the `cronjobs` variable in both `group_vars/zincfinger_cluster/vars.yml` and `group_vars/leucinezipper_cluster/vars.yml`
+ * Search for cronjobs that contain `gattaca` in the command/job and depending on the situation:
+   * Either change `gattaca01` into `gattaca02` or vice versa.
+   * Or add a second similar cronjob for the other `gattaca` server if the cluster needs to fetch data from both `gattaca` servers.
+   * Or temporarily disable a cronjob by adding `disabled: true`. E.g.:
+     ```
+     - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
+       user: umcg-atd-dm
+       machines: "{{ groups['helper'] | default([]) }}"
+       minute: '*/10'
+       job: /bin/bash -c "{{ configure_env_in_cronjob }};
+            module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+            copyRawDataToPrm.sh -g umcg-atd -s gattaca02.gcc.rug.nl"
+       disabled: true
+     ```
+ * Run the playbook to update the cronjobs for both clusters:
+   * On `zf-ds`:
+   ```bash
+   cd ${HOME}/git/ansible-pipelines
+   git checkout master
+   git pull blessed master
+   source ansible.venv/bin/
+   ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/manage_cronjobs.yml
    ```
-   ansible-playbook -i inventory.py --list-hosts playbook.yml
-   ```
- - To run playbook for host 'boxy-dev' accessed via proxy server 'lobby'
-   ```
-   ansible-playbook -i inventory.py -l lobby+boxy-dev playbook.yml
-   ```
- - To debug a playbook for host 'boxy-dev' accessed via proxy server 'lobby' starting somehere in the middle of the playbook as opposed to starting from scratch.
-   ```
-   ansible-playbook -i inventory.py -l lobby+boxy-dev playbook.yml --start-at-task 'Get EasyConfigs.'
+   * On `lz-ds`:
+   ```bash
+   cd ${HOME}/git/ansible-pipelines
+   git checkout master
+   git pull blessed master
+   source ansible.venv/bin/
+   ansible-playbook -i inventory.ini --limit leucinezipper_cluster single_role_playbooks/manage_cronjobs.yml
    ```
 
+#### 3A. Run playbook on Ansible control host for all infra except Zinc-Finger or Leucine-Zipper
 
+For our `gattaca` servers and all HPC clusters __*except*__ *Zinc-Finger* and *Leucine-Zipper*:
+  * Inventory: use dynamic inventory with jumphost.
+  * Ansible control host: use your own laptop/device
+
+Login to the Ansible control host and:
+
+```bash
+cd ${HOME}/git/ansible-pipelines
+#
+# Make sure we are on the main branch and got all the latest updates.
+#
+git checkout master
+git pull blessed master
+#
+# Activate virtual environment.
+#
+source ansible.venv/bin/
+#
+# Configure jumphost.
+#
+export AI_PROXY='name_of_jumphost'
+#
+# Run complete playbook: general syntax
+#
+ansible-playbook -i inventory.py --limit INVENTORY_GROUP playbook.yml
+#
+# Run complete playbook: example for Winged-Helix
+#
+ansible-playbook -i inventory.py --limit wingedhelix_cluster playbook.yml
+#
+# Run single role playbook: examples for Winged-Helix
+#
+ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/install_easybuild.yml
+ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/fetch_extra_easyconfigs.yml
+ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/fetch_sources_and_refdata.yml
+ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/install_modules_with_easybuild.yml
+ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/create_group_subfolder_structure.yml
+ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/manage_cronjobs.yml
+```
+...
