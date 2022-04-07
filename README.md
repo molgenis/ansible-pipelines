@@ -25,7 +25,7 @@ The deployment consists of the following steps:
      - Create module file for module system of your choice (Lmod in our case).
    - Configure the Bash environment for Lmod & EasyBuild
    - Create the basic file system layout for processing a project with various pipelines for various groups.
-   - Create cronjobs for running piplines automatically for functional accounts of various groups.
+   - Create cronjobs for running pipelines automatically for functional accounts of various groups.
 
 ## Prerequisites for pipeline deployment
 
