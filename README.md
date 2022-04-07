@@ -297,4 +297,3 @@ ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playboo
 ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/create_group_subfolder_structure.yml
 ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/manage_cronjobs.yml
 ```
-...
