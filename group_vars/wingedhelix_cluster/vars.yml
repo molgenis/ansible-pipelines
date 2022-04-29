@@ -67,7 +67,7 @@ group_module_versions:
     ConcordanceCheck: 2.1.0
   umcg-gsad:
     NGS_Automated: 3.8.0
-    GAP: 2.3.1
+    GAP: 2.5.0
   umcg-gap:
     NGS_Automated: 3.6.2
     GAP: 2.3.1
