@@ -186,7 +186,7 @@ git pull blessed master
 #
 # Activate virtual environment.
 #
-source ansible.venv/bin/
+source ansible.venv/bin/activate
 #
 # Run complete playbook: general syntax
 #
