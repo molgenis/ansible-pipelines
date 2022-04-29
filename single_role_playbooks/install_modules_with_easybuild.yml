@@ -3,15 +3,13 @@
 
 - hosts:
     - deploy_admin_interface
-  vars:
-    easyconfigs: "{{ all_easyconfigs | default(easyconfigs) }}"
   roles:
     - install_modules_with_easybuild
 
 - hosts:
     - helper
   vars:
-    easyconfigs: "{{ helper_only_easyconfigs }}"
+    easyconfigs: "{{ helper_only_easyconfigs | default([]) }}"
   roles:
     - install_modules_with_easybuild
 ...

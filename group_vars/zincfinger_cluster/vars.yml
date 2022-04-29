@@ -639,5 +639,6 @@ static_easyconfigs:
   - c/cluster-utils/cluster-utils-v18.08.1.eb
   - d/depad-utils/depad-utils-v19.02.1.eb
 all_easyconfigs: "{{ dynamic_easyconfigs | default([]) | union(static_easyconfigs | default([])) }}"
+easyconfigs: "{{ all_easyconfigs }}"
 helper_only_easyconfigs: "{{ all_easyconfigs | select('search', 'NGS_Automated-.*-bare.eb') | list }}"
 ...

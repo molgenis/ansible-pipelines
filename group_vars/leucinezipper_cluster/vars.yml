@@ -17,7 +17,7 @@
 lua_version: '5.1.4.9'
 lmod_version: '7.8.8'
 easybuild_version: '4.3.2'
-extra_easyconfigs_version: '2.8.50'
+extra_easyconfigs_version: '2.8.51'
 #
 # Group folder structures to construct on shared storage systems.
 #
@@ -58,21 +58,21 @@ group_subfolder_structure: [
 #
 group_module_versions:
   umcg-atd:
-    NGS_Automated: 3.7.1
-    NGS_DNA: 3.6.0
+    NGS_Automated: 3.8.0
+    NGS_DNA: 3.7.0
     ConcordanceCheck: 2.1.0
   umcg-gd:
     NGS_Automated: 3.7.1
     NGS_DNA: 3.6.0
     ConcordanceCheck: 2.1.0
   umcg-gsad:
-    NGS_Automated: 3.7.1
+    NGS_Automated: 3.8.0
     GAP: 2.3.1
   umcg-gap:
     NGS_Automated: 3.6.2
     GAP: 2.3.1
   umcg-gst:
-    NGS_Automated: 3.7.1
+    NGS_Automated: 3.8.0
   umcg-genomescan:
     NGS_Automated: 3.6.2
   umcg-labgnkbh:
@@ -638,5 +638,8 @@ dynamic_easyconfigs: >-
 static_easyconfigs:
   - c/cluster-utils/cluster-utils-v18.08.1.eb
   - d/depad-utils/depad-utils-v19.02.1.eb
-easyconfigs: "{{ dynamic_easyconfigs | default([]) | union(static_easyconfigs | default([])) }}"
+all_easyconfigs: "{{ dynamic_easyconfigs | default([]) | union(static_easyconfigs | default([])) }}"
+easyconfigs: "{{ all_easyconfigs }}"
+helper_only_easyconfigs: "{{ all_easyconfigs | select('search', 'NGS_Automated-.*-bare.eb') | list }}"
+
 ...
