@@ -69,7 +69,7 @@ group_module_versions:
     NGS_Automated: 3.8.0
     GAP: 2.5.0
   umcg-gap:
-    NGS_Automated: 3.6.2
+    NGS_Automated: 3.6.3
     GAP: 2.3.1
   umcg-gst:
     NGS_Automated: 3.8.0
