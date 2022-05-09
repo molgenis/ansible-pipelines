@@ -216,6 +216,20 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load ConcordanceCheck/{{ group_module_versions['umcg-atd']['ConcordanceCheck'] }};
          cleanup.sh -g umcg-atd"
+  - name: ConcordanceCheck_notifications  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-dm
+    machines: "{{ groups['helper'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load ConcordanceCheck/{{ group_module_versions['umcg-atd']['ConcordanceCheck'] }};
+         notifications.sh -g umcg-atd -e"
+  - name: ConcordanceCheck_cleanup  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-dm
+    machines: "{{ groups['helper'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load ConcordanceCheck/{{ group_module_versions['umcg-atd']['ConcordanceCheck'] }};
+         cleanup.sh -g umcg-atd"
   ######################################################################################################################
   # umcg-gd group
   ######################################################################################################################
@@ -348,6 +362,20 @@ crontabs:
   - name: ConcordanceCheck_cleanup  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
+         cleanup.sh -g umcg-gd"
+  - name: ConcordanceCheck_notifications  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gd-dm
+    machines: "{{ groups['helper'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
+         notifications.sh -g umcg-gd -e"
+  - name: ConcordanceCheck_cleanup  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gd-dm
+    machines: "{{ groups['helper'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
