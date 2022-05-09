@@ -17,7 +17,7 @@
 lua_version: '5.1.4.9'
 lmod_version: '8.6.2'
 easybuild_version: '4.5.1'
-extra_easyconfigs_version: '2.8.51'
+extra_easyconfigs_version: '2.8.52'
 #
 # Group folder structures to construct on shared storage systems.
 #
@@ -69,7 +69,7 @@ group_module_versions:
     NGS_Automated: 3.8.0
     GAP: 2.5.0
   umcg-gap:
-    NGS_Automated: 3.6.2
+    NGS_Automated: 3.6.3
     GAP: 2.3.1
   umcg-gst:
     NGS_Automated: 3.8.0
