@@ -498,6 +498,7 @@ crontabs:
     user: umcg-gst-ateambot
     machines: "{{ groups['data_staging'] | default([]) }}"
     minute: '*/10'
+    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
          pullRawDataFromDS.sh -g umcg-gst"
@@ -529,6 +530,7 @@ crontabs:
     user: umcg-genomescan-ateambot
     machines: "{{ groups['data_staging'] | default([]) }}"
     minute: '*/10'
+    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
          pullRawDataFromDS.sh -g umcg-genomescan"
