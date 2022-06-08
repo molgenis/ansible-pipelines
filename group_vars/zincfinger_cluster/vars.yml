@@ -145,6 +145,7 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
          copyRawDataToPrm.sh -g umcg-atd -s gattaca02.gcc.rug.nl"
+    disabled: true  # All inhouse sequenced samples from both gattaca01 and gattaca02 currently processed on Leucine-Zipper.
   - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -295,6 +296,7 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          copyRawDataToPrm.sh -g umcg-gd -s gattaca02.gcc.rug.nl"
+    disabled: true  # All inhouse sequenced samples from both gattaca01 and gattaca02 currently processed on Leucine-Zipper.
   - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -570,6 +572,7 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
          copyRawDataToPrm.sh -g umcg-labgnkbh -s gattaca02.gcc.rug.nl"
+    disabled: true  # All inhouse sequenced samples from both gattaca01 and gattaca02 currently processed on Leucine-Zipper.
   ######################################################################################################################
   # umcg-patho group
   ######################################################################################################################
@@ -594,6 +597,7 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
          copyBclDataToPrm.sh -g umcg-patho -s gattaca02.gcc.rug.nl"
+    disabled: true  # All inhouse sequenced samples from both gattaca01 and gattaca02 currently processed on Leucine-Zipper.
 #
 # Sources, software and reference data to install/fetch.
 #
