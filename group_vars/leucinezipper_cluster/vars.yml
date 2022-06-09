@@ -144,7 +144,8 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-atd -s gattaca01.gcc.rug.nl"
+         copyRawDataToPrm.sh -g umcg-atd -s gattaca01.gcc.rug.nl;
+         copyRawDataToPrm.sh -g umcg-atd -s gattaca02.gcc.rug.nl"
   - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -294,7 +295,8 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-gd -s gattaca01.gcc.rug.nl"
+         copyRawDataToPrm.sh -g umcg-gd -s gattaca01.gcc.rug.nl;
+         copyRawDataToPrm.sh -g umcg-gd -s gattaca02.gcc.rug.nl"
   - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['helper'] | default([]) }}"
@@ -571,7 +573,8 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-labgnkbh -s gattaca01.gcc.rug.nl"
+         copyRawDataToPrm.sh -g umcg-labgnkbh -s gattaca01.gcc.rug.nl;
+         copyRawDataToPrm.sh -g umcg-labgnkbh -s gattaca02.gcc.rug.nl"
   ######################################################################################################################
   # umcg-patho group
   ######################################################################################################################
@@ -595,7 +598,8 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
-         copyBclDataToPrm.sh -g umcg-patho -s gattaca01.gcc.rug.nl"
+         copyBclDataToPrm.sh -g umcg-patho -s gattaca01.gcc.rug.nl;
+         copyBclDataToPrm.sh -g umcg-patho -s gattaca02.gcc.rug.nl"
 #
 # Sources, software and reference data to install/fetch.
 #
