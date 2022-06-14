@@ -51,7 +51,7 @@
   ansible.builtin.shell:
     cmd: |
          unset MODULEPATH
-         source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
+         source "{{ easybuild_modules_dir }}/modules.bashrc" >/dev/null 2>&1
          lua -v  2>&1 | grep -i Lua | sed 's|^.*Lua \([0-9\.]*\).*$|\1|'
   args:
     executable: /bin/bash
@@ -109,7 +109,7 @@
   ansible.builtin.shell:
     cmd: |
          unset MODULEPATH
-         source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
+         source "{{ easybuild_modules_dir }}/modules.bashrc" >/dev/null 2>&1
          lmod -v 2>&1 | sed '/^$/d' | sed 's|^.*Version \([0-9\.]*\).*$|\1|' | head -1
   args:
     executable: /bin/bash
@@ -136,7 +136,7 @@
 - name: Check if EasyBuild is installed and if yes what version.
   ansible.builtin.shell:
     cmd: |
-         source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
+         source "{{ easybuild_modules_dir }}/modules.bashrc" >/dev/null 2>&1
          module load EasyBuild/{{ easybuild_version }}
          if eb --version 2>/dev/null | grep '^This is EasyBuild' >/dev/null 2>&1; then
            version=$(eb --version 2>/dev/null | grep '^This is EasyBuild' | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|')

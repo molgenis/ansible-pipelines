@@ -35,7 +35,7 @@
   #
   ansible.builtin.shell:
     cmd: |
-         source {{ easybuild_modules_dir }}/modules.bashrc
+         source "{{ easybuild_modules_dir }}/modules.bashrc"
          umask 0002
          export EASYBUILD_BOOTSTRAP_SOURCEPATH="{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/"
          export EASYBUILD_ENFORCE_CHECKSUMS='False'
@@ -55,7 +55,7 @@
   ansible.builtin.shell:
     cmd: |
          set -o pipefail
-         source {{ easybuild_modules_dir }}/modules.bashrc >/dev/null 2>&1
+         source "{{ easybuild_modules_dir }}/modules.bashrc" >/dev/null 2>&1
          module load EasyBuild/{{ easybuild_version }}
          if eb --version 2>/dev/null | grep '^This is EasyBuild' >/dev/null 2>&1; then
            version=$(eb --version 2>/dev/null | grep '^This is EasyBuild' | sed 's|^This is EasyBuild \([0-9\.]*\).*$|\1|')
@@ -88,7 +88,7 @@
 - name: Install required EasyBuild version with EasyBuild.
   ansible.builtin.shell:
     cmd: |
-         source {{ easybuild_modules_dir }}/modules.bashrc
+         source "{{ easybuild_modules_dir }}/modules.bashrc"
          umask 0002
          module load EasyBuild
          eb --software="EasyBuild,{{ easybuild_version }}"

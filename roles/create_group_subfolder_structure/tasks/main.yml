@@ -5,7 +5,7 @@
     state: directory
     group: "{{ item.0.group }}"
     mode: "{{ item.0.mode }}"
-  become: "{% if item.0.owner is defined and item.0.owner | length %}yes{% else %}no{% endif %}"
+  become: "{% if item.0.owner is defined and item.0.owner | length %}true{% else %}false{% endif %}"
   become_user: "{% if item.0.owner is defined and item.0.owner | length %}{{ item.0.owner }}{% endif %}"
   with_subelements:
     - "{{ group_subfolder_structure }}"
