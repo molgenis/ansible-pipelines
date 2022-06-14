@@ -142,7 +142,7 @@ crontabs:
   ######################################################################################################################
   - name: checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-ateambot
-    machines: "groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load GAP/{{ group_module_versions['umcg-gsad']['GAP'] }}-bare;
