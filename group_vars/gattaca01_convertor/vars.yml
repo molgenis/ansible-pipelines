@@ -197,7 +197,7 @@ crontabs:
          checkSamplesheet.sh -s /groups/umcg-labgnkbh/scr01/"
   - name: demultiplexing  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-labgnkbh-ateambot
-    machines: "groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-NGS_Demultiplexing-{{ group_module_versions['umcg-labgnkbh']['NGS_Demultiplexing'] }};
