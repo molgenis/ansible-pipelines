@@ -82,7 +82,7 @@ crontabs:
   ######################################################################################################################
   - name: benikdown  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
-    machines: "groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          ${HOME}/benikdown.sh"
