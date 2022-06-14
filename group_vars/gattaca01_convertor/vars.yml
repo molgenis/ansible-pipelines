@@ -67,7 +67,7 @@ group_module_versions:
     NGS_Demultiplexing: 2.5.0
   umcg-gsad:
     NGS_Automated: 3.8.0
-    AGCT: 2.5.0
+    AGCT: 1.1.0
     GAP: v2.2.1
   umcg-gap:
     NGS_Automated: 3.6.2
@@ -244,7 +244,7 @@ dynamic_easyconfigs: >-
         {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
               'n/NGS_Automated/NGS_Automated-' + version + '-bare.eb'
             ) %}
-      {%- elif software == 'NGS_DNA' or software == 'GAP' %}
+      {%- elif software == 'AGCT' or software == 'NGS_Demultiplexing' %}
         {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
               'n/NGS_Automated/NGS_Automated-' + group_module_versions[group]['NGS_Automated'] + '-' + software + '-' + version + '.eb'
             ) %}
