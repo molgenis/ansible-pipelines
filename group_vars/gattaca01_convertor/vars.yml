@@ -149,7 +149,7 @@ crontabs:
          checkSamplesheetWrapper.sh"
   - name: arrayConversion  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-ateambot
-    machines: "groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-AGCT-{{ group_module_versions['umcg-gsad']['AGCT'] }};
