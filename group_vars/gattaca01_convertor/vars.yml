@@ -74,6 +74,7 @@ group_module_versions:
     AGCT: 1.0.1
     GAP: v2.2.1
   umcg-labgnkbh:
+    ngs-utils: 18.09.1
     NGS_Automated: 3.4.0
     NGS_Demultiplexing: 2.4.1
 crontabs:
