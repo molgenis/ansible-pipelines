@@ -88,7 +88,7 @@ crontabs:
          ${HOME}/benikdown.sh"
   - name: checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
-    machines: "groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load ngs-utils/{{ group_module_versions['umcg-atd']['ngs-utils'] }};
