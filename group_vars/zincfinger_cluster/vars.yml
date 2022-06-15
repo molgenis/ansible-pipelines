@@ -62,19 +62,19 @@ group_module_versions:
     NGS_DNA: 3.7.0
     ConcordanceCheck: 2.1.0
   umcg-gd:
-    NGS_Automated: 3.7.1
-    NGS_DNA: 3.6.0
+    NGS_Automated: 3.8.0
+    NGS_DNA: 3.7.0
     ConcordanceCheck: 2.1.0
   umcg-gsad:
     NGS_Automated: 3.8.0
     GAP: 2.5.0
   umcg-gap:
-    NGS_Automated: 3.6.3
-    GAP: 2.3.1
+    NGS_Automated: 3.8.0
+    GAP: 2.5.0
   umcg-gst:
     NGS_Automated: 3.8.0
   umcg-genomescan:
-    NGS_Automated: 3.6.2
+    NGS_Automated: 3.8.0
   umcg-labgnkbh:
     NGS_Automated: 3.4.0
   umcg-patho:
