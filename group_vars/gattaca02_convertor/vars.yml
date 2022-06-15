@@ -68,11 +68,11 @@ group_module_versions:
   umcg-gsad:
     NGS_Automated: 3.8.0
     AGCT: 1.1.0
-    GAP: v2.2.1
+    GAP: v2.2.1-bare
   umcg-gap:
     NGS_Automated: 3.6.2
     AGCT: 1.0.1
-    GAP: v2.2.1
+    GAP: v2.2.1-bare
   umcg-labgnkbh:
     ngs-utils: 18.09.1
     NGS_Automated: 3.4.0
@@ -146,7 +146,7 @@ crontabs:
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load GAP/{{ group_module_versions['umcg-gsad']['GAP'] }}-bare;
+         module load GAP/{{ group_module_versions['umcg-gsad']['GAP'] }};
          checkSamplesheetWrapper.sh"
   - name: arrayConversion  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-ateambot
@@ -170,7 +170,7 @@ crontabs:
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load GAP/{{ group_module_versions['umcg-gap']['GAP'] }}-bare;
+         module load GAP/{{ group_module_versions['umcg-gap']['GAP'] }};
          checkSamplesheetWrapper.sh"
   - name: arrayConversion  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-ateambot
