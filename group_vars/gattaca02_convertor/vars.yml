@@ -59,19 +59,19 @@ group_subfolder_structure: [
 group_module_versions:
   umcg-atd:
     ngs-utils: 18.09.1
-    NGS_Automated: 3.7.1
-    NGS_Demultiplexing: 2.5.0
+    NGS_Automated: 3.8.0
+    NGS_Demultiplexing: 2.5.1
   umcg-gd:
     ngs-utils: 18.09.1
-    NGS_Automated: 3.7.1
-    NGS_Demultiplexing: 2.5.0
+    NGS_Automated: 3.8.0
+    NGS_Demultiplexing: 2.5.1
   umcg-gsad:
     NGS_Automated: 3.8.0
     AGCT: 1.1.0
     GAP: v2.2.1-bare
   umcg-gap:
-    NGS_Automated: 3.6.2
-    AGCT: 1.0.1
+    NGS_Automated: 3.8.0
+    AGCT: 1.1.0
     GAP: v2.2.1-bare
   umcg-labgnkbh:
     ngs-utils: 18.09.1
