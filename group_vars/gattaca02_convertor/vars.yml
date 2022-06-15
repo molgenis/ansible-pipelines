@@ -87,14 +87,14 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          ${HOME}/benikdown.sh"
-  - name: checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
+  - name: ngs-utils_checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load ngs-utils/{{ group_module_versions['umcg-atd']['ngs-utils'] }};
          checkSamplesheet.sh -s /groups/umcg-atd/scr01/"
-  - name: demultiplexing  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Demultiplexing_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
@@ -117,14 +117,14 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          ${HOME}/benikdown.sh"
-  - name: checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
+  - name: ngs-utils_checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load ngs-utils/{{ group_module_versions['umcg-gd']['ngs-utils'] }};
          checkSamplesheet.sh -s /groups/umcg-gd/scr01/"
-  - name: demultiplexing  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Demultiplexing_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
@@ -141,14 +141,14 @@ crontabs:
   ######################################################################################################################
   # umcg-gsad group
   ######################################################################################################################
-  - name: checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
+  - name: GAP_checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load GAP/{{ group_module_versions['umcg-gsad']['GAP'] }};
          checkSamplesheetWrapper.sh"
-  - name: arrayConversion  # Unique ID required to update existing cronjob: do not modify.
+  - name: AGCT_arrayConversion  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
@@ -165,14 +165,14 @@ crontabs:
   ######################################################################################################################
   # umcg-gap group
   ######################################################################################################################
-  - name: checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
+  - name: GAP_checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load GAP/{{ group_module_versions['umcg-gap']['GAP'] }};
          checkSamplesheetWrapper.sh"
-  - name: arrayConversion  # Unique ID required to update existing cronjob: do not modify.
+  - name: AGCT_arrayConversion  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
@@ -189,14 +189,14 @@ crontabs:
   ######################################################################################################################
   # umcg-labgnkbh group
   ######################################################################################################################
-  - name: checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
+  - name: ngs-utils_checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-labgnkbh-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load ngs-utils/{{ group_module_versions['umcg-labgnkbh']['ngs-utils'] }};
          checkSamplesheet.sh -s /groups/umcg-labgnkbh/scr01/"
-  - name: demultiplexing  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Demultiplexing_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-labgnkbh-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
@@ -213,7 +213,7 @@ crontabs:
   ######################################################################################################################
   # umcg-patho group
   ######################################################################################################################
-  - name: NGS_Automated_moveSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+  - name: move samplesheets  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-patho-ateambot
     machines: "{{ groups['convertor'] | default([]) }}"
     minute: '*/5'
