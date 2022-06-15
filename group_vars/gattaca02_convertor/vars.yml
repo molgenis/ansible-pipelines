@@ -161,7 +161,7 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-atd -e"
+         notifications.sh -g umcg-gsad -e"
   ######################################################################################################################
   # umcg-gap group
   ######################################################################################################################
@@ -185,7 +185,7 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-atd -e"
+         notifications.sh -g umcg-gap -e"
   ######################################################################################################################
   # umcg-labgnkbh group
   ######################################################################################################################
