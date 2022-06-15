@@ -217,7 +217,7 @@ crontabs:
     user: umcg-patho-ateambot
     machines: "{{ groups['convertor'] | default([]) }}"
     minute: '*/5'
-    job: /bin/bash -c "/bin/mv -v "/groups/umcg-patho/scr01/Samplesheets/new/"*".csv" "/groups/umcg-patho/scr01/Samplesheets/"
+    job: /bin/bash -c "/bin/mv -v "/groups/umcg-patho/scr01/Samplesheets/new/"*".csv" "/groups/umcg-patho/scr01/Samplesheets/""
 #
 # Sources, software and reference data to install/fetch.
 #
