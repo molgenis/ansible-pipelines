@@ -28,5 +28,5 @@ setenv("EBROOTEASYBUILD", root)
 setenv("EBVERSIONEASYBUILD", "{{ easybuild_version }}")
 setenv("EBDEVELEASYBUILD", pathJoin(root, "easybuild/EasyBuild-{{ easybuild_version }}-easybuild-devel"))
 
-prepend_path("PYTHONPATH", pathJoin(root, "{{ python_install_suffix.stdout }}"))
+prepend_path("PYTHONPATH", pathJoin(root, "{{ pythonpath.stdout }}"))
 -- Deployed with Ansible

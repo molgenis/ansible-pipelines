@@ -23,8 +23,15 @@
   ansible.builtin.shell:
     cmd: |
          set -o pipefail
-         /usr/bin/find "{{ easybuild_software_dir }}/EasyBuild/{{ easybuild_version }}" -name site-packages | grep -o 'lib[^ ]*python[^ ]*'
+         "{{ pip_path.stdout }}" -V | grep -o 'lib[^ ]*python[^ ]*'
   register: python_install_suffix
+  changed_when: true
+- name: 'Determine site-packages location for Lua module file to be correctly configured'
+  ansible.builtin.shell:
+    cmd: |
+         set -o pipefail
+         /usr/bin/find "{{ easybuild_software_dir }}/EasyBuild/{{ easybuild_version }}" -name "site-packages" | grep -o 'lib[^ ]*python[^ ]*'
+  register: pythonpath
   changed_when: true
 - name: 'Deploy Lua module file for EasyBuild.'
   ansible.builtin.template:
