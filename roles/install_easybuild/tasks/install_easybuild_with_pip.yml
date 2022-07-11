@@ -26,7 +26,7 @@
          "{{ pip_path.stdout }}" -V | grep -o 'lib[^ ]*python[^ ]*'
   register: python_install_suffix
   changed_when: true
-- name: 'Determine site-packages location for Lua module file to be correctly configured'
+- name: 'Determine site-packages location for Lua module file.'
   ansible.builtin.shell:
     cmd: |
          set -o pipefail
