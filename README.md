@@ -256,7 +256,7 @@ If infra breaks down and we need to link a cluster to the other gattaca server, 
    ansible-playbook -i inventory.ini --limit leucinezipper_cluster single_role_playbooks/manage_cronjobs.yml
    ```
 
-#### 3A. Run playbook on Ansible control host for all infra except Zinc-Finger or Leucine-Zipper
+#### 3B. Run playbook on Ansible control host for all other infra
 
 For our `gattaca` servers and all HPC clusters __*except*__ *Zinc-Finger* and *Leucine-Zipper*:
   * Inventory: use dynamic inventory with jumphost.
