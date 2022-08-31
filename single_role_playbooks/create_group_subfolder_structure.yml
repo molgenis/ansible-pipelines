@@ -3,6 +3,7 @@
 
 - hosts:
     - user_interface
+    - chaperone
   roles:
     - create_group_subfolder_structure
 ...

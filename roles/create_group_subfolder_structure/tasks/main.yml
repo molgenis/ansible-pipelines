@@ -10,4 +10,5 @@
   with_subelements:
     - "{{ group_subfolder_structure }}"
     - subfolders
+  when: inventory_hostname in item.0.machines
 ...
