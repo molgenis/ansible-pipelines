@@ -28,12 +28,14 @@ group_subfolder_structure: [
 #      lfs: 'tmp07',
 #      mode: "{{ MODE_2770_HARD }}",
 #      owner: 'umcg-atd-ateambot',
-#      subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp', 'trendanalysis'] },
+#      subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp', 'trendanalysis'],
+#      machines: "{{ groups['user_interface'] }}" },
 #    { group: 'umcg-gap',
 #      lfs: 'tmp07',
 #      mode: "{{ MODE_2770_HARD }}",
 #      owner: 'umcg-gap-ateambot',
-#      subfolders: ['DiagnosticOutput', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'] },
+#      subfolders: ['DiagnosticOutput', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'],
+#      machines: "{{ groups['user_interface'] }}" },
 ]
 
 # Sources, software and reference data to install/fetch.

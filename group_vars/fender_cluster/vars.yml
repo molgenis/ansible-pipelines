@@ -26,12 +26,14 @@ group_subfolder_structure: [
     lfs: 'tmp10',
     mode: "{{ MODE_2770_HARD }}",
     owner: '',
-    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'] },
+    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'],
+    machines: "{{ groups['user_interface'] }}" },
   { group: 'umcg-atd',
     lfs: 'prm10',
     mode: "{{ MODE_2750_HARD }}",
     owner: 'umcg-atd-dm',
-    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets'] },
+    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets'],
+    machines: "{{ groups['user_interface'] }}" },
 ]
 #
 # Sources, software and reference data to install/fetch.
