@@ -8,7 +8,7 @@
 # Conventions for playbook variables:
 # Use lowercase underscore separated names.
 #
-
+stack_prefix: 'gs'
 #
 # Versions of components of our HPC environment, which is managed using Lua+Lmod+EasyBuild.
 # NOTE: when introducing a new version number here,

@@ -3,7 +3,7 @@
 
 - hosts:
     - deploy_admin_interface
-    - helper
+    - chaperone
   roles:
     - fetch_extra_easyconfigs
   vars:

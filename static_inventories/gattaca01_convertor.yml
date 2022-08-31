@@ -1,0 +1,21 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        lobby:
+    deploy_admin_interface:
+      hosts:
+        gattaca01:
+    user_interface:
+      hosts:
+        gattaca01:
+    convertor:
+      hosts:
+        gattaca01:
+gattaca01_convertor:
+  children:
+    deploy_admin_interface:
+    user_interface:
+    convertor:
+...

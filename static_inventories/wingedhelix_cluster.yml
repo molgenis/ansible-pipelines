@@ -1,0 +1,22 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        porch:
+    deploy_admin_interface:
+      hosts:
+        wh-dai:
+    user_interface:
+      hosts:
+        wingedhelix:
+    chaperone:
+      hosts:
+        wh-chaperone:
+          ansible_host: uozkh1016.zkh.umcg.intra
+wingedhelix_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+    chaperone:
+...

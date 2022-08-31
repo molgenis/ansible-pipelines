@@ -1,0 +1,17 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        corridor:
+    deploy_admin_interface:
+      hosts:
+        fd-dai:
+    user_interface:
+      hosts:
+        fender:
+fender_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+...

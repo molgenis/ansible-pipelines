@@ -1,0 +1,26 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        passage:
+    deploy_admin_interface:
+      hosts:
+        leucine-zipper:
+    user_interface:
+      hosts:
+        leucine-zipper:
+    data_staging:
+      hosts:
+        lz-ds:
+    chaperone:
+      hosts:
+        lz-chaperone:
+          ansible_host: chaperone
+leucine-zipper_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+    data_staging:
+    chaperone:
+...

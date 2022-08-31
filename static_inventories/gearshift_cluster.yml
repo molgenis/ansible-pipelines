@@ -1,0 +1,17 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        airlock:
+    deploy_admin_interface:
+      hosts:
+        sugarsnax:
+    user_interface:
+      hosts:
+        gearshift:
+gearshift_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+...

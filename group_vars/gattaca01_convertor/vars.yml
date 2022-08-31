@@ -8,7 +8,7 @@
 # Conventions for playbook variables:
 # Use lowercase underscore separated names.
 #
-
+stack_prefix: 'g1'
 #
 # Versions of components of our HPC environment, which is managed using Lua+Lmod+EasyBuild.
 # NOTE: when introducing a new version number here,
@@ -103,7 +103,7 @@ crontabs:
          demultiplexing.sh -g umcg-atd"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
-    machines: "{{ groups['helper'] | default([]) + groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
@@ -133,7 +133,7 @@ crontabs:
          demultiplexing.sh -g umcg-gd"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
-    machines: "{{ groups['helper'] | default([]) + groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
@@ -157,7 +157,7 @@ crontabs:
          arrayConversion.sh -g umcg-gsad"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-ateambot
-    machines: "{{ groups['helper'] | default([]) + groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
@@ -181,7 +181,7 @@ crontabs:
          arrayConversion.sh -g umcg-gap"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-ateambot
-    machines: "{{ groups['helper'] | default([]) + groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
@@ -205,7 +205,7 @@ crontabs:
          demultiplexing.sh -g umcg-labgnkbh"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-labgnkbh-ateambot
-    machines: "{{ groups['helper'] | default([]) + groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;

@@ -1,0 +1,92 @@
+#!/bin/bash
+#
+# Bash code to initialize the environment / repo settings for deploying on a specific stack,
+# for which the config is stored in the repo containing this script.
+#
+# This script assumes there is for each ${STACK_NAME} a corresponding:
+#  1. ./group_vars/${STACK_NAME}/vars.yml        Ansible variables for this stack, which defines the {{ stack_prefix }} Ansible variable.
+#  2. ./static_inventories/${STACK_NAME}.yml     Ansible inventory file.
+#
+# Once this code was sourced (not executed!) like this:
+#     $> . ./repo-init
+# You can call the repo-config function for a specific stack prefix. E.g.:
+#     $> repo-config tl
+#
+
+set -u
+
+#
+##
+### Environment and bash sanity.
+##
+#
+export REPO_DIR="$( cd -P "$( dirname "${BASH_SOURCE:-}" )" && pwd )"
+
+#
+##
+### Main.
+##
+#
+
+function repo-config() {
+	#
+	# Get and check input.
+	#
+	local _stack_prefix="${1-}"
+	if [[ -z "${_stack_prefix:-}" ]]; then
+		printf '%s\n' 'ERROR: must specify an infra stack prefix.'
+		return
+	fi
+	local _group_vars="$(grep "^stack_prefix: ['\"]*${_stack_prefix}['\"]*$" "${REPO_DIR}/group_vars/"*/vars.yml | sed 's|:.*||')"
+	if [[ -z "${_group_vars:-}" ]]; then
+		printf '%s\n' "ERROR: cannot find group_vars/*/vars.yml for infra stack prefix ${_stack_prefix}."
+		return
+	fi
+	local _stack_name="$(basename "$(dirname "${_group_vars}")")"
+	declare -a _required_paths=(
+		"${REPO_DIR}/group_vars/${_stack_name}/"
+		"${REPO_DIR}/static_inventories/${_stack_name}.yml"
+	)
+	local _required_path
+	for _required_path in "${_required_paths[@]}"; do
+		if [[ ! -e "${_required_path}" ]]; then
+			printf '%s\n' "ERROR: ${_required_path} does not exist for infra stack prefix ${_stack_prefix}."
+			return
+		fi
+	done
+	#
+	# Get jumphost from inventory file.
+	#
+	# ToDo: this is rather brittle code;
+	# install something like https://github.com/mikefarah/yq
+	# for proper parsing of YAML files.
+	#
+	local _jumphost=$(fgrep -A2 'jumphost' "${REPO_DIR}/static_inventories/${_stack_name}.yml" | head -3 | tail -1 | tr -d ' :')
+	#
+	# Init and report current setup.
+	#
+	cd "${REPO_DIR}"
+	if [[ -n "${_jumphost:-}" ]]; then
+		export AI_PROXY="${_jumphost}"
+	else
+		unset AI_PROXY
+	fi
+	export ANSIBLE_INVENTORY="static_inventories/${_stack_name}.yml"
+	printf 'INFO: Current working directory is:      %s\n' "$(pwd)"
+	printf 'INFO: Using ANSIBLE_INVENTORY:           %s\n' "${ANSIBLE_INVENTORY}"
+	printf 'INFO: Using AI_PROXY:                    %s\n' "${AI_PROXY:-None: no jumphost specified in ANSIBLE_INVENTORY}"
+	#
+	# Enable ansible_mitogen strategy plugin for improved speed of plays when available.
+	#
+	_ansible_mitogen_search_path='.*/lib/python.*/site-packages/ansible_mitogen/plugins/strategy'
+	_ansible_mitogen_path=$(find . -regex "${_ansible_mitogen_search_path}" | sort -V | tail -1)
+	if [[ -n "${_ansible_mitogen_path}" ]]; then
+		export ANSIBLE_STRATEGY_PLUGINS="${_ansible_mitogen_path}"
+		export ANSIBLE_STRATEGY='mitogen_linear'
+		printf 'INFO: Found Mitogen strategy plugin in:  %s\n' "${ANSIBLE_STRATEGY_PLUGINS}"
+		printf 'INFO: Using Ansible strategy:            %s.\n' "${ANSIBLE_STRATEGY}"
+	else
+		printf 'WARNING: Could not find Mitogen strategy plugin in %s\n' "${_ansible_mitogen_search_path}"
+		printf 'INFO: Mitogen strategy plugin is:        %s.\n' 'disabled (default)'
+	fi
+}

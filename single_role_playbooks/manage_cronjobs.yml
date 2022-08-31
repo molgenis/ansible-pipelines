@@ -4,7 +4,7 @@
 - hosts:
     - user_interface
     - data_staging
-    - helper
+    - chaperone
   roles:
     - manage_cronjobs
 ...

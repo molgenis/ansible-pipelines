@@ -1,0 +1,25 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        gate:
+    deploy_admin_interface:
+      hosts:
+        zinc-finger:
+    user_interface:
+      hosts:
+        zinc-finger:
+    data_staging:
+      hosts:
+        zf-ds:
+    chaperone:
+      hosts:
+        coenzyme:
+zinc-finger_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+    data_staging:
+    chaperone:
+...
