@@ -94,26 +94,34 @@ group_module_versions:
     NGS_Automated: 3.8.0
     NGS_DNA: 3.7.0
     ConcordanceCheck: 2.1.0
+    ngs-utils: 22.01.1
   umcg-gd:
     NGS_Automated: 3.7.1
     NGS_DNA: 3.6.0
     ConcordanceCheck: 2.1.0
+    ngs-utils: 22.01.1
   umcg-gsad:
     NGS_Automated: 3.8.0
     GAP: 2.5.0
     AGCT: beta
+    ngs-utils: 22.01.1
   umcg-gap:
     NGS_Automated: 3.6.3
     GAP: 2.3.1
     AGCT: 1.1.0
+    ngs-utils: 22.01.1
   umcg-gst:
     NGS_Automated: 3.8.0
+    ngs-utils: 22.01.1
   umcg-genomescan:
     NGS_Automated: 3.6.2
+    ngs-utils: 22.01.1
   umcg-labgnkbh:
     NGS_Automated: 3.4.0
+    ngs-utils: 22.01.1
   umcg-patho:
     NGS_Automated: 3.4.0
+    ngs-utils: 22.01.1
 crontabs:
   ######################################################################################################################
   # umcg-atd group
