@@ -658,6 +658,7 @@ crontabs:
     user: umcg-labgnkbh-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
+    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load ngs-utils/{{ group_module_versions['umcg-labgnkbh']['ngs-utils'] }};
          checkSamplesheet.sh -s /groups/umcg-labgnkbh/tmp07/"
@@ -665,6 +666,7 @@ crontabs:
     user: umcg-labgnkbh-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
+    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-NGS_Demultiplexing-{{ group_module_versions['umcg-labgnkbh']['NGS_Demultiplexing'] }};
          demultiplexing.sh -g umcg-labgnkbh"
@@ -672,6 +674,7 @@ crontabs:
     user: umcg-labgnkbh-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/5'
+    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
          moveSamplesheets.sh -g umcg-labgnkbh"
@@ -679,6 +682,7 @@ crontabs:
     user: umcg-labgnkbh-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
+    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
          notifications.sh -g umcg-labgnkbh -e"
@@ -686,6 +690,7 @@ crontabs:
     user: umcg-labgnkbh-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
+    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
          copyRawDataToPrm.sh -g umcg-labgnkbh -s gattaca03.gcc.rug.nl"
@@ -696,6 +701,7 @@ crontabs:
     user: umcg-patho-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/5'
+    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
          moveSamplesheets.sh -g umcg-patho"
@@ -703,6 +709,7 @@ crontabs:
     user: umcg-patho-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
+    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
          notifications.sh -g umcg-patho -e"
@@ -710,6 +717,7 @@ crontabs:
     user: umcg-patho-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
+    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
          copyBclDataToPrm.sh -g umcg-patho -s gattaca03.gcc.rug.nl"
@@ -717,6 +725,7 @@ crontabs:
     user: umcg-patho-ateambot
     machines: "{{ groups['convertor'] | default([]) }}"
     minute: '*/5'
+    disabled: true
     job: /bin/bash -c "/bin/mv -v "/groups/umcg-patho/tmp07/Samplesheets/new/"*".csv" "/groups/umcg-patho/tmp07/Samplesheets/""
 #
 # Sources, software and reference data to install/fetch.
