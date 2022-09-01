@@ -1,0 +1,14 @@
+---
+all:
+  children:
+    deploy_admin_interface:
+      hosts:
+        spider:
+    user_interface:
+      hosts:
+        spider:
+spider_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+...

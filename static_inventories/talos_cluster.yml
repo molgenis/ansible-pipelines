@@ -1,0 +1,17 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        reception:
+    deploy_admin_interface:
+      hosts:
+        tl-dai:
+    user_interface:
+      hosts:
+        talos:
+talos_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+...

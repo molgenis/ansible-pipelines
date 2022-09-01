@@ -7,9 +7,9 @@
     - install_modules_with_easybuild
 
 - hosts:
-    - helper
+    - chaperone
   vars:
-    easyconfigs: "{{ helper_only_easyconfigs | default([]) }}"
+    easyconfigs: "{{ chaperone_only_easyconfigs | default([]) }}"
   roles:
     - install_modules_with_easybuild
 ...

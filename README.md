@@ -30,7 +30,7 @@ The deployment consists of the following steps:
 ## Prerequisites for pipeline deployment
 
  - On the managing computer Ansible 2.2.x or higher is required to run the playbook.
- - The playbook was tested on target servers running CentOS >= 6 and similar Linux distro from the ''RedHat'' family.
+ - The playbook was tested on target servers running CentOS >= 7 and similar Linux distro from the ''RedHat'' family.
    When deploying on other Linux distro's the playbook may need updates for differences in package naming.
  - A basic understanding of Ansible (See: http://docs.ansible.com/ansible/latest/intro_getting_started.html#)
  - A basic understanding of EasyBuild not required to deploy the pipeline ''as is'', but will come in handy when updating/modifying the pipeline and it's dependencies.
@@ -71,22 +71,25 @@ group_vars/all
 ```
 When you need to override any of the defaults, then create a file with the name of a group as listed in the inventory in:
 ```
-group_vars/[groupname]
+group_vars/[stack_name]
 ```
 You don't need to list all variables in the file in ```group_vars/```, but only the ones for which you need a different value.
 
 IMPORTANT: Do not use ```host_vars``` as that does not work well with the dynamic inventory (see below) when working with jumphosts to reach a target server.
 When a jumphost is used and its name is prefixed in front of the name of the target host, then the combined "hostname" will no longer match files or directories in ```host_vars```.
-Hence you should assign the destination host to a group instead and use ```group_vars``` even when the group contains only a single host.
+Hence you should
+ * either assign the destination host to a group and use ```group_vars``` even when the group contains only a single host.
+ * or alternatively you can add host specific variables to machines listed in the *static inventory file* for a *stack*.
 
 ## Dynamic vs. static inventory
 
- - ```inventory.ini```: is the static inventory file.
- - ```inventory.py```: is the dynamic inventory script.
+ - ```static_inventories/[stack_name].yml```: is a static inventory file.
+ - ```inventory_plugins/yaml_with_jumphost.py```: is an Ansible inventory plugin to generate dynamic inventories based on a static one.
 
-The dynamic inventory script one uses the environment variable ```AI_PROXY``` and when set prefixes the name of the specified proxy/jumphost server in front of the hostnames listed in the static inventory.
-The inventory files handle only (groups of) hostnames.
-Hence the inventory files do not list any other SSH connection settings / parameters like port numbers, usernames, expansion of aliases/hostnames to fully qualified domain names (FQDNs), etc.
+The dynamic inventory plugin uses the environment variables ```AI_PROXY``` and ```ANSIBLE_INVENTORY``` and will 
+prefix all hostnames listed in the static inventory with the name of the specified proxy/jumphost server. E.g.
+
+The static inventory files should not contain SSH connection settings / parameters like port numbers, usernames, expansion of aliases/hostnames to fully qualified domain names (FQDNs), etc.
 All SSH connection settings must be stored in your ```~/.ssh/config``` file. An example ```~/.ssh/config``` could look like this:
 
 ```
@@ -107,16 +110,25 @@ Host other_proxy+*
 ########################################################################################################
 ```
 
-When the environment variable ```AI_PROXY``` is set like this:
+When the environment variables are set like this:
 ```bash
 export AI_PROXY='other_proxy'
+export ANSIBLE_INVENTORY='static_inventories/my_cluster_stack.yml'
 ```
-then the hostname ```some_target``` from inventory.ini will be prefixed with ```other_proxy``` and a '+'
+then the hostname ```some_target``` from a ```static_inventories/my_cluster_stack.yml``` file will be prefixed with ```other_proxy``` and a '+'
 resulting in:
 ```bash
 other_proxy+some_target
 ```
 which will match the ```Host other_proxy+*``` rule from the example ```~/.ssh/config``` file.
+
+Setting the ```AI_PROXY``` and ```ANSIBLE_INVENTORY``` environment variables can also be accomplished with less typing
+by sourcing an initialisation file, which provides the ```repo-config``` function
+to configure these environment variables for a specific *stack*:
+```bash
+. ./repo-init
+repo-config [stack_prefix]
+```
 
 ## Deployment: running the playbook
 
@@ -164,15 +176,29 @@ ${PIP} install --upgrade pip
 ${PIP} install ansible
 ${PIP} install jmespath
 ${PIP} install ruamel.yaml
+#
+# Optional: install Mitogen with pip.
+# Mitogen provides an optional strategy plugin that makes playbooks a lot (up to 7 times!) faster.
+# See https://mitogen.networkgenomics.com/ansible_detailed.html
+#
+${PIP} install mitogen
 ```
 
 #### 3A. Run playbook on Ansible control host for Zinc-Finger or Leucine-Zipper
 
-Only for *Zinc-Finger* and *Leucine-Zipper*:
- * Inventory: use static inventory (without jumphost).
- * Ansible control hosts:
-    * For *Zinc-Finger*: use `zf-ds`
-    * For *Leucine-Zipper*: use `lz-ds`
+Only for:
+
+ * *Zinc-Finger* cluster
+ * *Leucine-Zipper* cluster
+ * Machines in the *chaperone* group for other clusters
+
+We use:
+
+ * *Inventory*: static inventory (without jumphost).
+ * *Ansible control host*:
+    * For *Zinc-Finger*: `zf-ds`.
+    * For *Leucine-Zipper*: `lz-ds`.
+    * For *wh-chaperone*: `localhost`; hence run the playbook on wh-chaperone itself.
 
 Login to the Ansible control host and:
 
@@ -190,20 +216,28 @@ source ansible.venv/bin/activate
 #
 # Run complete playbook: general syntax
 #
-ansible-playbook -i inventory.ini --limit INVENTORY_GROUP playbook.yml
+ansible-playbook -i static_inventories/[stack_name].yml playbook.yml
 #
 # Run complete playbook: example for Zinc-Finger
 #
-ansible-playbook -i inventory.ini --limit zincfinger_cluster playbook.yml
+ansible-playbook -i static_inventories/zincfinger_cluster.yml playbook.yml
 #
 # Run single role playbook: examples for Zinc-Finger
 #
-ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/install_easybuild.yml
-ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/fetch_extra_easyconfigs.yml
-ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/fetch_sources_and_refdata.yml
-ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/install_modules_with_easybuild.yml
-ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/create_group_subfolder_structure.yml
-ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/manage_cronjobs.yml
+ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/install_easybuild.yml
+ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/fetch_extra_easyconfigs.yml
+ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/fetch_sources_and_refdata.yml
+ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/install_modules_with_easybuild.yml
+ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/create_group_subfolder_structure.yml
+ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/manage_cronjobs.yml
+#
+# Run single role playbook: examples for wh-chaperone
+#
+ansible-playbook -i static_inventories/wingedhelix_cluster.yml --limit 'chaperone' single_role_playbooks/install_easybuild.yml
+ansible-playbook -i static_inventories/wingedhelix_cluster.yml --limit 'chaperone' single_role_playbooks/fetch_extra_easyconfigs.yml
+ansible-playbook -i static_inventories/wingedhelix_cluster.yml --limit 'chaperone' single_role_playbooks/install_modules_with_easybuild.yml
+ansible-playbook -i static_inventories/wingedhelix_cluster.yml --limit 'chaperone' single_role_playbooks/create_group_subfolder_structure.yml
+ansible-playbook -i static_inventories/wingedhelix_cluster.yml --limit 'chaperone' single_role_playbooks/manage_cronjobs.yml
 ```
 
 ###### Changing cronjobs to fetch data on a GD cluster from another gattaca server
@@ -231,7 +265,7 @@ If infra breaks down and we need to link a cluster to the other gattaca server, 
      ```
      - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
        user: umcg-atd-dm
-       machines: "{{ groups['helper'] | default([]) }}"
+       machines: "{{ groups['chaperone'] | default([]) }}"
        minute: '*/10'
        job: /bin/bash -c "{{ configure_env_in_cronjob }};
             module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
@@ -245,7 +279,7 @@ If infra breaks down and we need to link a cluster to the other gattaca server, 
    git checkout master
    git pull blessed master
    source ansible.venv/bin/
-   ansible-playbook -i inventory.ini --limit zincfinger_cluster single_role_playbooks/manage_cronjobs.yml
+   ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/manage_cronjobs.yml
    ```
    * On `lz-ds`:
    ```bash
@@ -253,14 +287,21 @@ If infra breaks down and we need to link a cluster to the other gattaca server, 
    git checkout master
    git pull blessed master
    source ansible.venv/bin/
-   ansible-playbook -i inventory.ini --limit leucinezipper_cluster single_role_playbooks/manage_cronjobs.yml
+   ansible-playbook -i static_inventories/leucinezipper_cluster.yml single_role_playbooks/manage_cronjobs.yml
    ```
 
 #### 3B. Run playbook on Ansible control host for all other infra
 
-For our `gattaca` servers and all HPC clusters __*except*__ *Zinc-Finger* and *Leucine-Zipper*:
-  * Inventory: use dynamic inventory with jumphost.
-  * Ansible control host: use your own laptop/device
+For our `gattaca` servers and all HPC clusters __*except*__
+
+ * complete *Zinc-Finger* cluster
+ * complete *Leucine-Zipper* cluster
+ * only machines in the *chaperone* group for other clusters
+
+we use:
+
+ * *Inventory*: dynamic inventory with jumphost.
+ * *Ansible control host*: your own laptop/device.
 
 Login to the Ansible control host and:
 
@@ -276,24 +317,25 @@ git pull blessed master
 #
 source ansible.venv/bin/
 #
-# Configure jumphost.
+# Configure this repo for deployment of a specifc stack.
 #
-export AI_PROXY='name_of_jumphost'
+source ./repo-init
+repo-config [stack_prefix]
 #
 # Run complete playbook: general syntax
 #
-ansible-playbook -i inventory.py --limit INVENTORY_GROUP playbook.yml
+ansible-playbook playbook.yml
 #
-# Run complete playbook: example for Winged-Helix
+# Examples for Winged-Helix:
+# Run single role playbooks for all machines except those in the chaperone group,
+# which is only accessible from UMCG network for this cluster.
 #
-ansible-playbook -i inventory.py --limit wingedhelix_cluster playbook.yml
-#
-# Run single role playbook: examples for Winged-Helix
-#
-ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/install_easybuild.yml
-ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/fetch_extra_easyconfigs.yml
-ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/fetch_sources_and_refdata.yml
-ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/install_modules_with_easybuild.yml
-ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/create_group_subfolder_structure.yml
-ansible-playbook -i inventory.py --limit wingedhelix_cluster single_role_playbooks/manage_cronjobs.yml
+source ./repo-init
+repo-config wh
+ansible-playbook --limit '!chaperone' single_role_playbooks/install_easybuild.yml
+ansible-playbook --limit '!chaperone' single_role_playbooks/fetch_extra_easyconfigs.yml
+ansible-playbook --limit '!chaperone' single_role_playbooks/fetch_sources_and_refdata.yml
+ansible-playbook --limit '!chaperone' single_role_playbooks/install_modules_with_easybuild.yml
+ansible-playbook --limit '!chaperone' single_role_playbooks/create_group_subfolder_structure.yml
+ansible-playbook --limit '!chaperone' single_role_playbooks/manage_cronjobs.yml
 ```

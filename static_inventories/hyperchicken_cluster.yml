@@ -1,0 +1,17 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        portal:
+    deploy_admin_interface:
+      hosts:
+        hc-dai:
+    user_interface:
+      hosts:
+        hyperchicken:
+hyperchicken_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+...

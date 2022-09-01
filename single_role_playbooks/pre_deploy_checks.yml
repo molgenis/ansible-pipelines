@@ -35,8 +35,8 @@
       connection: local
       changed_when: "'installed successfully' in resolved_dependencies.stdout"
       register: resolved_dependencies
-- name: 'Create remote tmp dir on DAI and helper machines.'
-  hosts: DAI, helper
+- name: 'Create remote tmp dir on DAI and chaperone machines.'
+  hosts: DAI, chaperone
   any_errors_fatal: true
   become: false
   tasks:
