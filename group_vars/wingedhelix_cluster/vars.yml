@@ -26,7 +26,7 @@ group_subfolder_structure: [
     lfs: 'tmp07',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-atd-ateambot',
-    subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp', 'trendanalysis'],
+    subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata/ngs', 'Samplesheets/new', 'tmp', 'trendanalysis'],
     machines: "{{ groups['user_interface'] }}" },
   { group: 'umcg-atd',
     lfs: 'dat07',
@@ -34,6 +34,13 @@ group_subfolder_structure: [
     owner: 'umcg-atd-dm',
     subfolders: ['ConcordanceCheckOutput','ConcordanceCheckSamplesheets', 'logs', 'samplesheets', 'temp', 'trendanalysis'],
     machines: "{{ groups['chaperone'] }}" },
+  { group: 'umcg-atd',
+    lfs: 'prm07',
+    mode: "{{ MODE_2770_HARD }}",
+    owner: 'umcg-atd-dm',
+    subfolders: ['concordance', 'logs', 'projects', 'Samplesheets', 'rawdata/ngs', 'trendanalysis'],
+    machines: "{{ groups['chaperone'] }}" },
+
 #
 # Disabled production groups, which do not yet exist on Winged Helix during testing phase.
 #
@@ -49,6 +56,12 @@ group_subfolder_structure: [
 #     owner: 'umcg-gap-dm',
 #     subfolders: ['DiagnosticOutput','logs','samplesheets'],
 #     machines: "{{ groups['chaperone'] }}" },
+#   { group: 'umcg-gap',
+#     lfs: 'prm07',
+#     mode: "{{ MODE_2770_HARD }}",
+#     owner: 'umcg-gap-dm',
+#     subfolders: ['concordance/array', 'logs', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs', 'Samplesheets'],
+#     machines: "{{ groups['chaperone'] }}" },
 #   { group: 'umcg-gd',
 #     lfs: 'tmp07',
 #     mode: "{{ MODE_2770_HARD }}",
@@ -61,6 +74,12 @@ group_subfolder_structure: [
 #     owner: 'umcg-gd-dm',
 #     subfolders: ['ConcordanceCheckOutput','ConcordanceCheckSamplesheets', 'logs', 'samplesheets', 'temp', 'trendanalysis'],
 #     machines: "{{ groups['chaperone'] }}" },
+#   { group: 'umcg-gd',
+#     lfs: 'prm07',
+#     mode: "{{ MODE_2770_HARD }}",
+#     owner: 'umcg-gd-dm',
+#     subfolders: ['concordance', 'logs', 'projects', 'Samplesheets', 'rawdata/ngs', 'trendanalysis'],
+#     machines: "{{ groups['chaperone'] }}" },
 #   { group: 'umcg-genomescan',
 #     lfs: 'tmp07',
 #     mode: "{{ MODE_2770_HARD }}",
@@ -71,13 +90,19 @@ group_subfolder_structure: [
     lfs: 'tmp07',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-gsad-ateambot',
-    subfolders: ['DiagnosticOutput', 'generatedscripts', 'generatedscripts_array', 'logs', 'projects', 'rawdata', 'runs_array', 'Samplesheets', 'tmp'],
+    subfolders: ['DiagnosticOutput', 'generatedscripts', 'generatedscripts_array', 'logs', 'projects', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs_array', 'Samplesheets', 'tmp'],
     machines: "{{ groups['user_interface'] }}" },
   { group: 'umcg-gsad',
     lfs: 'dat07',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-gsad-dm',
     subfolders: ['DiagnosticOutput','logs','samplesheets'],
+    machines: "{{ groups['chaperone'] }}" },
+  { group: 'umcg-gsad',
+    lfs: 'prm07',
+    mode: "{{ MODE_2770_HARD }}",
+    owner: 'umcg-gsad-dm',
+    subfolders: ['concordance/array', 'logs', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs', 'Samplesheets'],
     machines: "{{ groups['chaperone'] }}" },
   { group: 'umcg-gst',
     lfs: 'tmp07',
@@ -91,7 +116,7 @@ group_subfolder_structure: [
 #
 group_module_versions:
   umcg-atd:
-    NGS_Automated: 3.8.0
+    NGS_Automated: beta
     NGS_DNA: 3.7.0
     ConcordanceCheck: 2.1.0
     ngs-utils: 22.01.1
