@@ -26,7 +26,7 @@ group_subfolder_structure: [
     lfs: 'tmp07',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-atd-ateambot',
-    subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp', 'trendanalysis'],
+    subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata/ngs', 'Samplesheets/new', 'tmp', 'trendanalysis'],
     machines: "{{ groups['user_interface'] }}" },
   { group: 'umcg-atd',
     lfs: 'dat07',
@@ -34,6 +34,13 @@ group_subfolder_structure: [
     owner: 'umcg-atd-dm',
     subfolders: ['ConcordanceCheckOutput','ConcordanceCheckSamplesheets', 'logs', 'samplesheets', 'temp', 'trendanalysis'],
     machines: "{{ groups['chaperone'] }}" },
+  { group: 'umcg-atd',
+    lfs: 'prm07',
+    mode: "{{ MODE_2750_HARD }}",
+    owner: 'umcg-atd-dm',
+    subfolders: ['concordance', 'logs', 'projects', 'Samplesheets/archive', 'rawdata/ngs', 'trendanalysis'],
+    machines: "{{ groups['chaperone'] }}" },
+
 #
 # Disabled production groups, which do not yet exist on Winged Helix during testing phase.
 #
@@ -41,7 +48,7 @@ group_subfolder_structure: [
 #     lfs: 'tmp07',
 #     mode: "{{ MODE_2770_HARD }}",
 #     owner: 'umcg-gap-ateambot',
-#     subfolders: ['DiagnosticOutput', 'generatedscripts', 'generatedscripts_array', 'logs', 'projects', 'rawdata', 'runs_array', 'Samplesheets', 'tmp'],
+#     subfolders: ['DiagnosticOutput', 'generatedscripts', 'generatedscripts_array', 'logs', 'projects', 'rawdata', 'runs_array', 'Samplesheets/new', 'tmp'],
 #     machines: "{{ groups['user_interface'] }}" },
 #   { group: 'umcg-gap',
 #     lfs: 'dat07',
@@ -49,17 +56,29 @@ group_subfolder_structure: [
 #     owner: 'umcg-gap-dm',
 #     subfolders: ['DiagnosticOutput','logs','samplesheets'],
 #     machines: "{{ groups['chaperone'] }}" },
+#   { group: 'umcg-gap',
+#     lfs: 'prm07',
+#     mode: "{{ MODE_2750_HARD }}",
+#     owner: 'umcg-gap-dm',
+#     subfolders: ['concordance/array', 'logs', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs', 'Samplesheets/archive'],
+#     machines: "{{ groups['chaperone'] }}" },
 #   { group: 'umcg-gd',
 #     lfs: 'tmp07',
 #     mode: "{{ MODE_2770_HARD }}",
 #     owner: 'umcg-gd-ateambot',
-#     subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp', 'trendanalysis'],
+#     subfolders: ['concordance', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets/new', 'tmp', 'trendanalysis'],
 #     machines: "{{ groups['user_interface'] }}" },
 #   { group: 'umcg-gd',
 #     lfs: 'dat07',
 #     mode: "{{ MODE_2770_HARD }}",
 #     owner: 'umcg-gd-dm',
 #     subfolders: ['ConcordanceCheckOutput','ConcordanceCheckSamplesheets', 'logs', 'samplesheets', 'temp', 'trendanalysis'],
+#     machines: "{{ groups['chaperone'] }}" },
+#   { group: 'umcg-gd',
+#     lfs: 'prm07',
+#     mode: "{{ MODE_2750_HARD }}",
+#     owner: 'umcg-gd-dm',
+#     subfolders: ['concordance', 'logs', 'projects', 'Samplesheets/archive', 'rawdata/ngs', 'trendanalysis'],
 #     machines: "{{ groups['chaperone'] }}" },
 #   { group: 'umcg-genomescan',
 #     lfs: 'tmp07',
@@ -71,13 +90,19 @@ group_subfolder_structure: [
     lfs: 'tmp07',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-gsad-ateambot',
-    subfolders: ['DiagnosticOutput', 'generatedscripts', 'generatedscripts_array', 'logs', 'projects', 'rawdata', 'runs_array', 'Samplesheets', 'tmp'],
+    subfolders: ['DiagnosticOutput', 'generatedscripts', 'generatedscripts_array', 'logs', 'projects', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs_array', 'Samplesheets', 'tmp'],
     machines: "{{ groups['user_interface'] }}" },
   { group: 'umcg-gsad',
     lfs: 'dat07',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-gsad-dm',
     subfolders: ['DiagnosticOutput','logs','samplesheets'],
+    machines: "{{ groups['chaperone'] }}" },
+  { group: 'umcg-gsad',
+    lfs: 'prm07',
+    mode: "{{ MODE_2750_HARD }}",
+    owner: 'umcg-gsad-dm',
+    subfolders: ['concordance/array', 'logs', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs', 'Samplesheets/archive'],
     machines: "{{ groups['chaperone'] }}" },
   { group: 'umcg-gst',
     lfs: 'tmp07',
@@ -91,29 +116,40 @@ group_subfolder_structure: [
 #
 group_module_versions:
   umcg-atd:
-    NGS_Automated: 3.8.0
+    NGS_Automated: beta
     NGS_DNA: 3.7.0
     ConcordanceCheck: 2.1.0
+    ngs-utils: 22.01.1
+    NGS_Demultiplexing: 2.5.1
   umcg-gd:
     NGS_Automated: 3.7.1
     NGS_DNA: 3.6.0
     ConcordanceCheck: 2.1.0
+    ngs-utils: 22.01.1
+    NGS_Demultiplexing: 2.5.1
   umcg-gsad:
     NGS_Automated: 3.8.0
     GAP: 2.5.0
     AGCT: beta
+    ngs-utils: 22.01.1
   umcg-gap:
     NGS_Automated: 3.6.3
     GAP: 2.3.1
     AGCT: 1.1.0
+    ngs-utils: 22.01.1
   umcg-gst:
     NGS_Automated: 3.8.0
+    ngs-utils: 22.01.1
   umcg-genomescan:
     NGS_Automated: 3.6.2
+    ngs-utils: 22.01.1
   umcg-labgnkbh:
     NGS_Automated: 3.4.0
+    ngs-utils: 22.01.1
+    NGS_Demultiplexing: 2.5.1
   umcg-patho:
     NGS_Automated: 3.4.0
+    ngs-utils: 22.01.1
 crontabs:
   ######################################################################################################################
   # umcg-atd group
@@ -193,7 +229,7 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-atd -s gattaca03.gcc.rug.nl"
+         copyRawDataToPrm.sh -g umcg-atd -s porch+wingedhelix"
   - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -353,7 +389,7 @@ crontabs:
     disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-gd -s gattaca03.gcc.rug.nl"
+         copyRawDataToPrm.sh -g umcg-gd -s porch+wingedhelix"
   - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -501,7 +537,7 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-gsad -s gattaca03.gcc.rug.nl"
+         copyRawDataToPrm.sh -g umcg-gsad -s porch+wingedhelix"
   - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -575,7 +611,7 @@ crontabs:
     disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-gap -s gattaca03.gcc.rug.nl"
+         copyRawDataToPrm.sh -g umcg-gap -s porch+wingedhelix"
   - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -693,7 +729,7 @@ crontabs:
     disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-labgnkbh -s gattaca03.gcc.rug.nl"
+         copyRawDataToPrm.sh -g umcg-labgnkbh -s porch+wingedhelix"
   ######################################################################################################################
   # umcg-patho group
   ######################################################################################################################
@@ -720,7 +756,7 @@ crontabs:
     disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
-         copyBclDataToPrm.sh -g umcg-patho -s gattaca03.gcc.rug.nl"
+         copyBclDataToPrm.sh -g umcg-patho -s porch+wingedhelix"
   - name: move samplesheets  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-patho-ateambot
     machines: "{{ groups['convertor'] | default([]) }}"
