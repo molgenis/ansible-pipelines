@@ -1,0 +1,23 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        porch:
+    deploy_admin_interface:
+      hosts:
+        bb-dai:
+    user_interface:
+      hosts:
+        betabarrel:
+    chaperone:
+      hosts:
+        bb-chaperone:
+          ansible_host: uozkh1016.zkh.umcg.intra
+          ansible_connection: local
+betabarrel_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+    chaperone:
+...
