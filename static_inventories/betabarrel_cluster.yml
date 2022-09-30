@@ -6,7 +6,7 @@ all:
         porch:
     deploy_admin_interface:
       hosts:
-        bb-dai:
+        betabarrel:
     user_interface:
       hosts:
         betabarrel:
