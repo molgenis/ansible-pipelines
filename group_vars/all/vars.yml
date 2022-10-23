@@ -141,4 +141,8 @@ extra_easyconfigs_releases:
     checksum: 'sha256:d383e209882007dc603c5cb5478c4de103990ab8408f08c49f69d3975bfb9fda'
   2.8.54:
     checksum: 'sha256:f807075a7127176c6bb42306f40148a4ca232f0420d9a13f7a7b31dc060b7f75'
+  2.8.56:
+    checksum: 'sha256:3f4be5068bb98bd74cd49f7ae26aa0a4e1c6aa8313c4e1ecc11211fa6f13bcdd'
+  2.8.57:
+    checksum: 'sha256:e5a3d4a8e6dd087ee8991bd5d5cb36d79875ebcb1c3d867b415e6c7a83595221'
 ...
