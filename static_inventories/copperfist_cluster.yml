@@ -6,13 +6,13 @@ all:
         porch:
     deploy_admin_interface:
       hosts:
-        wh-dai:
+        copperfist:
     user_interface:
       hosts:
-        wingedhelix:
+        copperfist:
     chaperone:
       hosts:
-        wh-chaperone:
+        cf-chaperone:
           ansible_host: uozkh1016.zkh.umcg.intra
           ansible_connection: local
 wingedhelix_cluster:
