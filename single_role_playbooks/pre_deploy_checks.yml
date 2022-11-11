@@ -36,7 +36,7 @@
       changed_when: "'installed successfully' in resolved_dependencies.stdout"
       register: resolved_dependencies
 - name: 'Create remote tmp dir on DAI and chaperone machines.'
-  hosts: DAI, chaperone
+  hosts: deploy_admin_interface, chaperone
   any_errors_fatal: true
   become: false
   tasks:
