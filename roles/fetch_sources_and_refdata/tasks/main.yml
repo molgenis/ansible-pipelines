@@ -29,7 +29,7 @@
 
 - name: Synchronize reference data.
   ansible.posix.synchronize:
-    src: "{{ remote_env_cache_dir_public }}/data/{{ item }}"
+    src: "{{ remote_env_cache_dir_public }}/data/./{{ item }}"
     dest: "{{ hpc_env_prefix }}/data/"
     mode: 'pull'
     use_ssh_args: true
@@ -39,6 +39,7 @@
       - '--omit-link-times'
       - "--chmod={{ MODE_D2775_F0664 }}"
       - '--force'
+      - '--relative'
   delegate_to: "{{ inventory_hostname }}"
   with_items: "{{ refdata }}"
 

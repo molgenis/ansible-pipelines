@@ -15,7 +15,7 @@ all:
         cf-chaperone:
           ansible_host: uozkh1016.zkh.umcg.intra
           ansible_connection: local
-wingedhelix_cluster:
+copperfist_cluster:
   children:
     deploy_admin_interface:
     user_interface:
