@@ -1,0 +1,54 @@
+---
+#
+# Site specific values to override defaults for variables.
+#
+# Conventions for global environment variables:
+# Use UPPERCASE underscore separated names like for shell env vars.
+#
+# Conventions for playbook variables:
+# Use lowercase underscore separated names.
+#
+stack_prefix: 'nb'
+#
+# Versions of components of our HPC environment, which is managed using Lua+Lmod+EasyBuild.
+# NOTE: when introducing a new version number here,
+#       please make sure to add corresponding values in group_vars/all.yml
+#
+lua_version: '5.1.4.9'
+lmod_version: '7.8.8'
+easybuild_version: '4.3.2'
+extra_easyconfigs_version: '2.8.54'
+#
+# Group folder structures to construct on shared storage systems.
+#
+group_subfolder_structure: [
+  { group: 'umcg-atd',
+    lfs: 'tmp01',
+    mode: "{{ MODE_2770_HARD }}",
+    owner: '',
+    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'],
+    machines: "{{ groups['user_interface'] }}" },
+  { group: 'umcg-atd',
+    lfs: 'prm01',
+    mode: "{{ MODE_2750_HARD }}",
+    owner: 'umcg-atd-dm',
+    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets'],
+    machines: "{{ groups['user_interface'] }}" },
+]
+#
+# Sources, software and reference data to install/fetch.
+#
+public_sources: [
+  'g/GCCcore/isl-0.19.tar.bz2',
+  'l/libtool/libtool-2.4.6.tar.gz',
+]
+private_sources: []
+refdata: []
+easyconfigs: [
+  'c/cluster-utils/cluster-utils-v21.05.1-GCCcore-7.3.0.eb',
+  'd/depad-utils/depad-utils-v19.10.1.eb',
+  'n/NGS_Suite/NGS_Suite-2020.10.1-foss-2018b.eb',
+  'p/PyTorch/PyTorch-1.12.0-foss-2022a-CUDA-11.7.0.eb',
+  't/TensorFlow/TensorFlow-2.6.0-foss-2021a-CUDA-11.3.1.eb',
+]
+...
