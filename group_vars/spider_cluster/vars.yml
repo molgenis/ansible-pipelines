@@ -17,7 +17,8 @@ stack_prefix: 'sd'
 lua_version: '5.3.4'
 lmod_version: '8.6.2'
 easybuild_version: '4.5.1'
-extra_easyconfigs_version: '2.8.48'
+extra_easyconfigs_version: 1.0
+extra_easyconfigs_repository: 'take-it-easyconfigs'
 #
 # Group folder structures to construct on shared storage systems.
 #
