@@ -16,7 +16,9 @@ easybuild_sources_dir: "{{ hpc_env_prefix }}/sources/"
 easybuild_modules_dir: "{{ hpc_env_prefix }}/modules/"
 easybuild_software_dir: "{{ hpc_env_prefix }}/software/"
 easybuild_modules_syntax: 'Lua'
-extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/easybuild-easyconfigs-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
+extra_easyconfigs_version: 1.0
+extra_easyconfigs_repository: 'take-it-easyconfigs'
+extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 remote_env_cache_dir_public:  'f114592@ssh.webhosting.rug.nl:site/apps/'
 remote_env_cache_dir_private: 'f114592@ssh.webhosting.rug.nl:rsync-only/apps/'
 configure_env_in_cronjob: 'export SOURCE_HPC_ENV="True"; . ~/.bashrc'
@@ -145,4 +147,6 @@ extra_easyconfigs_releases:
     checksum: 'sha256:3f4be5068bb98bd74cd49f7ae26aa0a4e1c6aa8313c4e1ecc11211fa6f13bcdd'
   2.8.57:
     checksum: 'sha256:e5a3d4a8e6dd087ee8991bd5d5cb36d79875ebcb1c3d867b415e6c7a83595221'
+  1.0:
+    checksum: 'sha256:62caec4126fa00bf03587f9f4db15f63b4216c83a49bad9c6a77b192838ed581'
 ...
