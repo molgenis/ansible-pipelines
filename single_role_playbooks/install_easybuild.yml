@@ -1,7 +1,9 @@
 ---
-- import_playbook: pre_deploy_checks.yml
+- name: Calling pre-deploy checks
+  import_playbook: pre_deploy_checks.yml
 
-- hosts:
+- name: Installing EasyBuild
+  hosts:
     - deploy_admin_interface
     - chaperone
   roles:

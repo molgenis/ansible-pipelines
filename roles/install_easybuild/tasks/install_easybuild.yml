@@ -1,9 +1,9 @@
 ---
 - name: 'Install EasyBuild < 4.3 using boot strap script.'
-  include_tasks: tasks/install_easybuild_with_bootstrap_script.yml
+  ansible.builtin.include_tasks: tasks/install_easybuild_with_bootstrap_script.yml
   when: easybuild_version is version('4.3', '<')
 
 - name: 'Install EasyBuild >= 4.3 using pip.'
-  include_tasks: tasks/install_easybuild_with_pip.yml
+  ansible.builtin.include_tasks: tasks/install_easybuild_with_pip.yml
   when: easybuild_version is version('4.3', '>=')
 ...

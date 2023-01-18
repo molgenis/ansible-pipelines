@@ -12,11 +12,11 @@
 ---
 - name: Install_Lua
   listen: Install_Lua
-  include_tasks: tasks/install_lua.yml
+  ansible.builtin.include_tasks: tasks/install_lua.yml
 - name: Install_Lmod
   listen: Install_Lmod
-  include_tasks: tasks/install_lmod.yml
+  ansible.builtin.include_tasks: tasks/install_lmod.yml
 - name: Install_EasyBuild
   listen: Install_EasyBuild
-  include_tasks: tasks/install_easybuild.yml
+  ansible.builtin.include_tasks: tasks/install_easybuild.yml
 ...

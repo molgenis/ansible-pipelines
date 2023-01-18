@@ -40,7 +40,7 @@
   any_errors_fatal: true
   become: false
   tasks:
-    - name: "Create remote tmp dir in {{ hpc_env_prefix }}/.tmp/"
+    - name: "Create remote '.tmp/' dir in {{ hpc_env_prefix }}"
       ansible.builtin.file:
         path: "{{ hpc_env_prefix }}/.tmp/"
         state: 'directory'
