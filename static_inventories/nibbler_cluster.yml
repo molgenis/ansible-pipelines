@@ -1,0 +1,17 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        tunnel:
+    deploy_admin_interface:
+      hosts:
+        nb-dai:
+    user_interface:
+      hosts:
+        nibbler:
+nibbler_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+...
