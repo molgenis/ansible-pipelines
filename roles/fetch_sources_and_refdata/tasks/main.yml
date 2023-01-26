@@ -32,7 +32,8 @@
     src: "{{ remote_env_cache_dir_public }}/data/./{{ item }}"
     dest: "{{ hpc_env_prefix }}/data/"
     mode: 'pull'
-    use_ssh_args: true
+    # Temporarily disabled as it is broken in Mitogen 0.3.3. Fix is already merged and will be in next Mitogen version.
+    # use_ssh_args: true
     ssh_connection_multiplexing: true
     rsync_opts:
       - '--omit-dir-times'
@@ -50,7 +51,8 @@
     src: "{{ remote_env_cache_dir_public }}/sources/./{{ item }}"
     dest: "{{ easybuild_sources_dir }}/"
     mode: 'pull'
-    use_ssh_args: true
+    # Temporarily disabled as it is broken in Mitogen 0.3.3. Fix is already merged and will be in next Mitogen version.
+    # use_ssh_args: true
     ssh_connection_multiplexing: true
     rsync_opts:
       - '--relative'
@@ -70,7 +72,8 @@
     src: "{{ remote_env_cache_dir_private }}/sources/./{{ item }}"
     dest: "{{ easybuild_sources_dir }}/"
     mode: 'pull'
-    use_ssh_args: true
+    # Temporarily disabled as it is broken in Mitogen 0.3.3. Fix is already merged and will be in next Mitogen version.
+    # use_ssh_args: true
     ssh_connection_multiplexing: true
     rsync_opts:
       - '--relative'
