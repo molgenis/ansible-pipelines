@@ -18,7 +18,7 @@ easybuild_software_dir: "{{ hpc_env_prefix }}/software/"
 easybuild_modules_syntax: 'Lua'
 extra_easyconfigs_version: 1.0
 extra_easyconfigs_repository: 'take-it-easyconfigs'
-extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
+extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/"
 remote_env_cache_dir_public:  'f114592@ssh.webhosting.rug.nl:site/apps/'
 remote_env_cache_dir_private: 'f114592@ssh.webhosting.rug.nl:rsync-only/apps/'
 configure_env_in_cronjob: 'export SOURCE_HPC_ENV="True"; . ~/.bashrc'
