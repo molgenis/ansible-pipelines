@@ -24,17 +24,17 @@ extra_easyconfigs_repository: 'take-it-easyconfigs'
 #
 group_subfolder_structure: [
   { group: 'umcg-atd',
-    lfs: 'tmp01',
+    lfs: 'tmp02',
     mode: "{{ MODE_2770_HARD }}",
-    owner: '',
+    owner: 'umcg-atd-dm',
     subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'],
     machines: "{{ groups['user_interface'] }}" },
-  { group: 'umcg-atd',
-    lfs: 'prm01',
-    mode: "{{ MODE_2750_HARD }}",
-    owner: 'umcg-atd-dm',
-    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets'],
-    machines: "{{ groups['user_interface'] }}" },
+#  { group: 'umcg-atd',
+#    lfs: 'prm01',
+#    mode: "{{ MODE_2750_HARD }}",
+#    owner: 'umcg-atd-dm',
+#    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets'],
+#    machines: "{{ groups['user_interface'] }}" },
 ]
 #
 # Sources, software and reference data to install/fetch.
@@ -46,7 +46,7 @@ public_sources: [
 private_sources: []
 refdata: []
 easyconfigs: [
-  'c/cluster-utils/cluster-utils-v22.10.2-GCCcore-7.3.0.eb',
+  'c/cluster-utils/cluster-utils-v22.12.2-GCCcore-11.3.0.eb',
   'd/depad-utils/depad-utils-v21.02.1.eb',
 ]
 ...
