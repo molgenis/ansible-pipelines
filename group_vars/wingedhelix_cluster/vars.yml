@@ -19,6 +19,7 @@ lmod_version: '8.6.2'
 easybuild_version: '4.6.2'
 extra_easyconfigs_version: 2.8.54
 extra_easyconfigs_repository: 'easybuild-easyconfigs'
+extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 #
 # Group folder structures to construct on shared storage systems.
 #

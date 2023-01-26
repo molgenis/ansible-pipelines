@@ -16,7 +16,7 @@ stack_prefix: 'nb'
 #
 lua_version: '5.1.4.9'
 lmod_version: '7.8.8'
-easybuild_version: '4.3.2'
+easybuild_version: '4.6.2'
 extra_easyconfigs_version: 1.0
 extra_easyconfigs_repository: 'take-it-easyconfigs'
 #
@@ -46,10 +46,7 @@ public_sources: [
 private_sources: []
 refdata: []
 easyconfigs: [
-  'c/cluster-utils/cluster-utils-v21.05.1-GCCcore-7.3.0.eb',
-  'd/depad-utils/depad-utils-v19.10.1.eb',
-  'n/NGS_Suite/NGS_Suite-2020.10.1-foss-2018b.eb',
-  'p/PyTorch/PyTorch-1.12.0-foss-2022a-CUDA-11.7.0.eb',
-  't/TensorFlow/TensorFlow-2.6.0-foss-2021a-CUDA-11.3.1.eb',
+  'c/cluster-utils/cluster-utils-v22.10.2-GCCcore-7.3.0.eb',
+  'd/depad-utils/depad-utils-v21.02.1.eb',
 ]
 ...
