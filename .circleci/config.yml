@@ -19,8 +19,20 @@ jobs:
           command: |
             python -m venv venv
             . venv/bin/activate
-            pip install ansible-lint==6.2.2
-            ansible-galaxy install -r requirements.yml
+            pip install jmespath
+            pip install ansible
+            pip install ansible-lint
+            attempt=1
+            until [[ "${attempt}" -gt 3 ]]; do
+                [[ "${attempt}" -gt 1 ]] && sleep 30
+                ansible-galaxy install -r requirements.yml --timeout 120 && status="${?}" && break
+                attempt=$((attempt+1))
+            done
+            if [[ "${status}" -ne 0 ]]; then
+                exit "${status}"
+            fi
+            ansible --version
+            ansible-lint --version
       - run:
           name: run tests
           shell: /bin/bash
