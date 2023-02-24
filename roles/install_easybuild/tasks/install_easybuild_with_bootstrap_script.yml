@@ -96,5 +96,7 @@
     executable: /bin/bash
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
+  register: install_easybuild
+  changed_when: "install_easybuild.rc == 0"
   when: eb_install_from_source|default(false)
 ...

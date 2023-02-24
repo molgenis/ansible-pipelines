@@ -23,7 +23,10 @@
 #
 ---
 - name: Create folder for reference data.
-  ansible.builtin.file: dest="{{ item }}" state='directory' mode="{{ MODE_2775_HARD }}"
+  ansible.builtin.file:
+    dest: "{{ item }}"
+    state: 'directory'
+    mode: "{{ MODE_2775_HARD }}"
   with_items:
     - "{{ hpc_env_prefix }}/data"
 

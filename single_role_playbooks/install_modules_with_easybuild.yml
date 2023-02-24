@@ -1,12 +1,15 @@
 ---
-- import_playbook: pre_deploy_checks.yml
+- name: "Pre-deploy checks"
+  ansible.builtin.import_playbook: pre_deploy_checks.yml
 
-- hosts:
+- name: "Install modules with easybuild"
+  hosts:
     - deploy_admin_interface
   roles:
     - install_modules_with_easybuild
 
-- hosts:
+- name: "Install modules with easybuild"
+  hosts:
     - chaperone
   vars:
     easyconfigs: "{{ chaperone_only_easyconfigs | default([]) }}"
