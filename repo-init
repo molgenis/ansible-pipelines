@@ -13,8 +13,6 @@
 #     $> repo-config tl
 #
 
-set -u
-
 #
 ##
 ### Environment and bash sanity.
@@ -29,6 +27,13 @@ export REPO_DIR="$( cd -P "$( dirname "${BASH_SOURCE:-}" )" && pwd )"
 #
 
 function repo-config() {
+	local _opt_nounset_was_enbled
+	if [[ -o nounset ]]; then
+		_opt_nounset_was_enbled='true'
+	else
+		_opt_nounset_was_enbled='false'
+		set -u
+	fi
 	#
 	# Get and check input.
 	#
@@ -61,7 +66,10 @@ function repo-config() {
 	# install something like https://github.com/mikefarah/yq
 	# for proper parsing of YAML files.
 	#
-	local _jumphost=$(fgrep -A2 'jumphost' "${REPO_DIR}/static_inventories/${_stack_name}.yml" | head -3 | tail -1 | tr -d ' :')
+	local _jumphost_block=$(fgrep -A1 'jumphost' "${REPO_DIR}/static_inventories/${_stack_name}.yml" | head -2 | tail -1 | tr -d ' :')
+	if [[ "${_jumphost_block:-}" == 'hosts' ]]; then
+		local _jumphost=$(fgrep -A2 'jumphost' "${REPO_DIR}/static_inventories/${_stack_name}.yml" | head -3 | tail -1 | tr -d ' :')
+	fi
 	#
 	# Init and report current setup.
 	#
@@ -88,5 +96,8 @@ function repo-config() {
 	else
 		printf 'WARNING: Could not find Mitogen strategy plugin in %s\n' "${_ansible_mitogen_search_path}"
 		printf 'INFO: Mitogen strategy plugin is:        %s.\n' 'disabled (default)'
+	fi
+	if [[ "${_opt_nounset_was_enbled}" == 'false' ]]; then
+		set +u
 	fi
 }
