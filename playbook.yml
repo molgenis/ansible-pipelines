@@ -1,8 +1,14 @@
 ---
-- import_playbook: single_role_playbooks/install_easybuild.yml
-- import_playbook: single_role_playbooks/fetch_extra_easyconfigs.yml
-- import_playbook: single_role_playbooks/fetch_sources_and_refdata.yml
-- import_playbook: single_role_playbooks/install_modules_with_easybuild.yml
-- import_playbook: single_role_playbooks/create_group_subfolder_structure.yml
-- import_playbook: single_role_playbooks/manage_cronjobs.yml
+- name: "Install easybuild"
+  import_playbook: single_role_playbooks/install_easybuild.yml
+- name: "Fetch extra easyconfigs"
+  import_playbook: single_role_playbooks/fetch_extra_easyconfigs.yml
+- name: "Fetch sources and reference data"
+  import_playbook: single_role_playbooks/fetch_sources_and_refdata.yml
+- name: "Install modules with easybuild"
+  import_playbook: single_role_playbooks/install_modules_with_easybuild.yml
+- name: "Create group subfolder structure"
+  import_playbook: single_role_playbooks/create_group_subfolder_structure.yml
+- name: "Manage cronjobs"
+  import_playbook: single_role_playbooks/manage_cronjobs.yml
 ...

@@ -93,11 +93,12 @@
     follow: true
     file_type: any
   register: lmod_profile_files
+
 - name: Report error when conflicting Lmod init files are found in /etc/profile.d/.
   ansible.builtin.fail:
     msg: "Error: found conflicting Lmod profile file in {{ item }}. Please remove the OS supplied Lmod version."
   when: 'lmod_profile_files is success'
-  with_items: "{{ lmod_profile_files | json_query('files[].path') | list }}"
+  with_items: "{{ lmod_profile_files | to_json | from_json | community.general.json_query('files[].path') | list }}"
 
 - name: Check if Lmod is installed and if yes what version.
   #
