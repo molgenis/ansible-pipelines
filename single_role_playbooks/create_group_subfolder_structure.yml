@@ -1,7 +1,9 @@
 ---
-- import_playbook: pre_deploy_checks.yml
+- name: "Pre-deploy checks"
+  ansible.builtin.import_playbook: pre_deploy_checks.yml
 
-- hosts:
+- name: "Create group subfolder structure"
+  hosts:
     - user_interface
     - chaperone
   roles:
