@@ -55,7 +55,6 @@
          lua -v  2>&1 | grep -i Lua | sed 's|^.*Lua \([0-9\.]*\).*$|\1|'
   args:
     executable: /bin/bash
-    warn: false
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   changed_when: false
@@ -113,7 +112,6 @@
          lmod -v 2>&1 | sed '/^$/d' | sed 's|^.*Version \([0-9\.]*\).*$|\1|' | head -1
   args:
     executable: /bin/bash
-    warn: false
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   changed_when: false
@@ -146,7 +144,6 @@
          echo "${version}"
   args:
     executable: /bin/bash
-    warn: false
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   changed_when: false

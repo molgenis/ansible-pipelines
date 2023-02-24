@@ -13,8 +13,7 @@ all:
     chaperone:
       hosts:
         wh-chaperone:
-          ansible_host: uozkh1016.zkh.umcg.intra
-          ansible_connection: local
+          ansible_host: wh-chaperone.umcg.nl
 wingedhelix_cluster:
   children:
     deploy_admin_interface:
