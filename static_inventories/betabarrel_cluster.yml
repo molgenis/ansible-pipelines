@@ -13,8 +13,7 @@ all:
     chaperone:
       hosts:
         bb-chaperone:
-          ansible_host: uozkh1016.zkh.umcg.intra
-          ansible_connection: local
+          ansible_host: bb-chaperone.umcg.nl
 betabarrel_cluster:
   children:
     deploy_admin_interface:
