@@ -169,9 +169,15 @@ class InventoryModule(BaseFileInventoryPlugin):
 			self.inventory.add_host(host, group=group, port=port)
 			for k in variables:
 				self.inventory.set_variable(host, k, variables[k])
+			'''
+			Set ansible_host to jumphost+target only when
+			 * AI_PROXY was configured and
+			 * ansible_host was not already configured in the static_inventory for a stack.
+			'''
 			if ('AI_PROXY' in os.environ and
 					os.getenv('AI_PROXY') is not None and
 					os.getenv('AI_PROXY') != '' and
-					os.getenv('AI_PROXY') != host):
+					os.getenv('AI_PROXY') != host and
+					'ansible_host' not in variables):
 				self.inventory.set_variable(host, 'ansible_host', os.getenv('AI_PROXY') + '+' + host)
 
