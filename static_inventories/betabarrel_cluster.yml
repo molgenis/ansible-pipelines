@@ -13,7 +13,7 @@ all:
     chaperone:
       hosts:
         bb-chaperone:
-          ansible_host: bb-chaperone.umcg.nl
+          ansible_host: bb-chaperone.umcg.nl  # upzkh1055
 betabarrel_cluster:
   children:
     deploy_admin_interface:
