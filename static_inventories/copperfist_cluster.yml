@@ -13,7 +13,7 @@ all:
     chaperone:
       hosts:
         cf-chaperone:
-          ansible_host: cf-chaperone.umcg.nl
+          ansible_host: cf-chaperone.umcg.nl  # upzkh1056
 copperfist_cluster:
   children:
     deploy_admin_interface:
