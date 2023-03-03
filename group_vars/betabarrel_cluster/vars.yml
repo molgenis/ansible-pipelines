@@ -119,39 +119,39 @@ group_subfolder_structure: [
 group_module_versions:
   umcg-atd:
     NGS_Automated: beta
-    NGS_DNA: 3.7.0
+    NGS_DNA: 4.2.1
     ConcordanceCheck: 2.1.0
-    ngs-utils: 22.01.1
-    NGS_Demultiplexing: 2.5.1
+    ngs-utils: 23.02.1
+    NGS_Demultiplexing: 2.5.3
   umcg-gd:
     NGS_Automated: 3.7.1
-    NGS_DNA: 3.6.0
+    NGS_DNA: 4.2.1
     ConcordanceCheck: 2.1.0
-    ngs-utils: 22.01.1
-    NGS_Demultiplexing: 2.5.1
+    ngs-utils: 23.02.1
+    NGS_Demultiplexing: 2.5.3
   umcg-gsad:
     NGS_Automated: 3.8.0
     GAP: 2.5.0
     AGCT: beta
-    ngs-utils: 22.01.1
+    ngs-utils: 23.02.1
   umcg-gap:
     NGS_Automated: 3.6.3
     GAP: 2.3.1
     AGCT: 1.1.0
-    ngs-utils: 22.01.1
+    ngs-utils: 23.02.1
   umcg-gst:
     NGS_Automated: 3.8.0
-    ngs-utils: 22.01.1
+    ngs-utils: 2.02.1
   umcg-genomescan:
     NGS_Automated: 3.6.2
-    ngs-utils: 22.01.1
+    ngs-utils: 23.02.1
   umcg-labgnkbh:
     NGS_Automated: 3.4.0
-    ngs-utils: 22.01.1
+    ngs-utils: 23.02.1
     NGS_Demultiplexing: 2.5.1
   umcg-patho:
     NGS_Automated: 3.4.0
-    ngs-utils: 22.01.1
+    ngs-utils: 23.02.1
 crontabs:
   ######################################################################################################################
   # umcg-atd group
@@ -779,14 +779,14 @@ refdata: [
   'dbSNP',
   '1000G',
   'Agilent',
+  'CADD'
   'CGD',
   'ClinVar',
   'Controls_Convading_XHMM',
   'GSAarray',
-  'Ensembl',
-  'ExAC',
   'ManVarList',
   'gnomAD/release-170228',
+  'gnomAD/2.1.1',
   'GAVIN',
   'UMCG',
   'gonl',
