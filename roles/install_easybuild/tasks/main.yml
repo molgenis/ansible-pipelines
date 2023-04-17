@@ -32,8 +32,8 @@
   ansible.builtin.blockinfile:
     dest: "{{ ansible_env.HOME }}/.bashrc"
     block: |
-      if [ -f "{{ easybuild_modules_dir }}/modules.bashrc" ]; then
-        source "{{ easybuild_modules_dir }}/modules.bashrc"
+      if [[ -f "{{ easybuild_modules_dir }}/modules.bashrc" ]]; then
+          source "{{ easybuild_modules_dir }}/modules.bashrc"
       fi
     marker: "# {mark} ANSIBLE MANAGED BLOCK - Setup environment for Lua, Lmod & EasyBuild."
     insertafter: EOF
