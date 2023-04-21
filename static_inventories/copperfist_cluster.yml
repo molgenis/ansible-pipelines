@@ -3,7 +3,7 @@ all:
   children:
     jumphost:
       hosts:
-        porch:
+        cf-porch:
     deploy_admin_interface:
       hosts:
         copperfist:
