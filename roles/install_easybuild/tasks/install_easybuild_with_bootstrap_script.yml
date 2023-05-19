@@ -41,14 +41,14 @@
          export EASYBUILD_ENFORCE_CHECKSUMS='False'
          PYTHON=python3
          which "${PYTHON}" || PYTHON=python
-         ${PYTHON} "{{ bootstrap_script_path }}" "{{ hpc_env_prefix }}"
+         ${PYTHON} "{{ install_easybuild_bootstrap_script_path }}" "{{ hpc_env_prefix }}"
   args:
     executable: /bin/bash
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
   vars:
-    bootstrap_script_path: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/\
-                            bootstrap_eb_{{ easybuild_releases[easybuild_version]['bootstrap_version'] }}.py"
+    install_easybuild_bootstrap_script_path: "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}/\
+        bootstrap_eb_{{ easybuild_releases[easybuild_version]['bootstrap_version'] }}.py"
   changed_when: true
 
 - name: Check if the required EasyBuild version is installed.
@@ -71,19 +71,19 @@
   changed_when: false
   failed_when: false
   check_mode: false
-  register: eb_installed_version
+  register: install_easybuild_installed_eb_version
 
 - name: Determine if the required EasyBuild version needs to be installed.
   ansible.builtin.set_fact:
-    eb_install_from_source: true
-  when: 'eb_installed_version is failed or eb_installed_version.stdout != easybuild_version'
+    install_easybuild_install_eb_from_source: true
+  when: 'install_easybuild_installed_eb_version is failed or install_easybuild_installed_eb_version.stdout != easybuild_version'
 
 - name: Report EasyBuild status.
   ansible.builtin.debug:
     msg: "Will install the required EasyBuild version with the latest EasyBuild version \
           as the bootstrapped version is not the requested version. \
-          (Detected {{ eb_installed_version.stdout }} and need {{ easybuild_version }}.)"
-  when: eb_install_from_source|default(false)
+          (Detected {{ install_easybuild_installed_eb_version.stdout }} and need {{ easybuild_version }}.)"
+  when: install_easybuild_install_eb_from_source|default(false)
 
 - name: Install required EasyBuild version with EasyBuild.
   ansible.builtin.shell:
@@ -96,7 +96,7 @@
     executable: /bin/bash
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
-  register: install_easybuild
-  changed_when: "install_easybuild.rc == 0"
-  when: eb_install_from_source|default(false)
+  register: install_easybuild_result
+  changed_when: "install_easybuild_result.rc == 0"
+  when: install_easybuild_install_eb_from_source|default(false)
 ...
