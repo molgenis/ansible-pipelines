@@ -3,7 +3,7 @@ all:
   children:
     jumphost:
       hosts:
-        porch:
+        wh-porch:
     deploy_admin_interface:
       hosts:
         wh-dai:
