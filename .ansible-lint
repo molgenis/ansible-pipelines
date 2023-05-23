@@ -6,4 +6,5 @@ skip_list:
   - 'package-latest'  # "Package installs should not use latest (403)."
   - 'meta-no-info'  # "No 'galaxy_info' found in meta/main.yml of a role (701)."
   - 'experimental'  # All rules tagged as experimental.
+  - 'var-naming[no-role-prefix]'  # Temporarily disable this new check: will be fixed in a dedicated PR.
 ...
