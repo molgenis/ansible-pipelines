@@ -1,4 +1,4 @@
----
+\---
 - name: "Pre-deploy checks"
   hosts: all
   any_errors_fatal: true
@@ -29,7 +29,7 @@
       connection: local
     - name: 'Download dependencies from Ansible Galaxy on the Ansible control host.'
       ansible.builtin.command:
-        cmd: ansible-galaxy install -r requirements.yml{% if ansible_version.full is version_compare('2.13', '>=') %} --timeout 120{% endif %}
+        cmd: ansible-galaxy install -r requirements.yml{% if ansible_version.full is version_compare('2.15', '>=') %} --timeout 120{% endif %}
       run_once: true  # noqa run-once
       delegate_to: localhost
       connection: local
