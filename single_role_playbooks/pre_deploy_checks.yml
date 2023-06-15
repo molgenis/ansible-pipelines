@@ -1,4 +1,4 @@
-\---
+---
 - name: "Pre-deploy checks"
   hosts: all
   any_errors_fatal: true
