@@ -17,19 +17,20 @@ stack_prefix: 'wh'
 lua_version: '5.1.4.9'
 lmod_version: '8.6.2'
 easybuild_version: '4.6.2'
-extra_easyconfigs_version: 2.8.54
-extra_easyconfigs_repository: 'easybuild-easyconfigs'
-extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
+extra_easyconfigs_version: 1.0
+extra_easyconfigs_repository: 'take-it-easyconfigs'
+
+#extra_easyconfigs_repository: 'easybuild-easyconfigs'
+#extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 #
 # Group folder structures to construct on shared storage systems.
 #
 group_subfolder_structure: [
-
  { group: 'umcg-gap',
    lfs: 'tmp07',
    mode: "{{ MODE_2770_HARD }}",
    owner: 'umcg-gap-ateambot',
-   subfolders: ['DiagnosticOutput', 'generatedscripts/AGCT', generatedscripts/GAP', 'logs', 'projects/GAP', 'runs/AGCT' ,'rawdata', 'Samplesheets/AGCT', 'Samplesheets/GAP', #'Samplesheets/archive', 'tmp/AGCT', 'tmp/GAP'],
+   subfolders: ['DiagnosticOutput', 'generatedscripts/AGCT', generatedscripts/GAP', 'logs', 'projects/GAP', 'runs/AGCT' ,'rawdata', 'Samplesheets/AGCT', 'Samplesheets/GAP', 'Samplesheets/archive', 'tmp/AGCT', 'tmp/GAP'],
    machines: "{{ groups['user_interface'] }}" },
  { group: 'umcg-gap',
    lfs: 'dat07',
@@ -43,12 +44,11 @@ group_subfolder_structure: [
    owner: 'umcg-gap-dm',
    subfolders: ['concordance/array', 'logs', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs', 'Samplesheets/archive'],
    machines: "{{ groups['chaperone'] }}" },
-
  { group: 'umcg-gd',
    lfs: 'tmp07',
    mode: "{{ MODE_2770_HARD }}",
    owner: 'umcg-gd-ateambot',
-   subfolders: ['concordance/array', 'concordance/jobs', 'concordance/logs', 'concordance/ngs', 'concordance/results', 'concordance/samplesheets', 'concordance/tmp', 'generatedscripts/NGS_DNA','generatedscripts/NGS_Demultiplexing', 'logs', 'projects/NGS_DNA','projects/NGS_Demultiplexing', 'rawdata/ngs', 'Samplesheets/NGS_DNA', 'Samplesheets/NGS_Demultiplexing', 'Samplesheets/archive', 'tmp/NGS_Demultiplexing', 'tmp/NGS_DNA', 'trendanalysis'],
+   subfolders: ['concordance/array', 'concordance/jobs', 'concordance/logs', 'concordance/ngs', 'concordance/results', 'concordance/samplesheets', 'concordance/tmp', 'generatedscripts/NGS_DNA','generatedscripts/NGS_Demultiplexing', 'logs', 'projects/NGS_DNA', 'projects/NGS_Demultiplexing', 'rawdata/ngs', 'Samplesheets/NGS_DNA', 'Samplesheets/NGS_Demultiplexing', 'Samplesheets/archive', 'tmp/NGS_Demultiplexing', 'tmp/NGS_DNA', 'trendanalysis', 'trendanalysis/darwin','trendanalysis/dragen', 'trendanalysis/projects', 'trendanalysis/database', 'trendanalysis/reports', 'trendanalysis/rawdata', 'trendanalysis/tmp'],
    machines: "{{ groups['user_interface'] }}" },
  { group: 'umcg-gd',
    lfs: 'dat07',
@@ -73,7 +73,7 @@ group_subfolder_structure: [
     lfs: 'tmp07',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-atd-ateambot',
-    subfolders: ['concordance/array', 'concordance/jobs', 'concordance/logs', 'concordance/ngs', 'concordance/results', 'concordance/samplesheets', 'concordance/tmp', 'generatedscripts/NGS_Demultiplexing', 'generatedscripts/NGS_DNA', 'logs', 'projects/NGS_DNA','projects/NGS_Demultiplexing', 'rawdata/ngs', 'Samplesheets/NGS_DNA', 'Samplesheets/archive', 'Samplesheets/NGS_Demultiplexing', 'tmp/NGS_DNA', 'tmp/NGS_Demultiplexing' , 'trendanalysis'],
+    subfolders: ['concordance/array', 'concordance/jobs', 'concordance/logs', 'concordance/ngs', 'concordance/results', 'concordance/samplesheets', 'concordance/tmp', 'generatedscripts/NGS_Demultiplexing', 'generatedscripts/NGS_DNA', 'logs', 'projects/NGS_DNA','projects/NGS_Demultiplexing', 'rawdata/ngs', 'Samplesheets/NGS_DNA', 'Samplesheets/archive', 'Samplesheets/NGS_Demultiplexing', 'tmp/NGS_DNA', 'tmp/NGS_Demultiplexing' , 'trendanalysis', 'trendanalysis/darwin','trendanalysis/dragen', 'trendanalysis/projects', 'trendanalysis/database', 'trendanalysis/reports', 'trendanalysis/rawdata', 'trendanalysis/tmp'],
     machines: "{{ groups['user_interface'] }}" },
   { group: 'umcg-atd',
     lfs: 'dat07',
@@ -117,41 +117,41 @@ group_subfolder_structure: [
 #
 group_module_versions:
   umcg-gd:
-    NGS_Automated: beta
+    NGS_Automated: 4.0.0
     NGS_DNA: 4.2.1
     ConcordanceCheck: 2.2.0
     ngs-utils: 23.04.1
     NGS_Demultiplexing: 2.5.3
   umcg-gap:
-    NGS_Automated: beta
+    NGS_Automated: 4.0.0
     GAP: 2.7.0
     AGCT: 1.3.0
     ngs-utils: 23.04.1
   umcg-genomescan:
-    NGS_Automated: beta
+    NGS_Automated: 4.0.0
     NGS_DNA: 4.2.1
     ngs-utils: 23.04.1
   umcg-atd:
-    NGS_Automated: beta
+    NGS_Automated: 4.0.0
     NGS_DNA: 4.2.1
     ConcordanceCheck: 2.2.0
     ngs-utils: 23.04.1
-    NGS_Demultiplexing: beta
+    NGS_Demultiplexing: 2.5.3
   umcg-gsad:
-    NGS_Automated: beta
+    NGS_Automated: 4.0.0
     GAP: 2.7.0
     AGCT: 1.3.0
     ngs-utils: 23.04.1
   umcg-gst:
-    NGS_Automated: beta
+    NGS_Automated: 4.0.0
     NGS_DNA: 4.2.1
     ngs-utils: 23.04.1
   umcg-labgnkbh:
-    NGS_Automated: beta
+    NGS_Automated: 4.0.0
     ngs-utils: 23.04.1
     NGS_Demultiplexing: 2.5.3
   umcg-patho:
-    NGS_Automated: beta
+    NGS_Automated: 4.0.0
     ngs-utils: 23.04.1
 crontabs:
   ######################################################################################################################
@@ -248,24 +248,24 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
          copyProjectDataToPrm.sh -g umcg-atd -p NGS_DNA"
-  - name: NGS_Automated_trendAnalysis  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-atd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-         trendanalysis.sh -g umcg-atd"
   - name: NGS_Automated_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
+    minute: '0 6 * * 0'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
          copyQCDataToTmp.sh -g umcg-atd"
+  - name: NGS_Automated_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '0 12 * * 0'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         trendAnalyse.sh -g umcg-atd"
   - name: NGS_Automated_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
+    minute: '0 18 * * 0'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
          copyTrendAnalysisDataToPrm.sh -g umcg-atd"
@@ -426,24 +426,30 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          copyProjectDataToPrm.sh -g umcg-gd -p NGS_DNA"
-  - name: NGS_Automated_trendAnalysis  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
-         trendanalysis.sh -g umcg-gd"
   - name: NGS_Automated_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
+         weekday: '0'
+         minute: '0'
+         hour: '6'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          copyQCDataToTmp.sh -g umcg-gd"
+  - name: NGS_Automated_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gd-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+        weekday: '0'
+        minute: '0'
+        hour: '12'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+         trendAnalyse.sh -g umcg-gd"
   - name: NGS_Automated_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
+        weekday: '0'
+        minute: '0'
+        hour: '18'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          copyTrendAnalysisDataToPrm.sh -g umcg-gd"
