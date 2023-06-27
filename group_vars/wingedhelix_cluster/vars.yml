@@ -712,14 +712,14 @@ crontabs:
     minute: '*/10'
     disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
+         module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
          PullAndProcessGsAnalysisData.sh -g umcg-gst"
   - name: NGS_Automated_startDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-NGS_DNA-{{ group_module_versions['umcg-gst']['NGS_DNA'] }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-NGS_DNA-{{ group_module_versions['umcg-gst']['NGS_DNA'] }};
          startDragenPipeline.sh -g umcg-gst -p NGS_DNA"
   - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
@@ -808,7 +808,7 @@ crontabs:
     disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-labgnkbh -s -d dat47 {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
+         copyRawDataToPrm.sh -g umcg-labgnkbh -d dat47 -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
   ######################################################################################################################
   # umcg-patho group
   ######################################################################################################################
@@ -867,7 +867,7 @@ refdata: [
 dynamic_easyconfigs: >-
   {%- set easyconfigs_for_group_modules = [] %}
   {%- for group, modules in group_module_versions.items() %}
-    {%- for software, version in modules.items() %}   
+    {%- for software, version in modules.items() %}
       {%- if software == 'NGS_Automated' %}
         {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
               'n/NGS_Automated/NGS_Automated-' + version + '-bare.eb'
@@ -886,4 +886,5 @@ dynamic_easyconfigs: >-
   {{- easyconfigs_for_group_modules | default([]) -}}
 all_easyconfigs: "{{ dynamic_easyconfigs | default([]) | union(static_easyconfigs | default([])) }}"
 easyconfigs: "{{ all_easyconfigs }}"
+chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', 'NGS_Automated-.*-bare.eb') | list }}"
 ...

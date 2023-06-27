@@ -805,7 +805,7 @@ crontabs:
   #   disabled: true
   #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
   #        module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
-  #        copyRawDataToPrm.sh -g umcg-labgnkbh -s -d dat45 {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
+  #        copyRawDataToPrm.sh -g umcg-labgnkbh -d dat45 -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
  #  ######################################################################################################################
  #  # umcg-patho group
  #  ######################################################################################################################
@@ -883,4 +883,5 @@ dynamic_easyconfigs: >-
   {{- easyconfigs_for_group_modules | default([]) -}}
 all_easyconfigs: "{{ dynamic_easyconfigs | default([]) | union(static_easyconfigs | default([])) }}"
 easyconfigs: "{{ all_easyconfigs }}"
+chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', 'NGS_Automated-.*-bare.eb') | list }}"
 ...
