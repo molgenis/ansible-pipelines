@@ -17,18 +17,60 @@ stack_prefix: 'bb'
 lua_version: '5.1.4.9'
 lmod_version: '8.6.2'
 easybuild_version: '4.6.2'
-extra_easyconfigs_version: 2.8.54
-extra_easyconfigs_repository: 'easybuild-easyconfigs'
-extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
+extra_easyconfigs_version: 1.0
+extra_easyconfigs_repository: 'take-it-easyconfigs'
+#extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 #
 # Group folder structures to construct on shared storage systems.
 #
 group_subfolder_structure: [
+ { group: 'umcg-gap',
+   lfs: 'tmp05',
+   mode: "{{ MODE_2770_HARD }}",
+   owner: 'umcg-gap-ateambot',
+   subfolders: ['DiagnosticOutput', 'generatedscripts/AGCT', generatedscripts/GAP', 'logs', 'projects/GAP', 'runs/AGCT' ,'rawdata', 'Samplesheets/AGCT', 'Samplesheets/GAP', 'Samplesheets/archive', 'tmp/AGCT', 'tmp/GAP'],
+   machines: "{{ groups['user_interface'] }}" },
+ { group: 'umcg-gap',
+   lfs: 'dat05',
+   mode: "{{ MODE_2770_HARD }}",
+   owner: 'umcg-gap-dm',
+   subfolders: ['DiagnosticOutput','logs','samplesheets/new'],
+   machines: "{{ groups['chaperone'] }}" },
+ { group: 'umcg-gap',
+   lfs: 'prm05',
+   mode: "{{ MODE_2750_HARD }}",
+   owner: 'umcg-gap-dm',
+   subfolders: ['concordance/array', 'logs', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs', 'Samplesheets/archive'],
+   machines: "{{ groups['chaperone'] }}" },
+ { group: 'umcg-gd',
+   lfs: 'tmp05',
+   mode: "{{ MODE_2770_HARD }}",
+   owner: 'umcg-gd-ateambot',
+   subfolders: ['concordance/array', 'concordance/jobs', 'concordance/logs', 'concordance/ngs', 'concordance/results', 'concordance/samplesheets', 'concordance/tmp', 'generatedscripts/NGS_DNA','generatedscripts/NGS_Demultiplexing', 'logs', 'projects/NGS_DNA', 'projects/NGS_Demultiplexing', 'rawdata/ngs', 'Samplesheets/NGS_DNA', 'Samplesheets/NGS_Demultiplexing', 'Samplesheets/archive', 'tmp/NGS_Demultiplexing', 'tmp/NGS_DNA', 'trendanalysis', 'trendanalysis/darwin','trendanalysis/dragen', 'trendanalysis/projects', 'trendanalysis/database', 'trendanalysis/reports', 'trendanalysis/rawdata', 'trendanalysis/tmp'],
+   machines: "{{ groups['user_interface'] }}" },
+ { group: 'umcg-gd',
+   lfs: 'dat05',
+   mode: "{{ MODE_2770_HARD }}",
+   owner: 'umcg-gd-dm',
+   subfolders: ['ConcordanceCheckOutput', 'ConcordanceCheckSamplesheets/archive', 'logs', 'samplesheets/new', 'temp', 'trendanalysis'],
+   machines: "{{ groups['chaperone'] }}" },
+ { group: 'umcg-gd',
+   lfs: 'prm05',
+   mode: "{{ MODE_2750_HARD }}",
+   owner: 'umcg-gd-dm',
+   subfolders: ['concordance', 'logs', 'projects', 'Samplesheets/archive', 'rawdata/ngs', 'trendanalysis'],
+   machines: "{{ groups['chaperone'] }}" },
+ { group: 'umcg-genomescan',
+   lfs: 'tmp05',
+   mode: "{{ MODE_2770_HARD }}",
+   owner: 'umcg-genomescan-ateambot',
+   subfolders: ['logs', 'runs', 'Samplesheets','generatedscripts/NGS_DNA', 'projects/NGS_DNA', 'rawdata/ngs', 'Samplesheets/DRAGEN', 'Samplesheets/NGS_DNA', 'tmp/NGS_DNA'],
+   machines: "{{ groups['user_interface'] }}" },
   { group: 'umcg-atd',
     lfs: 'tmp05',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-atd-ateambot',
-    subfolders: ['concordance/array', 'concordance/jobs','concordance/logs','concordance/ngs','concordance/results', 'concordance/samplesheets','concordance/tmp', 'generatedscripts', 'logs', 'projects', 'rawdata/ngs', 'Samplesheets/new', 'tmp', 'trendanalysis'],
+    subfolders: ['concordance/array', 'concordance/jobs', 'concordance/logs', 'concordance/ngs', 'concordance/results', 'concordance/samplesheets', 'concordance/tmp', 'generatedscripts/NGS_Demultiplexing', 'generatedscripts/NGS_DNA', 'logs', 'projects/NGS_DNA','projects/NGS_Demultiplexing', 'rawdata/ngs', 'Samplesheets/NGS_DNA', 'Samplesheets/archive', 'Samplesheets/NGS_Demultiplexing', 'tmp/NGS_DNA', 'tmp/NGS_Demultiplexing' , 'trendanalysis', 'trendanalysis/darwin','trendanalysis/dragen', 'trendanalysis/projects', 'trendanalysis/database', 'trendanalysis/reports', 'trendanalysis/rawdata', 'trendanalysis/tmp'],
     machines: "{{ groups['user_interface'] }}" },
   { group: 'umcg-atd',
     lfs: 'dat05',
@@ -42,57 +84,11 @@ group_subfolder_structure: [
     owner: 'umcg-atd-dm',
     subfolders: ['concordance', 'logs', 'projects', 'Samplesheets/archive', 'rawdata/ngs', 'trendanalysis'],
     machines: "{{ groups['chaperone'] }}" },
-
-#
-# Disabled production groups, which do not yet exist on Beta Barrel during testing phase.
-#
-#   { group: 'umcg-gap',
-#     lfs: 'tmp05',
-#     mode: "{{ MODE_2770_HARD }}",
-#     owner: 'umcg-gap-ateambot',
-#     subfolders: ['DiagnosticOutput', 'generatedscripts', 'generatedscripts_array', 'logs', 'projects', 'rawdata', 'runs_array', 'Samplesheets/new', 'tmp'],
-#     machines: "{{ groups['user_interface'] }}" },
-#   { group: 'umcg-gap',
-#     lfs: 'dat05',
-#     mode: "{{ MODE_2770_HARD }}",
-#     owner: 'umcg-gap-dm',
-#     subfolders: ['DiagnosticOutput','logs','samplesheets'],
-#     machines: "{{ groups['chaperone'] }}" },
-#   { group: 'umcg-gap',
-#     lfs: 'prm05',
-#     mode: "{{ MODE_2750_HARD }}",
-#     owner: 'umcg-gap-dm',
-#     subfolders: ['concordance/array', 'logs', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs', 'Samplesheets/archive'],
-#     machines: "{{ groups['chaperone'] }}" },
-#   { group: 'umcg-gd',
-#     lfs: 'tmp05',
-#     mode: "{{ MODE_2770_HARD }}",
-#     owner: 'umcg-gd-ateambot',
-#     subfolders: ['concordance/samplesheets', 'generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets/new', 'tmp', 'trendanalysis'],
-#     machines: "{{ groups['user_interface'] }}" },
-#   { group: 'umcg-gd',
-#     lfs: 'dat05',
-#     mode: "{{ MODE_2770_HARD }}",
-#     owner: 'umcg-gd-dm',
-#     subfolders: ['ConcordanceCheckOutput','ConcordanceCheckSamplesheets/archive', 'logs', 'samplesheets', 'temp', 'trendanalysis'],
-#     machines: "{{ groups['chaperone'] }}" },
-#   { group: 'umcg-gd',
-#     lfs: 'prm05',
-#     mode: "{{ MODE_2750_HARD }}",
-#     owner: 'umcg-gd-dm',
-#     subfolders: ['concordance', 'logs', 'projects', 'Samplesheets/archive', 'rawdata/ngs', 'trendanalysis'],
-#     machines: "{{ groups['chaperone'] }}" },
-#   { group: 'umcg-genomescan',
-#     lfs: 'tmp05',
-#     mode: "{{ MODE_2770_HARD }}",
-#     owner: 'umcg-genomescan-ateambot',
-#     subfolders: ['logs', 'rawdata', 'runs', 'Samplesheets'],
-#     machines: "{{ groups['user_interface'] }}" },
   { group: 'umcg-gsad',
     lfs: 'tmp05',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-gsad-ateambot',
-    subfolders: ['DiagnosticOutput', 'generatedscripts', 'generatedscripts_array', 'logs', 'projects', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs_array', 'Samplesheets', 'tmp'],
+    subfolders: ['DiagnosticOutput', 'generatedscripts/AGCT', generatedscripts/GAP', 'logs', 'projects/GAP', 'runs/AGCT' ,'rawdata', 'Samplesheets/AGCT', 'Samplesheets/GAP', 'Samplesheets/archive', 'tmp/AGCT', 'tmp/GAP'],
     machines: "{{ groups['user_interface'] }}" },
   { group: 'umcg-gsad',
     lfs: 'dat05',
@@ -110,48 +106,50 @@ group_subfolder_structure: [
     lfs: 'tmp05',
     mode: "{{ MODE_2770_HARD }}",
     owner: 'umcg-gst-ateambot',
-    subfolders: ['logs', 'rawdata', 'runs', 'Samplesheets'],
+    subfolders: ['logs', 'runs', 'Samplesheets','generatedscripts/NGS_DNA', 'projects/NGS_DNA', 'rawdata/ngs', 'Samplesheets/DRAGEN', 'Samplesheets/NGS_DNA', 'tmp/NGS_DNA'],
     machines: "{{ groups['user_interface'] }}" },
 ]
 #
-# Cron jobs for functional accounts.
+# Cronjobs for functional accounts.
 #
 group_module_versions:
-  umcg-atd:
-    NGS_Automated: beta
-    NGS_DNA: 3.7.0
-    ConcordanceCheck: 2.1.0
-    ngs-utils: 22.01.1
-    NGS_Demultiplexing: 2.5.1
   umcg-gd:
-    NGS_Automated: 3.7.1
-    NGS_DNA: 3.6.0
-    ConcordanceCheck: 2.1.0
-    ngs-utils: 22.01.1
-    NGS_Demultiplexing: 2.5.1
-  umcg-gsad:
-    NGS_Automated: 3.8.0
-    GAP: 2.5.0
-    AGCT: beta
-    ngs-utils: 22.01.1
+    NGS_Automated: 4.0.0
+    NGS_DNA: 4.2.1
+    ConcordanceCheck: 2.2.0
+    ngs-utils: 23.04.1
+    NGS_Demultiplexing: 2.5.3
   umcg-gap:
-    NGS_Automated: 3.6.3
-    GAP: 2.3.1
-    AGCT: 1.1.0
-    ngs-utils: 22.01.1
-  umcg-gst:
-    NGS_Automated: 3.8.0
-    ngs-utils: 22.01.1
+    NGS_Automated: 4.0.0
+    GAP: 2.7.0
+    AGCT: 1.3.0
+    ngs-utils: 23.04.1
   umcg-genomescan:
-    NGS_Automated: 3.6.2
-    ngs-utils: 22.01.1
+    NGS_Automated: 4.0.0
+    NGS_DNA: 4.2.1
+    ngs-utils: 23.04.1
+  umcg-atd:
+    NGS_Automated: 4.0.0
+    NGS_DNA: 4.2.1
+    ConcordanceCheck: 2.2.0
+    ngs-utils: 23.04.1
+    NGS_Demultiplexing: 2.5.3
+  umcg-gsad:
+    NGS_Automated: 4.0.0
+    GAP: 2.7.0
+    AGCT: 1.3.0
+    ngs-utils: 23.04.1
+  umcg-gst:
+    NGS_Automated: 4.0.0
+    NGS_DNA: 4.2.1
+    ngs-utils: 23.04.1
   umcg-labgnkbh:
-    NGS_Automated: 3.4.0
-    ngs-utils: 22.01.1
-    NGS_Demultiplexing: 2.5.1
+    NGS_Automated: 4.0.0
+    ngs-utils: 23.04.1
+    NGS_Demultiplexing: 2.5.3
   umcg-patho:
-    NGS_Automated: 3.4.0
-    ngs-utils: 22.01.1
+    NGS_Automated: 4.0.0
+    ngs-utils: 23.04.1
 crontabs:
   ######################################################################################################################
   # umcg-atd group
@@ -162,14 +160,14 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          ${HOME}/benikdown.sh"
-  - name: ngs-utils_checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ngs-utils/{{ group_module_versions['umcg-atd']['ngs-utils'] }};
-         checkSamplesheet.sh -s /groups/umcg-atd/tmp05/"
-  - name: NGS_Demultiplexing_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         moveAndCheckSamplesheets.sh -g umcg-atd"
+  - name: NGS_Automated_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
@@ -190,34 +188,27 @@ crontabs:
     hour: 6
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          ${HOME}/FileSystemCheckGD.sh"
-  - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_splitAndMoveSamplesheetPerProject  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
-    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
-    minute: '*/5'
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-atd -e"
-  - name: NGS_Automated_moveSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-atd-ateambot
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/5'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-         moveSamplesheets.sh -g umcg-atd"
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-NGS_DNA-{{ group_module_versions['umcg-atd']['NGS_DNA'] }};
+         splitAndMoveSamplesheetPerProject.sh -g umcg-atd -p NGS_Demultiplexing"
   - name: NGS_Automated_startPipeline  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-NGS_DNA-{{ group_module_versions['umcg-atd']['NGS_DNA'] }};
-         startPipeline.sh -g umcg-atd"
+         startPipeline.sh -g umcg-atd -p NGS_DNA"
   - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-         calculateProjectMd5s.sh -g umcg-atd"
+         calculateProjectMd5s.sh -g umcg-atd -p NGS_DNA"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -231,22 +222,63 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-atd -s porch+betabarrel"
+         copyRawDataToPrm.sh -g umcg-atd -p NGS_Demultiplexing -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
+  - name: NGS_Automated_copyRawDataToTmp  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         copyRawDataToTmp.sh -g umcg-atd -p NGS_DNA -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
   - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -a -g umcg-atd -s porch+betabarrel -r /groups/umcg-gst/tmp05;
-         copySamplesheetsForBatchToPrm.sh -g umcg-atd -s porch+betabarrel -r /groups/umcg-gst/tmp05"
+         copyRawDataToPrm.sh -a -g umcg-atd -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }} -r /groups/umcg-gst/tmp05 -f run01.processGsRawData.finished -p DRAGEN;
+         copySamplesheetsForBatchToPrm.sh -g umcg-atd -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }} -r /groups/umcg-gst/tmp05"
   - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-         copyProjectDataToPrm.sh -g umcg-atd"
+         copyProjectDataToPrm.sh -g umcg-atd -p NGS_DNA"
+  - name: NGS_Automated_copyProjectDataToPrm_external  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         copyProjectDataToPrm.sh -g umcg-atd -p NGS_DNA -r /groups/umcg-gst/tmp05"
+  - name: NGS_Automated_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    weekday: '0'
+    minute: '0'
+    hour: '6'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         copyQCDataToTmp.sh -g umcg-atd"
+  - name: NGS_Automated_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    weekday: '0'
+    minute: '0'
+    hour: '12'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         trendAnalyse.sh -g umcg-atd"
+  - name: NGS_Automated_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    weekday: '0'
+    minute: '0'
+    hour: '18'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         copyTrendAnalysisDataToPrm.sh -g umcg-atd"
   - name: NGS_DNA_GavinSA  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
@@ -313,191 +345,204 @@ crontabs:
   ######################################################################################################################
   # umcg-gd group
   ######################################################################################################################
-  - name: benikdown  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         ${HOME}/benikdown.sh"
-  - name: FileSystemCheck  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
-    minute: 0
-    disabled: true
-    hour: 6
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         ${HOME}/FileSystemCheckGD.sh"
-  - name: ngs-utils_checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ngs-utils/{{ group_module_versions['umcg-gd']['ngs-utils'] }};
-         checkSamplesheet.sh -s /groups/umcg-gd/tmp05/"
-  - name: NGS_Demultiplexing_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-NGS_Demultiplexing-{{ group_module_versions['umcg-gd']['NGS_Demultiplexing'] }};
-         demultiplexing.sh -g umcg-gd"
-  - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-gd -e"
-  - name: NGS_Automated_moveSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
-         moveSamplesheets.sh -g umcg-gd"
-  - name: NGS_Automated_startPipeline  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-NGS_DNA-{{ group_module_versions['umcg-gd']['NGS_DNA'] }};
-         startPipeline.sh -g umcg-gd"
-  - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
-         calculateProjectMd5s.sh -g umcg-gd"
-  - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-gd -e"
-  - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-gd -s porch+betabarrel"
-  - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -a -g umcg-gd -s porch+betabarrel -r /groups/umcg-genomescan/tmp05;
-         copySamplesheetsForBatchToPrm.sh -g umcg-gd -s porch+betabarrel -r /groups/umcg-genomescan/tmp05"
-  - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
-         copyProjectDataToPrm.sh -g umcg-gd"
-  - name: NGS_DNA_GavinSA  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_DNA/{{ group_module_versions['umcg-gd']['NGS_DNA'] }};
-         GavinSA.sh -g umcg-gd -t tmp05"
-  - name: GavinSA_cleanup  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    # ToDo: improve job with "module load" and remove "sh"
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         sh /groups/umcg-gd/tmp05/GavinStandAlone/cleanup.sh umcg-gd"
-  - name: ConcordanceCheck_ParseDarwinSamplesheet  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
-         ParseDarwinSamplesheet.sh -g umcg-gd -a umcg-gap"
-  - name: ConcordanceCheck_ConcordanceCheck  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
-         ConcordanceCheck.sh -g umcg-gd"
-  - name: ConcordanceCheck_copyConcordanceCheckData  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
-         copyConcordanceCheckData.sh -g umcg-gd"
-  - name: ConcordanceCheck_notifications  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
-         notifications.sh -g umcg-gd -e"
-  - name: ConcordanceCheck_cleanup  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
-         cleanup.sh -g umcg-gd"
-  - name: ConcordanceCheck_notifications  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
-         notifications.sh -g umcg-gd -e"
-  - name: ConcordanceCheck_cleanup  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
-         cleanup.sh -g umcg-gd"
+  # - name: benikdown  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
+  #   minute: '*/5'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        ${HOME}/benikdown.sh"
+  # - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/5'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        moveAndCheckSamplesheets.sh -g umcg-gd"
+  # - name: NGS_Automated_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/5'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-NGS_Demultiplexing-{{ group_module_versions['umcg-gd']['NGS_Demultiplexing'] }};
+  #        demultiplexing.sh -g umcg-gd"
+  # - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
+  #   minute: '*/5'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        notifications.sh -g umcg-gd -e"
+  # - name: FileSystemCheck  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
+  #   minute: 0
+  #   hour: 6
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        ${HOME}/FileSystemCheckGD.sh"
+  # - name: NGS_Automated_splitAndMoveSamplesheetPerProject  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-NGS_DNA-{{ group_module_versions['umcg-gd']['NGS_DNA'] }};
+  #        splitAndMoveSamplesheetPerProject.sh -g umcg-gd -p NGS_Demultiplexing"
+  # - name: NGS_Automated_startPipeline  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-NGS_DNA-{{ group_module_versions['umcg-gd']['NGS_DNA'] }};
+  #        startPipeline.sh -g umcg-gd -p NGS_DNA"
+  # - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        calculateProjectMd5s.sh -g umcg-gd -p NGS_DNA"
+  # - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        notifications.sh -g umcg-gd -e"
+  # - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        copyRawDataToPrm.sh -g umcg-gd -p NGS_Demultiplexing -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
+  # - name: NGS_Automated_copyRawDataToTmp  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        copyRawDataToTmp.sh -g umcg-gd -p NGS_DNA -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
+  # - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        copyRawDataToPrm.sh -a -g umcg-gd -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }} -r /groups/umcg-gst/tmp05 -f run01.processGsRawData.finished -p DRAGEN;
+  #        copySamplesheetsForBatchToPrm.sh -g umcg-gd -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }} -r /groups/umcg-gst/tmp05"
+  # - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        copyProjectDataToPrm.sh -g umcg-gd -p NGS_DNA"
+  # - name: NGS_Automated_copyProjectDataToPrm_external  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        copyProjectDataToPrm.sh -g umcg-gd -p NGS_DNA -r /groups/umcg-genomescan/tmp05"
+  # - name: NGS_Automated_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #       weekday: '0'
+  #       minute: '0'
+  #       hour: '6'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        copyQCDataToTmp.sh -g umcg-gd"
+  # - name: NGS_Automated_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #       weekday: '0'
+  #       minute: '0'
+  #       hour: '12'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        trendAnalyse.sh -g umcg-gd"
+  # - name: NGS_Automated_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #       weekday: '0'
+  #       minute: '0'
+  #       hour: '18'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+  #        copyTrendAnalysisDataToPrm.sh -g umcg-gd"
+  # - name: NGS_DNA_GavinSA  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_DNA/{{ group_module_versions['umcg-gd']['NGS_DNA'] }};
+  #        GavinSA.sh -g umcg-gd -t tmp05"
+  # - name: NGS_DNA_GavinSA_cleanup  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   # ToDo: improve job with "module load" and remove "sh"
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        sh /groups/umcg-gd/tmp05/GavinStandAlone/cleanup.sh umcg-gd"
+  # - name: ConcordanceCheck_ParseDarwinSamplesheet  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/5'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
+  #        ParseDarwinSamplesheet.sh -g umcg-gd -a umcg-gsad"
+  # - name: ConcordanceCheck_ConcordanceCheck  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
+  #        ConcordanceCheck.sh -g umcg-gd"
+  # - name: ConcordanceCheck_copyConcordanceCheckData  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
+  #        copyConcordanceCheckData.sh -g umcg-gd"
+  # - name: ConcordanceCheck_notifications  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
+  #        notifications.sh -g umcg-gd -e"
+  # - name: ConcordanceCheck_cleanup  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
+  #        cleanup.sh -g umcg-gd"
+  # - name: ConcordanceCheck_notifications  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
+  #        notifications.sh -g umcg-gd -e"
+  # - name: ConcordanceCheck_cleanup  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
+  #        cleanup.sh -g umcg-gd"
   ######################################################################################################################
   # umcg-gsad group
   ######################################################################################################################
-  - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-ateambot
-    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-gsad -e"
-  - name: GAP_checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gsad-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load GAP/{{ group_module_versions['umcg-gsad']['GAP'] }};
-         checkSamplesheetWrapper.sh"
+         module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
+         moveAndCheckSamplesheets.sh -g umcg-gsad"
   - name: AGCT_arrayConversion  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
@@ -505,27 +550,55 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-AGCT-{{ group_module_versions['umcg-gsad']['AGCT'] }};
          arrayConversion.sh -g umcg-gsad"
+  - name: NGS_Automated_splitAndMoveSamplesheetPerProject  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gsad-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-GAP-{{ group_module_versions['umcg-gsad']['GAP'] }};
+         splitAndMoveSamplesheetPerProject.sh -g umcg-gsad -p AGCT"
+  - name: NGS_Automated_copyRawDataToTmp  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gsad-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
+         copyRawDataToTmp.sh -g umcg-gsad -p GAP -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
+  - name: NGS_Automated_copyRawDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gsad-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
+         copyRawDataToPrm.sh -g umcg-gsad -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }} -p AGCT"
   - name: NGS_Automated_startPipeline  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-GAP-{{ group_module_versions['umcg-gsad']['GAP'] }};
-         startPipeline.sh -g umcg-gsad"
+         startPipeline.sh -g umcg-gsad -p GAP"
   - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
-         calculateProjectMd5s.sh -g umcg-gsad"
-  - name: NGS_Automated_moveSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gsad-ateambot
+         calculateProjectMd5s.sh -g umcg-gsad -p GAP"
+  - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gsad-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/5'
+    minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
-         moveSamplesheets.sh -g umcg-gsad"
+         copyProjectDataToPrm.sh -g umcg-gsad -p GAP"
+  - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gsad-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
+         notifications.sh -g umcg-gsad -e"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gsad-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -533,98 +606,89 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
          notifications.sh -g umcg-gsad -e"
-  - name: NGS_Automated_copyRawDataToPrm  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gsad-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-gsad -s porch+betabarrel"
-  - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gsad-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
-         copyProjectDataToPrm.sh -g umcg-gsad"
   ######################################################################################################################
   # umcg-gap group
   ######################################################################################################################
-  - name: GAP_checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gap-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load GAP/{{ group_module_versions['umcg-gap']['GAP'] }};
-         checkSamplesheetWrapper.sh"
-  - name: AGCT_arrayConversion  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gap-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-AGCT-{{ group_module_versions['umcg-gap']['AGCT'] }};
-         arrayConversion.sh -g umcg-gap"
-  - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gap-ateambot
-    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-gap -e"
-  - name: NGS_Automated_startPipeline  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gap-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-GAP-{{ group_module_versions['umcg-gap']['GAP'] }};
-         startPipeline.sh -g umcg-gap"
-  - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gap-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-         calculateProjectMd5s.sh -g umcg-gap"
-  - name: NGS_Automated_moveSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gap-ateambot
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-         moveSamplesheets.sh -g umcg-gap"
-  - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gap-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-gap -e"
-  - name: NGS_Automated_copyRawDataToPrm  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gap-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-gap -s porch+betabarrel"
-  - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gap-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-         copyProjectDataToPrm.sh -g umcg-gap"
+  # - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gap-ateambot
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/5'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+  #        moveAndCheckSamplesheets.sh -g umcg-gap"
+  # - name: AGCT_arrayConversion  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gap-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/5'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-AGCT-{{ group_module_versions['umcg-gap']['AGCT'] }};
+  #        arrayConversion.sh -g umcg-gap"
+  # - name: NGS_Automated_splitAndMoveSamplesheetPerProject  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gap-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-GAP-{{ group_module_versions['umcg-gap']['GAP'] }};
+  #        splitAndMoveSamplesheetPerProject.sh -g umcg-gap -p AGCT"
+  # - name: NGS_Automated_copyRawDataToTmp  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gap-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+  #        copyRawDataToTmp.sh -g umcg-gap -p GAP -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
+  # - name: NGS_Automated_copyRawDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gap-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+  #        copyRawDataToPrm.sh -g umcg-gap -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }} -p AGCT"
+  # - name: NGS_Automated_startPipeline  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gap-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-GAP-{{ group_module_versions['umcg-gap']['GAP'] }};
+  #        startPipeline.sh -g umcg-gap -p GAP"
+  # - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gap-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+  #        calculateProjectMd5s.sh -g umcg-gap -p GAP"
+  # - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gap-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+  #        copyProjectDataToPrm.sh -g umcg-gap -p GAP"
+  # - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gap-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+  #        notifications.sh -g umcg-gap -e"
+  # - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gap-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+  #        notifications.sh -g umcg-gap -e"
   ######################################################################################################################
   # umcg-gst group
   ######################################################################################################################
+  - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gst-ateambot
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/5'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
+         moveAndCheckSamplesheets.sh -g umcg-gst"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
     machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
@@ -632,139 +696,143 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
          notifications.sh -g umcg-gst -e"
-  - name: NGS_Automated_pullRawDataFromDS  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_PullAndProcessGsRawData  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gst-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
+         PullAndProcessGsRawData.sh -g umcg-gst"
+  - name: NGS_Automated_PullAndProcessGsAnalysisData  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
-         pullRawDataFromDS.sh -g umcg-gst"
-  - name: NGS_Automated_processGsRawData  # Unique ID required to update existing cronjob: do not modify.
+         module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
+         PullAndProcessGsAnalysisData.sh -g umcg-gst"
+  - name: NGS_Automated_startDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gst-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-NGS_DNA-{{ group_module_versions['umcg-gst']['NGS_DNA'] }};
+         startDragenPipeline.sh -g umcg-gst -p NGS_DNA"
+  - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
-         processGsRawData.sh -g umcg-gst"
-  - name: NGS_Automated_moveSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gst-ateambot
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/5'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
-         moveSamplesheets.sh -g umcg-gst"
+         calculateProjectMd5s.sh -g umcg-gst -p NGS_DNA"
   ######################################################################################################################
   # umcg-genomescan group
   ######################################################################################################################
-  - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-genomescan-ateambot
-    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-genomescan -e"
-  - name: NGS_Automated_pullRawDataFromDS  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-genomescan-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
-         pullRawDataFromDS.sh -g umcg-genomescan"
-  - name: NGS_Automated_processGsRawData  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-genomescan-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
-         processGsRawData.sh -g umcg-genomescan"
-  - name: NGS_Automated_moveSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-genomescan-ateambot
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
-         moveSamplesheets.sh -g umcg-genomescan"
+  # - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-genomescan-ateambot
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/5'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
+  #        moveAndCheckSamplesheets.sh -g umcg-genomescan"
+  # - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-genomescan-ateambot
+  #   machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
+  #        notifications.sh -g umcg-genomescan -e"
+  # - name: NGS_Automated_PullAndProcessGsRawData  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-genomescan-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
+  #        PullAndProcessGsRawData.sh -g umcg-genomescan"
+  # - name: NGS_Automated_PullAndProcessGsAnalysisData  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-genomescan-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   disabled: true
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
+  #        PullAndProcessGsAnalysisData.sh -g umcg-genomescan"
+  # - name: NGS_Automated_startDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-genomescan-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-NGS_DNA-{{ group_module_versions['umcg-genomescan']['NGS_DNA'] }};
+  #        startDragenPipeline.sh -g umcg-genomescan -p NGS_DNA"
+  # - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-genomescan-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
+  #        calculateProjectMd5s.sh -g umcg-genomescan -p NGS_DNA"
   ######################################################################################################################
   # umcg-labgnkbh group
   ######################################################################################################################
-  - name: ngs-utils_checkSamplesheet  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-labgnkbh-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ngs-utils/{{ group_module_versions['umcg-labgnkbh']['ngs-utils'] }};
-         checkSamplesheet.sh -s /groups/umcg-labgnkbh/tmp05/"
-  - name: NGS_Demultiplexing_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-labgnkbh-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-NGS_Demultiplexing-{{ group_module_versions['umcg-labgnkbh']['NGS_Demultiplexing'] }};
-         demultiplexing.sh -g umcg-labgnkbh"
-  - name: NGS_Automated_moveSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-labgnkbh-ateambot
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
-         moveSamplesheets.sh -g umcg-labgnkbh"
-  - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-labgnkbh-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-labgnkbh -e"
-  - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-labgnkbh-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-labgnkbh -s porch+betabarrel"
-  ######################################################################################################################
-  # umcg-patho group
-  ######################################################################################################################
-  - name: NGS_Automated_moveSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-patho-ateambot
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
-         moveSamplesheets.sh -g umcg-patho"
-  - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-patho-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-patho -e"
-  - name: NGS_Automated_copyBclDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-patho-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    disabled: true
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
-         copyBclDataToPrm.sh -g umcg-patho -s porch+betabarrel"
-  - name: move samplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-patho-ateambot
-    machines: "{{ groups['convertor'] | default([]) }}"
-    minute: '*/5'
-    disabled: true
-    job: /bin/bash -c "/bin/mv -v "/groups/umcg-patho/tmp05/Samplesheets/new/"*".csv" "/groups/umcg-patho/tmp05/Samplesheets/""
+  # - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-labgnkbh-ateambot
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/5'
+  #   disabled: true
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
+  #        moveAndCheckSamplesheets.sh -g umcg-labgnkbh -d dat45"
+  # - name: NGS_Demultiplexing_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-labgnkbh-ateambot
+  #   machines: "{{ groups['user_interface'] | default([]) }}"
+  #   minute: '*/5'
+  #   disabled: true
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-NGS_Demultiplexing-{{ group_module_versions['umcg-labgnkbh']['NGS_Demultiplexing'] }};
+  #        demultiplexing.sh -g umcg-labgnkbh"
+  # - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-labgnkbh-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   disabled: true
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
+  #        notifications.sh -g umcg-labgnkbh -e -d dat45 -p prm45"
+  # - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-labgnkbh-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   disabled: true
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
+  #        copyRawDataToPrm.sh -g umcg-labgnkbh -d dat45 -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
+ #  ######################################################################################################################
+ #  # umcg-patho group
+ #  ######################################################################################################################
+  # - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-patho-ateambot
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/5'
+  #   disabled: true
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
+  #        moveAndCheckSamplesheets.sh -g umcg-patho -d dat35"
+  # - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-patho-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   disabled: true
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
+  #        notifications.sh -g umcg-patho -e -d dat35 -p prm35"
+  # - name: NGS_Automated_copyBclDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-patho-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   disabled: true
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
+  #        copyBclDataToPrm.sh -g umcg-patho -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }} -b prm35"
 #
 # Sources, software and reference data to install/fetch.
 #
@@ -775,28 +843,28 @@ public_sources: [
 ]
 private_sources: []
 refdata: [
-  'GRC/Hg19toHumanG1kV37.chain',
-  'dbSNP',
-  '1000G',
-  'Agilent',
-  'CGD',
-  'ClinVar',
-  'Controls_Convading_XHMM',
-  'GSAarray',
-  'Ensembl',
-  'ExAC',
-  'ManVarList',
-  'gnomAD/release-170228',
-  'GAVIN',
-  'UMCG',
-  'gonl',
+#  'GRC/Hg19toHumanG1kV35.chain',
+#  'dbSNP',
+#  '1000G',
+#  'Agilent',
+#  'CGD',
+#  'ClinVar',
+#  'Controls_Convading_XHMM',
+#  'GSAarray',
+#  'Ensembl',
+#  'ExAC',
+#  'ManVarList',
+#  'gnomAD/release-170228',
+#  'GAVIN',
+#  'UMCG',
+#  'gonl',
   'inSilico',
-  'snpEff-4.3',
+#  'snpEff-4.3',
 ]
 dynamic_easyconfigs: >-
   {%- set easyconfigs_for_group_modules = [] %}
   {%- for group, modules in group_module_versions.items() %}
-    {%- for software, version in modules.items() %}
+    {%- for software, version in modules.items() %}   
       {%- if software == 'NGS_Automated' %}
         {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
               'n/NGS_Automated/NGS_Automated-' + version + '-bare.eb'
@@ -813,10 +881,6 @@ dynamic_easyconfigs: >-
     {%- endfor %}
   {%- endfor %}
   {{- easyconfigs_for_group_modules | default([]) -}}
-static_easyconfigs:
-  - c/cluster-utils/cluster-utils-v21.05.1-GCCcore-7.3.0.eb
-  - d/depad-utils/depad-utils-v19.10.1.eb
-  - n/NGS_DNA/NGS_DNA-4.0.5-foss-2018b.eb
 all_easyconfigs: "{{ dynamic_easyconfigs | default([]) | union(static_easyconfigs | default([])) }}"
 easyconfigs: "{{ all_easyconfigs }}"
 chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', 'NGS_Automated-.*-bare.eb') | list }}"
