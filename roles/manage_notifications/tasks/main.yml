@@ -1,0 +1,12 @@
+---
+- name: 'Create symlinks to files with notification targets for certain phases of data analysis.'
+  ansible.builtin.file:  # noqa risky-file-permissions
+    src: "{{ hpc_groups_prefix }}/{{ item.0.group }}/{{ item.0.lfs }}/logs/{{ item.0.notification_target }}.{{ item.0.type }}"
+    dest: "{{ hpc_groups_prefix }}/{{ item.0.group }}/{{ item.0.lfs }}/logs/{{ item.1 }}.{{ item.0.type }}"
+    state: link
+    group: "{{ item.0.group }}"
+  become: true
+  become_user: "{{ item.0.user }}"
+  when: inventory_hostname in item.0.machines
+  loop: "{{ group_notification_targets | default([]) | subelements('analysis_phases') }}"
+...

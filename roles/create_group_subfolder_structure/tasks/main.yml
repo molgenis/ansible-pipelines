@@ -7,8 +7,6 @@
     mode: "{{ item.0.mode }}"
   become: "{% if item.0.owner is defined and item.0.owner | length %}true{% else %}false{% endif %}"
   become_user: "{% if item.0.owner is defined and item.0.owner | length %}{{ item.0.owner }}{% endif %}"
-  with_subelements:
-    - "{{ group_subfolder_structure }}"
-    - subfolders
+  loop: "{{ group_subfolder_structure | subelements('subfolders') }}"
   when: inventory_hostname in item.0.machines
 ...

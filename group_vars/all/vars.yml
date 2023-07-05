@@ -149,4 +149,192 @@ extra_easyconfigs_releases:
     checksum: 'sha256:e5a3d4a8e6dd087ee8991bd5d5cb36d79875ebcb1c3d867b415e6c7a83595221'
   1.0:
     checksum: 'sha256:62caec4126fa00bf03587f9f4db15f63b4216c83a49bad9c6a77b192838ed581'
+analysis_folders:
+  AGCT:
+    tmp:
+      - generatedscripts
+      - generatedscripts/AGCT
+      - logs
+      - runs
+      - runs/AGCT
+      - rawdata
+      - rawdata/array
+      - rawdata/array/IDAT
+      - rawdata/array/GTC
+      - Samplesheets
+      - Samplesheets/AGCT
+      - Samplesheets/archive
+      - tmp
+      - tmp/AGCT
+    dat:
+      - logs
+      - samplesheets
+      - samplesheets/new
+    prm:
+      - concordance
+      - concordance/array
+      - logs
+      - rawdata
+      - rawdata/array
+      - rawdata/array/IDAT
+      - rawdata/array/GTC
+      - Samplesheets
+      - Samplesheets/archive
+  GAP:
+    tmp:
+      - DiagnosticOutput
+      - generatedscripts
+      - generatedscripts/GAP
+      - logs
+      - projects
+      - projects/GAP
+      - rawdata
+      - rawdata/array
+      - rawdata/array/IDAT
+      - rawdata/array/GTC
+      - Samplesheets
+      - Samplesheets/GAP
+      - Samplesheets/archive
+      - tmp
+      - tmp/GAP
+    dat:
+      - DiagnosticOutput
+      - logs
+      - samplesheets
+      - samplesheets/new
+    prm:
+      - concordance
+      - concordance/array
+      - logs
+      - projects
+      - rawdata
+      - rawdata/array
+      - rawdata/array/IDAT
+      - rawdata/array/GTC
+      - Samplesheets
+      - Samplesheets/archive
+  ConcordanceCheck:
+    tmp:
+      - concordance
+      - concordance/array
+      - concordance/jobs
+      - concordance/logs
+      - concordance/ngs
+      - concordance/results
+      - concordance/samplesheets
+      - concordance/tmp
+    dat:
+      - ConcordanceCheckOutput
+      - ConcordanceCheckSamplesheets
+      - ConcordanceCheckSamplesheets/archive
+    prm:
+      - concordance
+      - concordance/logs
+      - concordance/results
+      - concordance/verificatieValidatieOutput
+  GsRawData:
+    tmp:
+      - logs
+      - rawdata
+      - rawdata/ngs
+      - runs
+      - Samplesheets
+      - Samplesheets/archive
+      - tmp
+    dat:
+      - logs
+      - samplesheets
+      - samplesheets/new
+  GsAnalysisData:
+    tmp:
+      - generatedscripts
+      - generatedscripts/DRAGEN
+      - logs
+      - projects
+      - projects/DRAGEN
+      - rawdata
+      - rawdata/ngs
+      - Samplesheets
+      - Samplesheets/DRAGEN
+      - tmp
+      - tmp/DRAGEN
+    dat:
+      - samplesheets
+      - samplesheets/new
+  BclDataToPrm:
+    tmp:
+      - logs
+      - Samplesheets
+      - Samplesheets/archive
+    dat:
+      - logs
+      - samplesheets
+      - samplesheets/new
+    prm:
+      - logs
+      - rawdata
+      - rawdata/bcls
+  NGS_Demultiplexing:
+    tmp:
+      - generatedscripts
+      - generatedscripts/NGS_Demultiplexing
+      - logs
+      - rawdata
+      - rawdata/ngs
+      - runs
+      - runs/NGS_Demultiplexing
+      - Samplesheets
+      - Samplesheets/archive
+      - Samplesheets/NGS_Demultiplexing
+      - tmp
+      - tmp/NGS_Demultiplexing
+    dat:
+      - logs
+      - samplesheets
+      - samplesheets/new
+    prm:
+      - logs
+      - rawdata
+      - rawdata/ngs
+      - Samplesheets
+      - Samplesheets/archive
+  NGS_DNA:
+    tmp:
+      - generatedscripts
+      - generatedscripts/NGS_DNA
+      - logs
+      - projects
+      - projects/NGS_DNA
+      - rawdata
+      - rawdata/ngs
+      - Samplesheets
+      - Samplesheets/archive
+      - Samplesheets/NGS_DNA
+      - tmp
+      - tmp/NGS_DNA
+    dat:
+      - logs
+      - samplesheets
+      - samplesheets/new
+    prm:
+      - logs
+      - projects
+      - Samplesheets
+      - Samplesheets/archive
+  trendanalysis:
+    tmp:
+      - trendanalysis
+      - trendanalysis/darwin
+      - trendanalysis/dragen
+      - trendanalysis/projects
+      - trendanalysis/database
+      - trendanalysis/reports
+      - trendanalysis/rawdata
+      - trendanalysis/tmp
+    dat:
+      - trendanalysis
+      - trendanalysis/archive
+    prm:
+      - trendanalysis
+      - trendanalysis/reports
 ...

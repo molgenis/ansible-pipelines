@@ -23,92 +23,366 @@ extra_easyconfigs_repository: 'take-it-easyconfigs'
 #
 # Group folder structures to construct on shared storage systems.
 #
-group_subfolder_structure: [
- { group: 'umcg-gap',
-   lfs: 'tmp05',
-   mode: "{{ MODE_2770_HARD }}",
-   owner: 'umcg-gap-ateambot',
-   subfolders: ['DiagnosticOutput', 'generatedscripts/AGCT', generatedscripts/GAP', 'logs', 'projects/GAP', 'runs/AGCT' ,'rawdata', 'Samplesheets/AGCT', 'Samplesheets/GAP', 'Samplesheets/archive', 'tmp/AGCT', 'tmp/GAP'],
-   machines: "{{ groups['user_interface'] }}" },
- { group: 'umcg-gap',
-   lfs: 'dat05',
-   mode: "{{ MODE_2770_HARD }}",
-   owner: 'umcg-gap-dm',
-   subfolders: ['DiagnosticOutput','logs','samplesheets/new'],
-   machines: "{{ groups['chaperone'] }}" },
- { group: 'umcg-gap',
-   lfs: 'prm05',
-   mode: "{{ MODE_2750_HARD }}",
-   owner: 'umcg-gap-dm',
-   subfolders: ['concordance/array', 'logs', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs', 'Samplesheets/archive'],
-   machines: "{{ groups['chaperone'] }}" },
- { group: 'umcg-gd',
-   lfs: 'tmp05',
-   mode: "{{ MODE_2770_HARD }}",
-   owner: 'umcg-gd-ateambot',
-   subfolders: ['concordance/array', 'concordance/jobs', 'concordance/logs', 'concordance/ngs', 'concordance/results', 'concordance/samplesheets', 'concordance/tmp', 'generatedscripts/NGS_DNA','generatedscripts/NGS_Demultiplexing', 'logs', 'projects/NGS_DNA', 'projects/NGS_Demultiplexing', 'rawdata/ngs', 'Samplesheets/NGS_DNA', 'Samplesheets/NGS_Demultiplexing', 'Samplesheets/archive', 'tmp/NGS_Demultiplexing', 'tmp/NGS_DNA', 'trendanalysis', 'trendanalysis/darwin','trendanalysis/dragen', 'trendanalysis/projects', 'trendanalysis/database', 'trendanalysis/reports', 'trendanalysis/rawdata', 'trendanalysis/tmp'],
-   machines: "{{ groups['user_interface'] }}" },
- { group: 'umcg-gd',
-   lfs: 'dat05',
-   mode: "{{ MODE_2770_HARD }}",
-   owner: 'umcg-gd-dm',
-   subfolders: ['ConcordanceCheckOutput', 'ConcordanceCheckSamplesheets/archive', 'logs', 'samplesheets/new', 'temp', 'trendanalysis'],
-   machines: "{{ groups['chaperone'] }}" },
- { group: 'umcg-gd',
-   lfs: 'prm05',
-   mode: "{{ MODE_2750_HARD }}",
-   owner: 'umcg-gd-dm',
-   subfolders: ['concordance', 'logs', 'projects', 'Samplesheets/archive', 'rawdata/ngs', 'trendanalysis'],
-   machines: "{{ groups['chaperone'] }}" },
- { group: 'umcg-genomescan',
-   lfs: 'tmp05',
-   mode: "{{ MODE_2770_HARD }}",
-   owner: 'umcg-genomescan-ateambot',
-   subfolders: ['logs', 'runs', 'Samplesheets','generatedscripts/NGS_DNA', 'projects/NGS_DNA', 'rawdata/ngs', 'Samplesheets/DRAGEN', 'Samplesheets/NGS_DNA', 'tmp/NGS_DNA'],
-   machines: "{{ groups['user_interface'] }}" },
-  { group: 'umcg-atd',
-    lfs: 'tmp05',
-    mode: "{{ MODE_2770_HARD }}",
-    owner: 'umcg-atd-ateambot',
-    subfolders: ['concordance/array', 'concordance/jobs', 'concordance/logs', 'concordance/ngs', 'concordance/results', 'concordance/samplesheets', 'concordance/tmp', 'generatedscripts/NGS_Demultiplexing', 'generatedscripts/NGS_DNA', 'logs', 'projects/NGS_DNA','projects/NGS_Demultiplexing', 'rawdata/ngs', 'Samplesheets/NGS_DNA', 'Samplesheets/archive', 'Samplesheets/NGS_Demultiplexing', 'tmp/NGS_DNA', 'tmp/NGS_Demultiplexing' , 'trendanalysis', 'trendanalysis/darwin','trendanalysis/dragen', 'trendanalysis/projects', 'trendanalysis/database', 'trendanalysis/reports', 'trendanalysis/rawdata', 'trendanalysis/tmp'],
-    machines: "{{ groups['user_interface'] }}" },
-  { group: 'umcg-atd',
-    lfs: 'dat05',
-    mode: "{{ MODE_2770_HARD }}",
-    owner: 'umcg-atd-dm',
-    subfolders: ['ConcordanceCheckOutput','ConcordanceCheckSamplesheets/archive', 'logs', 'samplesheets', 'temp', 'trendanalysis'],
-    machines: "{{ groups['chaperone'] }}" },
-  { group: 'umcg-atd',
-    lfs: 'prm05',
-    mode: "{{ MODE_2750_HARD }}",
-    owner: 'umcg-atd-dm',
-    subfolders: ['concordance', 'logs', 'projects', 'Samplesheets/archive', 'rawdata/ngs', 'trendanalysis'],
-    machines: "{{ groups['chaperone'] }}" },
-  { group: 'umcg-gsad',
-    lfs: 'tmp05',
-    mode: "{{ MODE_2770_HARD }}",
-    owner: 'umcg-gsad-ateambot',
-    subfolders: ['DiagnosticOutput', 'generatedscripts/AGCT', generatedscripts/GAP', 'logs', 'projects/GAP', 'runs/AGCT' ,'rawdata', 'Samplesheets/AGCT', 'Samplesheets/GAP', 'Samplesheets/archive', 'tmp/AGCT', 'tmp/GAP'],
-    machines: "{{ groups['user_interface'] }}" },
-  { group: 'umcg-gsad',
-    lfs: 'dat05',
-    mode: "{{ MODE_2770_HARD }}",
-    owner: 'umcg-gsad-dm',
-    subfolders: ['DiagnosticOutput','logs','samplesheets'],
-    machines: "{{ groups['chaperone'] }}" },
-  { group: 'umcg-gsad',
-    lfs: 'prm05',
-    mode: "{{ MODE_2750_HARD }}",
-    owner: 'umcg-gsad-dm',
-    subfolders: ['concordance/array', 'logs', 'rawdata/array/IDAT','rawdata/array/GTC', 'runs', 'Samplesheets/archive'],
-    machines: "{{ groups['chaperone'] }}" },
-  { group: 'umcg-gst',
-    lfs: 'tmp05',
-    mode: "{{ MODE_2770_HARD }}",
-    owner: 'umcg-gst-ateambot',
-    subfolders: ['logs', 'runs', 'Samplesheets','generatedscripts/NGS_DNA', 'projects/NGS_DNA', 'rawdata/ngs', 'Samplesheets/DRAGEN', 'Samplesheets/NGS_DNA', 'tmp/NGS_DNA'],
-    machines: "{{ groups['user_interface'] }}" },
-]
+group_subfolder_structure:
+  ######################################################################################################################
+  # umcg-atd group
+  ######################################################################################################################
+  - group: umcg-atd
+    lfs: tmp05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-atd-ateambot
+    subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
+            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
+            | union(analysis_folders['NGS_DNA']['tmp'])
+            | union(analysis_folders['trendanalysis']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-atd
+    lfs: dat05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-atd-dm
+    subfolders: "{{ analysis_folders['ConcordanceCheck']['dat']
+            | union(analysis_folders['NGS_Demultiplexing']['dat'])
+            | union(analysis_folders['NGS_DNA']['dat'])
+            | union(analysis_folders['trendanalysis']['dat']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-atd
+    lfs: prm05
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-atd-dm
+    subfolders: "{{ analysis_folders['ConcordanceCheck']['prm']
+            | union(analysis_folders['NGS_Demultiplexing']['prm'])
+            | union(analysis_folders['NGS_DNA']['prm'])
+            | union(analysis_folders['trendanalysis']['prm']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-gd group
+  ######################################################################################################################
+  - group: umcg-gd
+    lfs: tmp05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gd-ateambot
+    subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
+            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
+            | union(analysis_folders['NGS_DNA']['tmp'])
+            | union(analysis_folders['trendanalysis']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gd
+    lfs: dat05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gd-dm
+    subfolders: "{{ analysis_folders['ConcordanceCheck']['dat']
+            | union(analysis_folders['NGS_Demultiplexing']['dat'])
+            | union(analysis_folders['NGS_DNA']['dat'])
+            | union(analysis_folders['trendanalysis']['dat']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-gd
+    lfs: prm05
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-gd-dm
+    subfolders: "{{ analysis_folders['ConcordanceCheck']['prm']
+            | union(analysis_folders['NGS_Demultiplexing']['prm'])
+            | union(analysis_folders['NGS_DNA']['prm'])
+            | union(analysis_folders['trendanalysis']['prm']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-gsad group
+  ######################################################################################################################
+  - group: umcg-gsad
+    lfs: tmp05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gsad-ateambot
+    subfolders: "{{ analysis_folders['AGCT']['tmp']
+            | union(analysis_folders['GAP']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gsad
+    lfs: dat05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gsad-dm
+    subfolders: "{{ analysis_folders['AGCT']['dat']
+            | union(analysis_folders['GAP']['dat']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-gsad
+    lfs: prm05
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-gsad-dm
+    subfolders: "{{ analysis_folders['AGCT']['prm']
+            | union(analysis_folders['GAP']['prm']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-gap group
+  ######################################################################################################################
+  - group: umcg-gap
+    lfs: tmp05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gap-ateambot
+    subfolders: "{{ analysis_folders['AGCT']['tmp']
+            | union(analysis_folders['GAP']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gap
+    lfs: dat05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gap-dm
+    subfolders: "{{ analysis_folders['AGCT']['dat']
+            | union(analysis_folders['GAP']['dat']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-gap
+    lfs: prm05
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-gap-dm
+    subfolders: "{{ analysis_folders['AGCT']['prm']
+            | union(analysis_folders['GAP']['prm']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-gst group
+  ######################################################################################################################
+  - group: umcg-gst
+    lfs: tmp05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gst-ateambot
+    subfolders: "{{ analysis_folders['GsRawData']['tmp']
+            | union(analysis_folders['GsAnalysisData']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gst
+    lfs: dat05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gst-dm
+    subfolders: "{{ analysis_folders['GsRawData']['dat']
+            | union(analysis_folders['GsAnalysisData']['dat']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-genomescan group
+  ######################################################################################################################
+  - group: umcg-genomescan
+    lfs: tmp05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-genomescan-ateambot
+    subfolders: "{{ analysis_folders['GsRawData']['tmp']
+            | union(analysis_folders['GsAnalysisData']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-genomescan
+    lfs: dat05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-genomescan-dm
+    subfolders: "{{ analysis_folders['GsRawData']['dat']
+            | union(analysis_folders['GsAnalysisData']['dat']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-labgnkbh group
+  ######################################################################################################################
+  - group: umcg-labgnkbh
+    lfs: tmp05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-labgnkbh-ateambot
+    subfolders: "{{ analysis_folders['NGS_Demultiplexing']['tmp'] }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-labgnkbh
+    lfs: dat45
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-labgnkbh-dm
+    subfolders: "{{ analysis_folders['NGS_Demultiplexing']['dat'] }}"
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-labgnkbh
+    lfs: prm45
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-labgnkbh-dm
+    subfolders: "{{ analysis_folders['NGS_Demultiplexing']['prm'] }}"
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-patho group
+  ######################################################################################################################
+  - group: umcg-patho
+    lfs: tmp05
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-patho-ateambot
+    subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-patho
+    lfs: dat35
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-patho-dm
+    subfolders: "{{ analysis_folders['BclDataToPrm']['dat'] }}"
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-patho
+    lfs: prm35
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-patho-dm
+    subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
+    machines: "{{ groups['chaperone'] }}"
+#
+# Symlinks to enable sending notifications to certain target when notification are enabled for an anlysis phase in NGS_Automated.
+#
+group_notification_targets:
+  ######################################################################################################################
+  # umcg-atd group
+  ######################################################################################################################
+  - group: umcg-atd
+    lfs: tmp05
+    user: umcg-atd-ateambot
+    type: notification_webhooks
+    analysis_phases: [demultiplexing, startPipeline, pipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-atd
+    lfs: dat05
+    user: umcg-atd-ateambot
+    type: notification_webhooks
+    analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-atd
+    lfs: prm05
+    user: umcg-atd-dm
+    type: notification_webhooks
+    analysis_phases: [copyRawDataToPrm, copyRawDataToTmp, copyProjectDataToPrm]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-gd group
+  ######################################################################################################################
+  - group: umcg-gd
+    lfs: tmp05
+    user: umcg-gd-ateambot
+    type: notification_webhooks
+    analysis_phases: [demultiplexing, startPipeline, pipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gd
+    lfs: dat05
+    user: umcg-gd-ateambot
+    type: notification_webhooks
+    analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-gd
+    lfs: prm05
+    user: umcg-gd-dm
+    type: notification_webhooks
+    analysis_phases: [copyRawDataToPrm, copyRawDataToTmp, copyProjectDataToPrm]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-gsad group
+  ######################################################################################################################
+  - group: umcg-gsad
+    lfs: tmp05
+    user: umcg-gsad-ateambot
+    type: notification_webhooks
+    analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gsad
+    lfs: dat05
+    user: umcg-gsad-ateambot
+    type: notification_webhooks
+    analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-gsad
+    lfs: prm05
+    user: umcg-gsad-dm
+    type: notification_webhooks
+    analysis_phases: [copyRawDataToPrm, copyRawDataToTmp, copyProjectDataToPrm]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-gap group
+  ######################################################################################################################
+  - group: umcg-gap
+    lfs: tmp05
+    user: umcg-gap-ateambot
+    type: notification_webhooks
+    analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gap
+    lfs: dat05
+    user: umcg-gap-ateambot
+    type: notification_webhooks
+    analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-gap
+    lfs: prm05
+    user: umcg-gap-dm
+    type: notification_webhooks
+    analysis_phases: [copyRawDataToPrm, copyRawDataToTmp, copyProjectDataToPrm]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-gst group
+  ######################################################################################################################
+  - group: umcg-gst
+    lfs: tmp05
+    user: umcg-gst-ateambot
+    type: notification_webhooks
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gst
+    lfs: dat05
+    user: umcg-gst-ateambot
+    type: notification_webhooks
+    analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-genomescan group
+  ######################################################################################################################
+  - group: umcg-genomescan
+    lfs: tmp05
+    user: umcg-genomescan-ateambot
+    type: notification_webhooks
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-genomescan
+    lfs: dat05
+    user: umcg-genomescan-ateambot
+    type: notification_webhooks
+    analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-labgnkbh group
+  ######################################################################################################################
+  - group: umcg-labgnkbh
+    lfs: tmp05
+    user: umcg-labgnkbh-ateambot
+    type: notification_webhooks
+    analysis_phases: [demultiplexing]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-labgnkbh
+    lfs: dat45
+    user: umcg-labgnkbh-ateambot
+    type: notification_webhooks
+    analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-labgnkbh
+    lfs: prm45
+    user: umcg-labgnkbh-dm
+    type: notification_webhooks
+    analysis_phases: [copyRawDataToPrm]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-patho group
+  ######################################################################################################################
+  - group: umcg-patho
+    lfs: dat35
+    user: umcg-patho-ateambot
+    type: notification_webhooks
+    analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-patho
+    lfs: prm35
+    user: umcg-patho-dm
+    type: notification_webhooks
+    analysis_phases: [copyBclDataToPrm]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
 #
 # Cronjobs for functional accounts.
 #
@@ -806,9 +1080,9 @@ crontabs:
   #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
   #        module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
   #        copyRawDataToPrm.sh -g umcg-labgnkbh -d dat45 -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
- #  ######################################################################################################################
- #  # umcg-patho group
- #  ######################################################################################################################
+  ######################################################################################################################
+  # umcg-patho group
+  ######################################################################################################################
   # - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
   #   user: umcg-patho-ateambot
   #   machines: "{{ groups['chaperone'] | default([]) }}"
@@ -852,6 +1126,7 @@ refdata: [
 #  'Controls_Convading_XHMM',
 #  'GSAarray',
 #  'Ensembl',
+  'Prepkits',
 #  'ExAC',
 #  'ManVarList',
 #  'gnomAD/release-170228',
@@ -881,6 +1156,9 @@ dynamic_easyconfigs: >-
     {%- endfor %}
   {%- endfor %}
   {{- easyconfigs_for_group_modules | default([]) -}}
+static_easyconfigs:
+  - c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb
+  - d/depad-utils/depad-utils-v23.04.1.eb
 all_easyconfigs: "{{ dynamic_easyconfigs | default([]) | union(static_easyconfigs | default([])) }}"
 easyconfigs: "{{ all_easyconfigs }}"
 chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', 'NGS_Automated-.*-bare.eb') | list }}"

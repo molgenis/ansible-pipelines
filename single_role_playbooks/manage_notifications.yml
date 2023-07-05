@@ -1,0 +1,11 @@
+---
+- name: "Pre-deploy checks"
+  ansible.builtin.import_playbook: pre_deploy_checks.yml
+
+- name: "Manage cronjobs"
+  hosts:
+    - user_interface
+    - chaperone
+  roles:
+    - manage_notifications
+...

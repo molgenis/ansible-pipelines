@@ -11,4 +11,6 @@
   import_playbook: single_role_playbooks/create_group_subfolder_structure.yml
 - name: "Manage cronjobs"
   import_playbook: single_role_playbooks/manage_cronjobs.yml
+- name: "Manage notifications"
+  import_playbook: single_role_playbooks/manage_notifications.yml
 ...
