@@ -43,6 +43,18 @@ export SACCT_FORMAT_USED_MAX="TotalCPU,MaxDiskRead,MaxDiskWrite,MaxPages,MaxRSS,
 export SACCT_FORMAT="${SACCT_FORMAT_ID_STATE},${SACCT_FORMAT_REQ_ALLOC}"
 
 #
+# Apptainer env vars.
+#
+APPTAINER_BINDPATH="${HPC_ENV_PREFIX}:${HPC_ENV_PREFIX}:ro"
+readarray -t my_groups < <(groups | tr ' ' '\n')
+for my_group in "${my_groups[@]}"; do
+  if [[ -e "/groups/${my_group}" ]]; then
+    APPTAINER_BINDPATH="${APPTAINER_BINDPATH},/groups/${my_group}"
+  fi
+done
+export APPTAINER_BINDPATH
+
+#
 # EasyBuild env vars.
 #
 export EASYBUILD_MODULES_TOOL='Lmod'
