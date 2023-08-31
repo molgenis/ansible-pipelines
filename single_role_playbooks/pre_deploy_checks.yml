@@ -20,6 +20,21 @@
       run_once: true  # noqa run-once
       delegate_to: localhost
       connection: local
+    - name: 'Verify that we are running inside a Python virtual environment before we try to fetch dependencies from Ansible Galaxy.'
+      ansible.builtin.assert:
+        that: lookup('ansible.builtin.env', 'VIRTUAL_ENV', default=Undefined) is defined
+      run_once: true  # noqa run-once
+      delegate_to: localhost
+      connection: local
+    - name: 'Verify that collections and roles will be installed inside our Python virtual environment before we try to fetch dependencies from Ansible Galaxy.'
+      ansible.builtin.assert:
+        that: lookup('ansible.builtin.env', item, default=Undefined) is defined
+      run_once: true  # noqa run-once
+      delegate_to: localhost
+      connection: local
+      loop:
+        - ANSIBLE_ROLES_PATH
+        - ANSIBLE_COLLECTIONS_PATHS
     - name: 'Verify that the group_vars were parsed.'
       ansible.builtin.assert:
         that: hpc_env_prefix is defined
