@@ -35,6 +35,15 @@ function repo-config() {
 		set -u
 	fi
 	#
+	# Check if Python venv was initialized.
+	#
+	if [[ -z "${VIRTUAL_ENV:-}" ]]; then
+		printf 'ERROR: ${VIRTUAL_ENV} is empty.\n'
+		printf 'FATAL: The code from this repo requires Ansible and its dependencies installed in a Python virtual environment.\n'
+		printf 'FATAL: See the README.md for instructions.\n'
+		return 1
+	fi
+	#
 	# Get and check input.
 	#
 	local _stack_prefix="${1-}"
@@ -51,6 +60,7 @@ function repo-config() {
 	declare -a _required_paths=(
 		"${REPO_DIR}/group_vars/${_stack_name}/"
 		"${REPO_DIR}/static_inventories/${_stack_name}.yml"
+		"${REPO_DIR}/.vault/vault_pass.txt.all"
 	)
 	local _required_path
 	for _required_path in "${_required_paths[@]}"; do
@@ -80,14 +90,20 @@ function repo-config() {
 		unset AI_PROXY
 	fi
 	export ANSIBLE_INVENTORY="static_inventories/${_stack_name}.yml"
+	export ANSIBLE_VAULT_IDENTITY_LIST="all@.vault/vault_pass.txt.all"
+	export ANSIBLE_ROLES_PATH="${VIRTUAL_ENV}/ansible/ansible_roles/:"
+	export ANSIBLE_COLLECTIONS_PATHS="${VIRTUAL_ENV}/ansible/:"
 	printf 'INFO: Current working directory is:      %s\n' "$(pwd)"
 	printf 'INFO: Using ANSIBLE_INVENTORY:           %s\n' "${ANSIBLE_INVENTORY}"
 	printf 'INFO: Using AI_PROXY:                    %s\n' "${AI_PROXY:-None: no jumphost specified in ANSIBLE_INVENTORY}"
+	printf 'INFO: Using ANSIBLE_VAULT_IDENTITY_LIST: %s\n' "${ANSIBLE_VAULT_IDENTITY_LIST}"
+	printf 'INFO: Using ANSIBLE_ROLES_PATH:          %s\n' "${ANSIBLE_ROLES_PATH}"
+	printf 'INFO: Using ANSIBLE_COLLECTIONS_PATHS:   %s\n' "${ANSIBLE_COLLECTIONS_PATHS}"
 	#
 	# Enable ansible_mitogen strategy plugin for improved speed of plays when available.
 	#
 	_ansible_mitogen_search_path='.*/lib/python.*/site-packages/ansible_mitogen/plugins/strategy'
-	_ansible_mitogen_path=$(find . -regex "${_ansible_mitogen_search_path}" | sort -V | tail -1)
+	_ansible_mitogen_path=$(find ${VIRTUAL_ENV:-.} -regex "${_ansible_mitogen_search_path}" | sort -V | tail -1)
 	if [[ -n "${_ansible_mitogen_path}" ]]; then
 		export ANSIBLE_STRATEGY_PLUGINS="${_ansible_mitogen_path}"
 		export ANSIBLE_STRATEGY='mitogen_linear'

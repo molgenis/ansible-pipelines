@@ -1,0 +1,4 @@
+#jinja2: trim_blocks:True, lstrip_blocks: True
+{% for target in notification_targets[notification_config['notification_target']][notification_config['type']] %}
+{{ target }}
+{% endfor %}
