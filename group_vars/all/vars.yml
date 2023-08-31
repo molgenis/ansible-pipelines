@@ -339,4 +339,24 @@ analysis_folders:
     prm:
       - trendanalysis
       - trendanalysis/reports
+notification_targets:
+  hpc-helpdesk:
+    notification_webhooks:
+      - "{{ vault_webhooks['hpc-helpdesk'] }}"
+  hpc-helpdesk_and_gd-ngs-dataverwerking:
+    notification_webhooks:
+      - "{{ vault_webhooks['hpc-helpdesk'] }}"
+      - "{{ vault_webhooks['gd-ngs-dataverwerking'] }}"
+  hpc-helpdesk_and_gd-array-dataverwerking:
+    notification_webhooks:
+      - "{{ vault_webhooks['hpc-helpdesk'] }}"
+      - "{{ vault_webhooks['gd-array-dataverwerking'] }}"
+  hpc-helpdesk_and_labgnkbh:
+    notification_webhooks:
+      - "{{ vault_webhooks['hpc-helpdesk'] }}"
+      - "{{ vault_webhooks['labgnkbh'] }}"
+  hpc-helpdesk_and_patho:
+    notification_webhooks:
+      - "{{ vault_webhooks['hpc-helpdesk'] }}"
+      - "{{ vault_webhooks['patho'] }}"
 ...
