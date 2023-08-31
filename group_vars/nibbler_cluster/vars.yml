@@ -47,6 +47,6 @@ private_sources: []
 refdata: []
 easyconfigs: [
   'c/cluster-utils/cluster-utils-v22.12.2-GCCcore-11.3.0.eb',
-  'd/depad-utils/depad-utils-v21.02.1.eb',
+  'd/depad-utils/depad-utils-v23.04.1.eb',
 ]
 ...
