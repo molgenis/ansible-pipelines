@@ -17,10 +17,8 @@ stack_prefix: 'wh'
 lua_version: '5.1.4.9'
 lmod_version: '8.6.2'
 easybuild_version: '4.6.2'
-extra_easyconfigs_version: 1.0
+extra_easyconfigs_version: 1.2
 extra_easyconfigs_repository: 'take-it-easyconfigs'
-
-#extra_easyconfigs_repository: 'easybuild-easyconfigs'
 #extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 #
 # Group folder structures to construct on shared storage systems.
@@ -206,7 +204,7 @@ group_subfolder_structure:
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-patho
     lfs: prm37
-    mode: "{{ MODE_2770_HARD }}"
+    mode: "{{ MODE_2750_HARD }}"
     owner: umcg-patho-dm
     subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
     machines: "{{ groups['chaperone'] }}"
@@ -245,22 +243,36 @@ group_notification_targets:
     lfs: tmp07
     user: umcg-gd-ateambot
     type: notification_webhooks
-    analysis_phases: [demultiplexing, startPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [startPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gd
+    lfs: tmp07
+    user: umcg-gd-ateambot
+    type: notification_webhooks
+    analysis_phases: [demultiplexing, pipeline]
+    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: dat07
     user: umcg-gd-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-gd
+    lfs: prm07
+    user: umcg-gd-dm
+    type: notification_webhooks
+    analysis_phases: [copyRawDataToTmp]
     notification_target: hpc-helpdesk
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gd
     lfs: prm07
     user: umcg-gd-dm
     type: notification_webhooks
-    analysis_phases: [copyRawDataToPrm, copyRawDataToTmp, copyProjectDataToPrm]
-    notification_target: hpc-helpdesk
+    analysis_phases: [copyRawDataToPrm, copyProjectDataToPrm]
+    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
   # umcg-gsad group
@@ -293,22 +305,36 @@ group_notification_targets:
     lfs: tmp07
     user: umcg-gap-ateambot
     type: notification_webhooks
-    analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [startPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gap
+    lfs: tmp07
+    user: umcg-gap-ateambot
+    type: notification_webhooks
+    analysis_phases: [arrayConversion, pipeline]
+    notification_target: hpc-helpdesk_and_gd-array-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: dat07
     user: umcg-gap-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk_and_gd-array-dataverwerking
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-gap
+    lfs: prm07
+    user: umcg-gap-dm
+    type: notification_webhooks
+    analysis_phases: [copyRawDataToTmp]
     notification_target: hpc-helpdesk
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gap
     lfs: prm07
     user: umcg-gap-dm
     type: notification_webhooks
-    analysis_phases: [copyRawDataToPrm, copyRawDataToTmp, copyProjectDataToPrm]
-    notification_target: hpc-helpdesk
+    analysis_phases: [copyRawDataToPrm, copyProjectDataToPrm]
+    notification_target: hpc-helpdesk_and_gd-array-dataverwerking
     machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
   # umcg-gst group
@@ -317,7 +343,7 @@ group_notification_targets:
     lfs: tmp07
     user: umcg-gst-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
@@ -334,15 +360,22 @@ group_notification_targets:
     lfs: tmp07
     user: umcg-genomescan-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, calculateProjectMd5s]
+    analysis_phases: [startDragenPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-genomescan
+    lfs: tmp07
+    user: umcg-genomescan-ateambot
+    type: notification_webhooks
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, pipeline]
+    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: dat07
     user: umcg-genomescan-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
-    notification_target: hpc-helpdesk
+    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
   # umcg-labgnkbh group
@@ -359,14 +392,14 @@ group_notification_targets:
     user: umcg-labgnkbh-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
-    notification_target: hpc-helpdesk
+    notification_target: hpc-helpdesk_and_labgnkbh
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-labgnkbh
     lfs: prm47
     user: umcg-labgnkbh-dm
     type: notification_webhooks
     analysis_phases: [copyRawDataToPrm]
-    notification_target: hpc-helpdesk
+    notification_target: hpc-helpdesk_and_labgnkbh
     machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
   # umcg-patho group
@@ -376,17 +409,17 @@ group_notification_targets:
     user: umcg-patho-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
-    notification_target: hpc-helpdesk
+    notification_target: hpc-helpdesk_and_patho
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-patho
     lfs: prm37
     user: umcg-patho-dm
     type: notification_webhooks
     analysis_phases: [copyBclDataToPrm]
-    notification_target: hpc-helpdesk
+    notification_target: hpc-helpdesk_and_patho
     machines: "{{ groups['chaperone'] }}"
 #
-# Cron jobs for functional accounts.
+# Cronjobs for functional accounts.
 #
 group_module_versions:
   umcg-gd:

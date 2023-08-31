@@ -149,6 +149,8 @@ extra_easyconfigs_releases:
     checksum: 'sha256:e5a3d4a8e6dd087ee8991bd5d5cb36d79875ebcb1c3d867b415e6c7a83595221'
   1.0:
     checksum: 'sha256:62caec4126fa00bf03587f9f4db15f63b4216c83a49bad9c6a77b192838ed581'
+  1.2:
+    checksum: 'sha256:bf6ac7b824df3e79829fbba094a25d619f9728ae26148519f54177eb460e8e30'
 analysis_folders:
   AGCT:
     tmp:
@@ -337,4 +339,24 @@ analysis_folders:
     prm:
       - trendanalysis
       - trendanalysis/reports
+notification_targets:
+  hpc-helpdesk:
+    notification_webhooks:
+      - "{{ vault_webhooks['hpc-helpdesk'] }}"
+  hpc-helpdesk_and_gd-ngs-dataverwerking:
+    notification_webhooks:
+      - "{{ vault_webhooks['hpc-helpdesk'] }}"
+      - "{{ vault_webhooks['gd-ngs-dataverwerking'] }}"
+  hpc-helpdesk_and_gd-array-dataverwerking:
+    notification_webhooks:
+      - "{{ vault_webhooks['hpc-helpdesk'] }}"
+      - "{{ vault_webhooks['gd-array-dataverwerking'] }}"
+  hpc-helpdesk_and_labgnkbh:
+    notification_webhooks:
+      - "{{ vault_webhooks['hpc-helpdesk'] }}"
+      - "{{ vault_webhooks['labgnkbh'] }}"
+  hpc-helpdesk_and_patho:
+    notification_webhooks:
+      - "{{ vault_webhooks['hpc-helpdesk'] }}"
+      - "{{ vault_webhooks['patho'] }}"
 ...
