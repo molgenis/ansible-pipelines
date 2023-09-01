@@ -224,7 +224,7 @@ group_notification_targets:
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
     lfs: dat06
-    user: umcg-atd-ateambot
+    user: umcg-atd-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk
@@ -255,7 +255,7 @@ group_notification_targets:
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: dat06
-    user: umcg-gd-ateambot
+    user: umcg-gd-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
@@ -286,7 +286,7 @@ group_notification_targets:
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gsad
     lfs: dat06
-    user: umcg-gsad-ateambot
+    user: umcg-gsad-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk
@@ -317,7 +317,7 @@ group_notification_targets:
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: dat06
-    user: umcg-gap-ateambot
+    user: umcg-gap-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_gd-array-dataverwerking
@@ -348,7 +348,7 @@ group_notification_targets:
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
     lfs: dat06
-    user: umcg-gst-ateambot
+    user: umcg-gst-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk
@@ -372,7 +372,7 @@ group_notification_targets:
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: dat06
-    user: umcg-genomescan-ateambot
+    user: umcg-genomescan-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
@@ -389,7 +389,7 @@ group_notification_targets:
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-labgnkbh
     lfs: dat46
-    user: umcg-labgnkbh-ateambot
+    user: umcg-labgnkbh-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_labgnkbh
@@ -406,7 +406,7 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-patho
     lfs: dat36
-    user: umcg-patho-ateambot
+    user: umcg-patho-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_patho
