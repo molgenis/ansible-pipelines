@@ -45,6 +45,11 @@ function repo-config() {
 		return 1
 	fi
 	#
+	# Ensure we have a .vault dir with sane, safe permissions.
+	#
+	mkdir -p -m 700 "${REPO_DIR}/.vault"
+	chmod -R go-rwx "${REPO_DIR}/.vault"
+	#
 	# Get and check input.
 	#
 	local _stack_prefix="${1-}"
