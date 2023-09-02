@@ -12,6 +12,9 @@
     group: "{{ notification_config.group }}"
     mode: '0600'
     state: touch
+  become: true
+  become_user: "{{ notification_config.user }}"
+  when: inventory_hostname in notification_config.machines
   loop: "{{ group_notification_targets | default([]) }}"
   loop_control:
     loop_var: notification_config
