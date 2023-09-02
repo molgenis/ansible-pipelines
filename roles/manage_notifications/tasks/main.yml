@@ -3,6 +3,7 @@
 # Workaround for bug https://github.com/ansible/ansible/issues/56243
 # Was fixed in more recent Ansible, but that requires a newer Python 3,
 # which is not available on CentOS/RHEL 8, which is stuck at Python 3.6.
+# (CentOS/RHEL 8 is currently only used on [wh|cf|bb]-chaperone machines.)
 #
 - name: Ensure file already exists at template dest to work around 'invalid selinux context' bug.
   ansible.builtin.file:
