@@ -27,13 +27,13 @@ export REPO_DIR="$( cd -P "$( dirname "${BASH_SOURCE:-}" )" && pwd )"
 #
 
 function repo-config() {
-	local _opt_nounset_was_enbled
+	local _previous_opt_nounset_state
 	if [[ -o nounset ]]; then
-		_opt_nounset_was_enbled='true'
+		_previous_opt_nounset_state='-u'
 	else
-		_opt_nounset_was_enbled='false'
-		set -u
+		_previous_opt_nounset_state='+u'
 	fi
+	set -u
 	#
 	# Check if Python venv was initialized.
 	#
@@ -41,6 +41,7 @@ function repo-config() {
 		printf 'ERROR: ${VIRTUAL_ENV} is empty.\n'
 		printf 'FATAL: The code from this repo requires Ansible and its dependencies installed in a Python virtual environment.\n'
 		printf 'FATAL: See the README.md for instructions.\n'
+		set "${_previous_opt_nounset_state}"
 		return 1
 	fi
 	#
@@ -49,12 +50,14 @@ function repo-config() {
 	local _stack_prefix="${1-}"
 	if [[ -z "${_stack_prefix:-}" ]]; then
 		printf '%s\n' 'ERROR: must specify an infra stack prefix.'
-		return
+		set "${_previous_opt_nounset_state}"
+		return 1
 	fi
 	local _group_vars="$(grep "^stack_prefix: ['\"]*${_stack_prefix}['\"]*$" "${REPO_DIR}/group_vars/"*/vars.yml | sed 's|:.*||')"
 	if [[ -z "${_group_vars:-}" ]]; then
 		printf '%s\n' "ERROR: cannot find group_vars/*/vars.yml for infra stack prefix ${_stack_prefix}."
-		return
+		set "${_previous_opt_nounset_state}"
+		return 1
 	fi
 	local _stack_name="$(basename "$(dirname "${_group_vars}")")"
 	declare -a _required_paths=(
@@ -66,7 +69,8 @@ function repo-config() {
 	for _required_path in "${_required_paths[@]}"; do
 		if [[ ! -e "${_required_path}" ]]; then
 			printf '%s\n' "ERROR: ${_required_path} does not exist for infra stack prefix ${_stack_prefix}."
-			return
+			set "${_previous_opt_nounset_state}"
+			return 1
 		fi
 	done
 	#
@@ -113,7 +117,5 @@ function repo-config() {
 		printf 'WARNING: Could not find Mitogen strategy plugin in %s\n' "${_ansible_mitogen_search_path}"
 		printf 'INFO: Mitogen strategy plugin is:        %s.\n' 'disabled (default)'
 	fi
-	if [[ "${_opt_nounset_was_enbled}" == 'false' ]]; then
-		set +u
-	fi
+	set "${_previous_opt_nounset_state}"
 }
