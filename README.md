@@ -153,15 +153,16 @@ git remote add blessed 'https://github.com/molgenis/ansible-pipelines.git'
 Login to the machine you want to use as Ansible control host and configure virtual Python environment in sub directory of your cloned repo:
 
 ```bash
-cd ${HOME}/git/ansible-pipelines
+export REPO_HOME="${HOME}/git/ansible-pipelines"
+cd "${REPO_HOME}"
 #
 # Create Python virtual environment (once)
 #
-python3 -m venv ansible.venv
+python3 -m venv "${REPO_HOME}/ansible.venv"
 #
 # Activate virtual environment.
 #
-source ansible.venv/bin/activate
+source "${REPO_HOME}/ansible.venv/bin/activate"
 #
 # Install Ansible and other python packages.
 #
@@ -174,6 +175,8 @@ else
 fi
 ${PIP} install --upgrade pip
 ${PIP} install ansible
+${PIP} install 'ansible<7' # For running playbooks on your local laptop as Ansible control host.
+${PIP} install 'ansible<6' # For running playbooks directly on chaperone machines running RHEL8.
 ${PIP} install jmespath
 ${PIP} install ruamel.yaml
 #
@@ -182,28 +185,27 @@ ${PIP} install ruamel.yaml
 # See https://mitogen.networkgenomics.com/ansible_detailed.html
 #
 ${PIP} install mitogen
+#
+# Configure the Ansible vault password to decrypt encrypted content.
+#
+mkdir -m 700 "${REPO_HOME}/.vault"
+touch "${REPO_HOME}/.vault/vault_pass.txt.all"
+chmod 600 "${REPO_HOME}.vault/vault_pass.txt.all"
+#
+# Use your favorite text editor to add the vault password to ${REPO_HOME}.vault/vault_pass.txt.all
+#
 ```
 
-#### 3A. Run playbook on Ansible control host for Zinc-Finger or Leucine-Zipper
+#### 3A. Run playbook on Ansible control host for *-chaperone machines
 
-Only for:
-
- * *Zinc-Finger* cluster
- * *Leucine-Zipper* cluster
- * Machines in the *chaperone* group for other clusters
-
-We use:
-
- * *Inventory*: static inventory (without jumphost).
- * *Ansible control host*:
-    * For *Zinc-Finger*: `zf-ds`.
-    * For *Leucine-Zipper*: `lz-ds`.
-    * For *wh-chaperone*: `localhost`; hence run the playbook on wh-chaperone itself.
+* Only for: machines in the *chaperone* inventory group.
+* Use `localhost` as the *Ansible control host*; hence run the playbook on the `chaperone` itself.
 
 Login to the Ansible control host and:
 
 ```bash
-cd ${HOME}/git/ansible-pipelines
+export REPO_HOME="${HOME}/git/ansible-pipelines"
+cd "${REPO_HOME}"
 #
 # Make sure we are on the main branch and got all the latest updates.
 #
@@ -212,101 +214,35 @@ git pull blessed master
 #
 # Activate virtual environment.
 #
-source ansible.venv/bin/activate
+source "${REPO_HOME}/ansible.venv/bin/activate"
+source "${REPO_HOME}/repo-init"
+repo-config [stack_prefix]  # Stack prefix as defined in group_vars/stack_name/vars.yml. E.g. bb, cf or wh.
 #
-# Run complete playbook: general syntax
+# Run complete playbook: example for wh-chaperone
 #
-ansible-playbook -i static_inventories/[stack_name].yml playbook.yml
-#
-# Run complete playbook: example for Zinc-Finger
-#
-ansible-playbook -i static_inventories/zincfinger_cluster.yml playbook.yml
-#
-# Run single role playbook: examples for Zinc-Finger
-#
-ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/install_easybuild.yml
-ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/fetch_extra_easyconfigs.yml
-ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/fetch_sources_and_refdata.yml
-ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/install_modules_with_easybuild.yml
-ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/create_group_subfolder_structure.yml
-ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/manage_cronjobs.yml
+repo-config wh
+ansible-playbook --limit 'chaperone' playbook.yml
 #
 # Run single role playbook: examples for wh-chaperone
 #
-ansible-playbook -i static_inventories/wingedhelix_cluster.yml --limit 'chaperone' single_role_playbooks/install_easybuild.yml
-ansible-playbook -i static_inventories/wingedhelix_cluster.yml --limit 'chaperone' single_role_playbooks/fetch_extra_easyconfigs.yml
-ansible-playbook -i static_inventories/wingedhelix_cluster.yml --limit 'chaperone' single_role_playbooks/install_modules_with_easybuild.yml
-ansible-playbook -i static_inventories/wingedhelix_cluster.yml --limit 'chaperone' single_role_playbooks/create_group_subfolder_structure.yml
-ansible-playbook -i static_inventories/wingedhelix_cluster.yml --limit 'chaperone' single_role_playbooks/manage_cronjobs.yml
+repo-config wh
+ansible-playbook --limit 'chaperone' single_role_playbooks/install_easybuild.yml
+ansible-playbook --limit 'chaperone' single_role_playbooks/fetch_extra_easyconfigs.yml
+ansible-playbook --limit 'chaperone' single_role_playbooks/install_modules_with_easybuild.yml
+ansible-playbook --limit 'chaperone' single_role_playbooks/create_group_subfolder_structure.yml
+ansible-playbook --limit 'chaperone' single_role_playbooks/manage_cronjobs.yml
 ```
-
-###### Changing cronjobs to fetch data on a GD cluster from another gattaca server
-
-In the default situation:
- * Samplesheets from _Darwin_ on `dat05` share/mount:
-   * sequencer/scanner must store data on `gattaca02`
-   * downstream analysis on `Zinc-Finger`
-   * results are stored on `prm05` share/mount
- * Samplesheets from _Darwin_ on `dat06` share/mount:
-   * sequencer/scanner must store data on `gattaca01`
-   * downstream analysis on `Leucine-Zipper`
-   * results are stored on `prm06` share/mount
-
-If a gattaca server and/or cluster is offline for (un)scheduled maintenance,
-the lab can use the other set of infra by simply saving the rawest data on the other `gattaca` server and asking Darwin to put the samplesheet on the other `dat` share.
-In this case there is no need to change any cronjob settings.
-
-If infra breaks down and we need to link a cluster to the other gattaca server, then we need to update the corresponding cronjobs:
- * Look for the `cronjobs` variable in both `group_vars/zincfinger_cluster/vars.yml` and `group_vars/leucinezipper_cluster/vars.yml`
- * Search for cronjobs that contain `gattaca` in the command/job and depending on the situation:
-   * Either change `gattaca01` into `gattaca02` or vice versa.
-   * Or add a second similar cronjob for the other `gattaca` server if the cluster needs to fetch data from both `gattaca` servers.
-   * Or temporarily disable a cronjob by adding `disabled: true`. E.g.:
-     ```
-     - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
-       user: umcg-atd-dm
-       machines: "{{ groups['chaperone'] | default([]) }}"
-       minute: '*/10'
-       job: /bin/bash -c "{{ configure_env_in_cronjob }};
-            module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-            copyRawDataToPrm.sh -g umcg-atd -s gattaca02.gcc.rug.nl"
-       disabled: true
-     ```
- * Run the playbook to update the cronjobs for both clusters:
-   * On `zf-ds`:
-   ```bash
-   cd ${HOME}/git/ansible-pipelines
-   git checkout master
-   git pull blessed master
-   source ansible.venv/bin/
-   ansible-playbook -i static_inventories/zincfinger_cluster.yml single_role_playbooks/manage_cronjobs.yml
-   ```
-   * On `lz-ds`:
-   ```bash
-   cd ${HOME}/git/ansible-pipelines
-   git checkout master
-   git pull blessed master
-   source ansible.venv/bin/
-   ansible-playbook -i static_inventories/leucinezipper_cluster.yml single_role_playbooks/manage_cronjobs.yml
-   ```
 
 #### 3B. Run playbook on Ansible control host for all other infra
 
-For our `gattaca` servers and all HPC clusters __*except*__
-
- * complete *Zinc-Finger* cluster
- * complete *Leucine-Zipper* cluster
- * only machines in the *chaperone* group for other clusters
-
-we use:
-
- * *Inventory*: dynamic inventory with jumphost.
- * *Ansible control host*: your own laptop/device.
+* For all HPC clusters __*except*__ machines in the *chaperone* inventory group.
+* Use your own laptop/device as *Ansible control host*.
 
 Login to the Ansible control host and:
 
 ```bash
-cd ${HOME}/git/ansible-pipelines
+export REPO_HOME="${HOME}/git/ansible-pipelines"
+cd "${REPO_HOME}"
 #
 # Make sure we are on the main branch and got all the latest updates.
 #
@@ -315,22 +251,19 @@ git pull blessed master
 #
 # Activate virtual environment.
 #
-source ansible.venv/bin/
+source "${REPO_HOME}/ansible.venv/bin/activate"
+source "${REPO_HOME}/repo-init"
+repo-config [stack_prefix]  # Stack prefix as defined in group_vars/stack_name/vars.yml. E.g. gs, tl, bb, cf or wh.
 #
-# Configure this repo for deployment of a specifc stack.
+# Run complete playbook: example for WingedHelix excluding wh-chaperone
 #
-source ./repo-init
-repo-config [stack_prefix]
+repo-config wh
+ansible-playbook --limit '!chaperone' playbook.yml
 #
-# Run complete playbook: general syntax
+# Run single role playbook: examples for WingedHelix excluding wh-chaperone
+# Exclude machines in the chaperone inventory group,
+# which are only accessible from UMCG network.
 #
-ansible-playbook playbook.yml
-#
-# Examples for Winged-Helix:
-# Run single role playbooks for all machines except those in the chaperone group,
-# which is only accessible from UMCG network for this cluster.
-#
-source ./repo-init
 repo-config wh
 ansible-playbook --limit '!chaperone' single_role_playbooks/install_easybuild.yml
 ansible-playbook --limit '!chaperone' single_role_playbooks/fetch_extra_easyconfigs.yml
@@ -339,3 +272,36 @@ ansible-playbook --limit '!chaperone' single_role_playbooks/install_modules_with
 ansible-playbook --limit '!chaperone' single_role_playbooks/create_group_subfolder_structure.yml
 ansible-playbook --limit '!chaperone' single_role_playbooks/manage_cronjobs.yml
 ```
+
+## Changing cronjobs in case of (un)scheduled maintenance
+
+In the default situation:
+ * Samplesheets from _Darwin_ on `dat05` share/mount:
+   * sequencer/scanner must store data on `betabarrel`
+   * results are stored on `prm05` share/mount
+ * Samplesheets from _Darwin_ on `dat06` share/mount:
+   * sequencer/scanner must store data on `copperfist`
+   * results are stored on `prm06` share/mount
+ * Samplesheets from _Darwin_ on `dat07` share/mount:
+   * sequencer/scanner must store data on `wingedhelix`
+   * results are stored on `prm07` share/mount
+
+If an infra stack is offline for (un)scheduled maintenance,
+the lab can use the other set of infra stack by simply saving the rawest data on one of the other shares and
+asking Darwin to put the samplesheet on the corresponding other `dat` share.
+In this case there is no need to change any cronjob settings.
+
+If an infra stack breaks down and we need to temporarily disable cronjobs to prevent that infra stack from processing data:
+ * Look for the `cronjobs` variable in both `group_vars/[stack_name]/vars.yml`.
+ * Temporarily disable a cronjob by adding `disabled: true`. E.g.:
+     ```
+     - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
+       user: umcg-atd-dm
+       machines: "{{ groups['chaperone'] | default([]) }}"
+       minute: '*/10'
+       job: /bin/bash -c "{{ configure_env_in_cronjob }};
+            module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+            copyRawDataToPrm.sh -g umcg-atd -p NGS_Demultiplexing -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
+       disabled: true
+     ```
+ * Run the playbook to update the cronjobs.
