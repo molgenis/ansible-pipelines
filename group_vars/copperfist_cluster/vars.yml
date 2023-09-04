@@ -922,72 +922,72 @@ crontabs:
     user: umcg-gap-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/5'
-   job: /bin/bash -c "{{ configure_env_in_cronjob }};
-        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-        moveAndCheckSamplesheets.sh -g umcg-gap"
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+         moveAndCheckSamplesheets.sh -g umcg-gap"
   - name: AGCT_arrayConversion  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-AGCT-{{ group_module_versions['umcg-gap']['AGCT'] }};
-        arrayConversion.sh -g umcg-gap"
+         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-AGCT-{{ group_module_versions['umcg-gap']['AGCT'] }};
+         arrayConversion.sh -g umcg-gap"
   - name: NGS_Automated_splitAndMoveSamplesheetPerProject  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-GAP-{{ group_module_versions['umcg-gap']['GAP'] }};
-        splitAndMoveSamplesheetPerProject.sh -g umcg-gap -p AGCT"
+         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-GAP-{{ group_module_versions['umcg-gap']['GAP'] }};
+         splitAndMoveSamplesheetPerProject.sh -g umcg-gap -p AGCT"
   - name: NGS_Automated_copyRawDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-        copyRawDataToTmp.sh -g umcg-gap -p GAP -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
+         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+         copyRawDataToTmp.sh -g umcg-gap -p GAP -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
   - name: NGS_Automated_copyRawDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-        copyRawDataToPrm.sh -g umcg-gap -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }} -p AGCT"
+         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+         copyRawDataToPrm.sh -g umcg-gap -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }} -p AGCT"
   - name: NGS_Automated_startPipeline  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-GAP-{{ group_module_versions['umcg-gap']['GAP'] }};
-        startPipeline.sh -g umcg-gap -p GAP"
+         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-GAP-{{ group_module_versions['umcg-gap']['GAP'] }};
+         startPipeline.sh -g umcg-gap -p GAP"
   - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-        calculateProjectMd5s.sh -g umcg-gap -p GAP"
+         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+         calculateProjectMd5s.sh -g umcg-gap -p GAP"
   - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-        copyProjectDataToPrm.sh -g umcg-gap -p GAP"
+         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+         copyProjectDataToPrm.sh -g umcg-gap -p GAP"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-        notifications.sh -g umcg-gap -c"
+         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+         notifications.sh -g umcg-gap -c"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gap-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-        module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
-        notifications.sh -g umcg-gap -c"
+         module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
+         notifications.sh -g umcg-gap -c"
   ######################################################################################################################
   # umcg-gst group
   ######################################################################################################################
