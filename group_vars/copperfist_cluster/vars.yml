@@ -755,27 +755,27 @@ crontabs:
   - name: NGS_Automated_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
-        weekday: '0'
-        minute: '0'
-        hour: '6'
+    weekday: '0'
+    minute: '0'
+    hour: '6'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          copyQCDataToTmp.sh -g umcg-gd"
   - name: NGS_Automated_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
-        weekday: '0'
-        minute: '0'
-        hour: '12'
+    weekday: '0'
+    minute: '0'
+    hour: '12'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          trendAnalyse.sh -g umcg-gd"
   - name: NGS_Automated_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
-        weekday: '0'
-        minute: '0'
-        hour: '18'
+    weekday: '0'
+    minute: '0'
+    hour: '18'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          copyTrendAnalysisDataToPrm.sh -g umcg-gd"
@@ -1016,7 +1016,6 @@ crontabs:
     user: umcg-gst-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
-    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
          PullAndProcessGsAnalysisData.sh -g umcg-gst"
@@ -1062,7 +1061,6 @@ crontabs:
     user: umcg-genomescan-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
-    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
          PullAndProcessGsAnalysisData.sh -g umcg-genomescan"
@@ -1087,7 +1085,6 @@ crontabs:
     user: umcg-labgnkbh-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/5'
-    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
          moveAndCheckSamplesheets.sh -g umcg-labgnkbh -d dat46"
@@ -1095,7 +1092,6 @@ crontabs:
     user: umcg-labgnkbh-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
-    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-NGS_Demultiplexing-{{ group_module_versions['umcg-labgnkbh']['NGS_Demultiplexing'] }};
          demultiplexing.sh -g umcg-labgnkbh"
@@ -1103,7 +1099,6 @@ crontabs:
     user: umcg-labgnkbh-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
-    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
          notifications.sh -g umcg-labgnkbh -c -d dat46 -p prm46"
@@ -1111,7 +1106,6 @@ crontabs:
     user: umcg-labgnkbh-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
-    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated'] }}-bare;
          copyRawDataToPrm.sh -g umcg-labgnkbh -d dat46 -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
@@ -1122,7 +1116,6 @@ crontabs:
     user: umcg-patho-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/5'
-    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
          moveAndCheckSamplesheets.sh -g umcg-patho -d dat36"
@@ -1130,7 +1123,6 @@ crontabs:
     user: umcg-patho-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
-    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
          notifications.sh -g umcg-patho -c -d dat36 -p prm36"
@@ -1138,7 +1130,6 @@ crontabs:
     user: umcg-patho-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
-    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated'] }}-bare;
          copyBclDataToPrm.sh -g umcg-patho -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }} -b prm36"
