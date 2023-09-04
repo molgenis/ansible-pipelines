@@ -755,27 +755,27 @@ crontabs:
   - name: NGS_Automated_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
-        weekday: '0'
-        minute: '0'
-        hour: '6'
+    weekday: '0'
+    minute: '0'
+    hour: '6'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          copyQCDataToTmp.sh -g umcg-gd"
   - name: NGS_Automated_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
-        weekday: '0'
-        minute: '0'
-        hour: '12'
+    weekday: '0'
+    minute: '0'
+    hour: '12'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          trendAnalyse.sh -g umcg-gd"
   - name: NGS_Automated_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
-        weekday: '0'
-        minute: '0'
-        hour: '18'
+    weekday: '0'
+    minute: '0'
+    hour: '18'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          copyTrendAnalysisDataToPrm.sh -g umcg-gd"
