@@ -198,6 +198,7 @@ chmod 600 "${REPO_HOME}/.vault/vault_pass.txt.all"
 #### 3A. Run playbook on Ansible control host for *-chaperone machines
 
 * Only for: machines in the *chaperone* inventory group.
+* First time only: ssh to the `ansible-host` from static-inventory yml (e.g. static_inventories/copperfist_cluster.yml)
 * Use `localhost` as the *Ansible control host*; hence run the playbook on the `chaperone` itself.
 
 Login to the Ansible control host and:
