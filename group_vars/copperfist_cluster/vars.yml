@@ -799,7 +799,7 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
-         ParseDarwinSamplesheet.sh -g umcg-gd -a umcg-gsad"
+         ParseDarwinSamplesheet.sh -g umcg-gd -a umcg-gap"
   - name: ConcordanceCheck_ConcordanceCheck  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
