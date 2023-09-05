@@ -7,6 +7,8 @@
   with_items:
     - "{{ extra_easyconfigs_prefix }}"
     - "{{ easybuild_sources_dir }}/e/easyconfigs"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 
 - name: Get EasyConfigs.
   ansible.builtin.get_url:
@@ -14,10 +16,13 @@
     dest: "{{ item.dest }}"
     checksum: "{{ item.checksum }}"
     mode: "{{ MODE_0664_HARD }}"
+    timeout: 30
   with_items:
     - url: "https://github.com/molgenis/{{ extra_easyconfigs_repository }}/archive/{{ extra_easyconfigs_version }}.tar.gz"
       dest: "{{ easybuild_sources_dir }}/e/easyconfigs/"
       checksum: "{{ extra_easyconfigs_releases[extra_easyconfigs_version]['checksum'] }}"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 
 - name: Extract EasyConfigs.
   ansible.builtin.unarchive:
@@ -28,4 +33,6 @@
   with_items:
     - src: "{{ easybuild_sources_dir }}/e/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}.tar.gz"
       dest: "{{ easybuild_software_dir }}/easyconfigs"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 ...
