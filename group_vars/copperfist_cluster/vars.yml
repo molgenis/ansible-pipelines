@@ -1184,8 +1184,8 @@ dynamic_easyconfigs: >-
   {%- endfor %}
   {{- easyconfigs_for_group_modules | default([]) -}}
 static_easyconfigs:
-  - c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb
-  - d/depad-utils/depad-utils-v23.04.1.eb
+  - 'c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb'
+  - 'd/depad-utils/depad-utils-v23.04.1.eb'
 all_easyconfigs: "{{ dynamic_easyconfigs | default([]) | union(static_easyconfigs | default([])) }}"
 easyconfigs: "{{ all_easyconfigs }}"
 chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', 'NGS_Automated-.*-bare.eb') | list }}"

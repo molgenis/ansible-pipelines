@@ -45,8 +45,7 @@ public_sources: [
 ]
 private_sources: []
 refdata: []
-easyconfigs: [
-  'c/cluster-utils/cluster-utils-v22.12.2-GCCcore-11.3.0.eb',
-  'd/depad-utils/depad-utils-v23.04.1.eb',
-]
+static_easyconfigs:
+  - 'c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb'
+  - 'd/depad-utils/depad-utils-v23.04.1.eb'
 ...
