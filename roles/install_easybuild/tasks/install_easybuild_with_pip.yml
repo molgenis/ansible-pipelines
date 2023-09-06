@@ -19,6 +19,8 @@
     version: "{{ easybuild_version }}"
     extra_args: "--prefix={{ easybuild_software_dir }}/EasyBuild/{{ easybuild_version }}/"
     executable: "{{ pip_path.stdout }}"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 - name: 'Determine site-packages location for Lua module file.'
   ansible.builtin.shell:
     cmd: |
@@ -31,9 +33,13 @@
     src: 'templates/EasyBuildModule.lua'
     dest: "{{ easybuild_modules_dir }}/all/EasyBuild/{{ easybuild_version }}.lua"
     mode: '0664'
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 - name: 'Create symlink for EasyBuild in "tools" modules category.'
   ansible.builtin.file:  # noqa risky-file-permissions
     src: "{{ easybuild_modules_dir }}/all/EasyBuild/{{ easybuild_version }}.lua"
     dest: "{{ easybuild_modules_dir }}/tools/EasyBuild/{{ easybuild_version }}.lua"
     state: link
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 ...

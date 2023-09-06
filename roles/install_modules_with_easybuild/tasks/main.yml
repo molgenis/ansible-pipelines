@@ -27,4 +27,6 @@
   with_items: "{{ easyconfigs }}"
   register: eb_status
   changed_when: "'is already installed' not in eb_status.stdout"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 ...

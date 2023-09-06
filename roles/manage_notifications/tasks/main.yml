@@ -1,4 +1,27 @@
 ---
+#
+# Workaround for bug https://github.com/ansible/ansible/issues/56243
+# Was fixed in more recent Ansible, but that requires a newer Python 3,
+# which is not available on CentOS/RHEL 8, which is stuck at Python 3.6.
+# (CentOS/RHEL 8 is currently only used on [wh|cf|bb]-chaperone machines.)
+#
+- name: Ensure file already exists at template dest to work around 'invalid selinux context' bug.
+  ansible.builtin.file:
+    path: "{{ hpc_groups_prefix }}/{{ notification_config.group }}/{{ notification_config.lfs }}/logs/\
+           {{ notification_config.notification_target }}.{{ notification_config.type }}"
+    owner: "{{ notification_config.user }}"
+    group: "{{ notification_config.group }}"
+    mode: '0600'
+    state: touch
+  become: true
+  become_user: "{{ notification_config.user }}"
+  when: inventory_hostname in notification_config.machines
+  loop: "{{ group_notification_targets | default([]) }}"
+  loop_control:
+    loop_var: notification_config
+    label: "{{ hpc_groups_prefix }}/{{ notification_config.group }}/{{ notification_config.lfs }}/logs/\
+            {{ notification_config.notification_target }}.{{ notification_config.type }}"
+
 - name: 'Create files with notification targets.'
   ansible.builtin.template:
     src: notification_targets.j2
