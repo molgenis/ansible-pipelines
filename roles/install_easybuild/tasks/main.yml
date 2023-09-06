@@ -14,6 +14,8 @@
     - "{{ easybuild_modules_dir }}/tools/EasyBuild"
     - "{{ easybuild_modules_dir }}/.lmod"
     - "{{ hpc_env_prefix }}/.tmp"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 
 #
 # Update environment.
@@ -28,6 +30,8 @@
       dest: '.lmod/lmodrc.lua'
     - src: 'modules.bashrc'
       dest: 'modules.bashrc'
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 - name: Insert/update block into ~/.bashrc to make sure modules.bashrc will be sourced.
   ansible.builtin.blockinfile:
     dest: "{{ ansible_env.HOME }}/.bashrc"
@@ -39,7 +43,6 @@
     insertafter: EOF
     create: true
     mode: '0600'
-
 #
 # Lua.
 #

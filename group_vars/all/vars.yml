@@ -151,6 +151,8 @@ extra_easyconfigs_releases:
     checksum: 'sha256:62caec4126fa00bf03587f9f4db15f63b4216c83a49bad9c6a77b192838ed581'
   1.2:
     checksum: 'sha256:bf6ac7b824df3e79829fbba094a25d619f9728ae26148519f54177eb460e8e30'
+  1.3:
+    checksum: 'sha256:2c547983e8bad92045fa94e7f7f01973c9b326ca538f016bda6d10557a4c7a7f'
 analysis_folders:
   AGCT:
     tmp:
@@ -224,6 +226,7 @@ analysis_folders:
       - concordance/ngs
       - concordance/results
       - concordance/samplesheets
+      - concordance/samplesheets/archive
       - concordance/tmp
     dat:
       - ConcordanceCheckOutput

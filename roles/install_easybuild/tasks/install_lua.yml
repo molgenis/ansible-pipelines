@@ -10,6 +10,8 @@
     checksum: "{{ lua_releases[lua_version]['checksum'] }}"
     timeout: 60
     validate_certs: false  # Sourceforge redirects to https and this fails when Python on the target host is version <= 2.6.6.
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 
 - name: Decompress Lua.
   ansible.builtin.unarchive:
@@ -17,6 +19,8 @@
     dest: "{{ easybuild_sources_dir }}/l/Lua/"
     copy: false
     mode: "{{ MODE__775_SOFT }}"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 
 - name: Compile and install Lua.
   ansible.builtin.shell:
@@ -27,4 +31,6 @@
                      --prefix={{ easybuild_software_dir }}/Lua/{{ lua_version }} \
              && make install
   changed_when: true
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 ...

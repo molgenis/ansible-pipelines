@@ -8,6 +8,8 @@
     dest: "{{ easybuild_sources_dir }}/l/Lmod/{{ lmod_version }}.tar.gz"
     checksum: "{{ lmod_releases[lmod_version]['checksum'] }}"
     mode: "{{ MODE_0664_HARD }}"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 
 - name: Decompress Lmod.
   ansible.builtin.unarchive:
@@ -15,6 +17,8 @@
     dest: "{{ easybuild_sources_dir }}/l/Lmod/"
     copy: false
     mode: "{{ MODE__775_SOFT }}"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 
 - name: Compile and install Lmod.
   ansible.builtin.shell:
@@ -28,4 +32,6 @@
                      --with-caseIndependentSorting=YES \
              && make install
   changed_when: true
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
 ...
