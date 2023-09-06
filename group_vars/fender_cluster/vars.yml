@@ -51,4 +51,7 @@ easyconfigs: [
   'n/NGS_Suite/NGS_Suite-2020.10.1-foss-2018b.eb',
   'n/ngs-bits/ngs-bits-2019_11-GCCcore-7.3.0.eb',
 ]
+static_easyconfigs:
+  - 'c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb'
+  - 'd/depad-utils/depad-utils-v23.04.1.eb'
 ...

@@ -69,4 +69,7 @@ easyconfigs: [
   'd/depad-utils/depad-utils-v19.10.1.eb',
   #'n/NGS_DNA/NGS_DNA-3.5.2.eb',
 ]
+static_easyconfigs:
+  - 'c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb'
+  - 'd/depad-utils/depad-utils-v23.04.1.eb'
 ...

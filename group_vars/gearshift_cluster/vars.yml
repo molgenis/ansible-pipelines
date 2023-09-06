@@ -45,9 +45,8 @@ public_sources: [
 ]
 private_sources: []
 refdata: []
-easyconfigs: [
-  'c/cluster-utils/cluster-utils-v22.10.2-GCCcore-7.3.0.eb',
-  'd/depad-utils/depad-utils-v21.02.1.eb',
-  'n/NGS_Suite/NGS_Suite-2020.10.1-foss-2018b.eb',
-]
+static_easyconfigs:
+  - 'n/NGS_Suite/NGS_Suite-2020.10.1-foss-2018b.eb'
+  - 'c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb'
+  - 'd/depad-utils/depad-utils-v23.04.1.eb'
 ...
