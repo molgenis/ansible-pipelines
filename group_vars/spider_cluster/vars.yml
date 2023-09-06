@@ -69,13 +69,7 @@ refdata: [
   #'inSilico',
   #'snpEff-4.3',
 ]
-easyconfigs: [
-  'c/cluster-utils/cluster-utils-v21.05.1-GCCcore-7.3.0.eb',
-  'd/depad-utils/depad-utils-v19.10.1.eb',
-  # ToDo: update for new pipelines.
-  #'c/ConcordanceCheck/ConcordanceCheck-2.1.0.eb',
-  #'n/NGS_Automated/NGS_Automated-3.6.2-bare.eb',
-  #'n/NGS_Automated/NGS_Automated-3.6.2-GAP-2.3.1.eb',
-  #'n/NGS_Automated/NGS_Automated-3.6.2-NGS_DNA-3.6.0.eb',
-]
+static_easyconfigs:
+  - 'c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb'
+  - 'd/depad-utils/depad-utils-v23.04.1.eb'
 ...

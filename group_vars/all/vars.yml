@@ -362,4 +362,26 @@ notification_targets:
     notification_webhooks:
       - "{{ vault_webhooks['hpc-helpdesk'] }}"
       - "{{ vault_webhooks['patho'] }}"
+dynamic_easyconfigs: >-
+  {%- set easyconfigs_for_group_modules = [] %}
+  {%- for group, modules in group_module_versions.items() %}
+    {%- for software, version in modules.items() %}   
+      {%- if software == 'NGS_Automated' %}
+        {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
+              'n/NGS_Automated/NGS_Automated-' + version + '-bare.eb'
+            ) %}
+      {%- elif software == 'NGS_DNA' or software == 'GAP' %}
+        {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
+              'n/NGS_Automated/NGS_Automated-' + group_module_versions[group]['NGS_Automated'] + '-' + software + '-' + version + '.eb'
+            ) %}
+      {%- else %}
+        {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
+              software[0:1] | lower + '/' + software + '/' + software + '-' + version + '.eb'
+            ) %}
+      {%- endif %}
+    {%- endfor %}
+  {%- endfor %}
+  {{- easyconfigs_for_group_modules | default([]) -}}
+all_easyconfigs: "{{ dynamic_easyconfigs | default([]) | union(static_easyconfigs | default([])) }}"
+easyconfigs: "{{ all_easyconfigs }}"
 ...
