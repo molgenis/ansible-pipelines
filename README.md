@@ -301,7 +301,7 @@ If an infra stack breaks down and we need to temporarily disable cronjobs to pre
        minute: '*/10'
        job: /bin/bash -c "{{ configure_env_in_cronjob }};
             module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-            copyRawDataToPrm.sh -g umcg-atd -p NGS_Demultiplexing -s {{ groups['jumphost'] | first}}+{{ groups['user_interface'] | first }}"
+            copyRawDataToPrm.sh -g umcg-atd -p NGS_Demultiplexing -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }}"
        disabled: true
      ```
  * Run the playbook to update the cronjobs.
