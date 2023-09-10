@@ -362,6 +362,10 @@ notification_targets:
     notification_webhooks:
       - "{{ vault_webhooks['hpc-helpdesk'] }}"
       - "{{ vault_webhooks['patho'] }}"
+  hpc-helpdesk_and_pr:
+    notification_webhooks:
+      - "{{ vault_webhooks['hpc-helpdesk'] }}"
+      - "{{ vault_webhooks['pr'] }}"
 dynamic_easyconfigs: >-
   {%- set easyconfigs_for_group_modules = [] %}
   {%- for group, modules in group_module_versions.items() %}
