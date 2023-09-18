@@ -778,8 +778,8 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
-         copyRawDataToPrm.sh -a -g umcg-gd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-gst/tmp07 -f run01.processGsRawData.finished -p DRAGEN;
-         copySamplesheetsForBatchToPrm.sh -g umcg-gd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-gst/tmp07"
+         copyRawDataToPrm.sh -a -g umcg-gd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-genomescan/tmp07 -f run01.processGsRawData.finished -p DRAGEN;
+         copySamplesheetsForBatchToPrm.sh -g umcg-gd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-genomescan/tmp07"
   - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
