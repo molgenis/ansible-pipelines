@@ -153,6 +153,12 @@ extra_easyconfigs_releases:
     checksum: 'sha256:bf6ac7b824df3e79829fbba094a25d619f9728ae26148519f54177eb460e8e30'
   1.3:
     checksum: 'sha256:2c547983e8bad92045fa94e7f7f01973c9b326ca538f016bda6d10557a4c7a7f'
+  23.10.1:
+    checksum: 'sha256:d7ae2045278d833dadf2f80f4f2c278a3a2a4f005f596382c01e95c30b5d4cd4'
+  23.10.2:
+    checksum: 'sha256:9be0c563cfdfc3a4c6557abae7555524b817e710925aadb92483d2e063380f2d'
+  23.10.3:
+    checksum: 'sha256:241d55f6818142a058b6ec98929aea724f54f2ced3484cf13858b46b7ab1048d'
 analysis_folders:
   AGCT:
     tmp:
@@ -374,7 +380,7 @@ dynamic_easyconfigs: >-
         {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
               'n/NGS_Automated/NGS_Automated-' + version + '-bare.eb'
             ) %}
-      {%- elif software == 'NGS_DNA' or software == 'GAP' %}
+      {%- elif software == 'NGS_DNA' or software == 'GAP' or software == 'NGS_Demultiplexing' or software == 'AGCT' %}
         {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
               'n/NGS_Automated/NGS_Automated-' + group_module_versions[group]['NGS_Automated'] + '-' + software + '-' + version + '.eb'
             ) %}
