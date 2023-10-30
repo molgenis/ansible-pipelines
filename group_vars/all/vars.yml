@@ -159,6 +159,8 @@ extra_easyconfigs_releases:
     checksum: 'sha256:9be0c563cfdfc3a4c6557abae7555524b817e710925aadb92483d2e063380f2d'
   23.10.3:
     checksum: 'sha256:241d55f6818142a058b6ec98929aea724f54f2ced3484cf13858b46b7ab1048d'
+  23.10.4:
+    checksum: 'sha256:a7c3518b7ea63071b8d2b8e17b42866d92e03928edfbd17ff3f4e785db5c50fc'
 analysis_folders:
   AGCT:
     tmp:
