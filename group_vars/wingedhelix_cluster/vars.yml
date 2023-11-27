@@ -645,6 +645,13 @@ crontabs:
     # ToDo: improve job with "module load" and remove "sh"
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          cleanupDataOnTmp.sh -g umcg-atd -p NGS_DNA"
+  - name: NGS_Automated_cleanupSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    # ToDo: improve job with "module load" and remove "sh"
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         cleanupSamplesheets.sh -g umcg-atd"
   - name: ConcordanceCheck_ParseDarwinSamplesheet  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -837,6 +844,13 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          cleanupDataOnTmp.sh -g umcg-gd -p NGS_DNA"
+  - name: NGS_Automated_cleanupSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    # ToDo: improve job with "module load" and remove "sh"
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         cleanupSamplesheets.sh -g umcg-gd"
   - name: ConcordanceCheck_ParseDarwinSamplesheet  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -959,6 +973,13 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated'] }}-bare;
          notifications.sh -g umcg-gsad -c"
+  - name: NGS_Automated_cleanupSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gsad-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    # ToDo: improve job with "module load" and remove "sh"
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         cleanupSamplesheets.sh -g umcg-gsad"
   ######################################################################################################################
   # umcg-gap group
   ######################################################################################################################
@@ -1032,6 +1053,13 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated'] }}-bare;
          notifications.sh -g umcg-gap -c"
+  - name: NGS_Automated_cleanupSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gap-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    # ToDo: improve job with "module load" and remove "sh"
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         cleanupSamplesheets.sh -g umcg-gap"
   ######################################################################################################################
   # umcg-gst group
   ######################################################################################################################
