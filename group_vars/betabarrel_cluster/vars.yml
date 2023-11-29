@@ -8,7 +8,7 @@
 # Conventions for playbook variables:
 # Use lowercase underscore separated names.
 #
-stack_prefix: 'cf'
+stack_prefix: 'bb'
 #
 # Versions of components of our HPC environment, which is managed using Lua+Lmod+EasyBuild.
 # NOTE: when introducing a new version number here,
@@ -219,13 +219,13 @@ group_subfolder_structure:
     subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-pr
-    lfs: dat56
+    lfs: dat55
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-pr-dm
     subfolders: "{{ analysis_folders['BclDataToPrm']['dat'] }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-pr
-    lfs: prm56
+    lfs: prm55
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-pr-dm
     subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
@@ -444,14 +444,14 @@ group_notification_targets:
   # umcg-pr group
   ######################################################################################################################
   - group: umcg-pr
-    lfs: dat56
+    lfs: dat55
     user: umcg-pr-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_pr
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-pr
-    lfs: prm56
+    lfs: prm55
     user: umcg-pr-dm
     type: notification_webhooks
     analysis_phases: [copyBclDataToPrm]
@@ -1221,21 +1221,21 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated'] }}-bare;
-         moveAndCheckSamplesheets.sh -g umcg-pr -d dat56"
+         moveAndCheckSamplesheets.sh -g umcg-pr -d dat55"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-pr-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-pr -c -d dat56 -p prm56"
+         notifications.sh -g umcg-pr -c -d dat55 -p prm55"
   - name: NGS_Automated_copyBclDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-pr-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated'] }}-bare;
-         copyBclDataToPrm.sh -g umcg-pr -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm56"
+         copyBclDataToPrm.sh -g umcg-pr -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm55"
 
 #
 # Sources, software and reference data to install/fetch.
