@@ -1,0 +1,53 @@
+---
+#
+# Site specific values to override defaults for variables.
+#
+# Conventions for global environment variables:
+# Use UPPERCASE underscore separated names like for shell env vars.
+#
+# Conventions for playbook variables:
+# Use lowercase underscore separated names.
+#
+stack_prefix: 'vt'
+#
+# Versions of components of our HPC environment, which is managed using Lua+Lmod+EasyBuild.
+# NOTE: when introducing a new version number here,
+#       please make sure to add corresponding values in group_vars/all.yml
+#
+lua_version: '5.4.6'
+luaposix_version: '36.2.1'
+lmod_version: '8.7.32'
+easybuild_version: '4.9.0'
+eb_user: umcg-envsync
+extra_easyconfigs_version: 23.12.2
+extra_easyconfigs_repository: 'take-it-easyconfigs'
+#
+# Group folder structures to construct on shared storage systems.
+#
+group_subfolder_structure: [
+  { group: 'umcg-atd',
+    lfs: 'tmp02',
+    mode: "{{ MODE_2770_HARD }}",
+    owner: 'umcg-atd-dm',
+    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'],
+    machines: "{{ groups['user_interface'] }}" },
+#  { group: 'umcg-atd',
+#    lfs: 'prm01',
+#    mode: "{{ MODE_2750_HARD }}",
+#    owner: 'umcg-atd-dm',
+#    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets'],
+#    machines: "{{ groups['user_interface'] }}" },
+]
+#
+# Sources, software and reference data to install/fetch.
+#
+public_sources: [
+#  'g/GCCcore/isl-0.19.tar.bz2',
+#  'l/libtool/libtool-2.4.6.tar.gz',
+]
+private_sources: []
+refdata: []
+static_easyconfigs:
+  - 'c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb'
+  - 'd/depad-utils/depad-utils-v23.04.1.eb'
+...
