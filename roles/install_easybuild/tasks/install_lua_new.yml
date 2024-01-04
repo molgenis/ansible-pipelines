@@ -9,10 +9,8 @@
     mode: "{{ MODE_2775_HARD }}"
   with_items:
     - "{{ easybuild_sources_dir }}/l/Lua"
-    #- "{{ easybuild_sources_dir }}/l/LuaRocks"
     - "{{ easybuild_sources_dir }}/l/luaposix"
     - "{{ easybuild_software_dir }}/Lua/{{ lua_version }}"
-    #- "{{ easybuild_software_dir }}/LuaRocks/{{ luarocks_version }}"
   become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
   become_user: "{{ eb_user | default(omit) }}"
 
@@ -23,7 +21,6 @@
     mode: "{{ MODE_0664_HARD }}"
     checksum: "{{ lua_releases[lua_version]['checksum'] }}"
     timeout: 60
-    validate_certs: false  # Sourceforge redirects to https and this fails when Python on the target host is version <= 2.6.6.
   become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
   become_user: "{{ eb_user | default(omit) }}"
 
@@ -39,6 +36,7 @@
 - name: Compile and install Lua.
   ansible.builtin.shell:
     cmd: |
+         set -o pipefail
          cd "{{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}"
          umask 0002
          sed -i 's|/usr/local/|{{ easybuild_software_dir }}/Lua/{{ lua_version }}/|' src/luaconf.h
@@ -55,7 +53,6 @@
     mode: "{{ MODE_0664_HARD }}"
     checksum: "{{ luaposix_releases[luaposix_version]['checksum'] }}"
     timeout: 60
-    validate_certs: false  # Sourceforge redirects to https and this fails when Python on the target host is version <= 2.6.6.
   become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
   become_user: "{{ eb_user | default(omit) }}"
 
