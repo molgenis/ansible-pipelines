@@ -80,7 +80,7 @@ export TEST_EASYBUILD_MODULES_TOOL='Lmod'
 #
 # Configure our module tool (Lmod).
 #
-export PATH=${HPC_ENV_PREFIX}/software/Lua/{{ lua_version }}/bin:$PATH;
+export PATH=${HPC_ENV_PREFIX}/software/Lua/{{ lua_version }}/bin:$PATH
 export PATH=${HPC_ENV_PREFIX}/software/lmod/lmod/libexec:$PATH
 source ${HPC_ENV_PREFIX}/software/lmod/lmod/init/bash
 export LMOD_CACHE_DIR="${HPC_ENV_PREFIX}/modules/.lmod/cache/"

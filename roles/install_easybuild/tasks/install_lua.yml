@@ -2,35 +2,11 @@
 #
 # Lua.
 #
-- name: Download Lua.
-  ansible.builtin.get_url:
-    url: "{{ lua_releases[lua_version]['url'] }}"
-    dest: "{{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}.tar.bz2"
-    mode: "{{ MODE_0664_HARD }}"
-    checksum: "{{ lua_releases[lua_version]['checksum'] }}"
-    timeout: 60
-    validate_certs: false  # Sourceforge redirects to https and this fails when Python on the target host is version <= 2.6.6.
-  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
-  become_user: "{{ eb_user | default(omit) }}"
+- name: Install Lua old style.
+  ansible.builtin.include_tasks: tasks/install_lua_old.yml
+  when: lua_version is version('5.1.4.9', '==')
 
-- name: Decompress Lua.
-  ansible.builtin.unarchive:
-    src: "{{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}.tar.bz2"
-    dest: "{{ easybuild_sources_dir }}/l/Lua/"
-    copy: false
-    mode: "{{ MODE__775_SOFT }}"
-  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
-  become_user: "{{ eb_user | default(omit) }}"
-
-- name: Compile and install Lua.
-  ansible.builtin.shell:
-    cmd: |
-         cd {{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}
-         umask 0002
-         ./configure --with-static=yes \
-                     --prefix={{ easybuild_software_dir }}/Lua/{{ lua_version }} \
-             && make install
-  changed_when: true
-  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
-  become_user: "{{ eb_user | default(omit) }}"
+- name: Install Lua new style.
+  ansible.builtin.include_tasks: tasks/install_lua_new.yml
+  when: lua_version is version('5.1.4.9', '>')
 ...
