@@ -5,14 +5,10 @@
     state: 'directory'
     mode: "{{ MODE_2775_HARD }}"
   with_items:
-    - "{{ easybuild_sources_dir }}/l/Lmod"
-    - "{{ easybuild_sources_dir }}/l/Lua"
-    - "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}"
-    - "{{ easybuild_software_dir }}/Lua/{{ lua_version }}"
-    - "{{ easybuild_software_dir }}/EasyBuild/"
-    - "{{ easybuild_modules_dir }}/all/EasyBuild"
-    - "{{ easybuild_modules_dir }}/tools/EasyBuild"
+    - "{{ easybuild_modules_dir }}"
     - "{{ easybuild_modules_dir }}/.lmod"
+    - "{{ easybuild_software_dir }}"
+    - "{{ easybuild_sources_dir }}"
     - "{{ hpc_env_prefix }}/.tmp"
   become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
   become_user: "{{ eb_user | default(omit) }}"

@@ -1,0 +1,17 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        foyer:
+    deploy_admin_interface:
+      hosts:
+        vt-dai:
+    user_interface:
+      hosts:
+        vaxtron:
+vaxtron_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+...

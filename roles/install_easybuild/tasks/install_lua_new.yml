@@ -1,0 +1,79 @@
+---
+#
+# Lua.
+#
+- name: Create required directories.
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: 'directory'
+    mode: "{{ MODE_2775_HARD }}"
+  with_items:
+    - "{{ easybuild_sources_dir }}/l/Lua"
+    - "{{ easybuild_sources_dir }}/l/luaposix"
+    - "{{ easybuild_software_dir }}/Lua/{{ lua_version }}"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
+
+- name: Download Lua.
+  ansible.builtin.get_url:
+    url: "{{ lua_releases[lua_version]['url'] }}"
+    dest: "{{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}.tar.gz"
+    mode: "{{ MODE_0664_HARD }}"
+    checksum: "{{ lua_releases[lua_version]['checksum'] }}"
+    timeout: 60
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
+
+- name: Decompress downloaded Lua source code archive.
+  ansible.builtin.unarchive:
+    src: "{{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}.tar.gz"
+    dest: "{{ easybuild_sources_dir }}/l/Lua/"
+    copy: false
+    mode: "{{ MODE__775_SOFT }}"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
+
+- name: Compile and install Lua.
+  ansible.builtin.shell:
+    cmd: |
+         set -o pipefail
+         cd "{{ easybuild_sources_dir }}/l/Lua/lua-{{ lua_version }}"
+         umask 0002
+         sed -i 's|/usr/local/|{{ easybuild_software_dir }}/Lua/{{ lua_version }}/|' src/luaconf.h
+         make linux-readline
+         make install INSTALL_TOP="{{ easybuild_software_dir }}/Lua/{{ lua_version }}"
+  changed_when: true
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
+
+- name: Download luaposix.
+  ansible.builtin.get_url:
+    url: "{{ luaposix_releases[luaposix_version]['url'] }}"
+    dest: "{{ easybuild_sources_dir }}/l/luaposix/luaposix-{{ luaposix_version }}.tar.gz"
+    mode: "{{ MODE_0664_HARD }}"
+    checksum: "{{ luaposix_releases[luaposix_version]['checksum'] }}"
+    timeout: 60
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
+
+- name: Decompress downloaded luaposix source code archive.
+  ansible.builtin.unarchive:
+    src: "{{ easybuild_sources_dir }}/l/luaposix/luaposix-{{ luaposix_version }}.tar.gz"
+    dest: "{{ easybuild_sources_dir }}/l/luaposix/"
+    copy: false
+    mode: "{{ MODE__775_SOFT }}"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
+
+- name: Compile and install luaposix.
+  ansible.builtin.shell:
+    cmd: |
+         umask 0002
+         export PATH={{ easybuild_software_dir }}/Lua/{{ lua_version }}/bin:$PATH
+         cd "{{ easybuild_sources_dir }}/l/luaposix/luaposix-{{ luaposix_version }}/"
+         lua build-aux/luke PREFIX="{{ easybuild_software_dir }}/Lua/{{ lua_version }}"
+         lua build-aux/luke install PREFIX="{{ easybuild_software_dir }}/Lua/{{ lua_version }}"
+  changed_when: true
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
+...

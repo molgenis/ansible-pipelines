@@ -1,4 +1,17 @@
 ---
+- name: Create required directories.
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: 'directory'
+    mode: "{{ MODE_2775_HARD }}"
+  with_items:
+    - "{{ easybuild_sources_dir }}/e/EasyBuild/{{ easybuild_version }}"
+    - "{{ easybuild_software_dir }}/EasyBuild/"
+    - "{{ easybuild_modules_dir }}/all/EasyBuild"
+    - "{{ easybuild_modules_dir }}/tools/EasyBuild"
+  become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
+  become_user: "{{ eb_user | default(omit) }}"
+
 - name: 'Install EasyBuild < 4.3 using boot strap script.'
   ansible.builtin.include_tasks: tasks/install_easybuild_with_bootstrap_script.yml
   when: easybuild_version is version('4.3', '<')
