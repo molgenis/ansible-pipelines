@@ -19,6 +19,7 @@
     version: "{{ easybuild_version }}"
     extra_args: "--prefix={{ easybuild_software_dir }}/EasyBuild/{{ easybuild_version }}/"
     executable: "{{ pip_path.stdout }}"
+    umask: '0002'
   become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
   become_user: "{{ eb_user | default(omit) }}"
 - name: 'Determine site-packages location for Lua module file.'

@@ -1269,5 +1269,5 @@ refdata: [
 static_easyconfigs:
   - 'c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb'
   - 'd/depad-utils/depad-utils-v23.04.1.eb'
-chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', 'NGS_Automated-.*-bare.eb') | list }}"
+chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', '(NGS_Automated-.*-bare|depad-utils-.*).eb') | list }}"
 ...
