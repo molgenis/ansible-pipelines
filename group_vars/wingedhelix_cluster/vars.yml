@@ -175,7 +175,8 @@ group_subfolder_structure:
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-lab-ateambot
     subfolders:
-      - "sequencers"
+      - logs
+      - sequencers
     machines: "{{ groups['user_interface'] }}"
   ######################################################################################################################
   # umcg-labgnkbh group
