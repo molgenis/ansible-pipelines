@@ -18,7 +18,7 @@ lua_version: '5.1.4.9'
 lmod_version: '8.6.2'
 easybuild_version: '4.8.0'
 eb_user: umcg-envsync
-extra_easyconfigs_version: 23.12.2
+extra_easyconfigs_version: 24.03.1
 extra_easyconfigs_repository: 'take-it-easyconfigs'
 # extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 #
@@ -365,7 +365,7 @@ group_notification_targets:
     lfs: tmp06
     user: umcg-gst-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
@@ -389,7 +389,7 @@ group_notification_targets:
     lfs: tmp06
     user: umcg-genomescan-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, pipeline]
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, pipeline, startNextflowDragenPipeline]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
@@ -463,45 +463,46 @@ group_notification_targets:
 #
 group_module_versions:
   umcg-gd:
-    NGS_Automated: 4.0.0
-    NGS_DNA: 4.2.1
-    ConcordanceCheck: 2.2.0
-    ngs-utils: 23.04.1
-    NGS_Demultiplexing: 2.5.3
-  umcg-gap:
-    NGS_Automated: 4.0.0
-    GAP: 2.7.0
-    AGCT: 1.3.0
-    ngs-utils: 23.04.1
-  umcg-genomescan:
-    NGS_Automated: 4.0.0
-    NGS_DNA: 4.2.1
-    ngs-utils: 23.04.1
-  umcg-atd:
     NGS_Automated: 4.1.0
     NGS_DNA: 4.2.2
-    ConcordanceCheck: 2.2.1
-    ngs-utils: 23.10.1
+    ConcordanceCheck: 2.2.0
+    ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
+  umcg-gap:
+    NGS_Automated: 4.1.0
+    GAP: 2.7.0
+    AGCT: 1.3.0
+    ngs-utils: 24.02.2
+  umcg-genomescan:
+    NGS_Automated: 4.1.0
+    NGS_DNA: 4.2.2
+    ngs-utils: 24.02.2
+  umcg-atd:
+    NGS_Automated: 4.2.0
+    NGS_DNA: 4.2.2
+    ConcordanceCheck: 2.2.1
+    ngs-utils: 24.02.2
+    NGS_Demultiplexing: 2.5.4
+    Trendanalysis: 1.0.0
   umcg-gsad:
     NGS_Automated: 4.1.0
     GAP: 2.7.0
     AGCT: 1.3.0
     ngs-utils: 23.10.1
   umcg-gst:
-    NGS_Automated: 4.1.0
+    NGS_Automated: 4.2.0
     NGS_DNA: 4.2.2
-    ngs-utils: 23.10.1
+    ngs-utils: 24.02.2
   umcg-labgnkbh:
-    NGS_Automated: 4.0.0
-    ngs-utils: 23.04.1
-    NGS_Demultiplexing: 2.5.3
+    NGS_Automated: 4.1.0
+    ngs-utils: 24.02.2
+    NGS_Demultiplexing: 2.5.4
   umcg-patho:
-    NGS_Automated: 4.0.0
-    ngs-utils: 23.10.1
+    NGS_Automated: 4.1.0
+    ngs-utils: 24.02.2
   umcg-pr:
     NGS_Automated: 4.1.0
-    ngs-utils: 23.10.1
+    ngs-utils: 24.02.2
 crontabs:
   ######################################################################################################################
   # umcg-atd group
@@ -611,7 +612,7 @@ crontabs:
     minute: '0'
     hour: '6'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
          copyQCDataToTmp.sh -g umcg-atd"
   - name: NGS_Automated_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
@@ -620,7 +621,7 @@ crontabs:
     minute: '0'
     hour: '12'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
          trendAnalyse.sh -g umcg-atd"
   - name: NGS_Automated_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
@@ -629,7 +630,7 @@ crontabs:
     minute: '0'
     hour: '18'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
          copyTrendAnalysisDataToPrm.sh -g umcg-atd"
   - name: NGS_DNA_GavinSA  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
@@ -1091,13 +1092,13 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-bare;
          PullAndProcessGsAnalysisData.sh -g umcg-gst"
-  - name: NGS_Automated_startDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_startNextflowDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated'] }}-NGS_DNA-{{ group_module_versions['umcg-gst']['NGS_DNA'] }};
-         startDragenPipeline.sh -g umcg-gst"
+         startNextflowDragenPipeline.sh -g umcg-gst"
   - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
@@ -1136,13 +1137,13 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
          PullAndProcessGsAnalysisData.sh -g umcg-genomescan"
-  - name: NGS_Automated_startDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_startNextflowDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-genomescan-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-NGS_DNA-{{ group_module_versions['umcg-genomescan']['NGS_DNA'] }};
-         startDragenPipeline.sh -g umcg-genomescan"
+         startNextflowDragenPipeline.sh -g umcg-genomescan"
   - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-genomescan-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
@@ -1256,14 +1257,14 @@ refdata: [
 #  'Controls_Convading_XHMM',
 #  'GSAarray',
 #  'Ensembl',
-  'Prepkits',
+#  'Prepkits',
 #  'ExAC',
 #  'ManVarList',
 #  'gnomAD/release-170228',
 #  'GAVIN',
 #  'UMCG',
 #  'gonl',
-  'inSilico',
+#  'inSilico',
 #  'snpEff-4.3',
 ]
 static_easyconfigs:
