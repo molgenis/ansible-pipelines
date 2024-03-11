@@ -212,24 +212,24 @@ group_subfolder_structure:
   ######################################################################################################################
   # umcg-pr group
   ######################################################################################################################
-  - group: umcg-pr
-    lfs: tmp05
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-pr-ateambot
-    subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-pr
-    lfs: dat55
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-pr-dm
-    subfolders: "{{ analysis_folders['BclDataToPrm']['dat'] }}"
-    machines: "{{ groups['chaperone'] }}"
-  - group: umcg-pr
-    lfs: prm55
-    mode: "{{ MODE_2750_HARD }}"
-    owner: umcg-pr-dm
-    subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
-    machines: "{{ groups['chaperone'] }}"
+  # - group: umcg-pr
+  #   lfs: tmp05
+  #   mode: "{{ MODE_2770_HARD }}"
+  #   owner: umcg-pr-ateambot
+  #   subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
+  #   machines: "{{ groups['user_interface'] }}"
+  # - group: umcg-pr
+  #   lfs: dat55
+  #   mode: "{{ MODE_2770_HARD }}"
+  #   owner: umcg-pr-dm
+  #   subfolders: "{{ analysis_folders['BclDataToPrm']['dat'] }}"
+  #   machines: "{{ groups['chaperone'] }}"
+  # - group: umcg-pr
+  #   lfs: prm55
+  #   mode: "{{ MODE_2750_HARD }}"
+  #   owner: umcg-pr-dm
+  #   subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
+  #   machines: "{{ groups['chaperone'] }}"
 #
 # Symlinks to enable sending notifications to certain target when notification are enabled for an anlysis phase in NGS_Automated.
 #
@@ -465,7 +465,7 @@ group_module_versions:
   umcg-gd:
     NGS_Automated: 4.1.0
     NGS_DNA: 4.2.2
-    ConcordanceCheck: 2.2.0
+    ConcordanceCheck: 2.2.1
     ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
   umcg-gap:
@@ -499,9 +499,9 @@ group_module_versions:
   umcg-patho:
     NGS_Automated: 4.1.0
     ngs-utils: 24.02.2
-  umcg-pr:
-    NGS_Automated: 4.1.0
-    ngs-utils: 24.02.2
+  # umcg-pr:
+  #   NGS_Automated: 4.1.0
+  #   ngs-utils: 24.02.2
 crontabs:
   ######################################################################################################################
   # umcg-atd group
@@ -1215,27 +1215,27 @@ crontabs:
   ######################################################################################################################
   # umcg-pr group
   ######################################################################################################################
-  - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-pr-ateambot
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/5'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated'] }}-bare;
-         moveAndCheckSamplesheets.sh -g umcg-pr -d dat55"
-  - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-pr-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated'] }}-bare;
-         notifications.sh -g umcg-pr -c -d dat55 -p prm55"
-  - name: NGS_Automated_copyBclDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-pr-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated'] }}-bare;
-         copyBclDataToPrm.sh -g umcg-pr -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm55"
+  # - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-pr-ateambot
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/5'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated'] }}-bare;
+  #        moveAndCheckSamplesheets.sh -g umcg-pr -d dat55"
+  # - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-pr-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated'] }}-bare;
+  #        notifications.sh -g umcg-pr -c -d dat55 -p prm55"
+  # - name: NGS_Automated_copyBclDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-pr-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated'] }}-bare;
+  #        copyBclDataToPrm.sh -g umcg-pr -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm55"
 
 #
 # Sources, software and reference data to install/fetch.
