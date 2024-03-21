@@ -14,11 +14,12 @@ stack_prefix: 'wh'
 # NOTE: when introducing a new version number here,
 #       please make sure to add corresponding values in group_vars/all.yml
 #
-lua_version: '5.1.4.9'
-lmod_version: '8.6.2'
-easybuild_version: '4.8.0'
+lua_version: '5.4.6'
+luaposix_version: '36.2.1'
+lmod_version: '8.7.32'
+easybuild_version: '4.9.0'
 eb_user: umcg-envsync
-extra_easyconfigs_version: 23.10.4
+extra_easyconfigs_version: 23.12.2
 extra_easyconfigs_repository: 'take-it-easyconfigs'
 # extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 #
@@ -198,6 +199,15 @@ group_subfolder_structure:
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-labgnkbh-dm
     subfolders: "{{ analysis_folders['NGS_Demultiplexing']['prm'] }}"
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-logstoprm group
+  ######################################################################################################################
+  - group: umcg-logstoprm
+    lfs: prm07
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-logstoprm-dm
+    subfolders: "{{ analysis_folders['LogsToPrm']['prm'] }}"
     machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
   # umcg-patho group
@@ -1252,9 +1262,6 @@ crontabs:
 # Sources, software and reference data to install/fetch.
 #
 public_sources: [
-  'g/GCCcore/isl-0.19.tar.bz2',
-  'l/libtool/libtool-2.4.6.tar.gz',
-  'l/LibTIFF/tiff-4.0.10.tar.gz',
 ]
 private_sources: []
 refdata: [
@@ -1278,7 +1285,7 @@ refdata: [
 #  'snpEff-4.3',
 ]
 static_easyconfigs:
-  - 'c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb'
+  - 'c/cluster-utils/cluster-utils-v24.01.1-GCCcore-11.3.0.eb'
   - 'd/depad-utils/depad-utils-v23.04.1.eb'
 chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', '(NGS_Automated-.*-bare|depad-utils-.*).eb') | list }}"
 ...
