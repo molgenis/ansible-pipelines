@@ -201,15 +201,6 @@ group_subfolder_structure:
     subfolders: "{{ analysis_folders['NGS_Demultiplexing']['prm'] }}"
     machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
-  # umcg-logstoprm group
-  ######################################################################################################################
-  - group: umcg-logstoprm
-    lfs: prm07
-    mode: "{{ MODE_2750_HARD }}"
-    owner: umcg-logstoprm-dm
-    subfolders: "{{ analysis_folders['LogsToPrm']['prm'] }}"
-    machines: "{{ groups['chaperone'] }}"
-  ######################################################################################################################
   # umcg-patho group
   ######################################################################################################################
   - group: umcg-patho
