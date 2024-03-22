@@ -22,37 +22,36 @@
 #                   Without this combination of --relative and dot dir rsync will error when the path does not exist on the destination.
 #
 ---
-- name: Create folder for reference data.
-  ansible.builtin.file:
-    dest: "{{ item }}"
-    state: 'directory'
-    mode: "{{ MODE_2775_HARD }}"
-  with_items:
-    - "{{ hpc_env_prefix }}/data"
-
 - name: Create a .ssh/tmp directory
   ansible.builtin.file:
-    path: "~/.ssh/{{ item }}"
+    path: "~/{{ item }}"
     state: directory
     mode: '0700'
   with_items:
-    - conf.d
-    - tmp
+    - ".ssh"
+    - ".ssh/conf.d"
+    - ".ssh/tmp"
 
-- name: "Defining webslag ssh settings"
-  ansible.builtin.blockinfile:
+- name: Check the default .ssh settings
+  ansible.builtin.lineinfile:
     path: "~/.ssh/config"
-    mode: '0640'
-    create: true
-    marker: "# {mark} ANSIBLE MANAGED BLOCK WEBSLAG"
-    block: |
-      Host ssh.webhosting.rug.nl
-        User f114592
+    regexp: '[Ii]nclude \s*conf.d/\*'
+    line: "Include conf.d/*"
+    mode: '0600'
+
+- name: Defining webslag ssh settings
+  ansible.builtin.copy:
+    content: |
+      Host {{ remote_env_cache_server }}
+        User {{ remote_env_cache_user }}
         ServerAliveInterval 60
         ServerAliveCountMax 5
         ControlMaster auto
         ControlPath ~/.ssh/tmp/%C
         ControlPersist 4h
+    dest: "~/.ssh/conf.d/webslag"
+    mode: '0600'
+    force: true
 
 - name: Synchronize reference data.
   ansible.posix.synchronize:
@@ -70,6 +69,14 @@
       - '--relative'
   delegate_to: "{{ inventory_hostname }}"
   with_items: "{{ refdata }}"
+
+- name: Create folder for reference data.
+  ansible.builtin.file:
+    dest: "{{ item }}"
+    state: 'directory'
+    mode: "{{ MODE_2775_HARD }}"
+  with_items:
+    - "{{ hpc_env_prefix }}/data"
 
 - name: Synchronize publicly available sources, which cannot be downloaded automagically by EB for technical reasons.
   # This is usually the case for downloads from FTP URLs,
