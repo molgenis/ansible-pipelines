@@ -32,9 +32,12 @@
 
 - name: Create a .ssh/tmp directory
   ansible.builtin.file:
-    path: "~/.ssh/tmp"
+    path: "~/.ssh/{{ item }}"
     state: directory
-    mode: '0600'
+    mode: '0700'
+  with_items:
+    - conf.d
+    - tmp
 
 - name: "Defining webslag ssh settings"
   ansible.builtin.blockinfile:
@@ -49,7 +52,7 @@
         ServerAliveCountMax 5
         ControlMaster auto
         ControlPath ~/.ssh/tmp/%C
-        ControlPersist 4m
+        ControlPersist 4h
 
 - name: Synchronize reference data.
   ansible.posix.synchronize:
