@@ -30,6 +30,30 @@
   with_items:
     - "{{ hpc_env_prefix }}/data"
 
+- name: Create a .ssh/tmp directory
+  ansible.builtin.file:
+    path: "~/.ssh/{{ item }}"
+    state: directory
+    mode: '0700'
+  with_items:
+    - conf.d
+    - tmp
+
+- name: "Defining webslag ssh settings"
+  ansible.builtin.blockinfile:
+    path: "~/.ssh/config"
+    mode: '0640'
+    create: true
+    marker: "# {mark} ANSIBLE MANAGED BLOCK WEBSLAG"
+    block: |
+      Host ssh.webhosting.rug.nl
+        User f114592
+        ServerAliveInterval 60
+        ServerAliveCountMax 5
+        ControlMaster auto
+        ControlPath ~/.ssh/tmp/%C
+        ControlPersist 4h
+
 - name: Synchronize reference data.
   ansible.posix.synchronize:
     src: "{{ remote_env_cache_dir_public }}/data/./{{ item }}"
