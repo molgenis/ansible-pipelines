@@ -1252,9 +1252,9 @@ crontabs:
 # Sources, software and reference data to install/fetch.
 #
 public_sources: [
-  'g/GCCcore/isl-0.19.tar.bz2',
-  'l/libtool/libtool-2.4.6.tar.gz',
-  'l/LibTIFF/tiff-4.0.10.tar.gz',
+#  'g/GCCcore/isl-0.19.tar.bz2',
+#  'l/libtool/libtool-2.4.6.tar.gz',
+#  'l/LibTIFF/tiff-4.0.10.tar.gz',
 ]
 private_sources: []
 refdata: [
@@ -1267,7 +1267,7 @@ refdata: [
 #  'Controls_Convading_XHMM',
 #  'GSAarray',
 #  'Ensembl',
-#  'Prepkits',
+  'Prepkits',
 #  'ExAC',
 #  'ManVarList',
 #  'gnomAD/release-170228',
