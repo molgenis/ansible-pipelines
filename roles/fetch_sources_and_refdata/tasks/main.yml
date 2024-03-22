@@ -42,8 +42,8 @@
 - name: Defining webslag ssh settings
   ansible.builtin.copy:
     content: |
-      Host ssh.webhosting.rug.nl
-        User f114592
+      Host {{ remote_env_cache_server }}
+        User {{ remote_env_cache_user }}
         ServerAliveInterval 60
         ServerAliveCountMax 5
         ControlMaster auto
