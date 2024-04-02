@@ -19,7 +19,7 @@ luaposix_version: '36.2.1'
 lmod_version: '8.7.32'
 easybuild_version: '4.9.0'
 eb_user: umcg-envsync
-extra_easyconfigs_version: 23.12.2
+extra_easyconfigs_version: 24.03.2
 extra_easyconfigs_repository: 'take-it-easyconfigs'
 #
 # Group folder structures to construct on shared storage systems.
@@ -48,6 +48,12 @@ public_sources: [
 private_sources: []
 refdata: []
 static_easyconfigs:
+  - 'b/BCFtools/BCFtools-1.19-GCCcore-11.3.0.eb'
   - 'c/cluster-utils/cluster-utils-v24.01.1-GCCcore-11.3.0.eb'
   - 'd/depad-utils/depad-utils-v23.04.1.eb'
+  - 'h/hashdeep/hashdeep-4.4-20180907-18a6b5d-GCCcore-11.3.0.eb'
+  - 'j/Java/Java-11-LTS.eb'
+  - 'r/R/R-4.2.2-foss-2022a-bare.eb'
+  - 's/SAMtools/SAMtools-1.19.2-GCCcore-11.3.0.eb'
+  - 'v/VEP/VEP-107-GCC-11.3.0.eb'
 ...
