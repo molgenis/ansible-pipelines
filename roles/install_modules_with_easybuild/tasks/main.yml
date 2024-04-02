@@ -1,5 +1,5 @@
 ---
-- name: 'Check if we have python or python3.'
+- name: Check if we have python or python3.
   ansible.builtin.shell: |
          if which python3 > /dev/null 2>&1; then
              which python3
@@ -13,20 +13,41 @@
   register: python_path
   failed_when: "'FATAL' in python_path.stdout"
   changed_when: false
-- name: Deploy modules with EasyBuild.
+
+- name: Deploy easyconfig with EasyBuild.
   ansible.builtin.shell:
     cmd: |
+         set -e
+         set -u
          source {{ easybuild_modules_dir }}/modules.bashrc
          module load "EasyBuild/{{ easybuild_version }}"
          export EB_PYTHON="{{ python_path.stdout }}"
-         eb --robot --robot-paths="{{ extra_easyconfigs_prefix }}/:" "{{ extra_easyconfigs_prefix }}/{{ item }}"
+         if [[ -e '{{ extra_easyconfigs_prefix }}/{{ easyconfig }}' ]]; then
+             _easyconfig_path='{{ extra_easyconfigs_prefix }}/{{ easyconfig }}'
+         elif [[ -e "${EBROOTEASYBUILD}/easybuild/easyconfigs/{{ easyconfig }}" ]]; then
+             _easyconfig_path="${EBROOTEASYBUILD}/easybuild/easyconfigs/{{ easyconfig }}"
+         else
+             _easyconfig_path='missing/{{ easyconfig }}'
+         fi
+         printf 'INFO: Using easyconfig path: %s.\n' "${_easyconfig_path}"
+         if [[ "${_easyconfig_path}" == 'missing/{{ easyconfig }}' ]]; then
+             printf 'FATAL: Cannot find default nor custom easyconfig.\n'
+             exit 1
+         fi
+         eb --robot --robot-paths="{{ extra_easyconfigs_prefix }}/:" "${_easyconfig_path}"
   args:
     executable: /bin/bash
   environment:
-    SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
-  with_items: "{{ easyconfigs }}"
+    SOURCE_HPC_ENV: "True"  # Required to source our modules.bashrc in non-interactive shells.
   register: eb_status
   changed_when: "'is already installed' not in eb_status.stdout"
   become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
   become_user: "{{ eb_user | default(omit) }}"
+  loop: "{{ easyconfigs }}"
+  loop_control:
+    loop_var: easyconfig
+    label: "{{ eb_status.stdout_lines
+        | select('match', 'INFO: Using easyconfig path')
+        | first
+        | regex_replace('^INFO: Using easyconfig path: ', '') }}"
 ...
