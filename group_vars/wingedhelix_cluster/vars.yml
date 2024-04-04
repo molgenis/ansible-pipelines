@@ -1277,13 +1277,13 @@ crontabs:
   ######################################################################################################################
   # umcg-lab group
   ######################################################################################################################
-#  - name: NGS_Automated_moveSequencingData  # Unique ID required to update existing cronjob: do not modify.
-#    user: umcg-lab-ateambot
-#    machines: "{{ groups['user_interface'] | default([]) }}"
-#    minute: '*/10'
-#    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-#         module load NGS_Automated/{{ group_module_versions['umcg-lab']['NGS_Automated'] }}-bare;
-#         moveSequencingData.sh -t tmp07"
+  #- name: NGS_Automated_moveSequencingData  # Unique ID required to update existing cronjob: do not modify.
+  #  user: umcg-lab-ateambot
+  #  machines: "{{ groups['user_interface'] | default([]) }}"
+  #  minute: '*/10'
+  #  job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #       module load NGS_Automated/{{ group_module_versions['umcg-lab']['NGS_Automated'] }}-bare;
+  #       moveSequencingData.sh -t tmp07"
 
 #
 # Sources, software and reference data to install/fetch.
