@@ -87,6 +87,7 @@ export LMOD_CACHE_DIR="${HPC_ENV_PREFIX}/modules/.lmod/cache/"
 export LMOD_TIMESTAMP_FILE="${HPC_ENV_PREFIX}/modules/.lmod/modules_changed.timestamp"
 export LMOD_RC="${HPC_ENV_PREFIX}/modules/.lmod/lmodrc.lua"
 export LMOD_ADMIN_FILE="${HPC_ENV_PREFIX}/modules/modules.admin"
+export LMOD_PACKAGE_PATH="${HPC_ENV_PREFIX}/modules/.lmod/"
 export LMOD_CASE_INDEPENDENT_SORTING='True'
 export LMOD_REDIRECT='True'
 export LMOD_PAGER='none'
