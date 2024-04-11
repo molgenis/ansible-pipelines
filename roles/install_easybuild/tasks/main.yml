@@ -24,6 +24,8 @@
   with_items:
     - src: 'lmodrc.lua'
       dest: '.lmod/lmodrc.lua'
+    - src: 'SitePackage.lua.j2'
+      dest: '.lmod/SitePackage.lua'
     - src: 'modules.bashrc'
       dest: 'modules.bashrc'
   become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
