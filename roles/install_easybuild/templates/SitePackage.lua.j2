@@ -1,0 +1,36 @@
+#jinja2: trim_blocks:True, lstrip_blocks:True
+require("strict")
+require("cmdfuncs")
+require("utils")
+require("lmod_system_execute")
+
+local hook  = require("Hook")
+local FrameStk  = require("FrameStk")
+
+--
+-- Called every time a module is loaded.
+--
+-- Arguments:
+--  - table contains:
+--    table.modFullName: Full module name (i.e. gcc/4.7.2)
+--    table.fn:          Module file name (i.e. /apps/modulefiles/Core/gcc/4.7.2.lua)
+--
+-- Uses frameStk:atTop() to determine if the user explicitly requested to load this module (atTop==true)
+-- or whether the module was loaded as a dependency (atTop==false). 
+-- The explicitly requested modules are logged to the syslog with the standard logger utility.
+--
+local function load_hook(table)
+    if (mode() ~= "load") then
+        return
+    end
+    local frameStk = FrameStk:singleton()
+    if (frameStk:atTop()) then
+        local user  = os.getenv("USER")
+        local msg   = string.format("stack={{ stack_prefix }} module=%s user=%s", table.modFullName, user)
+        {% for dai in groups['deploy_admin_interface'] | default([]) %}
+        lmod_system_execute("logger --server '{{ dai }}' -P 41515 --tag ModuleUsageTracking --priority user.info -- " .. msg)
+        {% endfor %}
+    end
+end
+
+hook.register("load", load_hook)
