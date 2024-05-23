@@ -18,8 +18,9 @@
   ansible.builtin.shell:
     cmd: |
          set -e
-         set -u
+         set +u
          source {{ easybuild_modules_dir }}/modules.bashrc
+         set -u
          module load "EasyBuild/{{ easybuild_version }}"
          export EB_PYTHON="{{ python_path.stdout }}"
          if [[ -e '{{ extra_easyconfigs_prefix }}/{{ easyconfig }}' ]]; then
@@ -46,8 +47,12 @@
   loop: "{{ easyconfigs }}"
   loop_control:
     loop_var: easyconfig
-    label: "{{ eb_status.stdout_lines
-        | select('match', 'INFO: Using easyconfig path')
-        | first
-        | regex_replace('^INFO: Using easyconfig path: ', '') }}"
+    label: "{% if eb_status.rc == 0 %}
+                {{ eb_status.stdout_lines
+                   | select('match', 'INFO: Using easyconfig path')
+                   | first
+                   | regex_replace('^INFO: Using easyconfig path: ', '') }}
+            {% else %}
+                {{ easyconfig }}
+            {% endif %}"
 ...
