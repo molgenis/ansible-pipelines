@@ -3,7 +3,7 @@ all:
   children:
     jumphost:
       hosts:
-        bb-porch:
+        cf-porch:
     deploy_admin_interface:
       hosts:
         betabarrel:

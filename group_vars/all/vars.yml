@@ -359,6 +359,31 @@ analysis_folders:
       - projects
       - Samplesheets
       - Samplesheets/archive
+  NGS_RNA:
+    tmp:
+      - generatedscripts
+      - generatedscripts/NGS_RNA
+      - logs
+      - projects
+      - projects/NGS_RNA
+      - rawdata
+      - rawdata/rna_ngs
+      - Samplesheets
+      - Samplesheets/archive
+      - Samplesheets/NGS_RNA
+      - tmp
+      - tmp/NGS_RNA
+    dat:
+      - logs
+      - samplesheets
+      - samplesheets/new
+    prm:
+      - logs
+      - projects
+      - rawdata
+      - rawdata/rna_ngs
+      - Samplesheets
+      - Samplesheets/archive
   trendanalysis:
     tmp:
       - trendanalysis
