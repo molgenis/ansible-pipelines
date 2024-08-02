@@ -44,7 +44,7 @@ group_subfolder_structure: [
   { group: 'umcg-muhas',
     lfs: 'prm01',
     mode: "{{ MODE_2750_HARD }}",
-    owner: 'umcg-atd-dm',
+    owner: 'umcg-muhas-dm',
     subfolders: ['logs', 'projects', 'rawdata', 'Samplesheets'],
     machines: "{{ groups['user_interface'] }}" },
 ]
