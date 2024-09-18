@@ -495,10 +495,10 @@ group_module_versions:
     ngs-utils: 24.03.1
     NGS_Demultiplexing: 2.5.4
   umcg-gap:
-    NGS_Automated: 4.2.0
+    NGS_Automated: 4.3.0
     GAP: 2.7.0
     AGCT: 1.3.0
-    ngs-utils: 24.02.2
+    ngs-utils: 24.03.1
   umcg-genomescan:
     NGS_Automated: 4.3.0
     nf_ngs_dna: 1.1.0
@@ -512,25 +512,25 @@ group_module_versions:
     ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
   umcg-gsad:
-    NGS_Automated: 4.2.0
+    NGS_Automated: 4.3.0
     GAP: 2.7.0
     AGCT: 1.3.0
-    ngs-utils: 24.02.2
+    ngs-utils: 24.03.1
   umcg-gst:
     NGS_Automated: 4.3.0
     nf_ngs_dna: 1.1.0
     NGS_DNA: 4.2.2
     NGS_RNA: 4.1.1
-    ngs-utils: 24.02.2
+    ngs-utils: 24.03.1
   umcg-labgnkbh:
     NGS_Automated: 4.2.0
-    ngs-utils: 24.02.2
+    ngs-utils: 24.03.1
     NGS_Demultiplexing: 2.5.4
   umcg-patho:
     NGS_Automated: 4.2.0
-    ngs-utils: 24.02.2
+    ngs-utils: 24.03.1
   umcg-lab:
-    NGS_Automated: 4.2.0
+    NGS_Automated: 4.3.0
 crontabs:
   ######################################################################################################################
   # umcg-atd group
