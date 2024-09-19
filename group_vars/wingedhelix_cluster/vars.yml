@@ -613,20 +613,20 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
          copyProjectDataToPrm.sh -g umcg-atd -p NGS_DNA"
-  - name: NGS_Automated_copyProjectDataToPrm_RNA  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-atd-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
-         copyProjectDataToPrm.sh -g umcg-atd -p NGS_RNA"
-  - name: NGS_Automated_copyProjectDataToPrm_external  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_copyProjectDataToPrm_external_DNA  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
          copyProjectDataToPrm.sh -g umcg-atd -p NGS_DNA -r /groups/umcg-gst/tmp07"
+  - name: NGS_Automated_copyProjectDataToPrm_external_RNA  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         copyProjectDataToPrm.sh -g umcg-atd -p NGS_RNA -r /groups/umcg-gst/tmp07"
   - name: FileSystemCheck  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
