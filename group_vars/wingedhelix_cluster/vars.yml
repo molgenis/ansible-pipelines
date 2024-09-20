@@ -740,7 +740,14 @@ crontabs:
          module load ConcordanceCheck/{{ group_module_versions['umcg-atd']['ConcordanceCheck'] }};
          cleanup.sh -g umcg-atd"
   ##### Nanopore ##### 
-  - name: NGS_Automated_copyRawNanoporeDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_copyRawNanoporeDataToPrm_10  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated'] }}-bare;
+         copyRawNanoporeDataToPrm.sh -g umcg-atd -r 10.73.57.10"
+  - name: NGS_Automated_copyRawNanoporeDataToPrm_11  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
