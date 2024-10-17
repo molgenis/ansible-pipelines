@@ -491,7 +491,7 @@ group_module_versions:
   umcg-gd:
     NGS_Automated: 4.3.0
     NGS_DNA: 4.2.2
-    ConcordanceCheck: 2.2.1
+    ConcordanceCheck: 3.0.0
     ngs-utils: 24.03.1
     NGS_Demultiplexing: 2.5.4
   umcg-gap:
@@ -508,7 +508,7 @@ group_module_versions:
   umcg-atd:
     NGS_Automated: 4.3.0
     NGS_DNA: 4.2.2
-    ConcordanceCheck: 2.2.1
+    ConcordanceCheck: 3.0.0
     ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
   umcg-gsad:
