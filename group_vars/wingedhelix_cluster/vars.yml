@@ -175,14 +175,14 @@ group_subfolder_structure:
   ######################################################################################################################
   # umcg-lab group
   ######################################################################################################################
-  - group: umcg-lab
-    lfs: tmp07
-    mode: "{{ MODE_2750_HARD }}"
-    owner: umcg-lab-ateambot
-    subfolders:
-      - logs
-      - sequencers
-    machines: "{{ groups['user_interface'] }}"
+  # - group: umcg-lab
+  #   lfs: tmp07
+  #   mode: "{{ MODE_2750_HARD }}"
+  #   owner: umcg-lab-ateambot
+  #   subfolders:
+  #     - logs
+  #     - sequencers
+  #   machines: "{{ groups['user_interface'] }}"
   ######################################################################################################################
   # umcg-labgnkbh group
   ######################################################################################################################
@@ -207,24 +207,24 @@ group_subfolder_structure:
   ######################################################################################################################
   # umcg-patho group
   ######################################################################################################################
-  - group: umcg-patho
-    lfs: tmp07
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-patho-ateambot
-    subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-patho
-    lfs: dat37
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-patho-dm
-    subfolders: "{{ analysis_folders['BclDataToPrm']['dat'] }}"
-    machines: "{{ groups['chaperone'] }}"
-  - group: umcg-patho
-    lfs: prm37
-    mode: "{{ MODE_2750_HARD }}"
-    owner: umcg-patho-dm
-    subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
-    machines: "{{ groups['chaperone'] }}"
+  # - group: umcg-patho
+  #   lfs: tmp07
+  #   mode: "{{ MODE_2770_HARD }}"
+  #   owner: umcg-patho-ateambot
+  #   subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
+  #   machines: "{{ groups['user_interface'] }}"
+  # - group: umcg-patho
+  #   lfs: dat37
+  #   mode: "{{ MODE_2770_HARD }}"
+  #   owner: umcg-patho-dm
+  #   subfolders: "{{ analysis_folders['BclDataToPrm']['dat'] }}"
+  #   machines: "{{ groups['chaperone'] }}"
+  # - group: umcg-patho
+  #   lfs: prm37
+  #   mode: "{{ MODE_2750_HARD }}"
+  #   owner: umcg-patho-dm
+  #   subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
+  #   machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
   # umcg-pr group
   ######################################################################################################################
@@ -246,16 +246,16 @@ group_subfolder_structure:
   #   owner: umcg-pr-dm
   #   subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
   #   machines: "{{ groups['chaperone'] }}"
-  ######################################################################################################################
-  # umcg-lab group
-  ######################################################################################################################
-  - group: umcg-lab
-    lfs: tmp06
-    user: umcg-lab-ateambot
-    type: notification_webhooks
-    analysis_phases: [moveSequencingData]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
+  # ######################################################################################################################
+  # # umcg-lab group
+  # ######################################################################################################################
+  # - group: umcg-lab
+  #   lfs: tmp06
+  #   user: umcg-lab-ateambot
+  #   type: notification_webhooks
+  #   analysis_phases: [moveSequencingData]
+  #   notification_target: hpc-helpdesk
+  #   machines: "{{ groups['user_interface'] }}"
 #
 # Symlinks to enable sending notifications to certain target when notification are enabled for an anlysis phase in NGS_Automated.
 #
@@ -884,6 +884,13 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
          copyProjectDataToPrm.sh -g umcg-gd -p NGS_DNA -r /groups/umcg-genomescan/tmp07"
+  - name: NGS_Automated_copyProjectDataToPrm_RNA_external  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated'] }}-bare;
+         copyProjectDataToPrm.sh -g umcg-gd -p NGS_RNA -r /groups/umcg-genomescan/tmp07"
   - name: benikdown  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
@@ -1339,6 +1346,13 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
          cleanupDataOnTmp.sh -g umcg-genomescan -p NGS_DNA"
+  - name: NGS_Automated_cleanupDataOnTmp_RNA  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-genomescan-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated'] }}-bare;
+         cleanupDataOnTmp.sh -g umcg-genomescan -p NGS_RNA"
   #####################################################################################################################
   # umcg-labgnkbh group
   #####################################################################################################################

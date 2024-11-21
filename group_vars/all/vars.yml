@@ -367,7 +367,7 @@ analysis_folders:
       - projects
       - projects/NGS_RNA
       - rawdata
-      - rawdata/rna_ngs
+      - rawdata/ngs
       - Samplesheets
       - Samplesheets/archive
       - Samplesheets/NGS_RNA
@@ -381,7 +381,7 @@ analysis_folders:
       - logs
       - projects
       - rawdata
-      - rawdata/rna_ngs
+      - rawdata/ngs
       - Samplesheets
       - Samplesheets/archive
   trendanalysis:
