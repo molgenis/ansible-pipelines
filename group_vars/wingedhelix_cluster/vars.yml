@@ -267,7 +267,7 @@ group_notification_targets:
     lfs: tmp07
     user: umcg-atd-ateambot
     type: notification_webhooks
-    analysis_phases: [demultiplexing, startPipeline, pipeline, calculateProjectMd5s, startNanoporePipeline]
+    analysis_phases: [demultiplexing, startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
@@ -291,7 +291,7 @@ group_notification_targets:
     lfs: tmp07
     user: umcg-gd-ateambot
     type: notification_webhooks
-    analysis_phases: [startPipeline, calculateProjectMd5s, startNanoporePipeline]
+    analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd

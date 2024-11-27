@@ -267,6 +267,8 @@ analysis_folders:
       - ConcordanceCheckOutput
       - ConcordanceCheckSamplesheets
       - ConcordanceCheckSamplesheets/archive
+      - ConcordanceCheckSamplesheets/jobfiles_v3
+      - ConcordanceCheckSamplesheets/jobfiles_v3/archive
     prm:
       - concordance
       - concordance/logs
@@ -343,6 +345,7 @@ analysis_folders:
       - generatedscripts
       - generatedscripts/NGS_DNA
       - logs
+      - logs/concordance
       - projects
       - projects/NGS_DNA
       - rawdata
@@ -366,6 +369,7 @@ analysis_folders:
       - generatedscripts
       - generatedscripts/NGS_RNA
       - logs
+      - logs/concordance
       - projects
       - projects/NGS_RNA
       - rawdata
