@@ -35,6 +35,18 @@ group_subfolder_structure: [
     owner: 'umcg-atd-dm',
     subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets'],
     machines: "{{ groups['user_interface'] }}" },
+  { group: 'umcg-muhas',
+    lfs: 'tmp01',
+    mode: "{{ MODE_2770_HARD }}",
+    owner: '',
+    subfolders: ['generatedscripts', 'logs', 'projects', 'rawdata', 'Samplesheets', 'tmp'],
+    machines: "{{ groups['user_interface'] }}" },
+  { group: 'umcg-muhas',
+    lfs: 'prm01',
+    mode: "{{ MODE_2750_HARD }}",
+    owner: 'umcg-muhas-dm',
+    subfolders: ['logs', 'projects', 'rawdata', 'Samplesheets'],
+    machines: "{{ groups['user_interface'] }}" },
 ]
 #
 # Sources, software and reference data to install/fetch.

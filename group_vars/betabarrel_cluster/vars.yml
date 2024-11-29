@@ -829,6 +829,7 @@ crontabs:
   - name: NGS_Automated_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
+    disabled: true  # cronjob should be active on only one chaperone machine. Currently this is cf-chaperone
     weekday: '0'
     minute: '0'
     hour: '6'
@@ -838,6 +839,7 @@ crontabs:
   - name: NGS_Automated_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
+    disabled: true  # cronjob should be active on only one chaperone machine. Currently this is cf-chaperone
     weekday: '0'
     minute: '0'
     hour: '12'
@@ -847,6 +849,7 @@ crontabs:
   - name: NGS_Automated_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
+    disabled: true  # cronjob should be active on only one chaperone machine. Currently this is cf-chaperone
     weekday: '0'
     minute: '0'
     hour: '18'
