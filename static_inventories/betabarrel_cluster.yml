@@ -3,11 +3,7 @@ all:
   children:
     jumphost:
       hosts:
-        #
-        # Temporarily use the CopperFist jumphost during scheduled Merlin maintenance.
-        #
-        #bb-porch:
-        cf-porch:
+        bb-porch:
     deploy_admin_interface:
       hosts:
         betabarrel:
