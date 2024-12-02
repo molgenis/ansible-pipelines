@@ -529,6 +529,9 @@ group_module_versions:
   umcg-patho:
     NGS_Automated: 4.2.0
     ngs-utils: 24.03.1
+  # umcg-pr:
+  #   NGS_Automated: 4.1.0
+  #   ngs-utils: 24.02.2
   umcg-lab:
     NGS_Automated: 4.3.0
 crontabs:
