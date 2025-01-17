@@ -246,16 +246,6 @@ group_subfolder_structure:
   #   owner: umcg-pr-dm
   #   subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
   #   machines: "{{ groups['chaperone'] }}"
-  # ######################################################################################################################
-  # # umcg-lab group
-  # ######################################################################################################################
-  # - group: umcg-lab
-  #   lfs: tmp06
-  #   user: umcg-lab-ateambot
-  #   type: notification_webhooks
-  #   analysis_phases: [moveSequencingData]
-  #   notification_target: hpc-helpdesk
-  #   machines: "{{ groups['user_interface'] }}"
 #
 # Symlinks to enable sending notifications to certain target when notification are enabled for an anlysis phase in NGS_Automated.
 #
@@ -483,7 +473,16 @@ group_notification_targets:
   #   analysis_phases: [copyBclDataToPrm]
   #   notification_target: hpc-helpdesk_and_pr
   #   machines: "{{ groups['chaperone'] }}"
-
+  # ######################################################################################################################
+  # # umcg-lab group
+  # ######################################################################################################################
+  # - group: umcg-lab
+  #   lfs: tmp06
+  #   user: umcg-lab-ateambot
+  #   type: notification_webhooks
+  #   analysis_phases: [moveSequencingData]
+  #   notification_target: hpc-helpdesk
+  #   machines: "{{ groups['user_interface'] }}"
 #
 # Cronjobs for functional accounts.
 #
