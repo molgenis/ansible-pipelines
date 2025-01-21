@@ -18,7 +18,7 @@ lua_version: '5.1.4.9'
 lmod_version: '8.6.2'
 easybuild_version: '4.8.0'
 eb_user: umcg-envsync
-extra_easyconfigs_version: 24.03.2
+extra_easyconfigs_version: 25.01.1
 extra_easyconfigs_repository: 'take-it-easyconfigs'
 # extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 #
@@ -1315,7 +1315,7 @@ refdata: [
 #  'snpEff-4.3',
 ]
 static_easyconfigs:
-  - 'c/cluster-utils/cluster-utils-v23.04.1-GCCcore-11.3.0.eb'
+  - 'c/cluster-utils/cluster-utils-v25.01.2-GCCcore-11.3.0.eb'
   - 'd/depad-utils/depad-utils-v23.04.1.eb'
 chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', '(NGS_Automated-.*-bare|depad-utils-.*).eb') | list }}"
 ...
