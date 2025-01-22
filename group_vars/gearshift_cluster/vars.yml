@@ -17,7 +17,7 @@ stack_prefix: 'gs'
 lua_version: '5.1.4.9'
 lmod_version: '7.8.8'
 easybuild_version: '4.9.1'
-extra_easyconfigs_version: 24.05.1
+extra_easyconfigs_version: 25.01.1
 extra_easyconfigs_repository: 'take-it-easyconfigs'
 #
 # Group folder structures to construct on shared storage systems.
@@ -58,6 +58,6 @@ public_sources: [
 private_sources: []
 refdata: []
 static_easyconfigs:
-  - 'c/cluster-utils/cluster-utils-v24.04.1-GCCcore-11.3.0.eb'
+  - 'c/cluster-utils/cluster-utils-v25.01.2-GCCcore-11.3.0.eb'
   - 'd/depad-utils/depad-utils-v24.04.1.eb'
 ...
