@@ -493,6 +493,8 @@ group_module_versions:
     ConcordanceCheck: 2.2.1
     ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
+		vip:8.1.0
+		
   umcg-gap:
     NGS_Automated:
       default: 4.2.0
@@ -580,7 +582,7 @@ crontabs:
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['NGS_DNA'] | default(group_module_versions['umcg-atd']['NGS_Automated']['default']) }}-NGS_DNA-{{ group_module_versions['umcg-atd']['NGS_DNA'] }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['NGS_DNA']['vip-umcg-config-gd'] | default(group_module_versions['umcg-atd']['NGS_Automated']['default']) }}-NGS_DNA-{{ group_module_versions['umcg-atd']['NGS_DNA'] }};
          splitAndMoveSamplesheetPerProject.sh -g umcg-atd -p NGS_Demultiplexing"
   - name: NGS_Automated_copyRawDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
@@ -1346,7 +1348,7 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated']['default'] }}-bare;
-         moveAndCheckSamplesheets.sh -g umcg-labgnkbh -d dat47"
+         moveAndCheckSamplesheets.sh -g umcg-labgnkbh -d dat45"
   - name: NGS_Demultiplexing_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-labgnkbh-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
@@ -1360,14 +1362,14 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated']['default'] }}-bare;
-         notifications.sh -g umcg-labgnkbh -c -d dat47 -p prm47"
+         notifications.sh -g umcg-labgnkbh -c -d dat45 -p prm45"
   - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-labgnkbh-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated']['default'] }}-bare;
-         copyRawDataToPrm.sh -a -g umcg-labgnkbh -p NGS_Demultiplexing -m prm47 -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }}"
+         copyRawDataToPrm.sh -a -g umcg-labgnkbh -p NGS_Demultiplexing -m prm45 -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }}"
   ######################################################################################################################
   # umcg-patho group
   ######################################################################################################################
@@ -1377,21 +1379,21 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated']['default'] }}-bare;
-         moveAndCheckSamplesheets.sh -g umcg-patho -d dat37"
+         moveAndCheckSamplesheets.sh -g umcg-patho -d dat35"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-patho-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated']['default'] }}-bare;
-         notifications.sh -g umcg-patho -c -d dat37 -p prm37"
+         notifications.sh -g umcg-patho -c -d dat35 -p prm35"
   - name: NGS_Automated_copyBclDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-patho-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated']['default'] }}-bare;
-         copyBclDataToPrm.sh -g umcg-patho -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm37"
+         copyBclDataToPrm.sh -g umcg-patho -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm35"
   ######################################################################################################################
   # umcg-pr group
   ######################################################################################################################
@@ -1401,21 +1403,21 @@ crontabs:
   #   minute: '*/5'
   #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
   #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated']['default'] }}-bare;
-  #        moveAndCheckSamplesheets.sh -g umcg-pr -d dat57"
+  #        moveAndCheckSamplesheets.sh -g umcg-pr -d dat55"
   # - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
   #   user: umcg-pr-dm
   #   machines: "{{ groups['chaperone'] | default([]) }}"
   #   minute: '*/10'
   #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
   #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated']['default'] }}-bare;
-  #        notifications.sh -g umcg-pr -c -d dat57 -p prm57"
+  #        notifications.sh -g umcg-pr -c -d dat55 -p prm55"
   # - name: NGS_Automated_copyBclDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
   #   user: umcg-pr-dm
   #   machines: "{{ groups['chaperone'] | default([]) }}"
   #   minute: '*/10'
   #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
   #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated']['default'] }}-bare;
-  #        copyBclDataToPrm.sh -g umcg-pr -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm57"
+  #        copyBclDataToPrm.sh -g umcg-pr -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm55"
   ######################################################################################################################
   # umcg-lab group
   ######################################################################################################################

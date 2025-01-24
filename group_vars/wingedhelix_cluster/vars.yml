@@ -477,7 +477,7 @@ group_notification_targets:
   # # umcg-lab group
   # ######################################################################################################################
   # - group: umcg-lab
-  #   lfs: tmp06
+  #   lfs: tmp07
   #   user: umcg-lab-ateambot
   #   type: notification_webhooks
   #   analysis_phases: [moveSequencingData]
