@@ -989,13 +989,20 @@ crontabs:
          module load ConcordanceCheck/{{ group_module_versions['umcg-gd']['ConcordanceCheck'] }};
          cleanup.sh -g umcg-gd"
   ##### Nanopore ##### 
-  # - name: NGS_Automated_copyRawNanoporeDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+  # - name: NGS_Automated_copyRawNanoporeDataToPrm_10  # Unique ID required to update existing cronjob: do not modify.
   #   user: umcg-gd-dm
   #   machines: "{{ groups['chaperone'] | default([]) }}"
   #   minute: '*/10'
   #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
   #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-  #        copyRawNanoporeDataToPrm.sh -g umcg-gd -r 145.39.79.24"
+  #        copyRawNanoporeDataToPrm.sh -g umcg-gd -r 10.73.57.10"
+  # - name: NGS_Automated_copyRawNanoporeDataToPrm_11  # Unique ID required to update existing cronjob: do not modify.
+  #   user: umcg-gd-dm
+  #   machines: "{{ groups['chaperone'] | default([]) }}"
+  #   minute: '*/10'
+  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
+  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
+  #        copyRawNanoporeDataToPrm.sh -g umcg-gd -r 10.73.57.11"
   # - name: NGS_Automated_copyRawNanoporeDataToTmp  # Unique ID required to update existing cronjob: do not modify.
   #   user: umcg-gd-dm
   #   machines: "{{ groups['chaperone'] | default([]) }}"
