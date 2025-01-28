@@ -174,7 +174,8 @@ else
     echo 'FATAL: Cannot find pip3 nor pip. Make sure pip(3) is installed.'
 fi
 ${PIP} install --upgrade pip
-${PIP} install 'ansible<12' # For running playbooks on your local laptop as Ansible control host.
+# Ansible core 2.16 from Ansible 9.x is latest version compatible with Python 3.6.x on CentOS 7.x.
+${PIP} install 'ansible<10' # For running playbooks on your local laptop as Ansible control host.
 ${PIP} install 'ansible<6' # For running playbooks directly on chaperone machines running RHEL8.
 ${PIP} install jmespath
 ${PIP} install ruamel.yaml
