@@ -174,7 +174,7 @@ else
     echo 'FATAL: Cannot find pip3 nor pip. Make sure pip(3) is installed.'
 fi
 ${PIP} install --upgrade pip
-${PIP} install 'ansible<7' # For running playbooks on your local laptop as Ansible control host.
+${PIP} install 'ansible<12' # For running playbooks on your local laptop as Ansible control host.
 ${PIP} install 'ansible<6' # For running playbooks directly on chaperone machines running RHEL8.
 ${PIP} install jmespath
 ${PIP} install ruamel.yaml
