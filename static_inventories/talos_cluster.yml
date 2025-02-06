@@ -10,8 +10,12 @@ all:
     user_interface:
       hosts:
         talos:
+    chaperone:
+      hosts:
+        tl-chaperone:
 talos_cluster:
   children:
     deploy_admin_interface:
     user_interface:
+    chaperone:
 ...
