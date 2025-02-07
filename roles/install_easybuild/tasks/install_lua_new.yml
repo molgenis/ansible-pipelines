@@ -71,8 +71,11 @@
          umask 0002
          export PATH={{ easybuild_software_dir }}/Lua/{{ lua_version }}/bin:$PATH
          cd "{{ easybuild_sources_dir }}/l/luaposix/luaposix-{{ luaposix_version }}/"
-         lua build-aux/luke PREFIX="{{ easybuild_software_dir }}/Lua/{{ lua_version }}"
-         lua build-aux/luke install PREFIX="{{ easybuild_software_dir }}/Lua/{{ lua_version }}"
+         lua build-aux/luke \
+             LUA_INCDIR="{{ easybuild_software_dir }}/Lua/{{ lua_version }}/include" \
+             PREFIX="{{ easybuild_software_dir }}/Lua/{{ lua_version }}"
+         lua build-aux/luke install \
+             PREFIX="{{ easybuild_software_dir }}/Lua/{{ lua_version }}"
   changed_when: true
   become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
   become_user: "{{ eb_user | default(omit) }}"
