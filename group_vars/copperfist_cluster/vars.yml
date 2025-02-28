@@ -38,6 +38,15 @@ group_subfolder_structure:
             | union(analysis_folders['trendanalysis']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
+    lfs: tmp16
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-atd-ateambot
+    subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
+            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
+            | union(analysis_folders['NGS_DNA']['tmp'])
+            | union(analysis_folders['trendanalysis']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-atd
     lfs: dat06
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-atd-dm
