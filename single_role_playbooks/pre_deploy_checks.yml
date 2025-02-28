@@ -34,7 +34,7 @@
       connection: local
       loop:
         - ANSIBLE_ROLES_PATH
-        - ANSIBLE_COLLECTIONS_PATHS
+        - ANSIBLE_COLLECTIONS_PATH
     - name: 'Verify that the group_vars were parsed.'
       ansible.builtin.assert:
         that: hpc_env_prefix is defined

@@ -101,13 +101,13 @@ function repo-config() {
 	export ANSIBLE_INVENTORY="static_inventories/${_stack_name}.yml"
 	export ANSIBLE_VAULT_IDENTITY_LIST="all@.vault/vault_pass.txt.all"
 	export ANSIBLE_ROLES_PATH="${VIRTUAL_ENV}/ansible/ansible_roles/:"
-	export ANSIBLE_COLLECTIONS_PATHS="${VIRTUAL_ENV}/ansible/:"
+	export ANSIBLE_COLLECTIONS_PATH="${VIRTUAL_ENV}/ansible/:"
 	printf 'INFO: Current working directory is:      %s\n' "$(pwd)"
 	printf 'INFO: Using ANSIBLE_INVENTORY:           %s\n' "${ANSIBLE_INVENTORY}"
 	printf 'INFO: Using AI_PROXY:                    %s\n' "${AI_PROXY:-None: no jumphost specified in ANSIBLE_INVENTORY}"
 	printf 'INFO: Using ANSIBLE_VAULT_IDENTITY_LIST: %s\n' "${ANSIBLE_VAULT_IDENTITY_LIST}"
 	printf 'INFO: Using ANSIBLE_ROLES_PATH:          %s\n' "${ANSIBLE_ROLES_PATH}"
-	printf 'INFO: Using ANSIBLE_COLLECTIONS_PATHS:   %s\n' "${ANSIBLE_COLLECTIONS_PATHS}"
+	printf 'INFO: Using ANSIBLE_COLLECTIONS_PATH:   %s\n' "${ANSIBLE_COLLECTIONS_PATH}"
 	#
 	# Enable ansible_mitogen strategy plugin for improved speed of plays when available.
 	#
