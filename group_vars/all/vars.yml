@@ -399,10 +399,16 @@ analysis_folders:
       - trendanalysis/database
       - trendanalysis/reports
       - trendanalysis/rawdata
+      - trendanalysis/ogm
+      - trendanalysis/ogm/metricsFinished
+      - trendanalysis/ogm/metricsInput
+      - trendanalysis/openarray
+      - trendanalysis/RNAprojects
       - trendanalysis/tmp
     dat:
       - trendanalysis
       - trendanalysis/archive
+      - trendanalysis/logs
     prm:
       - trendanalysis
       - trendanalysis/reports
