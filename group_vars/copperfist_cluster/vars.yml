@@ -78,6 +78,15 @@ group_subfolder_structure:
             | union(analysis_folders['trendanalysis']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
+    lfs: tmp16
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gd-ateambot
+    subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
+            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
+            | union(analysis_folders['NGS_DNA']['tmp'])
+            | union(analysis_folders['trendanalysis']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gd
     lfs: dat06
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gd-dm
@@ -107,6 +116,13 @@ group_subfolder_structure:
             | union(analysis_folders['GAP']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gsad
+    lfs: tmp16
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gsad-ateambot
+    subfolders: "{{ analysis_folders['AGCT']['tmp']
+            | union(analysis_folders['GAP']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gsad
     lfs: dat06
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gsad-dm
@@ -125,6 +141,13 @@ group_subfolder_structure:
   ######################################################################################################################
   - group: umcg-gap
     lfs: tmp06
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gap-ateambot
+    subfolders: "{{ analysis_folders['AGCT']['tmp']
+            | union(analysis_folders['GAP']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gap
+    lfs: tmp16
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gap-ateambot
     subfolders: "{{ analysis_folders['AGCT']['tmp']
@@ -156,6 +179,14 @@ group_subfolder_structure:
             | union(analysis_folders['GsAnalysisData']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
+    lfs: tmp16
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gst-ateambot
+    subfolders: "{{ analysis_folders['GsRawData']['tmp']
+            | union(analysis_folders['NGS_RNA']['tmp'])
+            | union(analysis_folders['GsAnalysisData']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gst
     lfs: dat06
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gst-dm
@@ -167,6 +198,14 @@ group_subfolder_structure:
   ######################################################################################################################
   - group: umcg-genomescan
     lfs: tmp06
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-genomescan-ateambot
+    subfolders: "{{ analysis_folders['GsRawData']['tmp']
+            | union(analysis_folders['NGS_RNA']['tmp'])
+            | union(analysis_folders['GsAnalysisData']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-genomescan
+    lfs: tmp16
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-genomescan-ateambot
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
@@ -191,11 +230,25 @@ group_subfolder_structure:
       - logs
       - sequencers
     machines: "{{ groups['user_interface'] }}"
+  - group: umcg-lab
+    lfs: tmp16
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-lab-ateambot
+    subfolders:
+      - logs
+      - sequencers
+    machines: "{{ groups['user_interface'] }}"
   ######################################################################################################################
   # umcg-labgnkbh group
   ######################################################################################################################
   - group: umcg-labgnkbh
     lfs: tmp06
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-labgnkbh-ateambot
+    subfolders: "{{ analysis_folders['NGS_Demultiplexing']['tmp'] }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-labgnkbh
+    lfs: tmp16
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-labgnkbh-ateambot
     subfolders: "{{ analysis_folders['NGS_Demultiplexing']['tmp'] }}"
@@ -222,6 +275,12 @@ group_subfolder_structure:
     subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-patho
+    lfs: tmp16
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-patho-ateambot
+    subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-patho
     lfs: dat36
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-patho-dm
@@ -238,6 +297,12 @@ group_subfolder_structure:
   ######################################################################################################################
   # - group: umcg-pr
   #   lfs: tmp06
+  #   mode: "{{ MODE_2770_HARD }}"
+  #   owner: umcg-pr-ateambot
+  #   subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
+  #   machines: "{{ groups['user_interface'] }}"
+  # - group: umcg-pr
+  #   lfs: tmp16
   #   mode: "{{ MODE_2770_HARD }}"
   #   owner: umcg-pr-ateambot
   #   subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
@@ -269,6 +334,13 @@ group_notification_targets:
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
+    lfs: tmp16
+    user: umcg-atd-ateambot
+    type: notification_webhooks
+    analysis_phases: [demultiplexing, startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-atd
     lfs: dat06
     user: umcg-atd-dm
     type: notification_webhooks
@@ -293,7 +365,21 @@ group_notification_targets:
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
+    lfs: tmp16
+    user: umcg-gd-ateambot
+    type: notification_webhooks
+    analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gd
     lfs: tmp06
+    user: umcg-gd-ateambot
+    type: notification_webhooks
+    analysis_phases: [demultiplexing, pipeline]
+    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gd
+    lfs: tmp16
     user: umcg-gd-ateambot
     type: notification_webhooks
     analysis_phases: [demultiplexing, pipeline]
@@ -331,6 +417,13 @@ group_notification_targets:
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gsad
+    lfs: tmp16
+    user: umcg-gsad-ateambot
+    type: notification_webhooks
+    analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gsad
     lfs: dat06
     user: umcg-gsad-dm
     type: notification_webhooks
@@ -356,6 +449,20 @@ group_notification_targets:
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: tmp06
+    user: umcg-gap-ateambot
+    type: notification_webhooks
+    analysis_phases: [arrayConversion, pipeline]
+    notification_target: hpc-helpdesk_and_gd-array-dataverwerking
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gap
+    lfs: tmp16
+    user: umcg-gap-ateambot
+    type: notification_webhooks
+    analysis_phases: [startPipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gap
+    lfs: tmp16
     user: umcg-gap-ateambot
     type: notification_webhooks
     analysis_phases: [arrayConversion, pipeline]
@@ -393,6 +500,13 @@ group_notification_targets:
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
+    lfs: tmp16
+    user: umcg-gst-ateambot
+    type: notification_webhooks
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gst
     lfs: dat06
     user: umcg-gst-dm
     type: notification_webhooks
@@ -417,6 +531,20 @@ group_notification_targets:
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
+    lfs: tmp16
+    user: umcg-genomescan-ateambot
+    type: notification_webhooks
+    analysis_phases: [startDragenPipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-genomescan
+    lfs: tmp16
+    user: umcg-genomescan-ateambot
+    type: notification_webhooks
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-genomescan
     lfs: dat06
     user: umcg-genomescan-dm
     type: notification_webhooks
@@ -428,6 +556,13 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-labgnkbh
     lfs: tmp06
+    user: umcg-labgnkbh-ateambot
+    type: notification_webhooks
+    analysis_phases: [demultiplexing]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-labgnkbh
+    lfs: tmp16
     user: umcg-labgnkbh-ateambot
     type: notification_webhooks
     analysis_phases: [demultiplexing]
@@ -486,6 +621,13 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-lab
     lfs: tmp06
+    user: umcg-lab-ateambot
+    type: notification_webhooks
+    analysis_phases: [moveSequencingData]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-lab
+    lfs: tmp16
     user: umcg-lab-ateambot
     type: notification_webhooks
     analysis_phases: [moveSequencingData]
