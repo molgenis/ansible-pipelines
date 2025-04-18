@@ -395,14 +395,14 @@ analysis_folders:
       - trendanalysis
       - trendanalysis/darwin
       - trendanalysis/dragen
-      - trendanalysis/projects
-      - trendanalysis/database
-      - trendanalysis/reports
-      - trendanalysis/rawdata
       - trendanalysis/ogm
       - trendanalysis/ogm/metricsFinished
       - trendanalysis/ogm/metricsInput
       - trendanalysis/openarray
+      - trendanalysis/projects
+      - trendanalysis/database
+      - trendanalysis/rawdata
+      - trendanalysis/reports
       - trendanalysis/RNAprojects
       - trendanalysis/tmp
     dat:
