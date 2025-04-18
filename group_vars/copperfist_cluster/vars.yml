@@ -673,8 +673,8 @@ group_module_versions:
     ngs-utils: 24.02.2
   umcg-gst:
     NGS_Automated:
-      default: 4.3.1
-    nf_ngs_dna: 1.1.0
+      default: 4.5.0
+    nf_ngs_dna: 1.2.0
     NGS_DNA: 4.2.2
     # NGS_RNA: 4.1.2
     ngs-utils: 24.02.2
