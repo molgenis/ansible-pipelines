@@ -512,9 +512,11 @@ group_module_versions:
       default: 4.5.0  # Default NGS_Automated version.
       NGS_DNA: beta  # Overruling NGS_Automated version for NGS_Automated-NGS_DNA bundles.
     NGS_DNA: 4.2.2
+      NGS_Automated: 4.2.0
     ConcordanceCheck: 3.0.0
     ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
+      NGS_Automated: 4.2.0
   umcg-gsad:
     NGS_Automated:
       default: 4.3.1
