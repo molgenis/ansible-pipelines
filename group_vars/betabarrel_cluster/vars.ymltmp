@@ -8,7 +8,7 @@
 # Conventions for playbook variables:
 # Use lowercase underscore separated names.
 #
-stack_prefix: 'cf'
+stack_prefix: 'bb'
 #
 # Versions of components of our HPC environment, which is managed using Lua+Lmod+EasyBuild.
 # NOTE: when introducing a new version number here,
@@ -29,7 +29,7 @@ group_subfolder_structure:
   # umcg-atd group
   ######################################################################################################################
   - group: umcg-atd
-    lfs: tmp06
+    lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-atd-ateambot
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
@@ -38,16 +38,7 @@ group_subfolder_structure:
             | union(analysis_folders['trendanalysis']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
-    lfs: tmp16
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-atd-ateambot
-    subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
-            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
-            | union(analysis_folders['NGS_DNA']['tmp'])
-            | union(analysis_folders['trendanalysis']['tmp']) }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-atd
-    lfs: dat06
+    lfs: dat05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-atd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['dat']
@@ -56,7 +47,7 @@ group_subfolder_structure:
             | union(analysis_folders['trendanalysis']['dat']) }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-atd
-    lfs: prm06
+    lfs: prm05
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-atd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['prm']
@@ -69,7 +60,7 @@ group_subfolder_structure:
   # umcg-gd group
   ######################################################################################################################
   - group: umcg-gd
-    lfs: tmp06
+    lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gd-ateambot
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
@@ -78,16 +69,7 @@ group_subfolder_structure:
             | union(analysis_folders['trendanalysis']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
-    lfs: tmp16
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gd-ateambot
-    subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
-            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
-            | union(analysis_folders['NGS_DNA']['tmp'])
-            | union(analysis_folders['trendanalysis']['tmp']) }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gd
-    lfs: dat06
+    lfs: dat05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['dat']
@@ -96,7 +78,7 @@ group_subfolder_structure:
             | union(analysis_folders['trendanalysis']['dat']) }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gd
-    lfs: prm06
+    lfs: prm05
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-gd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['prm']
@@ -109,28 +91,21 @@ group_subfolder_structure:
   # umcg-gsad group
   ######################################################################################################################
   - group: umcg-gsad
-    lfs: tmp06
+    lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gsad-ateambot
     subfolders: "{{ analysis_folders['AGCT']['tmp']
             | union(analysis_folders['GAP']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gsad
-    lfs: tmp16
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gsad-ateambot
-    subfolders: "{{ analysis_folders['AGCT']['tmp']
-            | union(analysis_folders['GAP']['tmp']) }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gsad
-    lfs: dat06
+    lfs: dat05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gsad-dm
     subfolders: "{{ analysis_folders['AGCT']['dat']
             | union(analysis_folders['GAP']['dat']) }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gsad
-    lfs: prm06
+    lfs: prm05
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-gsad-dm
     subfolders: "{{ analysis_folders['AGCT']['prm']
@@ -140,28 +115,21 @@ group_subfolder_structure:
   # umcg-gap group
   ######################################################################################################################
   - group: umcg-gap
-    lfs: tmp06
+    lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gap-ateambot
     subfolders: "{{ analysis_folders['AGCT']['tmp']
             | union(analysis_folders['GAP']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
-    lfs: tmp16
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gap-ateambot
-    subfolders: "{{ analysis_folders['AGCT']['tmp']
-            | union(analysis_folders['GAP']['tmp']) }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gap
-    lfs: dat06
+    lfs: dat05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gap-dm
     subfolders: "{{ analysis_folders['AGCT']['dat']
             | union(analysis_folders['GAP']['dat']) }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gap
-    lfs: prm06
+    lfs: prm05
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-gap-dm
     subfolders: "{{ analysis_folders['AGCT']['prm']
@@ -171,7 +139,7 @@ group_subfolder_structure:
   # umcg-gst group
   ######################################################################################################################
   - group: umcg-gst
-    lfs: tmp06
+    lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gst-ateambot
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
@@ -179,15 +147,7 @@ group_subfolder_structure:
             | union(analysis_folders['GsAnalysisData']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
-    lfs: tmp16
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gst-ateambot
-    subfolders: "{{ analysis_folders['GsRawData']['tmp']
-            | union(analysis_folders['NGS_RNA']['tmp'])
-            | union(analysis_folders['GsAnalysisData']['tmp']) }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gst
-    lfs: dat06
+    lfs: dat05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gst-dm
     subfolders: "{{ analysis_folders['GsRawData']['dat']
@@ -197,7 +157,7 @@ group_subfolder_structure:
   # umcg-genomescan group
   ######################################################################################################################
   - group: umcg-genomescan
-    lfs: tmp06
+    lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-genomescan-ateambot
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
@@ -205,15 +165,7 @@ group_subfolder_structure:
             | union(analysis_folders['GsAnalysisData']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
-    lfs: tmp16
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-genomescan-ateambot
-    subfolders: "{{ analysis_folders['GsRawData']['tmp']
-            | union(analysis_folders['NGS_RNA']['tmp'])
-            | union(analysis_folders['GsAnalysisData']['tmp']) }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-genomescan
-    lfs: dat06
+    lfs: dat05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-genomescan-dm
     subfolders: "{{ analysis_folders['GsRawData']['dat']
@@ -223,15 +175,7 @@ group_subfolder_structure:
   # umcg-lab group
   ######################################################################################################################
   - group: umcg-lab
-    lfs: tmp06
-    mode: "{{ MODE_2750_HARD }}"
-    owner: umcg-lab-ateambot
-    subfolders:
-      - logs
-      - sequencers
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-lab
-    lfs: tmp16
+    lfs: tmp05
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-lab-ateambot
     subfolders:
@@ -242,25 +186,19 @@ group_subfolder_structure:
   # umcg-labgnkbh group
   ######################################################################################################################
   - group: umcg-labgnkbh
-    lfs: tmp06
+    lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-labgnkbh-ateambot
     subfolders: "{{ analysis_folders['NGS_Demultiplexing']['tmp'] }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-labgnkbh
-    lfs: tmp16
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-labgnkbh-ateambot
-    subfolders: "{{ analysis_folders['NGS_Demultiplexing']['tmp'] }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-labgnkbh
-    lfs: dat46
+    lfs: dat45
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-labgnkbh-dm
     subfolders: "{{ analysis_folders['NGS_Demultiplexing']['dat'] }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-labgnkbh
-    lfs: prm46
+    lfs: prm45
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-labgnkbh-dm
     subfolders: "{{ analysis_folders['NGS_Demultiplexing']['prm'] }}"
@@ -269,25 +207,19 @@ group_subfolder_structure:
   # umcg-patho group
   ######################################################################################################################
   - group: umcg-patho
-    lfs: tmp06
+    lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-patho-ateambot
     subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-patho
-    lfs: tmp16
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-patho-ateambot
-    subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-patho
-    lfs: dat36
+    lfs: dat35
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-patho-dm
     subfolders: "{{ analysis_folders['BclDataToPrm']['dat'] }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-patho
-    lfs: prm36
+    lfs: prm35
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-patho-dm
     subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
@@ -296,25 +228,19 @@ group_subfolder_structure:
   # umcg-pr group
   ######################################################################################################################
   # - group: umcg-pr
-  #   lfs: tmp06
+  #   lfs: tmp05
   #   mode: "{{ MODE_2770_HARD }}"
   #   owner: umcg-pr-ateambot
   #   subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
   #   machines: "{{ groups['user_interface'] }}"
   # - group: umcg-pr
-  #   lfs: tmp16
-  #   mode: "{{ MODE_2770_HARD }}"
-  #   owner: umcg-pr-ateambot
-  #   subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
-  #   machines: "{{ groups['user_interface'] }}"
-  # - group: umcg-pr
-  #   lfs: dat56
+  #   lfs: dat55
   #   mode: "{{ MODE_2770_HARD }}"
   #   owner: umcg-pr-dm
   #   subfolders: "{{ analysis_folders['BclDataToPrm']['dat'] }}"
   #   machines: "{{ groups['chaperone'] }}"
   # - group: umcg-pr
-  #   lfs: prm56
+  #   lfs: prm55
   #   mode: "{{ MODE_2750_HARD }}"
   #   owner: umcg-pr-dm
   #   subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
@@ -327,28 +253,21 @@ group_notification_targets:
   # umcg-atd group
   ######################################################################################################################
   - group: umcg-atd
-    lfs: tmp06
+    lfs: tmp05
     user: umcg-atd-ateambot
     type: notification_webhooks
     analysis_phases: [demultiplexing, startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
-    lfs: tmp16
-    user: umcg-atd-ateambot
-    type: notification_webhooks
-    analysis_phases: [demultiplexing, startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-atd
-    lfs: dat06
+    lfs: dat05
     user: umcg-atd-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-atd
-    lfs: prm06
+    lfs: prm05
     user: umcg-atd-dm
     type: notification_webhooks
     analysis_phases: [copyRawDataToPrm, copyRawDataToTmp, copyProjectDataToPrm, copyRawNanoporeDataToPrm, copyRawNanoporeDataToTmp, checkRawdata]
@@ -358,49 +277,35 @@ group_notification_targets:
   # umcg-gd group
   ######################################################################################################################
   - group: umcg-gd
-    lfs: tmp06
+    lfs: tmp05
     user: umcg-gd-ateambot
     type: notification_webhooks
     analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
-    lfs: tmp16
-    user: umcg-gd-ateambot
-    type: notification_webhooks
-    analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gd
-    lfs: tmp06
+    lfs: tmp05
     user: umcg-gd-ateambot
     type: notification_webhooks
     analysis_phases: [demultiplexing, pipeline]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
-    lfs: tmp16
-    user: umcg-gd-ateambot
-    type: notification_webhooks
-    analysis_phases: [demultiplexing, pipeline]
-    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gd
-    lfs: dat06
+    lfs: dat05
     user: umcg-gd-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gd
-    lfs: prm06
+    lfs: prm05
     user: umcg-gd-dm
     type: notification_webhooks
     analysis_phases: [copyRawDataToTmp, copyRawNanoporeDataToPrm, copyRawNanoporeDataToTmp, checkRawdata]
     notification_target: hpc-helpdesk
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gd
-    lfs: prm06
+    lfs: prm05
     user: umcg-gd-dm
     type: notification_webhooks
     analysis_phases: [copyRawDataToPrm, copyProjectDataToPrm]
@@ -410,28 +315,21 @@ group_notification_targets:
   # umcg-gsad group
   ######################################################################################################################
   - group: umcg-gsad
-    lfs: tmp06
+    lfs: tmp05
     user: umcg-gsad-ateambot
     type: notification_webhooks
     analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gsad
-    lfs: tmp16
-    user: umcg-gsad-ateambot
-    type: notification_webhooks
-    analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gsad
-    lfs: dat06
+    lfs: dat05
     user: umcg-gsad-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gsad
-    lfs: prm06
+    lfs: prm05
     user: umcg-gsad-dm
     type: notification_webhooks
     analysis_phases: [copyRawDataToPrm, copyRawDataToTmp, copyProjectDataToPrm]
@@ -441,49 +339,35 @@ group_notification_targets:
   # umcg-gap group
   ######################################################################################################################
   - group: umcg-gap
-    lfs: tmp06
+    lfs: tmp05
     user: umcg-gap-ateambot
     type: notification_webhooks
     analysis_phases: [startPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
-    lfs: tmp06
+    lfs: tmp05
     user: umcg-gap-ateambot
     type: notification_webhooks
     analysis_phases: [arrayConversion, pipeline]
     notification_target: hpc-helpdesk_and_gd-array-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
-    lfs: tmp16
-    user: umcg-gap-ateambot
-    type: notification_webhooks
-    analysis_phases: [startPipeline, calculateProjectMd5s]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gap
-    lfs: tmp16
-    user: umcg-gap-ateambot
-    type: notification_webhooks
-    analysis_phases: [arrayConversion, pipeline]
-    notification_target: hpc-helpdesk_and_gd-array-dataverwerking
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gap
-    lfs: dat06
+    lfs: dat05
     user: umcg-gap-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_gd-array-dataverwerking
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gap
-    lfs: prm06
+    lfs: prm05
     user: umcg-gap-dm
     type: notification_webhooks
     analysis_phases: [copyRawDataToTmp]
     notification_target: hpc-helpdesk
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gap
-    lfs: prm06
+    lfs: prm05
     user: umcg-gap-dm
     type: notification_webhooks
     analysis_phases: [copyRawDataToPrm, copyProjectDataToPrm]
@@ -493,21 +377,14 @@ group_notification_targets:
   # umcg-gst group
   ######################################################################################################################
   - group: umcg-gst
-    lfs: tmp06
+    lfs: tmp05
     user: umcg-gst-ateambot
     type: notification_webhooks
     analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
-    lfs: tmp16
-    user: umcg-gst-ateambot
-    type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gst
-    lfs: dat06
+    lfs: dat05
     user: umcg-gst-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
@@ -517,35 +394,21 @@ group_notification_targets:
   # umcg-genomescan group
   ######################################################################################################################
   - group: umcg-genomescan
-    lfs: tmp06
+    lfs: tmp05
     user: umcg-genomescan-ateambot
     type: notification_webhooks
     analysis_phases: [startDragenPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
-    lfs: tmp06
+    lfs: tmp05
     user: umcg-genomescan-ateambot
     type: notification_webhooks
     analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
-    lfs: tmp16
-    user: umcg-genomescan-ateambot
-    type: notification_webhooks
-    analysis_phases: [startDragenPipeline, calculateProjectMd5s]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-genomescan
-    lfs: tmp16
-    user: umcg-genomescan-ateambot
-    type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
-    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-genomescan
-    lfs: dat06
+    lfs: dat05
     user: umcg-genomescan-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
@@ -555,28 +418,21 @@ group_notification_targets:
   # umcg-labgnkbh group
   ######################################################################################################################
   - group: umcg-labgnkbh
-    lfs: tmp06
+    lfs: tmp05
     user: umcg-labgnkbh-ateambot
     type: notification_webhooks
     analysis_phases: [demultiplexing]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-labgnkbh
-    lfs: tmp16
-    user: umcg-labgnkbh-ateambot
-    type: notification_webhooks
-    analysis_phases: [demultiplexing]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-labgnkbh
-    lfs: dat46
+    lfs: dat45
     user: umcg-labgnkbh-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_labgnkbh
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-labgnkbh
-    lfs: prm46
+    lfs: prm45
     user: umcg-labgnkbh-dm
     type: notification_webhooks
     analysis_phases: [copyRawDataToPrm]
@@ -586,14 +442,14 @@ group_notification_targets:
   # umcg-patho group
   ######################################################################################################################
   - group: umcg-patho
-    lfs: dat36
+    lfs: dat35
     user: umcg-patho-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_patho
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-patho
-    lfs: prm36
+    lfs: prm35
     user: umcg-patho-dm
     type: notification_webhooks
     analysis_phases: [copyBclDataToPrm]
@@ -603,14 +459,14 @@ group_notification_targets:
   # umcg-pr group
   ######################################################################################################################
   # - group: umcg-pr
-  #   lfs: dat56
+  #   lfs: dat55
   #   user: umcg-pr-dm
   #   type: notification_webhooks
   #   analysis_phases: [moveAndCheckSamplesheets]
   #   notification_target: hpc-helpdesk_and_pr
   #   machines: "{{ groups['chaperone'] }}"
   # - group: umcg-pr
-  #   lfs: prm56
+  #   lfs: prm55
   #   user: umcg-pr-dm
   #   type: notification_webhooks
   #   analysis_phases: [copyBclDataToPrm]
@@ -620,14 +476,7 @@ group_notification_targets:
   # umcg-lab group
   ######################################################################################################################
   - group: umcg-lab
-    lfs: tmp06
-    user: umcg-lab-ateambot
-    type: notification_webhooks
-    analysis_phases: [moveSequencingData]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-lab
-    lfs: tmp16
+    lfs: tmp05
     user: umcg-lab-ateambot
     type: notification_webhooks
     analysis_phases: [moveSequencingData]
@@ -639,13 +488,12 @@ group_notification_targets:
 group_module_versions:
   umcg-gd:
     NGS_Automated:
-      default: 4.5.0  # Default NGS_Automated version.
-      NGS_DNA: 4.2.0  # Overruling NGS_Automated version for NGS_Automated-NGS_DNA bundles.
-      NGS_Demultiplexing: 4.2.0
+      default: 4.2.0
     NGS_DNA: 4.2.2
     ConcordanceCheck: 2.2.1
     ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
+        vip:8.1.0
     Trendanalysis: 2.0.0
   umcg-gap:
     NGS_Automated:
@@ -655,21 +503,20 @@ group_module_versions:
     ngs-utils: 24.02.2
   umcg-genomescan:
     NGS_Automated:
-      default: 4.5.0
-    nf_ngs_dna: 1.2.0
+      default: 4.2.0
+    nf_ngs_dna: 1.0.0
     # NGS_RNA: 4.1.2
     NGS_DNA: 4.2.2
     ngs-utils: 24.03.1
   umcg-atd:
     NGS_Automated:
-      default: 4.5.0  # Default NGS_Automated version.
-      NGS_DNA: 4.2.0  # Overruling NGS_Automated version for NGS_Automated-NGS_DNA bundles.
-      NGS_Demultiplexing: 4.2.0 
+      default: 4.3.1  # Default NGS_Automated version.
+      NGS_DNA: beta  # Overruling NGS_Automated version for NGS_Automated-NGS_DNA bundles.
     NGS_DNA: 4.2.2
     ConcordanceCheck: 3.0.0
     ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
-    Trendanalysis: 2.0.0
+    Trendanalysis: beta
   umcg-gsad:
     NGS_Automated:
       default: 4.3.1
@@ -678,8 +525,8 @@ group_module_versions:
     ngs-utils: 24.02.2
   umcg-gst:
     NGS_Automated:
-      default: 4.5.0
-    nf_ngs_dna: 1.2.0
+      default: 4.3.1
+    nf_ngs_dna: 1.1.0
     NGS_DNA: 4.2.2
     # NGS_RNA: 4.1.2
     ngs-utils: 24.02.2
@@ -736,7 +583,7 @@ crontabs:
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['NGS_DNA'] | default(group_module_versions['umcg-atd']['NGS_Automated']['default']) }}-NGS_DNA-{{ group_module_versions['umcg-atd']['NGS_DNA'] }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['NGS_DNA']['vip-umcg-config-gd'] | default(group_module_versions['umcg-atd']['NGS_Automated']['default']) }}-NGS_DNA-{{ group_module_versions['umcg-atd']['NGS_DNA'] }};
          splitAndMoveSamplesheetPerProject.sh -g umcg-atd -p NGS_Demultiplexing"
   - name: NGS_Automated_copyRawDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
@@ -772,29 +619,29 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
-         copyRawDataToPrm.sh -a -g umcg-atd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-gst/tmp06 -f run01.processGsRawData.finished -p DRAGEN;
-         copySamplesheetsForBatchToPrm.sh -g umcg-atd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-gst/tmp06"
+         copyRawDataToPrm.sh -a -g umcg-atd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-gst/tmp05 -f run01.processGsRawData.finished -p DRAGEN;
+         copySamplesheetsForBatchToPrm.sh -g umcg-atd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-gst/tmp05"
   - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['NGS_DNA'] | default(group_module_versions['umcg-atd']['NGS_Automated']['default']) }}-bare;
          copyProjectDataToPrm.sh -g umcg-atd -p NGS_DNA"
   - name: NGS_Automated_copyProjectDataToPrm_external_DNA  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
-         copyProjectDataToPrm.sh -g umcg-atd -p NGS_DNA -r /groups/umcg-gst/tmp06"
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['NGS_DNA'] | default(group_module_versions['umcg-atd']['NGS_Automated']['default']) }}-bare;
+         copyProjectDataToPrm.sh -g umcg-atd -p NGS_DNA -r /groups/umcg-gst/tmp05"
   # - name: NGS_Automated_copyProjectDataToPrm_external_RNA  # Unique ID required to update existing cronjob: do not modify.
   #   user: umcg-atd-dm
   #   machines: "{{ groups['chaperone'] | default([]) }}"
   #   minute: '*/10'
   #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
   #        module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['NGS_RNA'] | default(group_module_versions['umcg-atd']['NGS_Automated']['default']) }}-bare;
-  #        copyProjectDataToPrm.sh -g umcg-atd -p NGS_RNA -r /groups/umcg-gst/tmp06"
+  #        copyProjectDataToPrm.sh -g umcg-atd -p NGS_RNA -r /groups/umcg-gst/tmp05"
   - name: FileSystemCheck  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
@@ -808,44 +655,13 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          ${HOME}/benikdown.sh"
-  ##### Trendanalysis #####
-  - name: Trendanalysis_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-atd-ateambot
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    disable: true
-    weekday: '0'
-    minute: '0'
-    hour: '6'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
-         copyQCDataToTmp.sh -g umcg-atd -d all"
-  - name: Trendanalysis_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-atd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    disable: true
-    weekday: '0'
-    minute: '0'
-    hour: '12'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
-         trendAnalyse.sh -g umcg-atd -d all"
-  - name: Trendanalysis_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-atd-dm
-    disable: true
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    weekday: '0'
-    minute: '0'
-    hour: '18'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
-         copyTrendAnalysisDataToPrm.sh -g umcg-atd"
   - name: NGS_DNA_GavinSA  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_DNA/{{ group_module_versions['umcg-atd']['NGS_DNA'] }};
-         GavinSA.sh -g umcg-atd -t tmp06"
+         GavinSA.sh -g umcg-atd -t tmp05"
   - name: NGS_Automated_cleanupDataOnTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
@@ -896,6 +712,34 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load ConcordanceCheck/{{ group_module_versions['umcg-atd']['ConcordanceCheck'] }};
          cleanup.sh -g umcg-atd"
+  ##### Trendanalysis #####
+  - name: Trendanalysis_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-ateambot
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    weekday: '0'
+    minute: '0'
+    hour: '6'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
+         copyQCDataToTmp.sh -g umcg-atd -d all"
+  - name: Trendanalysis_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    weekday: '0'
+    minute: '0'
+    hour: '12'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
+         trendAnalyse.sh -g umcg-atd -d all"
+  - name: Trendanalysis_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    weekday: '0'
+    minute: '0'
+    hour: '18'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
+         copyTrendAnalysisDataToPrm.sh -g umcg-atd"
   ##### Nanopore ##### 
   # - name: NGS_Automated_copyRawNanoporeDataToPrm_10  # Unique ID required to update existing cronjob: do not modify.
   #   user: umcg-atd-dm
@@ -1018,8 +862,8 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-         copyRawDataToPrm.sh -a -g umcg-gd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-genomescan/tmp06 -f run01.processGsRawData.finished -p DRAGEN;
-         copySamplesheetsForBatchToPrm.sh -g umcg-gd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-genomescan/tmp06"
+         copyRawDataToPrm.sh -a -g umcg-gd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-genomescan/tmp05 -f run01.processGsRawData.finished -p DRAGEN;
+         copySamplesheetsForBatchToPrm.sh -g umcg-gd -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -r /groups/umcg-genomescan/tmp05"
   - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -1040,14 +884,14 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-         copyProjectDataToPrm.sh -g umcg-gd -p NGS_DNA -r /groups/umcg-genomescan/tmp06"
+         copyProjectDataToPrm.sh -g umcg-gd -p NGS_DNA -r /groups/umcg-genomescan/tmp05"
   # - name: NGS_Automated_copyProjectDataToPrm_RNA_external  # Unique ID required to update existing cronjob: do not modify.
   #   user: umcg-gd-dm
   #   machines: "{{ groups['chaperone'] | default([]) }}"
   #   minute: '*/10'
   #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
   #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-  #        copyProjectDataToPrm.sh -g umcg-gd -p NGS_RNA -r /groups/umcg-genomescan/tmp06"
+  #        copyProjectDataToPrm.sh -g umcg-gd -p NGS_RNA -r /groups/umcg-genomescan/tmp05"
   - name: benikdown  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
@@ -1080,7 +924,6 @@ crontabs:
   - name: Trendanalysis_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
-    disable: true
     weekday: '0'
     minute: '0'
     hour: '6'
@@ -1090,7 +933,6 @@ crontabs:
   - name: Trendanalysis_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
-    disable: true
     weekday: '0'
     minute: '0'
     hour: '12'
@@ -1099,7 +941,6 @@ crontabs:
          trendAnalyse.sh -g umcg-gd -d all"
   - name: Trendanalysis_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
-    disable: true
     machines: "{{ groups['chaperone'] | default([]) }}"
     weekday: '0'
     minute: '0'
@@ -1107,13 +948,14 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load Trendanalysis/{{ group_module_versions['umcg-gd']['Trendanalysis'] }};
          copyTrendAnalysisDataToPrm.sh -g umcg-gd"
+  ##### Gavin_SA #####
   - name: NGS_DNA_GavinSA  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_DNA/{{ group_module_versions['umcg-gd']['NGS_DNA'] }};
-         GavinSA.sh -g umcg-gd -t tmp06"
+         GavinSA.sh -g umcg-gd -t tmp05"
   ##### ConcordanceCheck ##### 
   - name: ConcordanceCheck_ParseDarwinSamplesheet  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
@@ -1515,7 +1357,7 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated']['default'] }}-bare;
-         moveAndCheckSamplesheets.sh -g umcg-labgnkbh -d dat46"
+         moveAndCheckSamplesheets.sh -g umcg-labgnkbh -d dat45"
   - name: NGS_Demultiplexing_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-labgnkbh-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
@@ -1529,14 +1371,14 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated']['default'] }}-bare;
-         notifications.sh -g umcg-labgnkbh -c -d dat46 -p prm46"
+         notifications.sh -g umcg-labgnkbh -c -d dat45 -p prm45"
   - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-labgnkbh-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated']['default'] }}-bare;
-         copyRawDataToPrm.sh -a -g umcg-labgnkbh -p NGS_Demultiplexing -m prm46 -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }}"
+         copyRawDataToPrm.sh -a -g umcg-labgnkbh -p NGS_Demultiplexing -m prm45 -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }}"
   ######################################################################################################################
   # umcg-patho group
   ######################################################################################################################
@@ -1546,21 +1388,21 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated']['default'] }}-bare;
-         moveAndCheckSamplesheets.sh -g umcg-patho -d dat36"
+         moveAndCheckSamplesheets.sh -g umcg-patho -d dat35"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-patho-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated']['default'] }}-bare;
-         notifications.sh -g umcg-patho -c -d dat36 -p prm36"
+         notifications.sh -g umcg-patho -c -d dat35 -p prm35"
   - name: NGS_Automated_copyBclDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-patho-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated']['default'] }}-bare;
-         copyBclDataToPrm.sh -g umcg-patho -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm36"
+         copyBclDataToPrm.sh -g umcg-patho -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm35"
   ######################################################################################################################
   # umcg-pr group
   ######################################################################################################################
@@ -1570,21 +1412,21 @@ crontabs:
   #   minute: '*/5'
   #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
   #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated']['default'] }}-bare;
-  #        moveAndCheckSamplesheets.sh -g umcg-pr -d dat56"
+  #        moveAndCheckSamplesheets.sh -g umcg-pr -d dat55"
   # - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
   #   user: umcg-pr-dm
   #   machines: "{{ groups['chaperone'] | default([]) }}"
   #   minute: '*/10'
   #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
   #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated']['default'] }}-bare;
-  #        notifications.sh -g umcg-pr -c -d dat56 -p prm56"
+  #        notifications.sh -g umcg-pr -c -d dat55 -p prm55"
   # - name: NGS_Automated_copyBclDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
   #   user: umcg-pr-dm
   #   machines: "{{ groups['chaperone'] | default([]) }}"
   #   minute: '*/10'
   #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
   #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated']['default'] }}-bare;
-  #        copyBclDataToPrm.sh -g umcg-pr -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm56"
+  #        copyBclDataToPrm.sh -g umcg-pr -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm55"
   ######################################################################################################################
   # umcg-lab group
   ######################################################################################################################
@@ -1594,7 +1436,7 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-lab']['NGS_Automated']['default'] }}-bare;
-         moveSequencingData.sh -t tmp06"
+         moveSequencingData.sh -t tmp05"
 
 #
 # Sources, software and reference data to install/fetch.
@@ -1606,7 +1448,7 @@ public_sources: [
 ]
 private_sources: []
 refdata: [
-#  'GRC/Hg19toHumanG1kV36.chain',
+#  'GRC/Hg19toHumanG1kV35.chain',
 #  'dbSNP',
 #  '1000G',
 #  'Agilent',
