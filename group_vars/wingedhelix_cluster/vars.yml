@@ -494,6 +494,7 @@ group_module_versions:
     ConcordanceCheck: 3.0.0
     ngs-utils: 24.03.1
     NGS_Demultiplexing: 2.5.4
+    Trendanalysis: 2.0.0
   umcg-gap:
     NGS_Automated:
       default: 4.3.1
@@ -515,6 +516,7 @@ group_module_versions:
     ConcordanceCheck: 3.0.0
     ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
+    Trendanalysis: 2.0.0
   umcg-gsad:
     NGS_Automated:
       default: 4.3.1
@@ -654,32 +656,35 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          ${HOME}/benikdown.sh"
   ##### Trendanalysis #####
-  - name: NGS_Automated_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-atd-dm
+  - name: Trendanalysis_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
+    disable: true
     weekday: '0'
     minute: '0'
     hour: '6'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
-         copyQCDataToTmp.sh -g umcg-atd"
-  - name: NGS_Automated_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
+         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
+         copyQCDataToTmp.sh -g umcg-atd -d all"
+  - name: Trendanalysis_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
+    disable: true
     weekday: '0'
     minute: '0'
     hour: '12'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
-         trendAnalyse.sh -g umcg-atd"
-  - name: NGS_Automated_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
+         trendAnalyse.sh -g umcg-atd -d all"
+  - name: Trendanalysis_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
+    disable: true
     machines: "{{ groups['chaperone'] | default([]) }}"
     weekday: '0'
     minute: '0'
     hour: '18'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
+         module load Trendanalysis/{{ group_module_versions['umcg-atd']['Trendanalysis'] }};
          copyTrendAnalysisDataToPrm.sh -g umcg-atd"
   - name: NGS_DNA_GavinSA  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
@@ -919,32 +924,35 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          cleanupSamplesheets.sh -g umcg-gd"
   ##### Trendanalysis #####
-  - name: NGS_Automated_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-dm
+  - name: Trendanalysis_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gd-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
+    disable: true
     weekday: '0'
     minute: '0'
     hour: '6'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-         copyQCDataToTmp.sh -g umcg-gd"
-  - name: NGS_Automated_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
+         module load Trendanalysis/{{ group_module_versions['umcg-gd']['Trendanalysis'] }};
+         copyQCDataToTmp.sh -g umcg-gd -d all"
+  - name: Trendanalysis_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
+    disable: true
     weekday: '0'
     minute: '0'
     hour: '12'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-         trendAnalyse.sh -g umcg-gd"
-  - name: NGS_Automated_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+         module load Trendanalysis/{{ group_module_versions['umcg-gd']['Trendanalysis'] }};
+         trendAnalyse.sh -g umcg-gd -d all"
+  - name: Trendanalysis_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
+    disable: true
     machines: "{{ groups['chaperone'] | default([]) }}"
     weekday: '0'
     minute: '0'
     hour: '18'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
+         module load Trendanalysis/{{ group_module_versions['umcg-gd']['Trendanalysis'] }};
          copyTrendAnalysisDataToPrm.sh -g umcg-gd"
   - name: NGS_DNA_GavinSA  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
