@@ -27,9 +27,11 @@ local function load_hook(table)
     if (frameStk:atTop()) then
         local user  = os.getenv("USER")
         local msg   = string.format("stack={{ stack_prefix }} module=%s user=%s", table.modFullName, user)
+        {% if inventory_hostname not in groups['chaperone'] | default([]) %}
         {% for dai in groups['deploy_admin_interface'] | default([]) %}
         lmod_system_execute("logger --server '{{ dai }}' -P 41515 --tag ModuleUsageTracking --priority user.info -- " .. msg)
         {% endfor %}
+        {% endif %}
     end
 end
 

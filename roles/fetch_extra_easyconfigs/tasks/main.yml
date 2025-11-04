@@ -18,7 +18,7 @@
     mode: "{{ MODE_0664_HARD }}"
     timeout: 30
   with_items:
-    - url: "https://github.com/molgenis/{{ extra_easyconfigs_repository }}/archive/{{ extra_easyconfigs_version }}.tar.gz"
+    - url: "https://github.com/molgenis/{{ extra_easyconfigs_repository }}/archive/refs/tags/{{ extra_easyconfigs_version }}.tar.gz"
       dest: "{{ easybuild_sources_dir }}/e/easyconfigs/"
       checksum: "{{ extra_easyconfigs_releases[extra_easyconfigs_version]['checksum'] }}"
   become: "{% if eb_user is defined and eb_user | length > 0 %}true{% else %}false{% endif %}"
