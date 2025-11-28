@@ -43,7 +43,7 @@ group_subfolder_structure:
     owner: umcg-atd-ateambot
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
             | union(analysis_folders['NGS_Demultiplexing']['tmp'])
-            | union(analysis_folders['NGS_DNA']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp'])
             | union(analysis_folders['trendanalysis']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
@@ -84,6 +84,7 @@ group_subfolder_structure:
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
             | union(analysis_folders['NGS_Demultiplexing']['tmp'])
             | union(analysis_folders['NGS_DNA']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp'])
             | union(analysis_folders['trendanalysis']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
@@ -337,7 +338,7 @@ group_notification_targets:
     lfs: tmp16
     user: umcg-atd-ateambot
     type: notification_webhooks
-    analysis_phases: [demultiplexing, startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
+    analysis_phases: [demultiplexing, startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline,startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
@@ -368,7 +369,7 @@ group_notification_targets:
     lfs: tmp16
     user: umcg-gd-ateambot
     type: notification_webhooks
-    analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline]
+    analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline, startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
@@ -496,14 +497,14 @@ group_notification_targets:
     lfs: tmp06
     user: umcg-gst-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
     lfs: tmp16
     user: umcg-gst-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
@@ -527,7 +528,7 @@ group_notification_targets:
     lfs: tmp06
     user: umcg-genomescan-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
@@ -541,7 +542,7 @@ group_notification_targets:
     lfs: tmp16
     user: umcg-genomescan-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
@@ -639,10 +640,11 @@ group_notification_targets:
 group_module_versions:
   umcg-gd:
     NGS_Automated:
-      default: 4.5.0  # Default NGS_Automated version.
+      default: 4.6.0  # Default NGS_Automated version.
       NGS_DNA: 4.2.0  # Overruling NGS_Automated version for NGS_Automated-NGS_DNA bundles.
       NGS_Demultiplexing: 4.2.0
     NGS_DNA: 4.2.2
+    nf_ngs_dna: 1.4.0
     ConcordanceCheck: 2.2.1
     ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
@@ -727,7 +729,7 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
-         calculateProjectMd5s.sh -g umcg-atd -p DRAGEN"
+         calculateProjectMd5s.sh -g umcg-atd -p POST_DRAGEN"
   - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -807,6 +809,7 @@ crontabs:
     minute: '*/10'
     # ToDo: improve job with "module load" and remove "sh"
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
          cleanupDataOnTmp.sh -g umcg-atd -p POST_DRAGEN"
   - name: NGS_Automated_cleanupSamplesheets  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
@@ -814,6 +817,7 @@ crontabs:
     minute: '*/10'
     # ToDo: improve job with "module load" and remove "sh"
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
          cleanupSamplesheets.sh -g umcg-atd"
   ##### ConcordanceCheck #####
   - name: ConcordanceCheck_ParseDarwinSamplesheet  # Unique ID required to update existing cronjob: do not modify.
@@ -909,13 +913,13 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['nf_ngs_dna'] | default(group_module_versions['umcg-atd']['NGS_Automated']['default']) }}-nf_ngs_dna-{{ group_module_versions['umcg-atd']['nf_ngs_dna'] }};
          startInhouseDragenPipeline.sh -g umcg-atd"
-  - name: NGS_Automated_inhousePOSTDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_postDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['nf_ngs_dna'] | default(group_module_versions['umcg-atd']['NGS_Automated']['default']) }}-nf_ngs_dna-{{ group_module_versions['umcg-atd']['nf_ngs_dna'] }};
-         startInhousePostDragenPipeline.sh -g umcg-atd"
+         startPostDragenPipeline.sh -g umcg-atd"
   ######################################################################################################################
   # umcg-gd group
   ######################################################################################################################
@@ -974,14 +978,14 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-         calculateProjectMd5s.sh -g umcg-gd -p NGS_DNA"
+         calculateProjectMd5s.sh -g umcg-gd -p POST_DRAGEN"
   - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-         copyRawDataToPrm.sh -g umcg-gd -p NGS_Demultiplexing -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }}"
+         copyRawDataToPrm.sh -g umcg-gd -p DRAGEN -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }}"
   - name: NGS_Automated_copyRawDataToPrm_genomescan  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -1174,17 +1178,19 @@ crontabs:
   - name: NGS_Automated_inhouseDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
+    disabled: true
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['nf_ngs_dna'] | default(group_module_versions['umcg-gd']['NGS_Automated']['default']) }}-NGS_DNA-{{ group_module_versions['umcg-gd']['nf_ngs_dna'] }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['nf_ngs_dna'] | default(group_module_versions['umcg-gd']['NGS_Automated']['default']) }}-nf_ngs_dna-{{ group_module_versions['umcg-gd']['nf_ngs_dna'] }};
          startInhouseDragenPipeline.sh -g umcg-gd"
-  - name: NGS_Automated_inhousePOSTDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_postDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
+    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['nf_ngs_dna'] | default(group_module_versions['umcg-gd']['NGS_Automated']['default']) }}-NGS_DNA-{{ group_module_versions['umcg-gd']['nf_ngs_dna'] }};
-         startInhousePostDragenPipeline.sh -g umcg-gd"
+         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['nf_ngs_dna'] | default(group_module_versions['umcg-gd']['NGS_Automated']['default']) }}-nf_ngs_dna-{{ group_module_versions['umcg-gd']['nf_ngs_dna'] }};
+         startPostDragenPipeline.sh -g umcg-gd"
   ######################################################################################################################
   # umcg-gsad group
   ######################################################################################################################
