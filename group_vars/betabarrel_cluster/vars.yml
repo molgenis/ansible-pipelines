@@ -33,8 +33,6 @@ group_subfolder_structure:
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-atd-ateambot
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
-            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
-            | union(analysis_folders['NGS_DNA']['tmp'])
             | union(analysis_folders['trendanalysis']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
@@ -42,7 +40,6 @@ group_subfolder_structure:
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-atd-ateambot
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
-            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
             | union(analysis_folders['nf_ngs_dna']['tmp'])
             | union(analysis_folders['trendanalysis']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
@@ -51,8 +48,6 @@ group_subfolder_structure:
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-atd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['dat']
-            | union(analysis_folders['NGS_Demultiplexing']['dat'])
-            | union(analysis_folders['NGS_DNA']['dat'])
             | union(analysis_folders['trendanalysis']['dat']) }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-atd
@@ -60,8 +55,6 @@ group_subfolder_structure:
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-atd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['prm']
-            | union(analysis_folders['NGS_Demultiplexing']['prm'])
-            | union(analysis_folders['NGS_DNA']['prm'])
             | union(analysis_folders['NGS_RNA']['prm'])
             | union(analysis_folders['trendanalysis']['prm']) }}"
     machines: "{{ groups['chaperone'] }}"
@@ -73,8 +66,6 @@ group_subfolder_structure:
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gd-ateambot
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
-            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
-            | union(analysis_folders['NGS_DNA']['tmp'])
             | union(analysis_folders['trendanalysis']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
@@ -82,8 +73,6 @@ group_subfolder_structure:
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gd-ateambot
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
-            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
-            | union(analysis_folders['NGS_DNA']['tmp'])
             | union(analysis_folders['nf_ngs_dna']['tmp'])
             | union(analysis_folders['trendanalysis']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
@@ -92,8 +81,6 @@ group_subfolder_structure:
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['dat']
-            | union(analysis_folders['NGS_Demultiplexing']['dat'])
-            | union(analysis_folders['NGS_DNA']['dat'])
             | union(analysis_folders['trendanalysis']['dat']) }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gd
@@ -101,8 +88,6 @@ group_subfolder_structure:
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-gd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['prm']
-            | union(analysis_folders['NGS_Demultiplexing']['prm'])
-            | union(analysis_folders['NGS_DNA']['prm'])
             | union(analysis_folders['NGS_RNA']['prm'])
             | union(analysis_folders['trendanalysis']['prm']) }}"
     machines: "{{ groups['chaperone'] }}"
@@ -325,14 +310,14 @@ group_notification_targets:
     lfs: tmp05
     user: umcg-atd-ateambot
     type: notification_webhooks
-    analysis_phases: [demultiplexing, startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
+    analysis_phases: [startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
     lfs: tmp15
     user: umcg-atd-ateambot
     type: notification_webhooks
-    analysis_phases: [demultiplexing, startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
+    analysis_phases: [startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
@@ -370,14 +355,14 @@ group_notification_targets:
     lfs: tmp05
     user: umcg-gd-ateambot
     type: notification_webhooks
-    analysis_phases: [demultiplexing, pipeline]
+    analysis_phases: [pipeline]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: tmp15
     user: umcg-gd-ateambot
     type: notification_webhooks
-    analysis_phases: [demultiplexing, pipeline]
+    analysis_phases: [pipeline]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
@@ -633,6 +618,7 @@ group_module_versions:
     NGS_DNA: 4.2.2
     nf_ngs_dna: 1.4.0
     ConcordanceCheck: 2.2.1
+    vip: 8.1.0
     ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
     Trendanalysis: 2.0.0
@@ -936,20 +922,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
          moveAndCheckSamplesheets.sh -g umcg-gd"
-  - name: NGS_Automated_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/5'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['NGS_Demultiplexing'] | default(group_module_versions['umcg-gd']['NGS_Automated']['default']) }}-NGS_Demultiplexing-{{ group_module_versions['umcg-gd']['NGS_Demultiplexing'] }};
-         demultiplexing.sh -g umcg-gd"
-  - name: NGS_Automated_splitAndMoveSamplesheetPerProject  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['NGS_DNA'] | default(group_module_versions['umcg-gd']['NGS_Automated']['default']) }}-NGS_DNA-{{ group_module_versions['umcg-gd']['NGS_DNA'] }};
-         splitAndMoveSamplesheetPerProject.sh -g umcg-gd -p NGS_Demultiplexing"
   - name: NGS_Automated_copyRawDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
