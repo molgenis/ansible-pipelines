@@ -317,7 +317,7 @@ group_notification_targets:
     lfs: tmp15
     user: umcg-atd-ateambot
     type: notification_webhooks
-    analysis_phases: [startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
+    analysis_phases: [startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline, startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
@@ -348,7 +348,7 @@ group_notification_targets:
     lfs: tmp15
     user: umcg-gd-ateambot
     type: notification_webhooks
-    analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline]
+    analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline, startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
@@ -476,14 +476,14 @@ group_notification_targets:
     lfs: tmp05
     user: umcg-gst-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
     lfs: tmp15
     user: umcg-gst-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
@@ -514,7 +514,14 @@ group_notification_targets:
     lfs: tmp05
     user: umcg-genomescan-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-genomescan
+    lfs: tmp15
+    user: umcg-genomescan-ateambot
+    type: notification_webhooks
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
@@ -618,8 +625,8 @@ group_module_versions:
     NGS_DNA: 4.2.2
     nf_ngs_dna: 1.4.0
     ConcordanceCheck: 2.2.1
-    vip: 8.1.0
     ngs-utils: 24.02.2
+    vip: 8.1.0
     NGS_Demultiplexing: 2.5.4
     Trendanalysis: 2.0.0
   umcg-gap:
@@ -696,13 +703,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
          moveAndCheckSamplesheets.sh -g umcg-atd"
-  - name: NGS_Automated_copyRawDataToTmp  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-atd-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
-         copyRawDataToTmp.sh -g umcg-atd -p NGS_DNA -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }}"
   - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
@@ -732,13 +732,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
          copyProjectDataToPrm.sh -g umcg-atd -p POST_DRAGEN"
-  - name: NGS_Automated_copyProjectDataToPrm_external_DNA  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-atd-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
-         copyProjectDataToPrm.sh -g umcg-atd -p NGS_DNA -r /groups/umcg-gst/tmp05"
   - name: FileSystemCheck  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
@@ -922,20 +915,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
          moveAndCheckSamplesheets.sh -g umcg-gd"
-  - name: NGS_Automated_copyRawDataToTmp  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-         copyRawDataToTmp.sh -g umcg-gd -p NGS_DNA -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }}"
-  - name: NGS_Automated_startPipeline  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gd-ateambot
-    machines: "{{ groups['user_interface'] | default([]) }}"
-    minute: '*/10'
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['NGS_DNA'] | default(group_module_versions['umcg-gd']['NGS_Automated']['default']) }}-NGS_DNA-{{ group_module_versions['umcg-gd']['NGS_DNA'] }};
-         startPipeline.sh -g umcg-gd -p NGS_DNA"
   - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
