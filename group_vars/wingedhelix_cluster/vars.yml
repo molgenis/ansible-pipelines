@@ -17,7 +17,7 @@ stack_prefix: 'wh'
 lua_version: '5.4.6'
 luaposix_version: '36.2.1'
 lmod_version: '8.7.32'
-easybuild_version: '4.9.1'
+easybuild_version: '5.1.2'
 eb_user: umcg-envsync
 extra_easyconfigs_version: 25.01.1
 extra_easyconfigs_repository: 'take-it-easyconfigs'

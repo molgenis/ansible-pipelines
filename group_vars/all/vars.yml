@@ -320,6 +320,28 @@ analysis_folders:
       - logs
       - rawdata
       - rawdata/bcls
+  nf_ngs_dna:
+    tmp:
+      - logs
+      - projects
+      - projects/DRAGEN
+      - projects/POST_DRAGEN
+      - rawdata
+      - rawdata/ngs
+      - Samplesheets
+      - Samplesheets/archive
+      - Samplesheets/DRAGEN
+      - Samplesheets/POST_DRAGEN
+      - results
+    dat:
+      - logs
+      - samplesheets
+      - samplesheets/new
+    prm:
+      - logs
+      - projects
+      - Samplesheets
+      - Samplesheets/archive
   NGS_Demultiplexing:
     tmp:
       - generatedscripts
