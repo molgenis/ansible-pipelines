@@ -1287,13 +1287,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gap']['NGS_Automated']['default'] }}-bare;
          notifications.sh -g umcg-gap -c"
-  - name: NGS_Automated_cleanupSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gap-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    # ToDo: improve job with "module load" and remove "sh"
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         cleanupSamplesheets.sh -g umcg-gap"
   ######################################################################################################################
   # umcg-gst group
   ######################################################################################################################
