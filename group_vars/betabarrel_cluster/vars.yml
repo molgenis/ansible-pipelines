@@ -278,27 +278,6 @@ group_subfolder_structure:
     owner: umcg-patho-dm
     subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
     machines: "{{ groups['chaperone'] }}"
-  ######################################################################################################################
-  # umcg-pr group
-  ######################################################################################################################
-  # - group: umcg-pr
-  #   lfs: tmp05
-  #   mode: "{{ MODE_2770_HARD }}"
-  #   owner: umcg-pr-ateambot
-  #   subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
-  #   machines: "{{ groups['user_interface'] }}"
-  # - group: umcg-pr
-  #   lfs: dat55
-  #   mode: "{{ MODE_2770_HARD }}"
-  #   owner: umcg-pr-dm
-  #   subfolders: "{{ analysis_folders['BclDataToPrm']['dat'] }}"
-  #   machines: "{{ groups['chaperone'] }}"
-  # - group: umcg-pr
-  #   lfs: prm55
-  #   mode: "{{ MODE_2750_HARD }}"
-  #   owner: umcg-pr-dm
-  #   subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
-  #   machines: "{{ groups['chaperone'] }}"
 #
 # Symlinks to enable sending notifications to certain target when notification are enabled for an anlysis phase in NGS_Automated.
 #
@@ -580,23 +559,6 @@ group_notification_targets:
     notification_target: hpc-helpdesk_and_patho
     machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
-  # umcg-pr group
-  ######################################################################################################################
-  # - group: umcg-pr
-  #   lfs: dat55
-  #   user: umcg-pr-dm
-  #   type: notification_webhooks
-  #   analysis_phases: [moveAndCheckSamplesheets]
-  #   notification_target: hpc-helpdesk_and_pr
-  #   machines: "{{ groups['chaperone'] }}"
-  # - group: umcg-pr
-  #   lfs: prm55
-  #   user: umcg-pr-dm
-  #   type: notification_webhooks
-  #   analysis_phases: [copyBclDataToPrm]
-  #   notification_target: hpc-helpdesk_and_pr
-  #   machines: "{{ groups['chaperone'] }}"
-  ######################################################################################################################
   # umcg-lab group
   ######################################################################################################################
   - group: umcg-lab
@@ -671,10 +633,6 @@ group_module_versions:
     NGS_Automated:
       default: 4.2.0
     ngs-utils: 24.03.1
-  # umcg-pr:
-  #   NGS_Automated:
-  #     default: 4.1.0
-  #   ngs-utils: 24.02.2
   umcg-lab:
     NGS_Automated:
       default: 4.3.0
@@ -789,6 +747,7 @@ crontabs:
     minute: '*/10'
     # ToDo: improve job with "module load" and remove "sh"
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
          cleanupSamplesheets.sh -g umcg-atd"
   ##### ConcordanceCheck #####
   - name: ConcordanceCheck_ParseDarwinSamplesheet  # Unique ID required to update existing cronjob: do not modify.
@@ -992,6 +951,7 @@ crontabs:
     minute: '*/10'
     # ToDo: improve job with "module load" and remove "sh"
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
          cleanupSamplesheets.sh -g umcg-gd"
   ##### Trendanalysis #####
   - name: Trendanalysis_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
@@ -1207,13 +1167,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gsad']['NGS_Automated']['default'] }}-bare;
          notifications.sh -g umcg-gsad -c"
-  - name: NGS_Automated_cleanupSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-gsad-dm
-    machines: "{{ groups['chaperone'] | default([]) }}"
-    minute: '*/10'
-    # ToDo: improve job with "module load" and remove "sh"
-    job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         cleanupSamplesheets.sh -g umcg-gsad"
   ######################################################################################################################
   # umcg-gap group
   ######################################################################################################################
@@ -1488,30 +1441,6 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-patho']['NGS_Automated']['default'] }}-bare;
          copyBclDataToPrm.sh -g umcg-patho -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm35"
-  ######################################################################################################################
-  # umcg-pr group
-  ######################################################################################################################
-  # - name: NGS_Automated_moveAndCheckSamplesheets  # Unique ID required to update existing cronjob: do not modify.
-  #   user: umcg-pr-ateambot
-  #   machines: "{{ groups['chaperone'] | default([]) }}"
-  #   minute: '*/5'
-  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
-  #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated']['default'] }}-bare;
-  #        moveAndCheckSamplesheets.sh -g umcg-pr -d dat55"
-  # - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
-  #   user: umcg-pr-dm
-  #   machines: "{{ groups['chaperone'] | default([]) }}"
-  #   minute: '*/10'
-  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
-  #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated']['default'] }}-bare;
-  #        notifications.sh -g umcg-pr -c -d dat55 -p prm55"
-  # - name: NGS_Automated_copyBclDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
-  #   user: umcg-pr-dm
-  #   machines: "{{ groups['chaperone'] | default([]) }}"
-  #   minute: '*/10'
-  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
-  #        module load NGS_Automated/{{ group_module_versions['umcg-pr']['NGS_Automated']['default'] }}-bare;
-  #        copyBclDataToPrm.sh -g umcg-pr -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }} -p prm55"
   ######################################################################################################################
   # umcg-lab group
   ######################################################################################################################
