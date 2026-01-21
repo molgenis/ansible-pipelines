@@ -917,14 +917,14 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
          copyProjectDataToPrm.sh -g umcg-gd -p NGS_DNA -r /groups/umcg-genomescan/tmp05"
-  # - name: NGS_Automated_copyProjectDataToPrm_RNA_external  # Unique ID required to update existing cronjob: do not modify.
-  #   user: umcg-gd-dm
-  #   machines: "{{ groups['chaperone'] | default([]) }}"
-  #   minute: '*/10'
-  #   job: /bin/bash -c "{{ configure_env_in_cronjob }};
-  #        module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-  #        copyProjectDataToPrm.sh -g umcg-gd -p NGS_RNA -r /groups/umcg-genomescan/tmp05"
-  - name: benikdown  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_copyProjectDataToPrm_RNA_external  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
+         copyProjectDataToPrm.sh -g umcg-gd -p NGS_RNA -r /groups/umcg-genomescan/tmp05"
+    - name: benikdown  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
     minute: '*/5'
