@@ -1,5 +1,5 @@
 ---
-- name: "Get details for the {{ eb_user }} user."
+- name: "Get details for the {{ eb_user }} user."  # noqa name[template]
   ansible.builtin.user:
     user: "{{ eb_user }}"
     state: present
