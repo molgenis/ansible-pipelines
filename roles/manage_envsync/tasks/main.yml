@@ -1,7 +1,7 @@
 ---
 - name: "Get details for the {{ eb_user }} user."
   ansible.builtin.user:
-    name: "{{ eb_user }}"
+    user: "{{ eb_user }}"
     state: present
   register: eb_user_info
   check_mode: true  # Important, otherwise task will try to create the user if it did not exist.
