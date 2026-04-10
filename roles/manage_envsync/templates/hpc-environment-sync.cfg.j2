@@ -1,0 +1,40 @@
+##########################################################
+# Configuration file for the hpc-environment-sync script.
+##########################################################
+#
+# System account, group used for the rsync.
+#  * Group on SOURCE will be recursively changed to this one before sync.
+#
+SYS_USER='{{ eb_user }}'
+SYS_GROUP='{{ eb_group }}'
+#
+# Perms for environment on SOURCE
+#  * These permissions will be applied recursively on SOURCE before sync.
+#  * These are NOT the permissions applied to the DESTINATION (those are controlled by rsync options.)
+#
+SYS_FILE_PERMS_EXECUTABLE='0775'
+SYS_FILE_PERMS_REGULAR='0664'
+SYS_FILE_PERMS_CHMOD='ug+rwX,o+rX,o-w'
+SYS_FOLDER_PERMS='2775'
+#
+# Original location where we deployed our software, their modules and reference data.
+#
+SOURCE_ROOT_PATH='/apps/'
+SOFTWARE_DIR_NAME='software'
+MODULES_DIR_NAME='modules'
+REFDATA_DIR_NAME='data'
+CACHE_DIR_NAME='cache'
+#
+# Locations of env* file system mount points, where we want a copy of our deployed tools + resources.
+#
+declare -a DESTINATION_MOUNT_POINT_PARENTS=('/mnt/')
+#
+# Name of the host where we will try to execute the Slurm sinfo and scontrol commands
+# in order to find the list of compute nodes, which have cache on a local file system,
+# where we can store a copy of our cache.
+#
+declare SLURM_HOST='{{ groups['user_interface'] | first }}'
+#
+# Should the script delete old stuff in DESTINATION when it is no longer present in SOURCE?
+#
+DELETE_OLD=1
