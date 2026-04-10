@@ -1,0 +1,18 @@
+---
+- name: Calling pre-deploy checks
+  import_playbook: pre_deploy_checks.yml
+
+- name: Manage config for synchronizing the HPC environment to other file systems.
+  hosts:
+    - deploy_admin_interface
+    - chaperone
+  roles:
+    - manage_envsync
+  vars:
+    #
+    # We use {{ hpc_env_prefix }}/.tmp/, so we can also use it for Ansible
+    # to prevent large data transfers from running out of disk space
+    # in the default location for ansible_remote_tmp, which is in your ${HOME}.
+    #
+    ansible_remote_tmp: "{{ hpc_env_prefix }}/.tmp/ansible-${USER}"
+...

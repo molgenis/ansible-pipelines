@@ -1,0 +1,32 @@
+---
+- name: "Get details for the {{ eb_user }} user."  # noqa name[template]
+  ansible.builtin.user:
+    user: "{{ eb_user }}"
+    state: present
+  register: eb_user_info
+  check_mode: true  # Important, otherwise task will try to create the user if it did not exist.
+
+- name: 'Create dir for config file.'
+  ansible.builtin.file:
+    state: directory
+    path: "{{ item['path'] }}"
+    owner: "{{ eb_user }}"
+    group: "{{ eb_user }}"
+    mode: "{{ item['mode'] | default(omit) }}"
+  loop:
+    - path: "{{ eb_user_info['home'] }}/.config/"
+    - path: "{{ eb_user_info['home'] }}/.config/hpc-environment-sync/"
+      mode: '0700'
+  become: true
+  become_user: "{{ eb_user }}"
+
+- name: 'Create config file for hpc-environment-sync.bash script.'
+  ansible.builtin.template:
+    src: hpc-environment-sync.cfg.j2
+    dest: "{{ eb_user_info['home'] }}/.config/hpc-environment-sync/hpc-environment-sync.cfg"
+    owner: "{{ eb_user }}"
+    group: "{{ eb_user }}"
+    mode: '0600'
+  become: true
+  become_user: "{{ eb_user }}"
+...
