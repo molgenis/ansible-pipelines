@@ -331,15 +331,30 @@ dynamic_easyconfigs: >-
       {%- for software, version in modules.items() %}
         {%- if software == 'NGS_Automated' %}
           {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
-                'n/NGS_Automated/NGS_Automated-' + version + '-bare.eb'
+                'n/NGS_Automated/NGS_Automated-'
+                + version['default']
+                + '-bare.eb'
               ) %}
-        {%- elif software == 'NGS_DNA' or software == 'GAP' or software == 'NGS_Demultiplexing' or software == 'AGCT' %}
+        {%- elif software == 'NGS_DNA' or software == 'GAP' or software == 'NGS_Demultiplexing' or software == 'AGCT' or software == 'nf_ngs_dna' %}
           {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
-                'n/NGS_Automated/NGS_Automated-' + group_module_versions[group]['NGS_Automated'] + '-' + software + '-' + version + '.eb'
+                'n/NGS_Automated/NGS_Automated-'
+                + group_module_versions[group]['NGS_Automated'][software] | default(group_module_versions[group]['NGS_Automated']['default'] )
+                + '-'
+                + software
+                + '-'
+                + version
+                + '.eb'
               ) %}
         {%- else %}
           {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
-                software[0:1] | lower + '/' + software + '/' + software + '-' + version + '.eb'
+                software[0:1] | lower
+                + '/'
+                + software
+                + '/'
+                + software
+                + '-'
+                + version
+                + '.eb'
               ) %}
         {%- endif %}
       {%- endfor %}
