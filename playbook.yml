@@ -5,10 +5,10 @@
   import_playbook: single_role_playbooks/fetch_extra_easyconfigs.yml
 - name: "Fetch sources and reference data"
   import_playbook: single_role_playbooks/fetch_sources_and_refdata.yml
-- name: "Install modules with easybuild"
-  import_playbook: single_role_playbooks/install_modules_with_easybuild.yml
 - name: "Manage synchronisation of the HPC environment"
   import_playbook: single_role_playbooks/manage_envsync.yml
+- name: "Install modules with easybuild"
+  import_playbook: single_role_playbooks/install_modules_with_easybuild.yml
 - name: "Create group subfolder structure"
   import_playbook: single_role_playbooks/create_group_subfolder_structure.yml
 - name: "Manage cronjobs"
