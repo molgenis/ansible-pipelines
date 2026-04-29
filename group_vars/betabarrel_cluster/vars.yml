@@ -17,7 +17,7 @@ stack_prefix: 'bb'
 lua_version: '5.4.6'
 luaposix_version: '36.2.1'
 lmod_version: '8.7.32'
-easybuild_version: '5.2.3'
+easybuild_version: '5.3.0'
 eb_user: umcg-envsync
 eb_group: umcg-depad
 extra_easyconfigs_version: 26.04.2
