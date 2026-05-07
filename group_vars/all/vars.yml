@@ -335,7 +335,12 @@ dynamic_easyconfigs: >-
                 + version['default']
                 + '-bare.eb'
               ) %}
-        {%- elif software == 'NGS_DNA' or software == 'GAP' or software == 'NGS_Demultiplexing' or software == 'AGCT' or software == 'nf_ngs_dna' %}
+        {%- elif software == 'nf_ngs_dna'
+              or software == 'NGS_Demultiplexing'
+              or software == 'NGS_DNA'
+              or software == 'NGS_RNA'
+              or software == 'GAP'
+              or software == 'AGCT' %}
           {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
                 'n/NGS_Automated/NGS_Automated-'
                 + group_module_versions[group]['NGS_Automated'][software] | default(group_module_versions[group]['NGS_Automated']['default'] )

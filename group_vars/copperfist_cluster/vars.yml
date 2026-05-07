@@ -19,7 +19,7 @@ lmod_version: '8.6.2'
 easybuild_version: '4.8.0'
 eb_user: umcg-envsync
 eb_group: umcg-depad
-extra_easyconfigs_version: 26.04.1
+extra_easyconfigs_version: 26.05.1
 extra_easyconfigs_repository: 'take-it-easyconfigs'
 # extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/easybuild/easyconfigs/"
 #
@@ -589,7 +589,7 @@ group_module_versions:
     nf_ngs_dna: 1.4.0
     ConcordanceCheck: 2.2.1
     ngs-utils: 24.02.2
-    vip: 8.1.0
+    vip: 9.2.0
     NGS_Demultiplexing: 2.5.4
     Trendanalysis: 2.0.0
   umcg-gap:
@@ -1484,6 +1484,6 @@ refdata: [
 ]
 static_easyconfigs:
   - 'c/cluster-utils/cluster-utils-v26.01.1-GCCcore-13.3.0.eb'
-  - 'd/depad-utils/depad-utils-v26.04.1.eb'
+  - 'd/depad-utils/depad-utils-v26.04.3.eb'
 chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', '(NGS_Automated-.*-bare|depad-utils-.*).eb') | list }}"
 ...

@@ -20,7 +20,7 @@ lmod_version: '8.7.32'
 easybuild_version: '5.1.2'
 eb_user: umcg-envsync
 eb_group: umcg-depad
-extra_easyconfigs_version: 26.04.2
+extra_easyconfigs_version: 26.05.1
 extra_easyconfigs_repository: 'take-it-easyconfigs'
 #
 # Group folder structures to construct on shared storage systems.
@@ -69,5 +69,5 @@ refdata: [
 ]
 static_easyconfigs:
   - 'c/cluster-utils/cluster-utils-v26.01.1-GCCcore-13.3.0.eb'
-  - 'd/depad-utils/depad-utils-v26.04.2.eb'
+  - 'd/depad-utils/depad-utils-v26.04.3.eb'
 ...
