@@ -47,7 +47,7 @@
   loop: "{{ easyconfigs }}"
   loop_control:
     loop_var: easyconfig
-    label: "{% if eb_status.rc == 0 %}
+    label: "{% if eb_status.rc is defined and eb_status.rc == 0 %}
                 {{ eb_status.stdout_lines
                    | select('match', 'INFO: Using easyconfig path')
                    | first
