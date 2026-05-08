@@ -23,8 +23,8 @@
          set -u
          module load "EasyBuild/{{ easybuild_version }}"
          export EB_PYTHON="{{ python_path.stdout }}"
-         if [[ -e '{{ extra_easyconfigs_prefix }}/{{ easyconfig }}' ]]; then
-             _easyconfig_path='{{ extra_easyconfigs_prefix }}/{{ easyconfig }}'
+         if [[ -e '{{ extra_easyconfigs_path }}/{{ easyconfig }}' ]]; then
+             _easyconfig_path='{{ extra_easyconfigs_path }}/{{ easyconfig }}'
          elif [[ -e "${EBROOTEASYBUILD}/easybuild/easyconfigs/{{ easyconfig }}" ]]; then
              _easyconfig_path="${EBROOTEASYBUILD}/easybuild/easyconfigs/{{ easyconfig }}"
          else
@@ -35,7 +35,7 @@
              printf 'FATAL: Cannot find default nor custom easyconfig.\n'
              exit 1
          fi
-         eb --robot --robot-paths="{{ extra_easyconfigs_prefix }}/:" "${_easyconfig_path}"
+         eb --robot --robot-paths="{{ extra_easyconfigs_path }}/:" "${_easyconfig_path}"
   args:
     executable: /bin/bash
   environment:
