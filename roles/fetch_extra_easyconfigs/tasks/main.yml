@@ -11,6 +11,7 @@
   ansible.builtin.git:
     clone: true
     depth: 1
+    version: main  # Fetches "main" branch.
     repo: "{{ extra_easyconfigs_repo_url }}"
     dest: "{{ extra_easyconfigs_path }}"
     force: true
