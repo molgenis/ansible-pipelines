@@ -30,14 +30,16 @@ group_subfolder_structure:
   - group: umcg-atd
     lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-atd-ateambot
+    owner: umcg-atd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
-            | union(analysis_folders['trendanalysis']['tmp']) }}"
+            | union(analysis_folders['trendanalysis']['tmp']) 
+            | union(analysis_folders['nf_ngs_dna']['tmp'])
+            | union(analysis_folders['NGS_RNA']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
     lfs: tmp15
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-atd-ateambot
+    owner: umcg-atd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
             | union(analysis_folders['nf_ngs_dna']['tmp'])
             | union(analysis_folders['trendanalysis']['tmp']) }}"
@@ -63,14 +65,16 @@ group_subfolder_structure:
   - group: umcg-gd
     lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gd-ateambot
+    owner: umcg-gd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
-            | union(analysis_folders['trendanalysis']['tmp']) }}"
+            | union(analysis_folders['trendanalysis']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp'])
+            | union(analysis_folders['NGS_RNA']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: tmp15
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gd-ateambot
+    owner: umcg-gd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
             | union(analysis_folders['nf_ngs_dna']['tmp'])
             | union(analysis_folders['trendanalysis']['tmp']) }}"
@@ -96,14 +100,14 @@ group_subfolder_structure:
   - group: umcg-gsad
     lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gsad-ateambot
+    owner: umcg-gsad-dm
     subfolders: "{{ analysis_folders['AGCT']['tmp']
             | union(analysis_folders['GAP']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gsad
     lfs: tmp15
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gsad-ateambot
+    owner: umcg-gsad-dm
     subfolders: "{{ analysis_folders['AGCT']['tmp']
             | union(analysis_folders['GAP']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
@@ -127,14 +131,14 @@ group_subfolder_structure:
   - group: umcg-gap
     lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gap-ateambot
+    owner: umcg-gap-dm
     subfolders: "{{ analysis_folders['AGCT']['tmp']
             | union(analysis_folders['GAP']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: tmp15
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gap-ateambot
+    owner: umcg-gap-dm
     subfolders: "{{ analysis_folders['AGCT']['tmp']
             | union(analysis_folders['GAP']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
@@ -158,15 +162,16 @@ group_subfolder_structure:
   - group: umcg-gst
     lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gst-ateambot
+    owner: umcg-gst-dm
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
             | union(analysis_folders['NGS_RNA']['tmp'])
-            | union(analysis_folders['GsAnalysisData']['tmp']) }}"
+            | union(analysis_folders['GsAnalysisData']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
     lfs: tmp15
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gst-ateambot
+    owner: umcg-gst-dm
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
             | union(analysis_folders['NGS_RNA']['tmp'])
             | union(analysis_folders['GsAnalysisData']['tmp']) }}"
@@ -184,15 +189,16 @@ group_subfolder_structure:
   - group: umcg-genomescan
     lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-genomescan-ateambot
+    owner: umcg-genomescan-dm
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
             | union(analysis_folders['NGS_RNA']['tmp'])
-            | union(analysis_folders['GsAnalysisData']['tmp']) }}"
+            | union(analysis_folders['GsAnalysisData']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: tmp15
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-genomescan-ateambot
+    owner: umcg-genomescan-dm
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
             | union(analysis_folders['NGS_RNA']['tmp'])
             | union(analysis_folders['GsAnalysisData']['tmp']) }}"
@@ -210,7 +216,7 @@ group_subfolder_structure:
   - group: umcg-lab
     lfs: tmp05
     mode: "{{ MODE_2750_HARD }}"
-    owner: umcg-lab-ateambot
+    owner: umcg-lab-dm
     subfolders:
       - logs
       - sequencers
@@ -218,7 +224,7 @@ group_subfolder_structure:
   - group: umcg-lab
     lfs: tmp15
     mode: "{{ MODE_2750_HARD }}"
-    owner: umcg-lab-ateambot
+    owner: umcg-lab-dm
     subfolders:
       - logs
       - sequencers
@@ -229,13 +235,13 @@ group_subfolder_structure:
   - group: umcg-labgnkbh
     lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-labgnkbh-ateambot
+    owner: umcg-labgnkbh-dm
     subfolders: "{{ analysis_folders['NGS_Demultiplexing']['tmp'] }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-labgnkbh
     lfs: tmp15
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-labgnkbh-ateambot
+    owner: umcg-labgnkbh-dm
     subfolders: "{{ analysis_folders['NGS_Demultiplexing']['tmp'] }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-labgnkbh
@@ -256,13 +262,13 @@ group_subfolder_structure:
   - group: umcg-patho
     lfs: tmp05
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-patho-ateambot
+    owner: umcg-patho-dm
     subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-patho
     lfs: tmp15
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-patho-ateambot
+    owner: umcg-patho-dm
     subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-patho
@@ -286,14 +292,14 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-atd
     lfs: tmp05
-    user: umcg-atd-ateambot
+    user: umcg-atd-dm
     type: notification_webhooks
     analysis_phases: [startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
     lfs: tmp15
-    user: umcg-atd-ateambot
+    user: umcg-atd-dm
     type: notification_webhooks
     analysis_phases: [startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline, startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
@@ -317,28 +323,28 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-gd
     lfs: tmp05
-    user: umcg-gd-ateambot
+    user: umcg-gd-dm
     type: notification_webhooks
     analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: tmp15
-    user: umcg-gd-ateambot
+    user: umcg-gd-dm
     type: notification_webhooks
     analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline, startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: tmp05
-    user: umcg-gd-ateambot
+    user: umcg-gd-dm
     type: notification_webhooks
     analysis_phases: [pipeline]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: tmp15
-    user: umcg-gd-ateambot
+    user: umcg-gd-dm
     type: notification_webhooks
     analysis_phases: [pipeline]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
@@ -369,14 +375,14 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-gsad
     lfs: tmp05
-    user: umcg-gsad-ateambot
+    user: umcg-gsad-dm
     type: notification_webhooks
     analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gsad
     lfs: tmp15
-    user: umcg-gsad-ateambot
+    user: umcg-gsad-dm
     type: notification_webhooks
     analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
@@ -400,28 +406,28 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-gap
     lfs: tmp05
-    user: umcg-gap-ateambot
+    user: umcg-gap-dm
     type: notification_webhooks
     analysis_phases: [startPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: tmp15
-    user: umcg-gap-ateambot
+    user: umcg-gap-dm
     type: notification_webhooks
     analysis_phases: [startPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: tmp05
-    user: umcg-gap-ateambot
+    user: umcg-gap-dm
     type: notification_webhooks
     analysis_phases: [arrayConversion, pipeline]
     notification_target: hpc-helpdesk_and_gd-array-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: tmp15
-    user: umcg-gap-ateambot
+    user: umcg-gap-dm
     type: notification_webhooks
     analysis_phases: [arrayConversion, pipeline]
     notification_target: hpc-helpdesk_and_gd-array-dataverwerking
@@ -452,14 +458,14 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-gst
     lfs: tmp05
-    user: umcg-gst-ateambot
+    user: umcg-gst-dm
     type: notification_webhooks
     analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
     lfs: tmp15
-    user: umcg-gst-ateambot
+    user: umcg-gst-dm
     type: notification_webhooks
     analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
@@ -476,28 +482,28 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-genomescan
     lfs: tmp05
-    user: umcg-genomescan-ateambot
+    user: umcg-genomescan-dm
     type: notification_webhooks
     analysis_phases: [startDragenPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: tmp15
-    user: umcg-genomescan-ateambot
+    user: umcg-genomescan-dm
     type: notification_webhooks
     analysis_phases: [startDragenPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: tmp05
-    user: umcg-genomescan-ateambot
+    user: umcg-genomescan-dm
     type: notification_webhooks
     analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: tmp15
-    user: umcg-genomescan-ateambot
+    user: umcg-genomescan-dm
     type: notification_webhooks
     analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
@@ -514,14 +520,14 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-labgnkbh
     lfs: tmp05
-    user: umcg-labgnkbh-ateambot
+    user: umcg-labgnkbh-dm
     type: notification_webhooks
     analysis_phases: [demultiplexing]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-labgnkbh
     lfs: tmp15
-    user: umcg-labgnkbh-ateambot
+    user: umcg-labgnkbh-dm
     type: notification_webhooks
     analysis_phases: [demultiplexing]
     notification_target: hpc-helpdesk
@@ -562,14 +568,14 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-lab
     lfs: tmp05
-    user: umcg-lab-ateambot
+    user: umcg-lab-dm
     type: notification_webhooks
     analysis_phases: [moveSequencingData]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-lab
     lfs: tmp15
-    user: umcg-lab-ateambot
+    user: umcg-lab-dm
     type: notification_webhooks
     analysis_phases: [moveSequencingData]
     notification_target: hpc-helpdesk
@@ -621,7 +627,7 @@ group_module_versions:
     ngs-utils: 24.02.2
   umcg-labgnkbh:
     NGS_Automated:
-      default: 4.2.0
+      default: 4.5.0
     ngs-utils: 24.02.2
     NGS_Demultiplexing: 2.5.4
   umcg-patho:
@@ -630,7 +636,7 @@ group_module_versions:
     ngs-utils: 24.03.1
   umcg-lab:
     NGS_Automated:
-      default: 4.3.0
+      default: 4.5.0
 crontabs:
   ######################################################################################################################
   # umcg-atd group
