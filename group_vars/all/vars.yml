@@ -187,12 +187,14 @@ analysis_folders:
       - logs
       - projects
       - projects/DRAGEN
+      - projects/NGS_DNA
       - projects/POST_DRAGEN
       - rawdata
       - rawdata/ngs
       - Samplesheets
       - Samplesheets/archive
       - Samplesheets/DRAGEN
+      - Samplesheets/NGS_DNA
       - Samplesheets/POST_DRAGEN
       - results
     dat:
