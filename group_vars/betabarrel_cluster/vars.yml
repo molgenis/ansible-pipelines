@@ -292,21 +292,21 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-atd
     lfs: tmp05
-    user: umcg-atd-dm
+    user: umcg-atd-ateambot
     type: notification_webhooks
     analysis_phases: [startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
     lfs: tmp15
-    user: umcg-atd-dm
+    user: umcg-atd-ateambot
     type: notification_webhooks
     analysis_phases: [startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline, startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
     lfs: dat05
-    user: umcg-atd-dm
+    user: umcg-atd-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk
@@ -323,35 +323,35 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-gd
     lfs: tmp05
-    user: umcg-gd-dm
+    user: umcg-gd-ateambot
     type: notification_webhooks
     analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: tmp15
-    user: umcg-gd-dm
+    user: umcg-gd-ateambot
     type: notification_webhooks
     analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline, startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: tmp05
-    user: umcg-gd-dm
+    user: umcg-gd-ateambot
     type: notification_webhooks
     analysis_phases: [pipeline]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: tmp15
-    user: umcg-gd-dm
+    user: umcg-gd-ateambot
     type: notification_webhooks
     analysis_phases: [pipeline]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: dat05
-    user: umcg-gd-dm
+    user: umcg-gd-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
@@ -375,21 +375,21 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-gsad
     lfs: tmp05
-    user: umcg-gsad-dm
+    user: umcg-gsad-ateambot
     type: notification_webhooks
     analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gsad
     lfs: tmp15
-    user: umcg-gsad-dm
+    user: umcg-gsad-ateambot
     type: notification_webhooks
     analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gsad
     lfs: dat05
-    user: umcg-gsad-dm
+    user: umcg-gsad-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk
@@ -406,35 +406,35 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-gap
     lfs: tmp05
-    user: umcg-gap-dm
+    user: umcg-gap-ateambot
     type: notification_webhooks
     analysis_phases: [startPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: tmp15
-    user: umcg-gap-dm
+    user: umcg-gap-ateambot
     type: notification_webhooks
     analysis_phases: [startPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: tmp05
-    user: umcg-gap-dm
+    user: umcg-gap-ateambot
     type: notification_webhooks
     analysis_phases: [arrayConversion, pipeline]
     notification_target: hpc-helpdesk_and_gd-array-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: tmp15
-    user: umcg-gap-dm
+    user: umcg-gap-ateambot
     type: notification_webhooks
     analysis_phases: [arrayConversion, pipeline]
     notification_target: hpc-helpdesk_and_gd-array-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: dat05
-    user: umcg-gap-dm
+    user: umcg-gap-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_gd-array-dataverwerking
@@ -458,21 +458,21 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-gst
     lfs: tmp05
-    user: umcg-gst-dm
+    user: umcg-gst-ateambot
     type: notification_webhooks
     analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
     lfs: tmp15
-    user: umcg-gst-dm
+    user: umcg-gst-ateambot
     type: notification_webhooks
     analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
     lfs: dat05
-    user: umcg-gst-dm
+    user: umcg-gst-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk
@@ -482,35 +482,35 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-genomescan
     lfs: tmp05
-    user: umcg-genomescan-dm
+    user: umcg-genomescan-ateambot
     type: notification_webhooks
     analysis_phases: [startDragenPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: tmp15
-    user: umcg-genomescan-dm
+    user: umcg-genomescan-ateambot
     type: notification_webhooks
     analysis_phases: [startDragenPipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: tmp05
-    user: umcg-genomescan-dm
+    user: umcg-genomescan-ateambot
     type: notification_webhooks
     analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: tmp15
-    user: umcg-genomescan-dm
+    user: umcg-genomescan-ateambot
     type: notification_webhooks
     analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: dat05
-    user: umcg-genomescan-dm
+    user: umcg-genomescan-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
@@ -520,21 +520,21 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-labgnkbh
     lfs: tmp05
-    user: umcg-labgnkbh-dm
+    user: umcg-labgnkbh-ateambot
     type: notification_webhooks
     analysis_phases: [demultiplexing]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-labgnkbh
     lfs: tmp15
-    user: umcg-labgnkbh-dm
+    user: umcg-labgnkbh-ateambot
     type: notification_webhooks
     analysis_phases: [demultiplexing]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-labgnkbh
     lfs: dat45
-    user: umcg-labgnkbh-dm
+    user: umcg-labgnkbh-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_labgnkbh
@@ -551,7 +551,7 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-patho
     lfs: dat35
-    user: umcg-patho-dm
+    user: umcg-patho-ateambot
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
     notification_target: hpc-helpdesk_and_patho
@@ -568,14 +568,14 @@ group_notification_targets:
   ######################################################################################################################
   - group: umcg-lab
     lfs: tmp05
-    user: umcg-lab-dm
+    user: umcg-lab-ateambot
     type: notification_webhooks
     analysis_phases: [moveSequencingData]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-lab
     lfs: tmp15
-    user: umcg-lab-dm
+    user: umcg-lab-ateambot
     type: notification_webhooks
     analysis_phases: [moveSequencingData]
     notification_target: hpc-helpdesk
