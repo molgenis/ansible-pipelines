@@ -16,9 +16,9 @@ easybuild_sources_dir: "{{ hpc_env_prefix }}/sources/"
 easybuild_modules_dir: "{{ hpc_env_prefix }}/modules/"
 easybuild_software_dir: "{{ hpc_env_prefix }}/software/"
 easybuild_modules_syntax: 'Lua'
-extra_easyconfigs_version: 1.0
-extra_easyconfigs_repository: 'take-it-easyconfigs'
-extra_easyconfigs_prefix: "{{ easybuild_software_dir }}/easyconfigs/{{ extra_easyconfigs_repository }}-{{ extra_easyconfigs_version }}/"
+extra_easyconfigs_repo_name: 'take-it-easyconfigs'
+extra_easyconfigs_repo_url: "https://github.com/molgenis/{{ extra_easyconfigs_repo_name }}.git"
+extra_easyconfigs_path: "{{ easybuild_sources_dir }}/e/easyconfigs/{{ extra_easyconfigs_repo_name }}/"
 remote_env_cache_server: "ssh.webhosting.rug.nl"
 remote_env_cache_user: "f114592"
 remote_env_cache_dir_public:  '{{ remote_env_cache_user }}@{{ remote_env_cache_server }}:site/apps/'
@@ -335,7 +335,12 @@ dynamic_easyconfigs: >-
                 + version['default']
                 + '-bare.eb'
               ) %}
-        {%- elif software == 'NGS_DNA' or software == 'GAP' or software == 'NGS_Demultiplexing' or software == 'AGCT' or software == 'nf_ngs_dna' %}
+        {%- elif software == 'nf_ngs_dna'
+              or software == 'NGS_Demultiplexing'
+              or software == 'NGS_DNA'
+              or software == 'NGS_RNA'
+              or software == 'GAP'
+              or software == 'AGCT' %}
           {%- set easyconfigs_for_group_modules = easyconfigs_for_group_modules.append(
                 'n/NGS_Automated/NGS_Automated-'
                 + group_module_versions[group]['NGS_Automated'][software] | default(group_module_versions[group]['NGS_Automated']['default'] )
