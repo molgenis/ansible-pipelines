@@ -1075,7 +1075,7 @@ crontabs:
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['nf_ngs_dna'] | default(group_module_versions['umcg-gd']['NGS_Automated']['default']) }}-nf_ngs_dna-{{ group_module_versions['umcg-gd']['nf_ngs_dna'] }};
          startInhouseDragenPipeline.sh -g umcg-gd"
   - name: NGS_Automated_postDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
-    user: umcg-atd-ateambot
+    user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
