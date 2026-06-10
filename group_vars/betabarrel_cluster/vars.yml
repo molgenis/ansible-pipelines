@@ -627,9 +627,9 @@ group_module_versions:
     ngs-utils: 24.02.2
   umcg-labgnkbh:
     NGS_Automated:
-      default: 4.5.0
+      default: 4.6.0
     ngs-utils: 24.02.2
-    NGS_Demultiplexing: 2.5.4
+    nf_ngs_dna: 1.4.0
   umcg-patho:
     NGS_Automated:
       default: 4.2.0
@@ -1377,13 +1377,13 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated']['default'] }}-bare;
          moveAndCheckSamplesheets.sh -g umcg-labgnkbh -d dat45"
-  - name: NGS_Demultiplexing_demultiplexing  # Unique ID required to update existing cronjob: do not modify.
+  - name: NGS_Automated_startInhouseDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-labgnkbh-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated']['NGS_Demultiplexing'] | default(group_module_versions['umcg-labgnkbh']['NGS_Automated']['default']) }}-NGS_Demultiplexing-{{ group_module_versions['umcg-labgnkbh']['NGS_Demultiplexing'] }};
-         demultiplexing.sh -g umcg-labgnkbh"
+         module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated']['nf_ngs_dna'] | default(group_module_versions['umcg-labgnkbh']['NGS_Automated']['default']) }}-nf_ngs_dna-{{ group_module_versions['umcg-labgnkbh']['nf_ngs_dna'] }};
+         startInhouseDragenPipeline.sh -g umcg-labgnkbh"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-labgnkbh-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -1397,7 +1397,7 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated']['default'] }}-bare;
-         copyRawDataToPrm.sh -a -g umcg-labgnkbh -p NGS_Demultiplexing -m prm45 -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }}"
+         copyRawDataToPrm.sh -a -g umcg-labgnkbh -p DRAGEN -m prm45 -s {{ groups['jumphost'] | first }}+{{ groups['user_interface'] | first }}"
   ######################################################################################################################
   # umcg-patho group
   ######################################################################################################################
@@ -1465,5 +1465,6 @@ refdata: [
 static_easyconfigs:
   - 'c/cluster-utils/cluster-utils-v26.01.1-GCCcore-13.3.0.eb'
   - 'd/depad-utils/depad-utils-v26.04.3.eb'
+  - 'c/ConcordanceCheck/ConcordanceCheck-3.0.0.eb'
 chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', '(NGS_Automated-.*-bare|depad-utils-.*).eb') | list }}"
 ...
