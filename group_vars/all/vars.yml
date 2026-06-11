@@ -191,6 +191,7 @@ analysis_folders:
       - projects/POST_DRAGEN
       - rawdata
       - rawdata/ngs
+      - results
       - Samplesheets
       - Samplesheets/archive
       - Samplesheets/DRAGEN
@@ -206,20 +207,16 @@ analysis_folders:
       - projects
       - Samplesheets
       - Samplesheets/archive
-  NGS_Demultiplexing:
+  nf_ngs_dna-demultiplexing:
     tmp:
-      - generatedscripts
-      - generatedscripts/NGS_Demultiplexing
       - logs
       - rawdata
       - rawdata/ngs
-      - runs
-      - runs/NGS_Demultiplexing
+      - results
       - Samplesheets
       - Samplesheets/archive
-      - Samplesheets/NGS_Demultiplexing
+      - Samplesheets/DRAGEN
       - tmp
-      - tmp/NGS_Demultiplexing
     dat:
       - logs
       - samplesheets
