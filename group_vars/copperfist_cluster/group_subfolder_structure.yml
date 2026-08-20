@@ -148,6 +148,7 @@ group_subfolder_structure:
     owner: umcg-gst-ateambot
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
             | union(analysis_folders['NGS_RNA']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp'])
             | union(analysis_folders['GsAnalysisData']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
@@ -174,6 +175,7 @@ group_subfolder_structure:
     owner: umcg-genomescan-ateambot
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
             | union(analysis_folders['NGS_RNA']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp'])
             | union(analysis_folders['GsAnalysisData']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan

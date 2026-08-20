@@ -81,6 +81,11 @@ group_module_versions:
   umcg-lab:
     NGS_Automated:
       default: 4.3.0
+  umcg-pgx:
+    NGS_Automated:
+      default: 4.7.0
+    AGCT: 1.3.0
+    PGx: 2.1.0
 #
 # Sources, software and reference data to install/fetch.
 #

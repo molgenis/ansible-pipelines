@@ -22,12 +22,11 @@ eb_group: umcg-depad
 group_module_versions:
   umcg-gd:
     NGS_Automated:
-      default: 4.6.0  # Default NGS_Automated version.
+      default: 4.7.0  # Default NGS_Automated version.
     nf_ngs_dna: 1.4.0
     ConcordanceCheck: 2.2.1
     ngs-utils: 24.02.2
     vip: v9.2.0
-    NGS_Demultiplexing: 2.5.4
     Trendanalysis: 2.1.0
   umcg-gap:
     NGS_Automated:
@@ -37,14 +36,13 @@ group_module_versions:
     ngs-utils: 24.02.2
   umcg-genomescan:
     NGS_Automated:
-      default: 4.5.0
-    nf_ngs_dna: 1.2.0
+      default: 4.7.0
+    nf_ngs_dna: 1.4.0
     NGS_RNA: 4.1.3
-    NGS_DNA: 4.2.2
     ngs-utils: 24.03.1
   umcg-atd:
     NGS_Automated:
-      default: 4.6.0  # Default NGS_Automated version.
+      default: 4.7.0  # Default NGS_Automated version.
     nf_ngs_dna: 1.4.0
     ConcordanceCheck: 3.0.0
     ngs-utils: 24.02.2
@@ -57,16 +55,15 @@ group_module_versions:
     ngs-utils: 24.02.2
   umcg-gst:
     NGS_Automated:
-      default: 4.5.0
-    nf_ngs_dna: 1.2.0
-    NGS_DNA: 4.2.2
+      default: 4.7.0
+    nf_ngs_dna: 1.4.0
     NGS_RNA: 4.1.3
     ngs-utils: 24.02.2
   umcg-labgnkbh:
     NGS_Automated:
-      default: 4.2.0
+      default: 4.7.0
     ngs-utils: 24.02.2
-    NGS_Demultiplexing: 2.5.4
+    nf_ngs_dna: 1.4.0
   umcg-patho:
     NGS_Automated:
       default: 4.2.0

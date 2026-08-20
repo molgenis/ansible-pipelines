@@ -73,7 +73,7 @@ crontabs:
   - name: Trendanalysis_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
-    disable: true
+    disabled: true
     weekday: '0'
     minute: '0'
     hour: '6'
@@ -83,7 +83,7 @@ crontabs:
   - name: Trendanalysis_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
-    disable: true
+    disabled: true
     weekday: '0'
     minute: '0'
     hour: '12'
@@ -93,7 +93,7 @@ crontabs:
   - name: Trendanalysis_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
-    disable: true
+    disabled: true
     weekday: '0'
     minute: '0'
     hour: '18'
@@ -324,7 +324,7 @@ crontabs:
   - name: Trendanalysis_copyQCDataToTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['chaperone'] | default([]) }}"
-    disable: true
+    disabled: true
     weekday: '0'
     minute: '0'
     hour: '6'
@@ -334,7 +334,7 @@ crontabs:
   - name: Trendanalysis_trendAnalyse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
-    disable: true
+    disabled: true
     weekday: '0'
     minute: '0'
     hour: '12'
@@ -343,7 +343,7 @@ crontabs:
          trendAnalyse.sh -g umcg-gd"
   - name: Trendanalysis_copyTrendAnalysisDataToPrm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
-    disable: true
+    disabled: true
     machines: "{{ groups['chaperone'] | default([]) }}"
     weekday: '0'
     minute: '0'
@@ -441,7 +441,6 @@ crontabs:
   - name: NGS_Automated_inhouseDragenPipeline  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
-    disabled: true
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['nf_ngs_dna'] | default(group_module_versions['umcg-gd']['NGS_Automated']['default']) }}-nf_ngs_dna-{{ group_module_versions['umcg-gd']['nf_ngs_dna'] }};
@@ -450,7 +449,6 @@ crontabs:
     user: umcg-gd-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
-    disabled: true
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['nf_ngs_dna'] | default(group_module_versions['umcg-gd']['NGS_Automated']['default']) }}-nf_ngs_dna-{{ group_module_versions['umcg-gd']['nf_ngs_dna'] }};
          startPostDragenPipeline.sh -g umcg-gd"
