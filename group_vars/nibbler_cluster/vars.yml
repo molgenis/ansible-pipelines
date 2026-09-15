@@ -8,16 +8,16 @@
 # Conventions for playbook variables:
 # Use lowercase underscore separated names.
 #
-stack_prefix: 'nb'
+stack_prefix: nb
 #
 # Versions of components of our HPC environment, which is managed using Lua+Lmod+EasyBuild.
 # NOTE: when introducing a new version number here for Lua or Lmod,
 #       please make sure to add corresponding values in group_vars/all/*.yml
 #
-lua_version: '5.4.6'
-luaposix_version: '36.2.1'
-lmod_version: '8.7.32'
-easybuild_version: '5.2.0'
+lua_version: 5.5.1
+luaposix_version: 36.3
+lmod_version: 9.4.2
+easybuild_version: 5.4.0
 eb_user: umcg-envsync
 eb_group: umcg-depad
 #
@@ -27,6 +27,8 @@ public_sources: []
 private_sources: []
 refdata: []
 static_easyconfigs:
-  - 'c/cluster-utils/cluster-utils-v26.07.1-GCCcore-13.3.0.eb'
+  - 'c/cluster-utils/cluster-utils-v26.09.1-GCCcore-13.3.0.eb'
   - 'd/depad-utils/depad-utils-v26.04.3.eb'
+  - 'j/Java/Java-17-LTS.eb'
+  - 'j/Java/Java-25-LTS.eb'
 ...
