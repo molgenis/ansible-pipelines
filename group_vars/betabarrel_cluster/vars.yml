@@ -61,7 +61,7 @@ group_module_versions:
     ngs-utils: 24.03.1
   umcg-lab:
     NGS_Automated:
-      default: 4.5.0
+      default: 4.6.0
 #
 # Sources, software and reference data to install/fetch.
 #

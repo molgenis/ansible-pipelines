@@ -247,7 +247,7 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-         calculateProjectMd5s.sh -g umcg-gd -p NGS_DNA"
+         calculateProjectMd5s.sh -g umcg-gd -p POST_DRAGEN"
   - name: NGS_Automated_copyRawDataToPrm_inhouse  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
@@ -311,7 +311,7 @@ crontabs:
     # ToDo: improve job with "module load" and remove "sh"
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
-         cleanupDataOnTmp.sh -g umcg-gd -p NGS_DNA"
+         cleanupDataOnTmp.sh -g umcg-gd -p POST_DRAGEN"
   - name: NGS_Automated_cleanupSamplesheets  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gd-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
