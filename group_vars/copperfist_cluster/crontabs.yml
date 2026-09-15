@@ -796,4 +796,56 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-lab']['NGS_Automated']['default'] }}-bare;
          moveSequencingData.sh -t tmp06"
+  #####################################################################################################################
+  # umcg-pgx group
+  #####################################################################################################################
+  - name: PGx_arrayConversion  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-pgx-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/5'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-pgx']['NGS_Automated']['AGCT'] | default(group_module_versions['umcg-pgx']['NGS_Automated']['default']) }}-AGCT-{{ group_module_versions['umcg-pgx']['AGCT'] }};
+         arrayConversion.sh -g umcg-pgx"
+  - name: PGx_pullErasmusPGxData # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-pgx-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-pgx']['NGS_Automated']['default'] }}-bare;
+         PullAndProcessErasmusPGxData.sh -g umcg-pgx"
+  - name: PGx_notifications_prm  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-pgx-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-pgx']['NGS_Automated']['default'] }}-bare;
+         notifications.sh -g umcg-pgx -c"
+  - name: PGx_notifications_tmp  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-pgx-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-pgx']['NGS_Automated']['default'] }}-bare;
+         notifications.sh -g umcg-pgx -c"
+  - name: PGx_startPGxPipeline  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-pgx-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-pgx']['NGS_Automated']['PGx'] | default(group_module_versions['umcg-pgx']['NGS_Automated']['default']) }}-PGx-{{ group_module_versions['umcg-pgx']['PGx'] }};
+         startPGxPipeline.sh -g umcg-pgx"
+  - name: NGS_Automated_calculateProjectMd5s  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-pgx-ateambot
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-pgx']['NGS_Automated']['default'] }}-bare;
+         calculateProjectMd5s.sh -g umcg-pgx -p PGx"
+  - name: NGS_Automated_copyProjectDataToPrm  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-pgx-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-pgx']['NGS_Automated']['default'] }}-bare;
+         copyProjectDataToPrm.sh -g umcg-pgx -p PGx -s"
 ...
