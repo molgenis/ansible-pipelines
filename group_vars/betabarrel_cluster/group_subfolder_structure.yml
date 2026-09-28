@@ -200,4 +200,19 @@ group_subfolder_structure:
     owner: umcg-patho-dm
     subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
     machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-pgx group
+  ######################################################################################################################
+  - group: umcg-pgx
+    lfs: tmp15
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-pgx-dm
+    subfolders: "{{ analysis_folders['PGx']['tmp'] }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-pgx
+    lfs: prm05
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-pgx-dm
+    subfolders: "{{ analysis_folders['PGx']['prm'] }}"
+    machines: "{{ groups['chaperone'] }}"
 ...
