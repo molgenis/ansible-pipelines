@@ -28,6 +28,7 @@ private_sources: []
 refdata: []
 static_easyconfigs:
   - 'c/cluster-utils/cluster-utils-v26.09.1-GCCcore-13.3.0.eb'
+  - 'c/CUDA/CUDA-13.4.2.eb'
   - 'd/depad-utils/depad-utils-v26.04.3.eb'
   - 'j/Java/Java-17-LTS.eb'
   - 'j/Java/Java-25-LTS.eb'
