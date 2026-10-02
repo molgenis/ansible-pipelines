@@ -91,6 +91,7 @@ group_subfolder_structure:
     owner: umcg-gst-dm
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
             | union(analysis_folders['NGS_RNA']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp'])
             | union(analysis_folders['GsAnalysisData']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
@@ -118,6 +119,7 @@ group_subfolder_structure:
     owner: umcg-genomescan-dm
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
             | union(analysis_folders['NGS_RNA']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp'])
             | union(analysis_folders['GsAnalysisData']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
@@ -199,5 +201,20 @@ group_subfolder_structure:
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-patho-dm
     subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-pgx group
+  ######################################################################################################################
+  - group: umcg-pgx
+    lfs: tmp15
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-pgx-dm
+    subfolders: "{{ analysis_folders['PGx']['tmp'] }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-pgx
+    lfs: prm05
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-pgx-dm
+    subfolders: "{{ analysis_folders['PGx']['prm'] }}"
     machines: "{{ groups['chaperone'] }}"
 ...

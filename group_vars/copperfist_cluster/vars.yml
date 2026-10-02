@@ -24,7 +24,7 @@ group_module_versions:
     NGS_Automated:
       default: 4.7.0  # Default NGS_Automated version.
     nf_ngs_dna: 1.4.0
-    ConcordanceCheck: 2.2.1
+    ConcordanceCheck: 3.0.0
     ngs-utils: 24.02.2
     vip: v9.2.0
     Trendanalysis: 2.1.0
@@ -71,6 +71,11 @@ group_module_versions:
   umcg-lab:
     NGS_Automated:
       default: 4.6.0
+  umcg-pgx:
+    NGS_Automated:
+      default: 4.7.0
+    AGCT: 1.3.0
+    PGx: 2.1.1
 #
 # Sources, software and reference data to install/fetch.
 #
