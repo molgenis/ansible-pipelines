@@ -1,0 +1,69 @@
+---
+#
+# Group folder structures to construct on shared storage systems.
+#
+group_subfolder_structure:
+  ######################################################################################################################
+  # umcg-atd group
+  ######################################################################################################################
+  - group: umcg-atd
+    lfs: tmp08
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-atd-ateambot
+    subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
+            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
+            | union(analysis_folders['NGS_DNA']['tmp'])
+            | union(analysis_folders['trendanalysis']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-atd
+    lfs: prm08
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-atd-dm
+    subfolders: "{{ analysis_folders['ConcordanceCheck']['prm']
+            | union(analysis_folders['NGS_Demultiplexing']['prm'])
+            | union(analysis_folders['NGS_DNA']['prm'])
+            | union(analysis_folders['trendanalysis']['prm']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  ######################################################################################################################
+  # umcg-gsad group
+  ######################################################################################################################
+  - group: umcg-gsad
+    lfs: tmp07
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gsad-ateambot
+    subfolders: "{{ analysis_folders['AGCT']['tmp']
+            | union(analysis_folders['GAP']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gsad
+    lfs: dat07
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gsad-dm
+    subfolders: "{{ analysis_folders['AGCT']['dat']
+            | union(analysis_folders['GAP']['dat']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-gsad
+    lfs: prm07
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-gsad-dm
+    subfolders: "{{ analysis_folders['AGCT']['prm']
+            | union(analysis_folders['GAP']['prm']) }}"
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-gst group
+  ######################################################################################################################
+  - group: umcg-gst
+    lfs: tmp07
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gst-ateambot
+    subfolders: "{{ analysis_folders['GsRawData']['tmp']
+            | union(analysis_folders['NGS_RNA']['tmp'])
+            | union(analysis_folders['GsAnalysisData']['tmp']) }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gst
+    lfs: dat07
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-gst-dm
+    subfolders: "{{ analysis_folders['GsRawData']['dat']
+            | union(analysis_folders['GsAnalysisData']['dat']) }}"
+    machines: "{{ groups['chaperone'] }}"
+...

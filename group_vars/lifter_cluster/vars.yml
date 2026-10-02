@@ -1,0 +1,56 @@
+---
+#
+# Site specific values to override defaults for variables.
+#
+# Conventions for global environment variables:
+# Use UPPERCASE underscore separated names like for shell env vars.
+#
+# Conventions for playbook variables:
+# Use lowercase underscore separated names.
+#
+stack_prefix: lt
+#
+# Versions of components of our HPC environment, which is managed using Lua+Lmod+EasyBuild.
+# NOTE: when introducing a new version number here for Lua or Lmod,
+#       please make sure to add corresponding values in group_vars/all/*.yml
+#
+lua_version: 5.5.1
+luaposix_version: 36.3
+lmod_version: 9.4.2
+easybuild_version: 5.4.0
+eb_user: umcg-envsync
+eb_group: umcg-depad
+group_module_versions:
+  umcg-atd:
+    NGS_Automated:
+      default: 4.3.1  # Default NGS_Automated version.
+      NGS_DNA: beta  # Overruling NGS_Automated version for NGS_Automated-NGS_DNA bundles.
+    NGS_DNA: 4.2.2
+    ConcordanceCheck: 3.0.0
+    ngs-utils: 24.02.2
+    NGS_Demultiplexing: 2.5.4
+  umcg-gsad:
+    NGS_Automated:
+      default: 4.3.1
+    GAP: 2.7.0
+    AGCT: 1.3.0
+    ngs-utils: 24.03.1
+  umcg-gst:
+    NGS_Automated:
+      default: 4.3.1
+    nf_ngs_dna: 1.1.0
+    NGS_DNA: 4.2.2
+    NGS_RNA: 4.1.2
+    ngs-utils: 24.03.1
+#
+# Sources, software and reference data to install/fetch.
+#
+public_sources: []
+private_sources: []
+refdata: []
+static_easyconfigs:
+  - 'c/cluster-utils/cluster-utils-v26.09.1-GCCcore-13.3.0.eb'
+  - 'd/depad-utils/depad-utils-v26.04.3.eb'
+  - 'j/Java/Java-17-LTS.eb'
+  - 'j/Java/Java-25-LTS.eb'
+...
