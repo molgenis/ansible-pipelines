@@ -1,0 +1,71 @@
+---
+#
+# Symlinks to enable sending notifications to certain target when notification are enabled for an anlysis phase in NGS_Automated.
+#
+group_notification_targets:
+  ######################################################################################################################
+  # umcg-atd group
+  ######################################################################################################################
+  - group: umcg-atd
+    lfs: tmp07
+    user: umcg-atd-ateambot
+    type: notification_webhooks
+    analysis_phases: [demultiplexing, startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-atd
+    lfs: dat07
+    user: umcg-atd-dm
+    type: notification_webhooks
+    analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-atd
+    lfs: prm07
+    user: umcg-atd-dm
+    type: notification_webhooks
+    analysis_phases: [copyRawDataToPrm, copyRawDataToTmp, copyProjectDataToPrm, copyRawNanoporeDataToPrm, copyRawNanoporeDataToTmp, checkRawdata]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-gsad group
+  ######################################################################################################################
+  - group: umcg-gsad
+    lfs: tmp07
+    user: umcg-gsad-ateambot
+    type: notification_webhooks
+    analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gsad
+    lfs: dat07
+    user: umcg-gsad-dm
+    type: notification_webhooks
+    analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  - group: umcg-gsad
+    lfs: prm07
+    user: umcg-gsad-dm
+    type: notification_webhooks
+    analysis_phases: [copyRawDataToPrm, copyRawDataToTmp, copyProjectDataToPrm]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+  ######################################################################################################################
+  # umcg-gst group
+  ######################################################################################################################
+  - group: umcg-gst
+    lfs: tmp07
+    user: umcg-gst-ateambot
+    type: notification_webhooks
+    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-gst
+    lfs: dat07
+    user: umcg-gst-dm
+    type: notification_webhooks
+    analysis_phases: [moveAndCheckSamplesheets]
+    notification_target: hpc-helpdesk
+    machines: "{{ groups['chaperone'] }}"
+...

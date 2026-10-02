@@ -1,0 +1,21 @@
+---
+all:
+  children:
+    jumphost:
+      hosts:
+        lt-portal:
+    deploy_admin_interface:
+      hosts:
+        lt-dai:
+    user_interface:
+      hosts:
+        lifter:
+    chaperone:
+      hosts:
+        lt-chaperone:
+talos_cluster:
+  children:
+    deploy_admin_interface:
+    user_interface:
+    chaperone:
+...
