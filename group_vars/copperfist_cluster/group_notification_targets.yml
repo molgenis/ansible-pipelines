@@ -1,6 +1,6 @@
 ---
 #
-# Symlinks to enable sending notifications to certain target when notification are enabled for an anlysis phase in NGS_Automated.
+# Symlinks to enable sending notifications to certain target when notification are enabled for an analysis phase in NGS_Automated.
 #
 group_notification_targets:
   ######################################################################################################################
