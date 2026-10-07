@@ -56,6 +56,13 @@ crontabs:
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-atd']['NGS_Automated']['default'] }}-bare;
          copyProjectDataToPrm.sh -g umcg-atd -p POST_DRAGEN"
+  - name: NGS_Automated_copyProjectDataToPrm_external  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-atd-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gd']['NGS_Automated']['default'] }}-bare;
+         copyProjectDataToPrm.sh -g umcg-atd -p POST_DRAGEN -s -r /groups/umcg-gst/tmp15"
   - name: FileSystemCheck  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-ateambot
     machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
@@ -615,7 +622,7 @@ crontabs:
     minute: '*/5'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-labgnkbh']['NGS_Automated']['nf_ngs_dna'] | default(group_module_versions['umcg-labgnkbh']['NGS_Automated']['default']) }}-nf_ngs_dna-{{ group_module_versions['umcg-labgnkbh']['nf_ngs_dna'] }};
-         startInhouseDragenPipeline.sh -g umcg-labgnkbh"
+         startInhouseDragenPipeline.sh -g umcg-labgnkbh -d"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-labgnkbh-dm
     machines: "{{ groups['chaperone'] | default([]) }}"
