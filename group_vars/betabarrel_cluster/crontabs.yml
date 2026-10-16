@@ -548,6 +548,7 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
     machines: "{{ groups['user_interface'] | default([]) }}"
+         module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated']['default'] }}-bare;
          notifications.sh -g umcg-genomescan -c"
   - name: NGS_Automated_notifications_prm  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-genomescan-dm
