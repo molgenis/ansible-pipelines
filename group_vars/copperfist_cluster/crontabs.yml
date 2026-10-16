@@ -611,7 +611,14 @@ crontabs:
          moveAndCheckSamplesheets.sh -g umcg-gst"
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
-    machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
+    machines: "{{ groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+         module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated']['default'] }}-bare;
+         notifications.sh -g umcg-gst -c"
+  - name: NGS_Automated_notifications_prm  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-gst-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated']['default'] }}-bare;
@@ -671,6 +678,13 @@ crontabs:
   - name: NGS_Automated_notifications  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-genomescan-ateambot
     machines: "{{ groups['chaperone'] | default([]) + groups['user_interface'] | default([]) }}"
+    minute: '*/10'
+    job: /bin/bash -c "{{ configure_env_in_cronjob }};
+    machines: "{{ groups['user_interface'] | default([]) }}"
+         notifications.sh -g umcg-genomescan -c"
+  - name: NGS_Automated_notifications_prm  # Unique ID required to update existing cronjob: do not modify.
+    user: umcg-genomescan-dm
+    machines: "{{ groups['chaperone'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated']['default'] }}-bare;
