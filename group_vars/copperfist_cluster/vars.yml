@@ -14,9 +14,10 @@ stack_prefix: 'cf'
 # NOTE: when introducing a new version number here for Lua or Lmod,
 #       please make sure to add corresponding values in group_vars/all/*.yml
 #
-lua_version: '5.1.4.9'
-lmod_version: '8.6.2'
-easybuild_version: '4.8.0'
+lua_version: 5.5.1
+luaposix_version: 36.3
+lmod_version: 9.4.2
+easybuild_version: 5.4.1
 eb_user: umcg-envsync
 eb_group: umcg-depad
 group_module_versions:
