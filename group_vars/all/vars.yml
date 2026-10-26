@@ -197,7 +197,6 @@ analysis_folders:
       - nextflow
       - projects
       - projects/DRAGEN
-      - projects/NGS_DNA
       - projects/POST_DRAGEN
       - rawdata
       - rawdata/ngs
@@ -205,7 +204,6 @@ analysis_folders:
       - Samplesheets
       - Samplesheets/archive
       - Samplesheets/DRAGEN
-      - Samplesheets/NGS_DNA
       - Samplesheets/POST_DRAGEN
       - results
     dat:
@@ -285,6 +283,42 @@ analysis_folders:
     prm:
       - trendanalysis
       - trendanalysis/reports
+  PGx:
+    tmp:
+      - generatedscripts
+      - generatedscripts/AGCT
+      - generatedscripts/PGx
+      - logs
+      - projects
+      - projects/PGx
+      - rawdata
+      - rawdata/GDIO
+      - rawdata/gtc
+      - rawdata/array
+      - rawdata/array/IDAT
+      - rawdata/array/GTC
+      - rawdata/idat
+      - rawdata/hematologie_research_data
+      - runs
+      - runs/AGCT
+      - results
+      - Samplesheets
+      - Samplesheets/AGCT
+      - Samplesheets/PGx
+      - Samplesheets/archive
+      - tmp
+      - tmp/AGCT
+      - tmp/PGx
+    dat:
+      - logs
+      - samplesheets
+      - samplesheets/new
+    prm:
+      - logs
+      - rawdata
+      - rawdata/ngs
+      - Samplesheets
+      - Samplesheets/archive
 notification_targets:
   hpc-helpdesk:
     notification_webhooks:
@@ -322,7 +356,7 @@ dynamic_easyconfigs: >-
               ) %}
         {%- elif software == 'nf_ngs_dna'
               or software == 'NGS_Demultiplexing'
-              or software == 'NGS_DNA'
+              or software == 'PGx'
               or software == 'NGS_RNA'
               or software == 'GAP'
               or software == 'AGCT' %}
