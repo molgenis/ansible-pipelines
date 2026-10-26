@@ -140,7 +140,7 @@ crontabs:
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ConcordanceCheck/{{ group_module_versions['umcg-atd']['ConcordanceCheck'] }}-bare;
+         module load ConcordanceCheck/{{ group_module_versions['umcg-atd']['ConcordanceCheck'] }};
          ConcordanceCheck.sh -g umcg-atd"
   - name: ConcordanceCheck_copyConcordanceCheckData  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
@@ -154,7 +154,7 @@ crontabs:
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
-         module load ConcordanceCheck/{{ group_module_versions['umcg-atd']['ConcordanceCheck'] }}-bare;
+         module load ConcordanceCheck/{{ group_module_versions['umcg-atd']['ConcordanceCheck'] }};
          cleanup.sh -g umcg-atd"
   - name: ConcordanceCheck_cleanup  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-atd-dm
@@ -483,7 +483,7 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-gst']['NGS_Automated']['default'] }}-bare;
-         PullAndProcessGsRawData.sh -g umcg-gst -s all"
+         PullAndProcessGsRawData.sh -g umcg-gst -s all -t tmp06"
   - name: NGS_Automated_PullGsAnalysisData  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-gst-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
@@ -556,7 +556,7 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated']['default'] }}-bare;
-         PullAndProcessGsRawData.sh -g umcg-genomescan -s all"
+         PullAndProcessGsRawData.sh -g umcg-genomescan -s all -t tmp06"
   - name: NGS_Automated_PullAndProcessGsAnalysisData  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-genomescan-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
