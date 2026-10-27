@@ -29,6 +29,7 @@ refdata: []
 static_easyconfigs:
   - 'b/BCFtools/BCFtools-1.19-GCCcore-11.3.0.eb'
   - 'c/cluster-utils/cluster-utils-v26.09.1-GCCcore-13.3.0.eb'
+  - 'c/CUDA/CUDA-13.3.1.eb'
   - 'c/CUDA/CUDA-13.4.2.eb'
   - 'd/depad-utils/depad-utils-v26.04.3.eb'
   - 'h/hashdeep/hashdeep-4.4-20180907-18a6b5d-GCCcore-11.3.0.eb'
