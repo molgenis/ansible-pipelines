@@ -10,7 +10,7 @@ group_notification_targets:
     lfs: tmp07
     user: umcg-atd-ateambot
     type: notification_webhooks
-    analysis_phases: [demultiplexing, startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline]
+    analysis_phases: [startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline, startPostDragenPipeline, startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
@@ -34,14 +34,14 @@ group_notification_targets:
     lfs: tmp07
     user: umcg-gd-ateambot
     type: notification_webhooks
-    analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline]
+    analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline, startPostDragenPipeline, startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: tmp07
     user: umcg-gd-ateambot
     type: notification_webhooks
-    analysis_phases: [demultiplexing, pipeline]
+    analysis_phases: [pipeline]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
@@ -65,47 +65,10 @@ group_notification_targets:
     analysis_phases: [copyRawDataToPrm, copyProjectDataToPrm]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['chaperone'] }}"
-  ######################################################################################################################
-  # umcg-gsad group
-  ######################################################################################################################
-  - group: umcg-gsad
-    lfs: tmp07
-    user: umcg-gsad-ateambot
-    type: notification_webhooks
-    analysis_phases: [arrayConversion, startPipeline, pipeline, calculateProjectMd5s]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gsad
-    lfs: dat07
-    user: umcg-gsad-dm
-    type: notification_webhooks
-    analysis_phases: [moveAndCheckSamplesheets]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['chaperone'] }}"
-  - group: umcg-gsad
-    lfs: prm07
-    user: umcg-gsad-dm
-    type: notification_webhooks
-    analysis_phases: [copyRawDataToPrm, copyRawDataToTmp, copyProjectDataToPrm]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['chaperone'] }}"
+
   ######################################################################################################################
   # umcg-gap group
   ######################################################################################################################
-  - group: umcg-gap
-    lfs: tmp07
-    user: umcg-gap-ateambot
-    type: notification_webhooks
-    analysis_phases: [startPipeline, calculateProjectMd5s]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gap
-    lfs: tmp07
-    user: umcg-gap-ateambot
-    type: notification_webhooks
-    analysis_phases: [arrayConversion, pipeline]
-    notification_target: hpc-helpdesk_and_gd-array-dataverwerking
-    machines: "{{ groups['user_interface'] }}"
   - group: umcg-gap
     lfs: dat07
     user: umcg-gap-dm
@@ -134,7 +97,7 @@ group_notification_targets:
     lfs: tmp07
     user: umcg-gst-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullGsAnalysisData, ProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
@@ -158,7 +121,7 @@ group_notification_targets:
     lfs: tmp07
     user: umcg-genomescan-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullGsAnalysisData, ProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
@@ -192,65 +155,4 @@ group_notification_targets:
     analysis_phases: [copyRawDataToPrm]
     notification_target: hpc-helpdesk_and_labgnkbh
     machines: "{{ groups['chaperone'] }}"
-  ######################################################################################################################
-  # umcg-patho group
-  ######################################################################################################################
-  - group: umcg-patho
-    lfs: dat37
-    user: umcg-patho-dm
-    type: notification_webhooks
-    analysis_phases: [moveAndCheckSamplesheets]
-    notification_target: hpc-helpdesk_and_patho
-    machines: "{{ groups['chaperone'] }}"
-  - group: umcg-patho
-    lfs: prm37
-    user: umcg-patho-dm
-    type: notification_webhooks
-    analysis_phases: [copyBclDataToPrm]
-    notification_target: hpc-helpdesk_and_patho
-    machines: "{{ groups['chaperone'] }}"
-  ######################################################################################################################
-  # umcg-pr group
-  ######################################################################################################################
-  # - group: umcg-pr
-  #   lfs: dat57
-  #   user: umcg-pr-dm
-  #   type: notification_webhooks
-  #   analysis_phases: [moveAndCheckSamplesheets]
-  #   notification_target: hpc-helpdesk_and_pr
-  #   machines: "{{ groups['chaperone'] }}"
-  # - group: umcg-pr
-  #   lfs: prm57
-  #   user: umcg-pr-dm
-  #   type: notification_webhooks
-  #   analysis_phases: [copyBclDataToPrm]
-  #   notification_target: hpc-helpdesk_and_pr
-  #   machines: "{{ groups['chaperone'] }}"
-  # ######################################################################################################################
-  # # umcg-lab group
-  # ######################################################################################################################
-  # - group: umcg-lab
-  #   lfs: tmp07
-  #   user: umcg-lab-ateambot
-  #   type: notification_webhooks
-  #   analysis_phases: [moveSequencingData]
-  #   notification_target: hpc-helpdesk
-  #   machines: "{{ groups['user_interface'] }}"
-  # ######################################################################################################################
-  # # umcg-pgx group
-  # ######################################################################################################################
-  - group: umcg-pgx
-    lfs: prm07
-    user: umcg-pgx-dm
-    type: notification_webhooks
-    analysis_phases: [copyProjectDataToPrm]
-    notification_target: hpc-helpdesk_and_researchers
-    machines: "{{ groups['chaperone'] }}"
-  - group: umcg-pgx
-    lfs: tmp07
-    user: umcg-pgx-ateambot
-    type: notification_webhooks
-    analysis_phases: [arrayConversion, PullAndProcessErasmusPGxData, startPGxPipeline]
-    notification_target: hpc-helpdesk
-    machines: "{{ groups['user_interface'] }}"
 ...

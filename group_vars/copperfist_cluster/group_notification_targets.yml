@@ -17,7 +17,7 @@ group_notification_targets:
     lfs: tmp16
     user: umcg-atd-ateambot
     type: notification_webhooks
-    analysis_phases: [startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline, startInhouseDragenPipeline]
+    analysis_phases: [startPipeline, ConcordanceCheck, pipeline, calculateProjectMd5s, startNanoporePipeline, startPostDragenPipeline, startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
@@ -48,7 +48,7 @@ group_notification_targets:
     lfs: tmp16
     user: umcg-gd-ateambot
     type: notification_webhooks
-    analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline, startInhouseDragenPipeline]
+    analysis_phases: [startPipeline, ConcordanceCheck, calculateProjectMd5s, startNanoporePipeline, startPostDragenPipeline, startInhouseDragenPipeline]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
@@ -176,14 +176,14 @@ group_notification_targets:
     lfs: tmp06
     user: umcg-gst-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullGsAnalysisData, ProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
     lfs: tmp16
     user: umcg-gst-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullGsAnalysisData, ProcessGsAnalysisData, startDragenPipeline, startPostDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
@@ -214,14 +214,14 @@ group_notification_targets:
     lfs: tmp06
     user: umcg-genomescan-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullGsAnalysisData, ProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: tmp16
     user: umcg-genomescan-ateambot
     type: notification_webhooks
-    analysis_phases: [PullAndProcessGsRawData, PullAndProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
+    analysis_phases: [PullAndProcessGsRawData, PullGsAnalysisData, ProcessGsAnalysisData, startDragenPipeline, startPipeline, startPostDragenPipeline, startNextflowDragenPipeline, pipeline, calculateProjectMd5s]
     notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan

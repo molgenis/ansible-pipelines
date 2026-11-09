@@ -9,19 +9,17 @@ group_subfolder_structure:
   - group: umcg-atd
     lfs: tmp07
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-atd-ateambot
+    owner: umcg-atd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
-            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
-            | union(analysis_folders['NGS_DNA']['tmp'])
-            | union(analysis_folders['trendanalysis']['tmp']) }}"
+            | union(analysis_folders['trendanalysis']['tmp']) 
+            | union(analysis_folders['nf_ngs_dna']['tmp'])
+            | union(analysis_folders['NGS_RNA']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
     lfs: dat07
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-atd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['dat']
-            | union(analysis_folders['NGS_Demultiplexing']['dat'])
-            | union(analysis_folders['NGS_DNA']['dat'])
             | union(analysis_folders['trendanalysis']['dat']) }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-atd
@@ -29,8 +27,6 @@ group_subfolder_structure:
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-atd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['prm']
-            | union(analysis_folders['NGS_Demultiplexing']['prm'])
-            | union(analysis_folders['NGS_DNA']['prm'])
             | union(analysis_folders['NGS_RNA']['prm'])
             | union(analysis_folders['trendanalysis']['prm']) }}"
     machines: "{{ groups['chaperone'] }}"
@@ -40,19 +36,17 @@ group_subfolder_structure:
   - group: umcg-gd
     lfs: tmp07
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gd-ateambot
+    owner: umcg-gd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
-            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
-            | union(analysis_folders['NGS_DNA']['tmp'])
-            | union(analysis_folders['trendanalysis']['tmp']) }}"
+            | union(analysis_folders['trendanalysis']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp'])
+            | union(analysis_folders['NGS_RNA']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gd
     lfs: dat07
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-gd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['dat']
-            | union(analysis_folders['NGS_Demultiplexing']['dat'])
-            | union(analysis_folders['NGS_DNA']['dat'])
             | union(analysis_folders['trendanalysis']['dat']) }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gd
@@ -60,58 +54,8 @@ group_subfolder_structure:
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-gd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['prm']
-            | union(analysis_folders['NGS_Demultiplexing']['prm'])
-            | union(analysis_folders['NGS_DNA']['prm'])
             | union(analysis_folders['NGS_RNA']['prm'])
             | union(analysis_folders['trendanalysis']['prm']) }}"
-    machines: "{{ groups['chaperone'] }}"
-  ######################################################################################################################
-  # umcg-gsad group
-  ######################################################################################################################
-  - group: umcg-gsad
-    lfs: tmp07
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gsad-ateambot
-    subfolders: "{{ analysis_folders['AGCT']['tmp']
-            | union(analysis_folders['GAP']['tmp']) }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gsad
-    lfs: dat07
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gsad-dm
-    subfolders: "{{ analysis_folders['AGCT']['dat']
-            | union(analysis_folders['GAP']['dat']) }}"
-    machines: "{{ groups['chaperone'] }}"
-  - group: umcg-gsad
-    lfs: prm07
-    mode: "{{ MODE_2750_HARD }}"
-    owner: umcg-gsad-dm
-    subfolders: "{{ analysis_folders['AGCT']['prm']
-            | union(analysis_folders['GAP']['prm']) }}"
-    machines: "{{ groups['chaperone'] }}"
-  ######################################################################################################################
-  # umcg-gap group
-  ######################################################################################################################
-  - group: umcg-gap
-    lfs: tmp07
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gap-ateambot
-    subfolders: "{{ analysis_folders['AGCT']['tmp']
-            | union(analysis_folders['GAP']['tmp']) }}"
-    machines: "{{ groups['user_interface'] }}"
-  - group: umcg-gap
-    lfs: dat07
-    mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gap-dm
-    subfolders: "{{ analysis_folders['AGCT']['dat']
-            | union(analysis_folders['GAP']['dat']) }}"
-    machines: "{{ groups['chaperone'] }}"
-  - group: umcg-gap
-    lfs: prm07
-    mode: "{{ MODE_2750_HARD }}"
-    owner: umcg-gap-dm
-    subfolders: "{{ analysis_folders['AGCT']['prm']
-            | union(analysis_folders['GAP']['prm']) }}"
     machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
   # umcg-gst group
@@ -119,10 +63,11 @@ group_subfolder_structure:
   - group: umcg-gst
     lfs: tmp07
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-gst-ateambot
+    owner: umcg-gst-dm
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
             | union(analysis_folders['NGS_RNA']['tmp'])
-            | union(analysis_folders['GsAnalysisData']['tmp']) }}"
+            | union(analysis_folders['GsAnalysisData']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-gst
     lfs: dat07
@@ -137,10 +82,11 @@ group_subfolder_structure:
   - group: umcg-genomescan
     lfs: tmp07
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-genomescan-ateambot
+    owner: umcg-genomescan-dm
     subfolders: "{{ analysis_folders['GsRawData']['tmp']
             | union(analysis_folders['NGS_RNA']['tmp'])
-            | union(analysis_folders['GsAnalysisData']['tmp']) }}"
+            | union(analysis_folders['GsAnalysisData']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-genomescan
     lfs: dat07
@@ -150,77 +96,39 @@ group_subfolder_structure:
             | union(analysis_folders['GsAnalysisData']['dat']) }}"
     machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
-  # umcg-lab group
-  ######################################################################################################################
-  # - group: umcg-lab
-  #   lfs: tmp07
-  #   mode: "{{ MODE_2750_HARD }}"
-  #   owner: umcg-lab-ateambot
-  #   subfolders:
-  #     - logs
-  #     - sequencers
-  #   machines: "{{ groups['user_interface'] }}"
-  ######################################################################################################################
   # umcg-labgnkbh group
   ######################################################################################################################
   - group: umcg-labgnkbh
     lfs: tmp07
     mode: "{{ MODE_2770_HARD }}"
-    owner: umcg-labgnkbh-ateambot
-    subfolders: "{{ analysis_folders['NGS_Demultiplexing']['tmp'] }}"
+    owner: umcg-labgnkbh-dm
+    subfolders: "{{ analysis_folders['nf_ngs_dna-demultiplexing']['tmp'] }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-labgnkbh
-    lfs: dat47
+    lfs: dat45
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-labgnkbh-dm
-    subfolders: "{{ analysis_folders['NGS_Demultiplexing']['dat'] }}"
+    subfolders: "{{ analysis_folders['nf_ngs_dna-demultiplexing']['dat'] }}"
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-labgnkbh
-    lfs: prm47
+    lfs: prm45
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-labgnkbh-dm
-    subfolders: "{{ analysis_folders['NGS_Demultiplexing']['prm'] }}"
+    subfolders: "{{ analysis_folders['nf_ngs_dna-demultiplexing']['prm'] }}"
     machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
-  # umcg-patho group
+  # umcg-pgx group
   ######################################################################################################################
-  # - group: umcg-patho
-  #   lfs: tmp07
-  #   mode: "{{ MODE_2770_HARD }}"
-  #   owner: umcg-patho-ateambot
-  #   subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
-  #   machines: "{{ groups['user_interface'] }}"
-  # - group: umcg-patho
-  #   lfs: dat37
-  #   mode: "{{ MODE_2770_HARD }}"
-  #   owner: umcg-patho-dm
-  #   subfolders: "{{ analysis_folders['BclDataToPrm']['dat'] }}"
-  #   machines: "{{ groups['chaperone'] }}"
-  # - group: umcg-patho
-  #   lfs: prm37
-  #   mode: "{{ MODE_2750_HARD }}"
-  #   owner: umcg-patho-dm
-  #   subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
-  #   machines: "{{ groups['chaperone'] }}"
-  ######################################################################################################################
-  # umcg-pr group
-  ######################################################################################################################
-  # - group: umcg-pr
-  #   lfs: tmp07
-  #   mode: "{{ MODE_2770_HARD }}"
-  #   owner: umcg-pr-ateambot
-  #   subfolders: "{{ analysis_folders['BclDataToPrm']['tmp'] }}"
-  #   machines: "{{ groups['user_interface'] }}"
-  # - group: umcg-pr
-  #   lfs: dat57
-  #   mode: "{{ MODE_2770_HARD }}"
-  #   owner: umcg-pr-dm
-  #   subfolders: "{{ analysis_folders['BclDataToPrm']['dat'] }}"
-  #   machines: "{{ groups['chaperone'] }}"
-  # - group: umcg-pr
-  #   lfs: prm57
-  #   mode: "{{ MODE_2750_HARD }}"
-  #   owner: umcg-pr-dm
-  #   subfolders: "{{ analysis_folders['BclDataToPrm']['prm'] }}"
-  #   machines: "{{ groups['chaperone'] }}"
+  - group: umcg-pgx
+    lfs: tmp07
+    mode: "{{ MODE_2770_HARD }}"
+    owner: umcg-pgx-dm
+    subfolders: "{{ analysis_folders['PGx']['tmp'] }}"
+    machines: "{{ groups['user_interface'] }}"
+  - group: umcg-pgx
+    lfs: prm07
+    mode: "{{ MODE_2750_HARD }}"
+    owner: umcg-pgx-dm
+    subfolders: "{{ analysis_folders['PGx']['prm'] }}"
+    machines: "{{ groups['chaperone'] }}"
 ...
