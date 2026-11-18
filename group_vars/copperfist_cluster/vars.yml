@@ -23,22 +23,16 @@ eb_group: umcg-depad
 group_module_versions:
   umcg-gd:
     NGS_Automated:
-      default: 4.7.0  # Default NGS_Automated version.
-    nf_ngs_dna: 1.4.0
+      default: 4.8.0  # Default NGS_Automated version.
+    nf_ngs_dna: 1.6.0
     ConcordanceCheck: 3.0.0
     ngs-utils: 24.02.2
     vip: v9.2.0
     Trendanalysis: 2.1.0
-  umcg-gap:
-    NGS_Automated:
-      default: 4.2.0
-    GAP: 2.7.0
-    AGCT: 1.3.0
-    ngs-utils: 24.02.2
   umcg-genomescan:
     NGS_Automated:
-      default: 4.7.0
-    nf_ngs_dna: 1.4.0
+      default: 4.8.0
+    nf_ngs_dna: 1.6.0
     NGS_RNA: 4.1.3
     ngs-utils: 24.03.1
   umcg-atd:
@@ -48,12 +42,6 @@ group_module_versions:
     ConcordanceCheck: 3.0.0
     ngs-utils: 24.02.2
     Trendanalysis: 2.1.0
-  umcg-gsad:
-    NGS_Automated:
-      default: 4.3.1
-    GAP: 2.7.0
-    AGCT: 1.3.0
-    ngs-utils: 24.02.2
   umcg-gst:
     NGS_Automated:
       default: 4.8.0
@@ -62,16 +50,16 @@ group_module_versions:
     ngs-utils: 24.02.2
   umcg-labgnkbh:
     NGS_Automated:
-      default: 4.7.0
+      default: 4.8.0
     ngs-utils: 24.02.2
-    nf_ngs_dna: 1.4.0
+    nf_ngs_dna: 1.6.0
   umcg-patho:
     NGS_Automated:
-      default: 4.2.0
+      default: 4.8.0
     ngs-utils: 24.03.1
   umcg-lab:
     NGS_Automated:
-      default: 4.6.0
+      default: 4.8.0
   umcg-pgx:
     NGS_Automated:
       default: 4.8.0
@@ -88,5 +76,6 @@ refdata: [
 static_easyconfigs:
   - 'c/cluster-utils/cluster-utils-v26.01.1-GCCcore-13.3.0.eb'
   - 'd/depad-utils/depad-utils-v26.04.3.eb'
+  - 'c/ConcordanceCheck/ConcordanceCheck-3.0.0.eb'
 chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', '(NGS_Automated-.*-bare|depad-utils-.*).eb') | list }}"
 ...
