@@ -70,7 +70,7 @@ group_notification_targets:
     user: umcg-gd-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
-    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
+    notification_target: hpc-helpdesk
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-gd
     lfs: prm06
@@ -229,7 +229,7 @@ group_notification_targets:
     user: umcg-genomescan-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
-    notification_target: hpc-helpdesk_and_gd-ngs-dataverwerking
+    notification_target: hpc-helpdesk
     machines: "{{ groups['chaperone'] }}"
   ######################################################################################################################
   # umcg-labgnkbh group
@@ -253,7 +253,7 @@ group_notification_targets:
     user: umcg-labgnkbh-dm
     type: notification_webhooks
     analysis_phases: [moveAndCheckSamplesheets]
-    notification_target: hpc-helpdesk_and_labgnkbh
+    notification_target: hpc-helpdesk
     machines: "{{ groups['chaperone'] }}"
   - group: umcg-labgnkbh
     lfs: prm46
