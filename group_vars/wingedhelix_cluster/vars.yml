@@ -17,23 +17,22 @@ stack_prefix: 'wh'
 lua_version: 5.5.1
 luaposix_version: 36.3
 lmod_version: 9.4.2
-easybuild_version: 5.4.1
+easybuild_version: 5.4.2
 eb_user: umcg-envsync
 eb_group: umcg-depad
 group_module_versions:
   umcg-gd:
     NGS_Automated:  # Default NGS_Automated version.
-      default: 4.8.0
-    nf_ngs_dna: 1.6.0
+      default: 4.3.1
+    nf_ngs_dna: 1.1.0
     ConcordanceCheck: 3.0.0
     ngs-utils: 24.02.2
     vip: v9.2.0
-    NGS_Demultiplexing: 2.5.4
     Trendanalysis: 2.1.0
   umcg-genomescan:
     NGS_Automated: 
-      default: 4.8.0
-    nf_ngs_dna: 1.6.0
+      default: 4.3.1
+    nf_ngs_dna: 1.1.0
     NGS_RNA: 4.1.3
     ngs-utils: 24.03.1
   umcg-atd:
@@ -78,5 +77,10 @@ static_easyconfigs:
   - 'c/cluster-utils/cluster-utils-v26.01.1-GCCcore-13.3.0.eb'
   - 'd/depad-utils/depad-utils-v26.04.3.eb'
   - 'c/ConcordanceCheck/ConcordanceCheck-3.0.0.eb'
+  - 'j/Java/Java-8-LTS.eb'
+  - 'j/Java/Java-11-LTS.eb'
+  - 'j/Java/Java-17-LTS.eb'
+  - 'j/Java/Java-21-LTS.eb'
+  - 'j/Java/Java-25-LTS.eb'
 chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', '(NGS_Automated-.*-bare|depad-utils-.*).eb') | list }}"
 ...
