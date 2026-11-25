@@ -80,8 +80,6 @@ static_easyconfigs:
   - 'c/ConcordanceCheck/ConcordanceCheck-3.0.0.eb'
   - 'j/Java/Java-8-LTS.eb'
   - 'j/Java/Java-11-LTS.eb'
-  - 'j/Java/Java-17-LTS.eb'
-  - 'j/Java/Java-21-LTS.eb'
   - 'j/Java/Java-25-LTS.eb'
 chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', '(NGS_Automated-.*-bare|depad-utils-.*).eb') | list }}"
 ...
