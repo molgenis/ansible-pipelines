@@ -591,14 +591,14 @@ crontabs:
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated']['default'] }}-bare;
-         calculateProjectMd5s.sh -g umcg-genomescan -p POST_DRAGEN -t tmp06"
+         calculateProjectMd5s.sh -g umcg-genomescan -p POST_DRAGEN"
   - name: NGS_Automated_calculateProjectMd5s_RNA  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-genomescan-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
     minute: '*/10'
     job: /bin/bash -c "{{ configure_env_in_cronjob }};
          module load NGS_Automated/{{ group_module_versions['umcg-genomescan']['NGS_Automated']['default'] }}-bare;
-         calculateProjectMd5s.sh -g umcg-genomescan -p NGS_RNA"
+         calculateProjectMd5s.sh -g umcg-genomescan -p NGS_RNA -t tmp06"
   - name: NGS_Automated_cleanupDataOnTmp  # Unique ID required to update existing cronjob: do not modify.
     user: umcg-genomescan-ateambot
     machines: "{{ groups['user_interface'] | default([]) }}"
