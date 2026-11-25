@@ -78,5 +78,8 @@ static_easyconfigs:
   - 'c/cluster-utils/cluster-utils-v26.01.1-GCCcore-13.3.0.eb'
   - 'd/depad-utils/depad-utils-v26.04.3.eb'
   - 'c/ConcordanceCheck/ConcordanceCheck-3.0.0.eb'
+  - 'j/Java/Java-8-LTS.eb'
+  - 'j/Java/Java-11-LTS.eb'
+  - 'j/Java/Java-25-LTS.eb'
 chaperone_only_easyconfigs: "{{ all_easyconfigs | select('search', '(NGS_Automated-.*-bare|depad-utils-.*).eb') | list }}"
 ...
