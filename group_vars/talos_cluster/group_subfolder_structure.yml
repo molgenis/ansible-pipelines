@@ -11,8 +11,7 @@ group_subfolder_structure:
     mode: "{{ MODE_2770_HARD }}"
     owner: umcg-atd-ateambot
     subfolders: "{{ analysis_folders['ConcordanceCheck']['tmp']
-            | union(analysis_folders['NGS_Demultiplexing']['tmp'])
-            | union(analysis_folders['NGS_DNA']['tmp'])
+            | union(analysis_folders['nf_ngs_dna']['tmp'])
             | union(analysis_folders['trendanalysis']['tmp']) }}"
     machines: "{{ groups['user_interface'] }}"
   - group: umcg-atd
@@ -20,8 +19,7 @@ group_subfolder_structure:
     mode: "{{ MODE_2750_HARD }}"
     owner: umcg-atd-dm
     subfolders: "{{ analysis_folders['ConcordanceCheck']['prm']
-            | union(analysis_folders['NGS_Demultiplexing']['prm'])
-            | union(analysis_folders['NGS_DNA']['prm'])
+            | union(analysis_folders['nf_ngs_dna']['prm'])
             | union(analysis_folders['trendanalysis']['prm']) }}"
     machines: "{{ groups['user_interface'] }}"
   ######################################################################################################################

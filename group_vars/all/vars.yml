@@ -248,6 +248,12 @@ analysis_folders:
       - Samplesheets
       - Samplesheets/archive
       - Samplesheets/NGS_RNA
+      - TAPfiles
+      - TAPfiles/TIN
+      - TAPfiles/expression
+      - TAPfiles/mae
+      - TAPfiles/splicing
+      - TAPfiles/strandedness
       - tmp
       - tmp/NGS_RNA
     dat:
