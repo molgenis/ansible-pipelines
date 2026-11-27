@@ -47,7 +47,15 @@ group_module_versions:
 #
 public_sources: []
 private_sources: []
-refdata: []
+refdata: [
+'1000G',
+'dbSNP',
+'Ensembl',
+'GAD',
+'gencode',
+'GRC',
+'UMCG',
+]
 static_easyconfigs:
   - 'c/cluster-utils/cluster-utils-v26.09.1-GCCcore-13.3.0.eb'
   - 'd/depad-utils/depad-utils-v26.04.3.eb'
