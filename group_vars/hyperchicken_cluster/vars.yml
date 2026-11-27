@@ -50,7 +50,11 @@ static_easyconfigs:
   - 'd/depad-utils/depad-utils-v26.04.3.eb'
   - 'j/Java/Java-8-LTS.eb'
   - 'j/Java/Java-11-LTS.eb'
+  - 'j/Java/Java-11.eb'
   - 'j/Java/Java-17-LTS.eb'
+  - 'j/Java/Java-17.eb'
   - 'j/Java/Java-21-LTS.eb'
+  - 'j/Java/Java-21.eb'
   - 'j/Java/Java-25-LTS.eb'
+  - 'j/Java/Java-25.eb'
 ...
